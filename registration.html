@@ -1,3 +1,4 @@
+<!--Author: Lasse Hoffmann-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -5,6 +6,26 @@
     <title>Vestis - Registrieren</title>
 </head>
 <body>
+<form>
+    <div id="userInput">
+        <label for="user"><b>Benutzername</b></label>
+        <input type="text" id ="user" placeholder="Benutzername eingeben" name="user" required>
+        <br />
+        <label for="password"><b>Passwort</b></label>
+        <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
+        <br />
+        <label for="passwordRepetition"><b>Passwort wiederholen</b></label>
+        <input type="password" id="passwordRepetition" placeholder="Passwort eingeben" name="password" required>
+    </div>
 
+    <div id="cancel">
+        <button type="button">Abbrechen</button>
+    </div>
+
+    <div id="submit">
+        <button type="submit">Registrieren</button>
+    </div>
+</form>
 </body>
 </html>
+<!--Author: Lasse Hoffmann-->
