@@ -1,0 +1,72 @@
+<!-- Author: Mathis Burger -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Vestis - Produktdetails</title>
+</head>
+<body>
+<!-- Use a table here to bypass the "no-css" restriction. Otherwise would have used an CSS grid here -->
+<table>
+    <tr>
+        <td>
+            <img src="https://media.istockphoto.com/id/1209887384/photo/green-t-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=8M4gaRs-fUz6CdYEl4OblIoDvNjcRs8_Sbzs0VxWlMY=" alt="product image" />
+        </td>
+        <td>
+            <!-- TODO: We should really add an icon here -->
+            <a href="category1List.html"><-- Zurück</a>
+            <h1>Modernes grünes Tshirt</h1>
+            <h5>
+                Ein modernes Tshirt mit guten Look. Perfekt für den Sommer und den Winter. <br />
+                Passt zu jedem Outfit. Egal ob klassisch, business oder lässig. Mit dem Shirt bist du immer richtig gekleidet.
+            </h5>
+
+            <h2>55,00€ <small>inkl. 19% MwSt.</small></h2>
+
+            <!-- For later submission of the order request -->
+            <form>
+                <strong>Größe</strong> <br>
+                <label>
+                    <input type="radio" name="size" value="xs" required>
+                    XS
+                </label>
+                <label>
+                    <input type="radio" name="size" value="s" required>
+                    S
+                </label>
+                <label>
+                    <input type="radio" name="size" value="m" required>
+                    M
+                </label>
+                <label>
+                    <input type="radio" name="size" value="l" required>
+                    L
+                </label>
+                <label>
+                    <input type="radio" name="size" value="xl" required>
+                    XL
+                </label>
+                <br>
+                <strong>Farbe</strong> <br>
+                <label>
+                    <input type="radio" name="color" value="lime" required>
+                    Hellgrün
+                </label>
+                <label>
+                    <input type="radio" name="color" value="green" required>
+                    Dunkelgrün
+                </label>
+                <br>
+                <label for="amount"><strong>Anzahl:</strong></label> <br>
+                <input type="number" id="amount" value="1">
+                <br>
+                <button type="submit" name="add_to_shopping_cart">Zum Warenkorb hinzufügen</button>
+                <button type="submit" name="buy_direct">Direkt bestellen</button>
+                <br>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+<!-- Author: Mathis Burger -->
