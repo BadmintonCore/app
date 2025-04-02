@@ -3,27 +3,50 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Vestis - Registrieren</title>
+    <title>vestis. - Registrieren</title>
+    <meta name="keywords" content="clothing, fashion, kleidung">
 </head>
 <body>
+<h1>
+    vestis. - Registrieren
+</h1>
 <form>
     <div id="userInput">
-        <label for="user"><b>Benutzername</b></label>
-        <input type="text" id ="user" placeholder="Benutzername eingeben" name="user" required>
-        <br />
-        <label for="password"><b>Passwort</b></label>
-        <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
-        <br />
-        <label for="passwordRepetition"><b>Passwort wiederholen</b></label>
-        <input type="password" id="passwordRepetition" placeholder="Passwort eingeben" name="passwordRepetition" required>
+        <label for="user">
+            <b>Benutzername</b>
+        </label>
+        <input type="text" id="user" placeholder="Benutzername eingeben" name="user" required>
     </div>
+
+    <br/>
+
+    <div id="passwordInput">
+        <label for="password">
+            <b>Passwort</b>
+        </label>
+        <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
+        <br/>
+        <label for="passwordRepetition">
+            <b>Passwort wiederholen</b>
+        </label>
+        <input type="password" id="passwordRepetition" placeholder="Passwort eingeben" name="passwordRepetition"
+               required>
+    </div>
+
+    <br/>
 
     <div id="cancel">
-        <button type="button">Abbrechen</button>
+        <button type="button">
+            Abbrechen
+        </button>
     </div>
 
+    <br/>
+
     <div id="submit">
-        <button type="submit">Registrieren</button>
+        <button type="submit">
+            Registrieren
+        </button>
     </div>
 </form>
 </body>
