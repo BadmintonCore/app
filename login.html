@@ -3,29 +3,52 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Vestis - Login</title>
+    <title>vestis. - Anmelden</title>
+    <meta name="keywords" content="clothing, fashion, kleidung">
 </head>
 <body>
+<h1>
+    vestis. - Anmelden
+</h1>
 <form>
-  <div id="userInput">
-    <label for="user"><b>Benutzername</b></label>
-    <input type="text" id ="user" placeholder="Benutzername eingeben" name="user" required>
-    <br />
-    <label for="password"><b>Passwort</b></label>
-    <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
-  </div>
+    <div id="userInput">
+        <label for="user">
+            <b>Benutzername</b>
+        </label>
+        <input type="text" id="user" placeholder="Benutzername eingeben" name="user" required>
+    </div>
 
-  <div id="login">
-    <label>
-      <input type="checkbox" name="remember_me"> Login merken
-    </label>
-    <br />
-    <button type="submit">Login</button>
-  </div>
+    <br/>
 
-  <div id="forgotPassword">
-    <a href="https://thi.de">Passwort zurücksetzen</a>
-  </div>
+    <div id="passwordInput">
+        <label for="password">
+            <b>Passwort</b>
+        </label>
+        <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
+    </div>
+
+    <br/>
+
+    <div id="loginRemember">
+        <label>
+            <input type="checkbox" name="remember_me">
+            Login merken
+        </label>
+    </div>
+
+    <div id="submitButton">
+        <button type="submit">
+            Login
+        </button>
+    </div>
+
+    <br/>
+
+    <div id="forgotPassword">
+        <a href="https://thi.de">
+            Passwort zurücksetzen
+        </a>
+    </div>
 </form>
 </body>
 </html>
