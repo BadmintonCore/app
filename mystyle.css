@@ -1,6 +1,11 @@
 /*Author: Lasse Hoffmann */
+
+:root {
+    --primary-background-color: #faf1e4;
+}
+
 body {
-    background-color: #faf1e4;
+    background-color: var(--primary-background-color);
 }
 
 * {
@@ -10,6 +15,11 @@ body {
 p {
     font-size: 12px;
     text-align: right;
+}
+
+body {
+    display: flex;
+    justify-content: center;
 }
 
 th {
