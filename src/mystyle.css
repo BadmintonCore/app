@@ -1,5 +1,6 @@
 /*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog */
 
+/** Variable definitions */
 :root {
     --primary-background-color: #fbf3e7;
     --footer-background-color: #e5dacb;
@@ -9,6 +10,8 @@
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
 }
+
+/** Generelle Styles */
 
 /* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
 h1 {
@@ -36,6 +39,8 @@ th {
     background-color: lightgray;
 }
 
+/** Header */
+
 header {
     display: grid;
     place-items: center;
@@ -46,6 +51,8 @@ header {
 header img {
     height: var(--header-height);
 }
+
+/** Footer */
 
 footer {
     position: absolute;
@@ -58,9 +65,20 @@ footer {
     padding: 0 5%;
 }
 
+/** Komponenten */
+
+/** Link */
+
 a {
     text-decoration: none;
     color: var(--text-color);
+}
+
+@keyframes link-hover {
+    to {
+        background-color: var(--text-color);
+        color: var(--primary-background-color)
+    }
 }
 
 a:hover {
@@ -69,6 +87,7 @@ a:hover {
     animation-fill-mode: forwards;
 }
 
+/** Buttons */
 
 .btn {
     color: var(--primary-background-color);
@@ -105,12 +124,7 @@ a:hover {
     box-shadow: inset 400px 0 0 0 var(--button-hover-color);
 }
 
-@keyframes link-hover {
-    to {
-        background-color: var(--text-color);
-        color: var(--primary-background-color)
-    }
-}
+/** Formulare */
 
 form {
     display: flex;
@@ -160,11 +174,15 @@ form {
     outline: 2px solid var(--accent-color);
 }
 
+/** Layout */
+
 .button-row {
     display: flex;
     gap: 20px;
     align-self: flex-start;
 }
+
+/** ID spezifische Dinge */
 
 #resetAndRegister {
     text-align: center;
