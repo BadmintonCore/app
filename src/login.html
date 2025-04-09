@@ -13,9 +13,9 @@
 <h1>
     vestis. - Anmelden
 </h1>
-<a href="index.html"><-- Zurück</a>
-<form>
-    <div id="userInput">
+<form id="loginOrRegister">
+    <a class="back-btn" href="index.html"><-- Zurück</a>
+    <div class="form-input">
         <label for="user">
             <b>Benutzername</b>
         </label>
@@ -24,7 +24,7 @@
 
     <br/>
 
-    <div id="passwordInput">
+    <div class="form-input">
         <label for="password">
             <b>Passwort</b>
         </label>
@@ -33,24 +33,26 @@
 
     <br/>
 
-    <div id="loginRemember">
-        <label>
+    <div class="form-input">
+        <label class="checkbox">
             <input type="checkbox" name="remember_me">
-            Login merken
+            Angemeldet bleiben?
         </label>
     </div>
 
-    <div id="submitButton">
-        <button type="submit">
-            Login
-        </button>
-    </div>
+    <button type="submit" class="btn" style="align-self: flex-start">
+        Login
+    </button>
 
     <br/>
 
-    <div id="forgotPassword">
+    <div id="resetAndRegister">
         <a href="https://thi.de">
             Passwort zurücksetzen
+        </a>
+        <hr/>
+        <a href="registration.html">
+            Jetzt registrieren
         </a>
     </div>
 </form>
