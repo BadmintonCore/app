@@ -1,0 +1,29 @@
+/*Author: Lasse Hoffmann */
+
+:root {
+    --primary-background-color: #faf1e4;
+}
+
+body {
+    background-color: var(--primary-background-color);
+}
+
+* {
+    font-family: "PT Mono", serif;
+}
+
+p {
+    font-size: 12px;
+    text-align: right;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+th {
+    background-color: lightgray;
+}
+
+/*Author: Lasse Hoffmann*/
