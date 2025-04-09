@@ -88,6 +88,8 @@ a:hover {
 
 .btn.secondary {
     background-color: unset;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
 }
 
 .btn svg {
@@ -156,6 +158,12 @@ form {
 
 .form-input input:focus {
     outline: 2px solid var(--accent-color);
+}
+
+.button-row {
+    display: flex;
+    gap: 20px;
+    align-self: flex-start;
 }
 
 #resetAndRegister {
