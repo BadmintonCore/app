@@ -118,6 +118,23 @@ a:hover {
 
 .back-btn {
     align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn svg {
+    height: 32px;
+}
+
+.back-btn span {
+    display: none;
+    font-size: 1.15em;
+    padding-right: 5px;
+}
+
+.back-btn:hover span {
+    display: block;
 }
 
 .btn:hover {
