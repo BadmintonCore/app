@@ -1,0 +1,36 @@
+/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog */
+
+:root {
+    --primary-background-color: #fbf3e7;
+    --header-height: 100px;
+}
+
+body {
+    background-color: var(--primary-background-color);
+}
+
+* {
+    font-family: "PT Mono", serif;
+}
+
+p {
+    font-size: 12px;
+    text-align: right;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+th {
+    background-color: lightgray;
+}
+
+a:hover {
+    animation-name: link-hover;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+
+/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/
