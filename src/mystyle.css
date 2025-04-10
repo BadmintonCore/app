@@ -5,6 +5,7 @@
     --primary-background-color: #fff9e9;
     --footer-background-color: #e5dacb;
     --header-background-color: #fbf3e7;
+    --card-background-color: #fbf4e2;
     --header-height: 100px;
     --footer-height: 50px;
     --text-color: black;
@@ -35,6 +36,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 th {
@@ -44,6 +46,8 @@ th {
 /** Header */
 
 header {
+    position: fixed;
+    top: 0;
     background-color: var(--header-background-color);
     display: grid;
     width: 100%;
@@ -86,10 +90,19 @@ header nav ul li:hover ul {
     display: flex;
 }
 
+/** Main content */
+
+main {
+    padding: calc(var(--header-height) + 16px) 0;
+}
+
+main.content-wide {
+    width: 80%;
+}
+
 /** Footer */
 
 footer {
-    position: absolute;
     width: 90%;
     bottom: 0;
     height: var(--footer-height);
@@ -98,6 +111,7 @@ footer {
     gap: 10px;
     align-items: center;
     padding: 0 5%;
+    margin: 0;
 }
 
 /** Komponenten */
@@ -122,6 +136,10 @@ a:hover {
     animation-fill-mode: forwards;
 }
 
+.logo-link:hover {
+    animation: none;
+}
+
 /** Buttons */
 
 .btn {
@@ -140,6 +158,10 @@ a:hover {
     justify-content: center;
 }
 
+.btn.btn-sm {
+    padding: 9px 19px;
+}
+
 .btn.secondary {
     background-color: unset;
     color: var(--text-color);
@@ -156,6 +178,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 8px;
+    width: fit-content;
 }
 
 .back-btn svg {
@@ -176,6 +199,121 @@ a:hover {
     box-shadow: inset 400px 0 0 0 var(--button-hover-color);
 }
 
+/** Cards */
+
+.card {
+    border: 1px solid var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    height: 100%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+    background-color: var(--card-background-color);
+}
+
+.card:hover {
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.62);
+}
+
+.card img {
+    height: 250px;
+}
+
+.card * {
+    text-align: center;
+}
+
+.card h2 {
+    text-wrap: wrap;
+    width: 200px;
+}
+.card h2, h4 {
+    margin: 0;
+}
+
+.card.no-hover:hover {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+}
+
+.card.justify-start {
+    justify-content: flex-start;
+}
+
+/** Checkbox */
+
+label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+}
+
+
+input[type="checkbox"]:checked {
+    accent-color: var(--accent-color);
+}
+
+input[type="checkbox"]:focus {
+    outline: none !important;
+}
+
+/** Radio buttons */
+
+label:has(input[type="radio"]) {
+    display: inline-flex;
+    align-items: center;
+    background: none;
+    border: 1px solid var(--text-color);
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: ease-in .3s;
+}
+
+label:has(input[type="radio"]):hover {
+    background-color:  var(--text-color);
+    color: var(--primary-background-color);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label:has(input[type="radio"]:checked) {
+    background-color: var(--text-color);
+    color: var(--primary-background-color);
+}
+
+/** Range select */
+
+input[type="range"] {
+    accent-color: var(--accent-color);
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+/** Inputs */
+
+input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 0;
+    border: 1px solid #000000;
+    width: 100%;
+    text-align: left !important;
+}
+
+input:focus {
+    outline: 2px solid var(--accent-color);
+}
+
 /** Formulare */
 
 form {
@@ -194,14 +332,6 @@ form {
     width: 100%;
 }
 
-.form-input input {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 0;
-    border: 1px solid #000000;
-    width: 100%;
-}
-
 .form-input label.checkbox {
     display: flex;
     align-items: center;
@@ -213,25 +343,43 @@ form {
     height: 30px;
 }
 
-
-.form-input input[type="checkbox"]:checked {
-    accent-color: var(--accent-color);
-}
-
-.form-input input[type="checkbox"]:focus {
-    outline: none;
-}
-
-.form-input input:focus {
-    outline: 2px solid var(--accent-color);
-}
-
 /** Layout */
 
 .button-row {
     display: flex;
     gap: 20px;
     align-self: flex-start;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.grid-4-col {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    gap: 1rem;
+    row-gap: 2rem;
+    align-items: stretch;
+    width: fit-content;
+}
+
+.grid-20-80 {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    gap: 2rem;
+}
+
+.align-start {
+    align-self: flex-start;
+    text-align: left;
+}
+
+.gap-3 {
+    gap: 12px;
 }
 
 /** ID spezifische Dinge */
