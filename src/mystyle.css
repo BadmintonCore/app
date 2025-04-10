@@ -164,6 +164,10 @@ a:hover {
     justify-content: center;
 }
 
+.btn:hover {
+    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
+}
+
 .btn.btn-sm {
     padding: 9px 19px;
 }
@@ -174,13 +178,17 @@ a:hover {
     border: 1px solid var(--text-color);
 }
 
-.btn:hover {
-    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
-}
-
 .btn.secondary:hover {
     color: var(--primary-background-color);
 }
+
+.btn.danger {
+    background-color: darkred;
+}
+
+
+
+
 
 .btn svg {
     width: 14px;
@@ -369,6 +377,24 @@ input.size-sm {
     outline: none;
 }
 
+/* Table */
+
+table {
+    border: 1px solid var(--text-color);
+    outline: none;
+}
+table th, td {
+    padding: 10px;
+    border-bottom: 1px solid var(--text-color);
+    border-right: 1px solid var(--text-color);
+}
+table th:last-child, td:last-child {
+    border-right: none;
+}
+table tr:last-child td {
+    border-bottom: none;
+}
+
 /** Formulare */
 
 form {
@@ -399,6 +425,12 @@ form {
 }
 
 /** Layout */
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .button-row {
     display: flex;
