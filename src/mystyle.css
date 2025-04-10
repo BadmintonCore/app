@@ -4,14 +4,14 @@
 :root {
     --primary-background-color: #fbf3e7;
     --footer-background-color: #e5dacb;
-    --header-height: 100px;
-    --footer-height: 50px;
     --text-color: black;
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
+    --header-height: 100px;
+    --footer-height: 50px;
 }
 
-/** Generelle Styles */
+/* Generelle Styles */
 
 /* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
 h1 {
@@ -24,7 +24,17 @@ h1 {
 
 p {
     font-size: 12px;
-    text-align: right;
+    text-align: justify;
+}
+
+#resetText {
+    font-size: 16px;
+    text-align: left;
+}
+
+#impress {
+    font-size: 12px;
+    text-align: left;
 }
 
 body {
@@ -62,6 +72,7 @@ footer {
     background-color: var(--footer-background-color);
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 5%;
 }
 
@@ -79,6 +90,10 @@ a {
         background-color: var(--text-color);
         color: var(--primary-background-color)
     }
+}
+
+.backHome:hover {
+   background-color: var(--primary-background-color) !important;
 }
 
 a:hover {
@@ -103,12 +118,17 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: flex-start;
 }
 
 .btn.secondary {
     background-color: unset;
     color: var(--text-color);
     border: 1px solid var(--text-color);
+}
+
+.btn:hover {
+    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
 }
 
 .btn svg {
@@ -135,10 +155,6 @@ a:hover {
 
 .back-btn:hover span {
     display: block;
-}
-
-.btn:hover {
-    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
 }
 
 /** Formulare */
@@ -206,6 +222,14 @@ form {
 }
 
 #loginOrRegister {
+    width: 30vw;
+}
+
+#register {
+    width: 30vw;
+}
+
+#reset {
     width: 30vw;
 }
 

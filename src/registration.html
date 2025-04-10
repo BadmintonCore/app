@@ -4,56 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <title>vestis. - Registrieren</title>
+
+    <!--Keywords für die Suchmaschine-->
     <meta name="keywords" content="clothing, fashion, kleidung">
+
     <!--Reference to mystyle.css-->
     <link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
 <body>
-    <div>
-        <h1>
-            vestis. - Registrieren
-        </h1>
-        <form>
-            <a class="back-btn" href="index.html">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-                </svg>
-                <span>Zurück</span>
+<div>
+
+    <!--Seitenüberschrift-->
+    <h1>
+        vestis. - Registrieren
+    </h1>
+
+    <!--Formular für die Registrierung mit der id "register"-->
+    <form id="register">
+
+        <!--Zurückbutton-->
+        <a class="back-btn" href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+            <span>Zurück</span>
+        </a>
+
+        <!--Container der Klasse "form-input"-->
+        <div class="form-input">
+            <label for="mail">
+                <b>E-Mail</b>
+            </label>
+
+            <!--Input für die E-Mail, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+            <input type="email" id="mail" placeholder="E-Mail eingeben" name="mail" required
+                   oninvalid="this.setCustomValidity('Bitte gebe deine E-Mail-Adresse ein.')">
+        </div>
+
+        <br/>
+
+        <!--Container der Klasse "form-input"-->
+        <div class="form-input">
+            <label for="password">
+                <b>Passwort</b>
+            </label>
+
+            <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+            <input type="password" id="password" placeholder="Passwort eingeben" name="password" required
+                   oninvalid="this.setCustomValidity('Bitte gebe dein Passwort ein.')">
+            <br/>
+            <label for="passwordRepetition">
+                <b>Passwort wiederholen</b>
+            </label>
+
+            <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+            <input type="password" id="passwordRepetition" placeholder="Passwort eingeben" name="passwordRepetition" required
+                   oninvalid="this.setCustomValidity('Bitte gebe dein Passwort erneut ein.')">
+        </div>
+
+        <br/>
+
+        <!--Container der Klasse "button-row"-->
+        <div class="button-row">
+
+            <!--Abbrechen "Button" als Link-->
+            <a href="login.html" class="btn secondary">
+                Abbrechen
             </a>
-            <div class="form-input">
-                <label for="user">
-                    <b>Benutzername</b>
-                </label>
-                <input type="text" id="user" placeholder="Benutzername eingeben" name="user" required>
-            </div>
 
-            <br/>
+            <!--Button zum Einreichen (submit)-->
+            <button type="submit" class="btn">
+                Registrieren
+            </button>
+        </div>
+    </form>
+</div>
 
-            <div class="form-input">
-                <label for="password">
-                    <b>Passwort</b>
-                </label>
-                <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
-                <br/>
-                <label for="passwordRepetition">
-                    <b>Passwort wiederholen</b>
-                </label>
-                <input type="password" id="passwordRepetition" placeholder="Passwort eingeben" name="passwordRepetition"
-                       required>
-            </div>
-
-            <br/>
-
-            <div class="button-row">
-                <a href="login.html" class="btn secondary">
-                    Abbrechen
-                </a>
-                <button type="submit" class="btn">
-                    Registrieren
-                </button>
-            </div>
-        </form>
-    </div>
+<!--Einheitliche Fußzeile-->
+<footer>
+    <a href="about.html">Über uns</a>
+    <a href="impress.html">Impressum</a>
+</footer>
 </body>
 </html>
 <!--Author: Lasse Hoffmann-->
