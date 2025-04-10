@@ -34,9 +34,9 @@ body {
     background-color: var(--primary-background-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     margin: 0;
+    min-height: 100vh;
 }
 
 th {
@@ -98,10 +98,17 @@ header nav ul li:hover ul {
 
 main {
     padding: calc(var(--header-height) + 16px) 0;
+    flex: 1;
 }
 
 main.content-wide {
     width: 80%;
+}
+
+@media screen and (max-width: 1550px) {
+    main.content-wide {
+        width: 90%;
+    }
 }
 
 /** Footer */
@@ -116,8 +123,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
-    margin: 0;
-    position: fixed;
+    margin: 0 auto;
 }
 
 /** Komponenten */
@@ -185,10 +191,6 @@ a:hover {
 .btn.danger {
     background-color: darkred;
 }
-
-
-
-
 
 .btn svg {
     width: 14px;
@@ -326,14 +328,11 @@ input {
     border: 1px solid #000000;
     width: 100%;
     text-align: left !important;
+    box-sizing: border-box;
 }
 
 input:focus {
     outline: 2px solid var(--accent-color);
-}
-
-input.size-sm {
-    width: 100px;
 }
 
 /* Quantity input */
