@@ -2,13 +2,16 @@
 
 /** Variable definitions */
 :root {
-    --primary-background-color: #fbf3e7;
+    --primary-background-color: #fff9e9;
     --footer-background-color: #e5dacb;
+    --header-background-color: #fbf3e7;
+    --card-background-color: #fbf4e2;
+    --header-height: 100px;
+    --footer-height: 50px;
     --text-color: black;
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
-    --header-height: 100px;
-    --footer-height: 50px;
+    --z-index-popover: 1000;
 }
 
 /* Generelle Styles */
@@ -27,22 +30,13 @@ p {
     text-align: justify;
 }
 
-#resetText {
-    font-size: 16px;
-    text-align: left;
-}
-
-#impress {
-    font-size: 12px;
-    text-align: left;
-}
-
 body {
     background-color: var(--primary-background-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 th {
@@ -52,28 +46,73 @@ th {
 /** Header */
 
 header {
+    position: fixed;
+    top: 0;
+    background-color: var(--header-background-color);
     display: grid;
+    width: 100%;
     place-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr var(--header-height) 1fr;
     height: var(--header-height);
+    box-shadow: 0 1px 0 var(--text-color);
 }
 
 header img {
     height: var(--header-height);
 }
 
+header nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    position: relative;
+}
+header nav ul li {
+    position: relative;
+    padding: 5px;
+}
+
+header nav ul li ul {
+    display: none;
+    position: absolute;
+    background-color: var(--header-background-color);
+    top: 100%;
+    left: 0;
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    list-style: none;
+    z-index: var(--z-index-popover);
+    flex-direction: column;
+    box-shadow: 1px 1px 1px var(--text-color);
+}
+
+header nav ul li:hover ul {
+    display: flex;
+}
+
+/** Main content */
+
+main {
+    padding: calc(var(--header-height) + 16px) 0;
+}
+
+main.content-wide {
+    width: 80%;
+}
+
 /** Footer */
 
 footer {
-    position: absolute;
     width: 90%;
     bottom: 0;
     height: var(--footer-height);
     background-color: var(--footer-background-color);
     display: flex;
+    gap: 10px;
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
+    margin: 0;
 }
 
 /** Komponenten */
@@ -92,14 +131,14 @@ a {
     }
 }
 
-.backHome:hover {
-   background-color: var(--primary-background-color) !important;
-}
-
 a:hover {
     animation-name: link-hover;
     animation-duration: .3s;
     animation-fill-mode: forwards;
+}
+
+.logo-link:hover {
+    animation: none;
 }
 
 /** Buttons */
@@ -118,7 +157,10 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    align-self: flex-start;
+}
+
+.btn.btn-sm {
+    padding: 9px 19px;
 }
 
 .btn.secondary {
@@ -141,6 +183,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 8px;
+    width: fit-content;
 }
 
 .back-btn svg {
@@ -155,6 +198,121 @@ a:hover {
 
 .back-btn:hover span {
     display: block;
+}
+
+/** Cards */
+
+.card {
+    border: 1px solid var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    height: 100%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+    background-color: var(--card-background-color);
+}
+
+.card:hover {
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.62);
+}
+
+.card img {
+    height: 250px;
+}
+
+.card * {
+    text-align: center;
+}
+
+.card h2 {
+    text-wrap: wrap;
+    width: 200px;
+}
+.card h2, h4 {
+    margin: 0;
+}
+
+.card.no-hover:hover {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+}
+
+.card.justify-start {
+    justify-content: flex-start;
+}
+
+/** Checkbox */
+
+label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+}
+
+
+input[type="checkbox"]:checked {
+    accent-color: var(--accent-color);
+}
+
+input[type="checkbox"]:focus {
+    outline: none !important;
+}
+
+/** Radio buttons */
+
+label:has(input[type="radio"]) {
+    display: inline-flex;
+    align-items: center;
+    background: none;
+    border: 1px solid var(--text-color);
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: ease-in .3s;
+}
+
+label:has(input[type="radio"]):hover {
+    background-color:  var(--text-color);
+    color: var(--primary-background-color);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label:has(input[type="radio"]:checked) {
+    background-color: var(--text-color);
+    color: var(--primary-background-color);
+}
+
+/** Range select */
+
+input[type="range"] {
+    accent-color: var(--accent-color);
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+/** Inputs */
+
+input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 0;
+    border: 1px solid #000000;
+    width: 100%;
+    text-align: left !important;
+}
+
+input:focus {
+    outline: 2px solid var(--accent-color);
 }
 
 /** Formulare */
@@ -175,14 +333,6 @@ form {
     width: 100%;
 }
 
-.form-input input {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 0;
-    border: 1px solid #000000;
-    width: 100%;
-}
-
 .form-input label.checkbox {
     display: flex;
     align-items: center;
@@ -194,25 +344,43 @@ form {
     height: 30px;
 }
 
-
-.form-input input[type="checkbox"]:checked {
-    accent-color: var(--accent-color);
-}
-
-.form-input input[type="checkbox"]:focus {
-    outline: none;
-}
-
-.form-input input:focus {
-    outline: 2px solid var(--accent-color);
-}
-
 /** Layout */
 
 .button-row {
     display: flex;
     gap: 20px;
     align-self: flex-start;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.grid-4-col {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    gap: 1rem;
+    row-gap: 2rem;
+    align-items: stretch;
+    width: fit-content;
+}
+
+.grid-20-80 {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    gap: 2rem;
+}
+
+.align-start {
+    align-self: flex-start;
+    text-align: left;
+}
+
+.gap-3 {
+    gap: 12px;
 }
 
 /** ID spezifische Dinge */
@@ -223,6 +391,16 @@ form {
 
 #loginOrRegister {
     width: 30vw;
+}
+
+#resetText {
+    font-size: 16px;
+    text-align: left;
+}
+
+#impress {
+    font-size: 12px;
+    text-align: left;
 }
 
 #register {
