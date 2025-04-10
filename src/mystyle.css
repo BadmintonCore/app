@@ -14,7 +14,7 @@
     --z-index-popover: 1000;
 }
 
-/** Generelle Styles */
+/* Generelle Styles */
 
 /* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
 h1 {
@@ -27,7 +27,7 @@ h1 {
 
 p {
     font-size: 12px;
-    text-align: right;
+    text-align: justify;
 }
 
 body {
@@ -110,8 +110,10 @@ footer {
     display: flex;
     gap: 10px;
     align-items: center;
+    justify-content: space-between;
     padding: 0 5%;
     margin: 0;
+    position: fixed;
 }
 
 /** Komponenten */
@@ -168,6 +170,10 @@ a:hover {
     border: 1px solid var(--text-color);
 }
 
+.btn:hover {
+    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
+}
+
 .btn svg {
     width: 14px;
     height: 14px;
@@ -193,10 +199,6 @@ a:hover {
 
 .back-btn:hover span {
     display: block;
-}
-
-.btn:hover {
-    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
 }
 
 /** Cards */
@@ -389,6 +391,24 @@ form {
 }
 
 #loginOrRegister {
+    width: 30vw;
+}
+
+#resetText {
+    font-size: 16px;
+    text-align: left;
+}
+
+#impress {
+    font-size: 12px;
+    text-align: left;
+}
+
+#register {
+    width: 30vw;
+}
+
+#reset {
     width: 30vw;
 }
 
