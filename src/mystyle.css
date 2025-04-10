@@ -2,13 +2,15 @@
 
 /** Variable definitions */
 :root {
-    --primary-background-color: #fbf3e7;
+    --primary-background-color: #fff9e9;
     --footer-background-color: #e5dacb;
+    --header-background-color: #fbf3e7;
     --header-height: 100px;
     --footer-height: 50px;
     --text-color: black;
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
+    --z-index-popover: 1000;
 }
 
 /** Generelle Styles */
@@ -42,14 +44,46 @@ th {
 /** Header */
 
 header {
+    background-color: var(--header-background-color);
     display: grid;
+    width: 100%;
     place-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr var(--header-height) 1fr;
     height: var(--header-height);
+    box-shadow: 0 1px 0 var(--text-color);
 }
 
 header img {
     height: var(--header-height);
+}
+
+header nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    position: relative;
+}
+header nav ul li {
+    position: relative;
+    padding: 5px;
+}
+
+header nav ul li ul {
+    display: none;
+    position: absolute;
+    background-color: var(--header-background-color);
+    top: 100%;
+    left: 0;
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    list-style: none;
+    z-index: var(--z-index-popover);
+    flex-direction: column;
+    box-shadow: 1px 1px 1px var(--text-color);
+}
+
+header nav ul li:hover ul {
+    display: flex;
 }
 
 /** Footer */
@@ -61,6 +95,7 @@ footer {
     height: var(--footer-height);
     background-color: var(--footer-background-color);
     display: flex;
+    gap: 10px;
     align-items: center;
     padding: 0 5%;
 }
