@@ -10,75 +10,119 @@
     <!--Reference to mystyle.css-->
 </head>
 <body>
-<a class="back-btn" href="index.html">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-    </svg>
-    <span>Zurück</span>
-</a>
-<!-- Use a table here to bypass the "no-css" restriction. Otherwise would have used an CSS grid here -->
-<table>
-    <tr>
-        <td>
-            <img src="https://media.istockphoto.com/id/1209887384/photo/green-t-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=8M4gaRs-fUz6CdYEl4OblIoDvNjcRs8_Sbzs0VxWlMY="
+    <header>
+    <nav>
+        <ul>
+            <li><a href="clothingList.html">Kleidung</a>
+                <ul>
+                    <li><a href="shirtsList.html">Shirts</a></li>
+                    <li><a href="sweaterList.html">Sweater</a></li>
+                </ul>
+            </li>
+            <li><a href="accessoriesList.html">Accessoires</a>
+                <ul>
+                    <li><a href="capsList.html">Caps</a></li>
+                    <li><a href="bagsList.html">Taschen</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <a class="logo-link" href="index.html">
+        <img src="/img/logo.png" alt="vestis.">
+    </a>
+    <a class="btn" href="login.html">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+        &nbsp;
+        login.
+    </a>
+</header>
+    <main>
+        <a class="back-btn" href="shirtsList.html">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+            <span>Zurück</span>
+        </a>
+        <div class="grid-50-50">
+            <img src="/img/tshirt.png"
                  alt="product image"/>
-        </td>
-        <td>
-            <!-- TODO: We should really add an icon here -->
-            <a href="shirtsList.html"><-- Zurück</a>
-            <h1>Modernes grünes Tshirt</h1>
-            <h5>
-                Ein modernes Tshirt mit guten Look. Perfekt für den Sommer und den Winter. <br/>
-                Passt zu jedem Outfit. Egal ob klassisch, business oder lässig. Mit dem Shirt bist du immer richtig
-                gekleidet.
-            </h5>
+            <div>
+                <h1>Modernes grünes Tshirt</h1>
+                <h5>
+                    Ein modernes Tshirt mit guten Look. Perfekt für den Sommer und den Winter. <br/>
+                    Passt zu jedem Outfit. Egal ob klassisch, business oder lässig. Mit dem Shirt bist du immer richtig
+                    gekleidet.
+                </h5>
 
-            <h2>55,00€ <small>inkl. 19% MwSt.</small></h2>
+                <h2>55,00€ <small>inkl. 19% MwSt.</small></h2>
 
-            <!-- For later submission of the order request -->
-            <form>
-                <strong>Größe</strong> <br>
-                <label>
-                    <input type="radio" name="size" value="xs" required>
-                    XS
-                </label>
-                <label>
-                    <input type="radio" name="size" value="s" required>
-                    S
-                </label>
-                <label>
-                    <input type="radio" name="size" value="m" required>
-                    M
-                </label>
-                <label>
-                    <input type="radio" name="size" value="l" required>
-                    L
-                </label>
-                <label>
-                    <input type="radio" name="size" value="xl" required>
-                    XL
-                </label>
-                <br>
-                <strong>Farbe</strong> <br>
-                <label>
-                    <input type="radio" name="color" value="lime" required>
-                    Hellgrün
-                </label>
-                <label>
-                    <input type="radio" name="color" value="green" required>
-                    Dunkelgrün
-                </label>
-                <br>
-                <label for="amount"><strong>Anzahl:</strong></label> <br>
-                <input type="number" id="amount" value="1">
-                <br>
-                <button type="submit" name="add_to_shopping_cart">Zum Warenkorb hinzufügen</button>
-                <button type="submit" name="buy_direct">Direkt bestellen</button>
-                <br>
-            </form>
-        </td>
-    </tr>
-</table>
+                <!-- For later submission of the order request -->
+                <form class="flex-align-left">
+                    <strong>Größe</strong>
+                    <div class="flex-row">
+                        <label>
+                            <input type="radio" name="size" value="xs">
+                            XS
+                        </label>
+                        <label>
+                            <input type="radio" name="size" value="s">
+                            S
+                        </label>
+                        <label>
+                            <input type="radio" name="size" value="m">
+                            M
+                        </label>
+                        <label>
+                            <input type="radio" name="size" value="l">
+                            L
+                        </label>
+                        <label>
+                            <input type="radio" name="size" value="xl">
+                            XL
+                        </label>
+                    </div>
+                    <strong>Farbe</strong>
+                    <div class="flex-row">
+                        <label>
+                            <input type="radio" name="color" value="lime">
+                            Hellgrün
+                        </label>
+                        <label>
+                            <input type="radio" name="color" value="green">
+                            Dunkelgrün
+                        </label>
+                    </div>
+                    <label for="amount"><strong>Anzahl</strong></label>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" type="button">−</button>
+                        <input type="number" id="amount" value="1">
+                        <button class="quantity-btn" type="button">+</button>
+                    </div>
+                    <div class="button-row">
+                        <button type="submit" class="btn" name="buy_direct">Direkt bestellen</button>
+                        <button type="submit" class="btn secondary" name="add_to_shopping_cart">Zum Warenkorb hinzufügen</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <a href="impress.html">Impressum</a>
+        <a href="about.html">About</a>
+    </footer>
+
+
+    <script>
+        const containers = document.getElementsByClassName("quantity-container")
+        for (const container of containers) {
+            const input = container.children.item(1);
+            container.children.item(0).addEventListener('click', () => input.value = parseInt(`${input.value}`, 10)-1);
+            container.children.item(2).addEventListener('click', () => input.value = parseInt(`${input.value}`, 10)+1);
+        }
+    </script>
 </body>
 </html>
 <!-- Author: Mathis Burger -->
