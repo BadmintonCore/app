@@ -12,74 +12,110 @@
     <link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
 <body>
-<div>
+<header>
+    <nav>
+        <ul>
+            <li><a href="clothingList.html">Kleidung</a>
+                <ul>
+                    <li><a href="shirtsList.html">Shirts</a></li>
+                    <li><a href="sweaterList.html">Sweater</a></li>
+                </ul>
+            </li>
+            <li><a href="accessoriesList.html">Accessoires</a>
+                <ul>
+                    <li><a href="capsList.html">Caps</a></li>
+                    <li><a href="bagsList.html">Taschen</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!--Author: Lennart Moog-->
+    <!--Author: Lasse Hoffmann-->
+    <a class="logo-link" href="index.html">
+        <img src="/img/logo.png" alt="vestis.">
+    </a>
+    <!--Author: Lasse Hoffmann-->
+    <!--Author: Lennart Moog-->
+    <a class="btn" href="login.html">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+        &nbsp;
+        login.
+    </a>
+</header>
+<main>
+    <div>
 
-    <!--Seitenüberschrift-->
-    <h1>
-        vestis. - Registrieren
-    </h1>
+        <!--Seitenüberschrift-->
+        <h1>
+            Registrieren
+        </h1>
 
-    <!--Formular für die Registrierung mit der id "register"-->
-    <form id="register">
+        <!--Formular für die Registrierung mit der id "register"-->
+        <form id="register">
 
-        <!--Zurückbutton-->
-        <a class="back-btn" href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-            </svg>
-            <span>Zurück</span>
-        </a>
-
-        <!--Container der Klasse "form-input"-->
-        <div class="form-input">
-            <label for="mail">
-                <b>E-Mail</b>
-            </label>
-
-            <!--Input für die E-Mail, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
-            <input type="email" id="mail" placeholder="E-Mail eingeben" name="mail" required
-                   oninvalid="this.setCustomValidity('Bitte gebe deine E-Mail-Adresse ein.')">
-        </div>
-
-        <br/>
-
-        <!--Container der Klasse "form-input"-->
-        <div class="form-input">
-            <label for="password">
-                <b>Passwort</b>
-            </label>
-
-            <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
-            <input type="password" id="password" placeholder="Passwort eingeben" name="password" required
-                   oninvalid="this.setCustomValidity('Bitte gebe dein Passwort ein.')">
-            <br/>
-            <label for="passwordRepetition">
-                <b>Passwort wiederholen</b>
-            </label>
-
-            <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
-            <input type="password" id="passwordRepetition" placeholder="Passwort eingeben" name="passwordRepetition" required
-                   oninvalid="this.setCustomValidity('Bitte gebe dein Passwort erneut ein.')">
-        </div>
-
-        <br/>
-
-        <!--Container der Klasse "button-row"-->
-        <div class="button-row">
-
-            <!--Abbrechen "Button" als Link-->
-            <a href="login.html" class="btn secondary">
-                Abbrechen
+            <!--Zurückbutton-->
+            <a class="back-btn" href="login.html">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left"
+                     viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                </svg>
+                <span>Zurück</span>
             </a>
 
-            <!--Button zum Einreichen (submit)-->
-            <button type="submit" class="btn">
-                Registrieren
-            </button>
-        </div>
-    </form>
-</div>
+            <!--Container der Klasse "form-input"-->
+            <div class="form-input">
+                <label for="mail">
+                    <b>E-Mail</b>
+                </label>
+
+                <!--Input für die E-Mail, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+                <input type="email" id="mail" placeholder="E-Mail eingeben" name="mail" required
+                       oninvalid="this.setCustomValidity('Bitte gebe deine E-Mail-Adresse ein.')">
+            </div>
+
+            <br/>
+
+            <!--Container der Klasse "form-input"-->
+            <div class="form-input">
+                <label for="password">
+                    <b>Passwort</b>
+                </label>
+
+                <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+                <input type="password" id="password" placeholder="Passwort eingeben" name="password" required
+                       oninvalid="this.setCustomValidity('Bitte gebe dein Passwort ein.')">
+                <br/>
+                <label for="passwordRepetition">
+                    <b>Passwort wiederholen</b>
+                </label>
+
+                <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+                <input type="password" id="passwordRepetition" placeholder="Passwort eingeben" name="passwordRepetition"
+                       required
+                       oninvalid="this.setCustomValidity('Bitte gebe dein Passwort erneut ein.')">
+            </div>
+
+            <br/>
+
+            <!--Container der Klasse "button-row"-->
+            <div class="button-row">
+
+                <!--Abbrechen "Button" als Link-->
+                <a href="login.html" class="btn secondary">
+                    abbrechen.
+                </a>
+
+                <!--Button zum Einreichen (submit)-->
+                <button type="submit" class="btn">
+                    registrieren.
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
 
 <!--Einheitliche Fußzeile-->
 <footer>

@@ -412,5 +412,10 @@ form {
     width: 30vw;
 }
 
+#loginAndShoppingcart {
+    display: flex;
+    gap: 1em;
+}
+
 
 /*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/
