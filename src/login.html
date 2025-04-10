@@ -13,77 +13,79 @@
 </head>
 <body>
 
-<!--Seitenüberschrift-->
-<h1>
-    vestis. - Anmelden
-</h1>
+<main>
+    <!--Seitenüberschrift-->
+    <h1>
+        vestis. - Anmelden
+    </h1>
 
-<!--Formular für die Anmeldung mit der id "loginOrRegister"-->
-<form id="loginOrRegister">
+    <!--Formular für die Anmeldung mit der id "loginOrRegister"-->
+    <form id="loginOrRegister">
 
-    <!--Zurückbutton-->
-    <a class="back-btn" href="index.html">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-        </svg>
-        <span>Zurück</span>
-    </a>
-
-    <!--Container der Klasse "form-input"-->
-    <div class="form-input">
-        <label for="mail">
-            <b>E-Mail</b>
-        </label>
-
-        <!--Input für die E-Mail, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
-        <input type="email" id="mail" placeholder="E-Mail eingeben" name="mail" required
-               oninvalid="this.setCustomValidity('Bitte gebe deine E-Mail-Adresse ein.')">
-    </div>
-
-    <br/>
-
-    <!--Container der Klasse "form-input"-->
-    <div class="form-input">
-        <label for="password">
-            <b>Passwort</b>
-        </label>
-
-        <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
-        <input type="password" id="password" placeholder="Passwort eingeben" name="password" required
-               oninvalid="this.setCustomValidity('Bitte gebe dein Passwort ein.')">
-    </div>
-
-    <br/>
-
-    <!--Container der Klasse "form-input"-->
-    <div class="form-input">
-        <label class="checkbox">
-
-            <!--Checkbox für "Angemeldet bleiben"-->
-            <input type="checkbox" name="rememberMe">
-            Angemeldet bleiben
-        </label>
-    </div>
-
-    <!--Button zum Einreichen (submit)-->
-    <button type="submit" class="btn align-start">
-        Login.
-    </button>
-
-    <br/>
-
-    <!--Container mit der id "resetAndRegister"-->
-    <div id="resetAndRegister">
-        <a href="reset.html">
-            Passwort zurücksetzen
+        <!--Zurückbutton-->
+        <a class="back-btn" href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+            <span>Zurück</span>
         </a>
-        <hr/>
-        <a href="registration.html">
-            Jetzt registrieren
-        </a>
-    </div>
-</form>
+
+        <!--Container der Klasse "form-input"-->
+        <div class="form-input">
+            <label for="mail">
+                <b>E-Mail</b>
+            </label>
+
+            <!--Input für die E-Mail, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+            <input type="email" id="mail" placeholder="E-Mail eingeben" name="mail" required
+                   oninvalid="this.setCustomValidity('Bitte gebe deine E-Mail-Adresse ein.')">
+        </div>
+
+        <br/>
+
+        <!--Container der Klasse "form-input"-->
+        <div class="form-input">
+            <label for="password">
+                <b>Passwort</b>
+            </label>
+
+            <!--Input für das Passwort, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+            <input type="password" id="password" placeholder="Passwort eingeben" name="password" required
+                   oninvalid="this.setCustomValidity('Bitte gebe dein Passwort ein.')">
+        </div>
+
+        <br/>
+
+        <!--Container der Klasse "form-input"-->
+        <div class="form-input">
+            <label class="checkbox">
+
+                <!--Checkbox für "Angemeldet bleiben"-->
+                <input type="checkbox" name="rememberMe">
+                Angemeldet bleiben
+            </label>
+        </div>
+
+        <!--Button zum Einreichen (submit)-->
+        <button type="submit" class="btn align-start">
+            Login.
+        </button>
+
+        <br/>
+
+        <!--Container mit der id "resetAndRegister"-->
+        <div id="resetAndRegister">
+            <a href="reset.html">
+                Passwort zurücksetzen
+            </a>
+            <hr/>
+            <a href="registration.html">
+                Jetzt registrieren
+            </a>
+        </div>
+    </form>
+</main>
 
 <!--Einheitliche Fußzeile-->
 <footer>
