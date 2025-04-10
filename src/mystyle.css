@@ -113,6 +113,7 @@ footer {
     justify-content: space-between;
     padding: 0 5%;
     margin: 0;
+    position: fixed;
 }
 
 /** Komponenten */
