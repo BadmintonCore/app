@@ -178,6 +178,10 @@ a:hover {
     box-shadow: inset 400px 0 0 0 var(--button-hover-color);
 }
 
+.btn.secondary:hover {
+    color: var(--primary-background-color);
+}
+
 .btn svg {
     width: 14px;
     height: 14px;
@@ -322,6 +326,47 @@ input:focus {
 
 input.size-sm {
     width: 100px;
+}
+
+/* Quantity input */
+
+.quantity-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    overflow: hidden;
+    width: fit-content;
+    background: white;
+}
+
+.quantity-container:focus {
+    outline: 2px solid var(--accent-color);
+}
+
+.quantity-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.quantity-btn:focus {
+    outline: none;
+}
+
+.quantity-container input[type="number"] {
+    text-align: center !important;
+    border: none;
+    font-size: 1rem;
+    padding: 10px 0;
+    width: 50px;
+    -moz-appearance: textfield;
+}
+
+.quantity-container input[type="number"]:focus {
+    outline: none;
 }
 
 /** Formulare */

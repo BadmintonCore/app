@@ -63,39 +63,43 @@
                     <strong>Größe</strong>
                     <div class="flex-row">
                         <label>
-                            <input type="radio" name="size" value="xs" required>
+                            <input type="radio" name="size" value="xs">
                             XS
                         </label>
                         <label>
-                            <input type="radio" name="size" value="s" required>
+                            <input type="radio" name="size" value="s">
                             S
                         </label>
                         <label>
-                            <input type="radio" name="size" value="m" required>
+                            <input type="radio" name="size" value="m">
                             M
                         </label>
                         <label>
-                            <input type="radio" name="size" value="l" required>
+                            <input type="radio" name="size" value="l">
                             L
                         </label>
                         <label>
-                            <input type="radio" name="size" value="xl" required>
+                            <input type="radio" name="size" value="xl">
                             XL
                         </label>
                     </div>
                     <strong>Farbe</strong>
                     <div class="flex-row">
                         <label>
-                            <input type="radio" name="color" value="lime" required>
+                            <input type="radio" name="color" value="lime">
                             Hellgrün
                         </label>
                         <label>
-                            <input type="radio" name="color" value="green" required>
+                            <input type="radio" name="color" value="green">
                             Dunkelgrün
                         </label>
                     </div>
                     <label for="amount"><strong>Anzahl</strong></label>
-                    <input type="number" id="amount" value="1" class="size-sm">
+                    <div class="quantity-container">
+                        <button class="quantity-btn" type="button">−</button>
+                        <input type="number" id="amount" value="1">
+                        <button class="quantity-btn" type="button">+</button>
+                    </div>
                     <div class="button-row">
                         <button type="submit" class="btn" name="buy_direct">Direkt bestellen</button>
                         <button type="submit" class="btn secondary" name="add_to_shopping_cart">Zum Warenkorb hinzufügen</button>
@@ -110,6 +114,15 @@
         <a href="about.html">About</a>
     </footer>
 
+
+    <script>
+        const containers = document.getElementsByClassName("quantity-container")
+        for (const container of containers) {
+            const input = container.children.item(1);
+            container.children.item(0).addEventListener('click', () => input.value = parseInt(`${input.value}`, 10)-1);
+            container.children.item(2).addEventListener('click', () => input.value = parseInt(`${input.value}`, 10)+1);
+        }
+    </script>
 </body>
 </html>
 <!-- Author: Mathis Burger -->
