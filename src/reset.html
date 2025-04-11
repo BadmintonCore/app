@@ -13,6 +13,7 @@
 </head>
 <body>
 
+<!--Header der Website-->
 <header>
     <nav>
         <ul>
@@ -30,13 +31,9 @@
             </li>
         </ul>
     </nav>
-    <!--Author: Lennart Moog-->
-    <!--Author: Lasse Hoffmann-->
     <a class="logo-link" href="index.html">
         <img src="/img/logo.png" alt="vestis.">
     </a>
-    <!--Author: Lasse Hoffmann-->
-    <!--Author: Lennart Moog-->
     <a class="btn" href="login.html">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -46,13 +43,16 @@
     </a>
 </header>
 
+<!--Inhalt der Seite-->
 <main>
 
     <!--Seitenüberschrift-->
     <h1>
         Passwort zurücksetzen
     </h1>
-    <form id="reset">
+
+    <!--Formular der Klasse loginRegisterReset-->
+    <form class="loginRegisterReset">
 
         <!--Zurückbutton-->
         <a class="back-btn" href="login.html">
@@ -69,19 +69,19 @@
                 <b>E-Mail</b>
             </label>
 
-            <!--Input für die E-Mail, bei ungültiger Abgabe folgt der Text "Bitte fülle dieses Feld aus"-->
+            <!--Input für die E-Mail-->
             <input type="email" id="mail" placeholder="E-Mail eingeben" name="mail" required
-                   oninvalid="this.setCustomValidity('Bitte gebe deine E-Mail-Adresse ein.')">
+                   oninvalid="this.setCustomValidity('Bitte eine gültige E-Mail eingeben.')">
         </div>
 
         <!--Button zum Einreichen (submit)-->
         <button type="submit" class="btn">
-            Zurücksetzen
+            zurücksetzen.
         </button>
     </form>
 </main>
 
-<!--Einheitliche Fußzeile-->
+<!--Footer der Website-->
 <footer>
     <a href="about.html">Über uns</a>
     <a href="impress.html">Impressum</a>

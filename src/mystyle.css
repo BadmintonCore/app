@@ -243,6 +243,21 @@ a:hover {
     justify-content: flex-start;
 }
 
+/** Cards Login, Register, Reset*/
+
+.loginRegisterReset {
+    width: 30vw;
+    border: 1px solid var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    height: 100%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+    background-color: var(--card-background-color);
+}
+
 /** Checkbox */
 
 label:has(input[type="checkbox"]) {
@@ -390,29 +405,12 @@ form {
     text-align: center;
 }
 
-#loginOrRegister {
-    width: 30vw;
-}
-
-#resetText {
-    font-size: 16px;
-    text-align: left;
-}
-
 #impress {
     font-size: 12px;
     text-align: left;
 }
 
-#register {
-    width: 30vw;
-}
-
-#reset {
-    width: 30vw;
-}
-
-#loginAndShoppingcart {
+#headerLoginAndShoppingcart {
     display: flex;
     gap: 1em;
 }
