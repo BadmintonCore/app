@@ -404,19 +404,14 @@ form {
 
 /** ID spezifische Dinge */
 
+/**Zentriert auf der login-Seite die beiden Links für "Passwort zurücksetzen" und "Jetzt registrieren"*/
 #resetAndRegister {
     text-align: center;
 }
 
-#impress {
-    font-size: 12px;
-    text-align: left;
-}
-
+/**Setzt den Style für die beiden Buttons "Login" und "Warenkorb" im Header*/
 #headerLoginAndShoppingcart {
     display: flex;
     gap: 1em;
 }
-
-
 /*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/
