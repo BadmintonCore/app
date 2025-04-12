@@ -34,13 +34,17 @@ body {
     background-color: var(--primary-background-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     margin: 0;
+    min-height: 100vh;
 }
 
 th {
     background-color: lightgray;
+}
+
+h2 small {
+    font-size: .6em;
 }
 
 /** Header */
@@ -94,10 +98,17 @@ header nav ul li:hover ul {
 
 main {
     padding: calc(var(--header-height) + 16px) 0;
+    flex: 1;
 }
 
 main.content-wide {
     width: 80%;
+}
+
+@media screen and (max-width: 1550px) {
+    main.content-wide {
+        width: 90%;
+    }
 }
 
 /** Footer */
@@ -112,8 +123,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
-    margin: 0;
-    position: fixed;
+    margin: 0 auto;
 }
 
 /** Komponenten */
@@ -160,6 +170,10 @@ a:hover {
     justify-content: center;
 }
 
+.btn:hover {
+    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
+}
+
 .btn.btn-sm {
     padding: 9px 19px;
 }
@@ -170,8 +184,12 @@ a:hover {
     border: 1px solid var(--text-color);
 }
 
-.btn:hover {
-    box-shadow: inset 400px 0 0 0 var(--button-hover-color);
+.btn.secondary:hover {
+    color: var(--primary-background-color);
+}
+
+.btn.danger {
+    background-color: darkred;
 }
 
 .btn svg {
@@ -310,10 +328,70 @@ input {
     border: 1px solid #000000;
     width: 100%;
     text-align: left !important;
+    box-sizing: border-box;
 }
 
 input:focus {
     outline: 2px solid var(--accent-color);
+}
+
+/* Quantity input */
+
+.quantity-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    overflow: hidden;
+    width: fit-content;
+    background: white;
+}
+
+.quantity-container:focus {
+    outline: 2px solid var(--accent-color);
+}
+
+.quantity-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.quantity-btn:focus {
+    outline: none;
+}
+
+.quantity-container input[type="number"] {
+    text-align: center !important;
+    border: none;
+    font-size: 1rem;
+    padding: 10px 0;
+    width: 50px;
+    -moz-appearance: textfield;
+}
+
+.quantity-container input[type="number"]:focus {
+    outline: none;
+}
+
+/* Table */
+
+table {
+    border: 1px solid var(--text-color);
+    outline: none;
+}
+table th, td {
+    padding: 10px;
+    border-bottom: 1px solid var(--text-color);
+    border-right: 1px solid var(--text-color);
+}
+table th:last-child, td:last-child {
+    border-right: none;
+}
+table tr:last-child td {
+    border-bottom: none;
 }
 
 /** Formulare */
@@ -365,10 +443,21 @@ form {
 
 /** Layout */
 
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .button-row {
     display: flex;
     gap: 20px;
     align-self: flex-start;
+}
+
+.flex-align-left {
+    display: flex;
+    align-items: flex-start;
 }
 
 .flex-row {
@@ -391,6 +480,12 @@ form {
     display: grid;
     grid-template-columns: 20% 80%;
     gap: 2rem;
+}
+
+.grid-50-50 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    place-items: center;
 }
 
 .align-start {
