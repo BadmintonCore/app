@@ -405,7 +405,7 @@ form {
     width: 100%;
 }
 
-.loginRegisterReset {
+.login-register-reset {
     width: 30vw;
     border: 1px solid var(--text-color);
     display: flex;
@@ -418,7 +418,7 @@ form {
     background-color: var(--card-background-color);
 }
 
-.loginRegisterReset h1 {
+.login-register-reset h1 {
     text-decoration: underline;
     text-underline: var(--text-color);
 }
