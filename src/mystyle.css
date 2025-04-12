@@ -405,6 +405,24 @@ form {
     width: 100%;
 }
 
+.login-register-reset {
+    width: 30vw;
+    border: 1px solid var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    height: 100%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+    background-color: var(--card-background-color);
+}
+
+.login-register-reset h1 {
+    text-decoration: underline;
+    text-underline: var(--text-color);
+}
+
 .form-input {
     display: flex;
     flex-direction: column;
@@ -481,31 +499,14 @@ form {
 
 /** ID spezifische Dinge */
 
+/**Zentriert auf der login-Seite die beiden Links für "Passwort zurücksetzen" und "Jetzt registrieren"*/
 #resetAndRegister {
     text-align: center;
 }
 
-#loginOrRegister {
-    width: 30vw;
+/**Setzt den Style für die beiden Buttons "Login" und "Warenkorb" im Header*/
+#headerLoginAndShoppingcart {
+    display: flex;
+    gap: 1em;
 }
-
-#resetText {
-    font-size: 16px;
-    text-align: left;
-}
-
-#impress {
-    font-size: 12px;
-    text-align: left;
-}
-
-#register {
-    width: 30vw;
-}
-
-#reset {
-    width: 30vw;
-}
-
-
 /*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/
