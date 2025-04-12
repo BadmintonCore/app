@@ -505,7 +505,7 @@ form {
 }
 
 /**Setzt den Style für die beiden Buttons "Login" und "Warenkorb" im Header*/
-#headerLoginAndShoppingcart {
+#headerLoginAndShoppingCart {
     display: flex;
     gap: 1em;
 }
