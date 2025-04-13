@@ -12,6 +12,8 @@
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
     --z-index-popover: 1000;
+    --danger-color: darkred;
+    --login-register-reset-shadow-color: rgba(0, 0, 0, 0.62);
 }
 
 /* Generelle Styles */
@@ -225,7 +227,7 @@ a:hover {
 }
 
 .btn.danger {
-    background-color: darkred;
+    background-color: var(--danger-color);
 }
 
 .btn svg {
@@ -361,7 +363,7 @@ input {
     padding: 10px;
     font-size: 14px;
     border-radius: 0;
-    border: 1px solid #000000;
+    border: 1px solid var(--text-color);
     width: 100%;
     text-align: left !important;
     box-sizing: border-box;
@@ -451,7 +453,7 @@ form {
     align-items: center;
     padding: 50px;
     height: 100%;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+    box-shadow: 1px 1px 1px var(--login-register-reset-shadow-color);
     background-color: var(--card-background-color);
 }
 
