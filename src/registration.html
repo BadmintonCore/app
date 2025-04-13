@@ -69,6 +69,28 @@
 
             <!--Container der Klasse "form-input"-->
             <div class="form-input">
+                <label for="prename">
+                    <b>Vorname</b>
+                </label>
+
+                <!--Input für den Vornamen-->
+                <input type="text" id="prename" placeholder="Vorname eingeben" name="prename" required
+                       oninvalid="this.setCustomValidity('Bitte deinen Vornamen eingeben.')">
+            </div>
+
+            <!--Container der Klasse "form-input"-->
+            <div class="form-input">
+                <label for="name">
+                    <b>Nachname</b>
+                </label>
+
+                <!--Input für den Nachnamen-->
+                <input type="text" id="name" placeholder="Nachname eingeben" name="name" required
+                       oninvalid="this.setCustomValidity('Bitte deinen Nachnamen eingeben.')">
+            </div>
+
+            <!--Container der Klasse "form-input"-->
+            <div class="form-input">
                 <label for="email">
                     <b>E-Mail</b>
                 </label>
@@ -77,8 +99,6 @@
                 <input type="email" id="email" placeholder="E-Mail eingeben" name="email" required
                        oninvalid="this.setCustomValidity('Bitte eine gültige E-Mail eingeben.')">
             </div>
-
-            <br/>
 
             <!--Container der Klasse "form-input"-->
             <div class="form-input">
@@ -89,7 +109,10 @@
                 <!--Input für das Passwort-->
                 <input type="password" id="password" placeholder="Passwort eingeben" name="password" required
                        oninvalid="this.setCustomValidity('Bitte gebe dein Passwort ein.')">
-                <br/>
+            </div>
+
+            <!--Container der Klasse "form-input"-->
+            <div class="form-input">
                 <label for="passwordRepetition">
                     <b>Passwort wiederholen</b>
                 </label>
