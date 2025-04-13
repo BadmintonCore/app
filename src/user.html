@@ -11,28 +11,64 @@
     <!--vestis.-Logo in Browser-Tab-->
     <link rel="shortcut icon" href="/img/logo.png" />
 </head>
-<body>
+
+<!--Header der Website-->
+<header>
+    <nav>
+        <ul>
+            <li><a href="clothingList.html">Kleidung</a>
+                <ul>
+                    <li><a href="shirtsList.html">Shirts</a></li>
+                    <li><a href="sweaterList.html">Sweater</a></li>
+                </ul>
+            </li>
+            <li><a href="accessoriesList.html">Accessoires</a>
+                <ul>
+                    <li><a href="capsList.html">Caps</a></li>
+                    <li><a href="bagsList.html">Taschen</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <a class="logo-link" href="index.html">
+        <img src="/img/logo.png" alt="vestis.">
+    </a>
+    <a class="btn" href="login.html">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+        &nbsp;
+        login.
+    </a>
+</header>
+
+<main>
+
+<form class="login-register-reset">
+
+<h1>Benutzerbereich</h1>
 <a class="back-btn" href="index.html">
     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
     </svg>
     <span>Zurück</span>
 </a>
-<h1>Benutzerbereich</h1>
-<form>
-    <div>
+
+    <div class="form-input">
         <label for="mail"><b>E-Mail</b></label>
         <input type="text" id="mail" name="mail" value="deezify@test.de" required>
     </div>
     <br/>
-    <div>
+    <div class="form-input">
         <label for="currentPassword"><b>Aktuelles Passwort</b></label>
         <input type="password" id="currentPassword" name="currentPassword" value="meinsupersicheresPasswort123"
                required>
     </div>
     <br/>
-    <button type="submit">Aktualisieren</button>
+    <button type="submit"class="btn align-start">
+        aktualisieren.
+    </button>
 </form>
-</body>
+</main>
 </html>
 <!--Author: Lennart Moog-->
