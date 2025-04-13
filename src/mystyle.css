@@ -6,14 +6,15 @@
     --footer-background-color: #e5dacb;
     --header-background-color: #fbf3e7;
     --card-background-color: #fbf4e2;
-    --header-height: 100px;
-    --footer-height: 50px;
     --text-color: black;
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
-    --z-index-popover: 1000;
     --danger-color: darkred;
-    --login-register-reset-shadow-color: rgba(0, 0, 0, 0.62);
+    --form-box-shadow-color: rgba(0, 0, 0, 0.62);
+    --z-index-popover: 1000;
+    --header-height: 100px;
+    --footer-height: 50px;
+    --button-font-size: 14px;
 }
 
 /* Generelle Styles */
@@ -32,20 +33,22 @@ p {
     text-align: justify; /*Es gibt entweder nur Blocksatz oder text-align: right, beides geht nicht!*/
 }
 
+/* genutzt für Texte, die größere Buchstaben benötigen (e.g. Impressum.html */
 p.large-text {
     font-size: 16px;
     text-align: justify;
 }
 
+/*zentriert und setzt Hintergrundfarbe*/
 body {
     background-color: var(--primary-background-color);
-    display: flex;
+    display: flex; /*Elemente ordnen sich flexibel an (Flexcontainer) */
     flex-direction: column;
     align-items: center;
     margin: 0;
     min-height: 100vh;
 }
-
+/*Zelle im Tabellenkopf*/
 th {
     background-color: lightgray;
 }
@@ -57,79 +60,81 @@ h2 small {
 /** Header */
 
 header {
-    position: fixed;
-    top: 0;
+    position: fixed; /*Header immer an fixer Stelle auf Bildschirm - auch bei Scrollen*/
+    top: 0; /*Abstand nach oben = 0*/
     background-color: var(--header-background-color);
     display: grid;
     width: 100%;
     place-items: center;
-    grid-template-columns: 1fr var(--header-height) 1fr;
+    grid-template-columns: 1fr var(--header-height) 1fr; /*flexible Einheit, die sich an vorhandener Menge der 1fr bemisst minus anderer Elemente*/
     height: var(--header-height);
-    box-shadow: 0 1px 0 var(--text-color);
+    box-shadow: 0 1px 0 var(--text-color); /*vertikaler Schatten Größe 1 Pixel*/
+    z-index: 500; /*wichtig, damit Header immer über Elementen von main angezeigt wird*/
 }
 
+/*Höhe Bild im Header (Logo)*/
 header img {
     height: var(--header-height);
 }
 
+/*ordnet die UL im Header in einer Reihe an - Accesoires und Kleidung werden nebeneinander statt untereinander als Bullets angezeigt*/
 header nav ul {
     display: flex;
     gap: 20px;
-    list-style: none;
-    position: relative;
+    list-style: none; /*keine Bulletpoints*/
+    position: relative; /*Pos. relativ zu anderen Objekten*/
 }
+
+/*Kleidung und Accesoire*/
 header nav ul li {
     position: relative;
     padding: 5px;
 }
 
+/*einzelne Drop-Downs*/
 header nav ul li ul {
-    display: none;
-    position: absolute;
+    display: none; /*standardmäßig nicht angezeigt*/
+    position: absolute; /*Position frei wählbar abhängig von übergeordnetem Element*/
+    top: 100%; /*Abstand zum übergeordneten Element*/
     background-color: var(--header-background-color);
-    top: 100%;
-    left: 0;
     border: 1px solid var(--text-color);
     padding: 10px;
-    list-style: none;
-    z-index: var(--z-index-popover);
+    list-style: none; /*keine Bullets*/
+    z-index: var(--z-index-popover); /*sorgt dafür, dass alle Elemente des Dropdowns des Headers über anderen Inhalten angezeigt werden (Z-Achse)*/
     flex-direction: column;
-    box-shadow: 1px 1px 1px var(--text-color);
+    box-shadow: 1px 1px 1px var(--text-color); /*Schatten nach unten und rechts mit Blur*/
 }
+
 
 header nav ul li:hover ul {
-    display: flex;
+    display: flex; /*Wenn Accesoire oder Kleidung gehovert wird, wird das Dropdown angezeigt*/
 }
 
-/**Setzt den Style für die beiden Buttons "Login" und "Warenkorb" im Header*/
-header .header-login-shoppingCart {
-    display: flex;
-    gap: 1em;
-}
 
 /** Main content */
 
+
 main {
-    padding: calc(var(--header-height) + 16px) 0;
-    flex: 1;
+    padding: calc(var(--header-height) + 16px) 0; /*Setzt einen Abstand zwischen Main-Inhalten und Header, damit Elemente nicht hinter Header verschwinden */
+    flex: 1; /*Kurzversion für flex-grow - Elemente in main sollen so viel Platz einnehmen, dass Footer ganz unten angezeigt wird und nicht mitten im Bild*/
 }
 
+/*Style für Index-Seite mit Banner*/
 main.banner-content {
-
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: auto;
     padding: var(--header-height) 0;
-    margin: 2px;
 }
 
-
+/*für breiteren Content im main Tag (e.g. ShirtList*/
 main.content-wide {
     width: 80%;
 }
 
+/*Prüft, ob Screen die Regel in Klammern einhält. Wenn ja, wird Content auf 90 Prozent Breite gesetzt - sinnvoll bei kleineren Bildschirmen (Laptop od. alte Monitore)*/
 @media screen and (max-width: 1550px) {
     main.content-wide {
         width: 90%;
@@ -137,9 +142,8 @@ main.content-wide {
 }
 
 /** Footer */
-
 footer {
-    width: 90%;
+    width: 90%; /*für Padding wichtig, damit insg. 100 Prozent*/
     bottom: 0;
     height: var(--footer-height);
     background-color: var(--footer-background-color);
@@ -147,7 +151,7 @@ footer {
     gap: 10px;
     align-items: center;
     justify-content: space-between;
-    padding: 0 5%;
+    padding: 0 5%; /*rechts und links je 5 %*/
     margin: 0 auto;
 }
 
@@ -160,62 +164,67 @@ a {
     color: var(--text-color);
 }
 
+/*Animationsverhalten bei Hover des Links mit Maus*/
 @keyframes link-hover {
     to {
         background-color: var(--text-color);
         color: var(--primary-background-color)
     }
 }
-
+/*Setzen der Animation beim Hover*/
 a:hover {
     animation-name: link-hover;
     animation-duration: .3s;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards; /*nach Animation bleibt der Stand solang gehovert und geht nicht autom. in Ursprungszustand*/
 }
 
+/*keine Hover-Animation bei Logo*/
 .logo-link:hover {
     animation: none;
 }
 
 /** Buttons */
 
+/*Normaler Button*/
 .btn {
     color: var(--primary-background-color);
     background-color: var(--text-color);
-    border-radius: 0px;
-    border: none;
+    border-radius: 0; /*um Browser-abhängige border-radius zu überschreiben*/
+    border: none; /*um Border zu entfernen*/
     padding: 18px 36px;
-    font-size: 14px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    font-size: var(--button-font-size);
+    cursor: pointer; /*bei Hover wird Cursor zum Klicken angezeigt*/
+    position: relative; /*wichtig für Button-Hover-Animation, dass nicht ganzer Bildschirm gefüllt wird*/
+    overflow: hidden; /*Animation spielt sich nur in Button ab*/
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 0;
+    z-index: 0; /*auf 0, damit ::before -1 sein kann */
 }
 
-.btn::before {
+.btn::before { /*erstellt Pseudo-Element für Animation über Button*/
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    width: 0%;
+    width: 0;
     height: 100%;
     background-color: var(--button-hover-color);
-    z-index: -1;
-    transition: width 0.3s ease-in;
+    z-index: -1; /*liegt hinter Schrift des Buttons*/
+    transition: width 0.3s ease-in; /*legt fest, wie Animation verlaufen soll (Dauer)*/
 }
 
+/*Pseudo-Element wird 100% breit, wenn Button gehovert*/
 .btn:hover::before {
     width: 100%;
 }
 
+/*kleiner Button (button-small)*/
 .btn.btn-sm {
     padding: 9px 19px;
 }
 
+/*Sekundärer Button mit anderem Aussehen (e.g. itemid.html --> direkt bestellen (primär) und Warenkorb hinzufügen (sekundär))*/
 .btn.secondary {
     background-color: unset;
     color: var(--text-color);
@@ -230,29 +239,34 @@ a:hover {
     background-color: var(--danger-color);
 }
 
+/*Button mit SVG - wird an Font-Size angepasst*/
 .btn svg {
-    width: 14px;
-    height: 14px;
+    width: var(--button-font-size);
+    height: var(--button-font-size);
 }
 
+/*Zurück-Button*/
 .back-btn {
-    align-self: flex-start;
+    align-self: flex-start; /*immer links angeordnet*/
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: fit-content;
+    gap: 8px; /*Abstand zu anderen Elementen*/
+    width: fit-content; /*Button nur so breit wie Inhalt*/
 }
 
+/*Zurückpfeil*/
 .back-btn svg {
     height: 32px;
 }
 
+/*Zurücktext*/
 .back-btn span {
     display: none;
     font-size: 1.15em;
     padding-right: 5px;
 }
 
+/*wenn Button gehovert wird, wird Span angezeigt*/
 .back-btn:hover span {
     display: block;
 }
@@ -271,6 +285,7 @@ a:hover {
     background-color: var(--card-background-color);
 }
 
+
 .card:hover {
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.62);
 }
@@ -284,7 +299,7 @@ a:hover {
 }
 
 .card h2 {
-    text-wrap: wrap;
+    text-wrap: wrap; /*Zeilenumbruch, wenn Inhalt > 200px*/
     width: 200px;
 }
 .card h2, h4 {
@@ -292,37 +307,38 @@ a:hover {
 }
 
 .card.no-hover:hover {
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62); /*Box-Shadow bleibt gleich*/
 }
 
-.card.justify-start {
+.card.justify-start { /*Optionskarte: Inhalte werden links angeordnet*/
     justify-content: flex-start;
 }
 
 /** Checkbox */
 
-label:has(input[type="checkbox"]) {
+/*Label für Checkbox-Input*/
+label:has(input[type="checkbox"]) {  /*ist im Label-Tag ein Input mit Checkbox-Type?*/
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"] { /*setzt eine Regel, die für allle Inputs vom Typ Checkbox Standardmaße setzt*/
     width: 24px;
     height: 24px;
 }
 
 
-input[type="checkbox"]:checked {
+input[type="checkbox"]:checked { /*Wenn angeklickt, dann Farbe*/
     accent-color: var(--accent-color);
 }
 
-input[type="checkbox"]:focus {
+input[type="checkbox"]:focus { /*keine Outline wenn fokussiert*/
     outline: none !important;
 }
 
 /** Radio buttons */
-
+/*Style für Label, das einen Input von Typ Radio beinhaltet (e.g. Detailseite Größen- und Farbauswahl)*/
 label:has(input[type="radio"]) {
     display: inline-flex;
     align-items: center;
@@ -338,10 +354,12 @@ label:has(input[type="radio"]):hover {
     color: var(--primary-background-color);
 }
 
+
 input[type="radio"] {
-    display: none;
+    display: none; /*Button selbst wird nicht angezeigt, aber da Button in Label wird bei Klick auf Label auch immer Button geklickt*/
 }
 
+/*Style des Labels wenn Button gecheckt*/
 label:has(input[type="radio"]:checked) {
     background-color: var(--text-color);
     color: var(--primary-background-color);
@@ -350,11 +368,11 @@ label:has(input[type="radio"]:checked) {
 /** Range select */
 
 input[type="range"] {
-    accent-color: var(--accent-color);
+    accent-color: var(--accent-color); /*Sliderfarbe*/
 }
 
 input[type="range"]:focus {
-    outline: none;
+    outline: none; /*keine Outline bei Slider*/
 }
 
 /** Inputs */
@@ -365,7 +383,7 @@ input {
     border-radius: 0;
     border: 1px solid var(--text-color);
     width: 100%;
-    text-align: left !important;
+    text-align: left !important; /*Standardwert*/
     box-sizing: border-box;
 }
 
@@ -407,7 +425,7 @@ input:focus {
     font-size: 1rem;
     padding: 10px 0;
     width: 50px;
-    -moz-appearance: textfield;
+    -moz-appearance: textfield; /*damit Standardpfeile von Firefox ausgeblendet werden*/
     background-color: var(--primary-background-color);
 }
 
@@ -417,19 +435,19 @@ input:focus {
 
 /* Table */
 
-table {
+table { /*Tabellendesign generell*/
     border: 1px solid var(--text-color);
     outline: none;
 }
-table th, td {
+table th, td { /*einzelne Zellen haben immer rechts und unten Border */
     padding: 10px;
     border-bottom: 1px solid var(--text-color);
     border-right: 1px solid var(--text-color);
 }
-table th:last-child, td:last-child {
+table th:last-child, td:last-child { /*letzte Zellen einer Reihe haben keine Border*/
     border-right: none;
 }
-table tr:last-child td {
+table tr:last-child td { /*jede Zelle der letzten Zeile hat unten keine Border*/
     border-bottom: none;
 }
 
@@ -444,7 +462,7 @@ form {
     width: 100%;
 }
 
-.login-register-reset {
+.form-box {
     width: 30vw;
     border: 1px solid var(--text-color);
     display: flex;
@@ -453,7 +471,7 @@ form {
     align-items: center;
     padding: 50px;
     height: 100%;
-    box-shadow: 1px 1px 1px var(--login-register-reset-shadow-color);
+    box-shadow: 1px 1px 1px var(--form-box-shadow-color);
     background-color: var(--card-background-color);
 }
 
@@ -478,8 +496,7 @@ form {
 /** Banner Index */
 
 .banner {
-    position: relative;
-    z-index: 1;
+    position: relative; /*damit sich Banner an Bildschirm-Breite anpasst*/
 }
 
 .banner-image {
@@ -491,16 +508,23 @@ form {
 
 /** Layout */
 
-.stack {
+
+.stack { /*Stapel mit Gap dazwischen (e.g. Abstandshalter für Warenkorb) */
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.button-row {
+.button-row { /*Reihe für Buttons*/
     display: flex;
     gap: 20px;
     align-self: flex-start;
+}
+
+/*Setzt den Style für die beiden Buttons "Login" und "Warenkorb" im Header*/
+.button-row-center {
+    display: flex;
+    gap: 1em;
 }
 
 .flex-align-left {
