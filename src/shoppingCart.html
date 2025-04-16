@@ -70,52 +70,11 @@
                     <th>Aktionen</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>Cooles TShirt</td>
-                    <td>1</td>
-                    <td>100,00€</td>
-                    <td><button class="btn btn-sm danger">entfernen.</button></td>
-                </tr>
-                <tr>
-                    <td>Stylish Jeans</td>
-                    <td>2</td>
-                    <td>120,00€</td>
-                    <td><button class="btn btn-sm danger">entfernen.</button></td>
-                </tr>
-                <tr>
-                    <td>Casual Hoodie</td>
-                    <td>1</td>
-                    <td>80,00€</td>
-                    <td><button class="btn btn-sm danger">entfernen.</button></td>
-                </tr>
-                <tr>
-                    <td>Leather Jacket</td>
-                    <td>1</td>
-                    <td>150,00€</td>
-                    <td><button class="btn btn-sm danger">entfernen.</button></td>
-                </tr>
-                <tr>
-                    <td>Running Shoes</td>
-                    <td>1</td>
-                    <td>90,00€</td>
-                    <td><button class="btn btn-sm danger">entfernen.</button></td>
-                </tr>
-                <tr>
-                    <td>Summer Shorts</td>
-                    <td>2</td>
-                    <td>60,00€</td>
-                    <td><button class="btn btn-sm danger">entfernen.</button></td>
-                </tr>
-                <tr>
-                    <td>Winter Scarf</td>
-                    <td>3</td>
-                    <td>45,00€</td>
-                    <td><button class="btn btn-sm danger">entfernen.</button></td>
-                </tr>
+                <tbody id="shoppingCartTBody">
                 </tbody>
             </table>
-            <strong>Gesamt: 645,00€</strong>
+            <strong id="priceWOTax"></strong>
+            <strong id="priceWITax"></strong>
             <button type="submit" class="btn">Zur Kasse</button>
         </div>
     </main>
@@ -124,6 +83,11 @@
         <p>Copyright <span style="font-size: 1rem">&#169;</span> 2025 vestis.</p>
         <a href="impress.html">Impressum</a>
     </footer>
+
+<script src="/js/shoppingCart.js"></script>
+<script>
+    renderShoppingCart();
+</script>
 </body>
 </html>
 <!-- Author: Mathis Burger -->

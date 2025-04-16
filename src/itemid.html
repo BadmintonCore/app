@@ -69,10 +69,10 @@
                     gekleidet.
                 </h5>
 
-                <h2>55,00€ <small>inkl. 19% MwSt.</small></h2>
+                <h2>55,00€ <small>incl. 19% MwSt.</small></h2>
 
                 <!-- For later submission of the order request -->
-                <form class="flex-align-left">
+                <form class="flex-align-left" id="itemIdForm">
                     <strong>Größe</strong>
                     <div class="flex-row">
                         <label>
@@ -110,13 +110,12 @@
                     <label for="amount"><strong>Anzahl</strong></label>
                     <div class="quantity-container">
                         <button class="quantity-btn" type="button">−</button>
-                        <input type="number" id="amount" value="1">
+                        <input type="number" id="amount" value="1" name="quantity">
                         <button class="quantity-btn" type="button">+</button>
                     </div>
                     <div class="button-row">
                         <button type="submit" class="btn" name="buy_direct">Direkt bestellen</button>
-                        <button type="submit" class="btn secondary" name="add_to_shopping_cart">Zum Warenkorb hinzufügen</button>
-
+                        <button type="submit" class="btn secondary" name="add_to_cart">Zum Warenkorb hinzufügen</button>
                     </div>
                 </form>
             </div>
@@ -128,15 +127,12 @@
         <a href="impress.html">Impressum</a>
     </footer>
 
-
-    <script>
-        const containers = document.getElementsByClassName("quantity-container")
-        for (const container of containers) {
-            const input = container.children.item(1);
-            container.children.item(0).addEventListener('click', () => input.value = parseInt(`${input.value}`, 10)-1);
-            container.children.item(2).addEventListener('click', () => input.value = parseInt(`${input.value}`, 10)+1);
-        }
-    </script>
+    <!-- Quantity container event listeners -->
+    <script src="/js/quantityContainer.js"></script>
+    <!-- Shopping cart helper functions need to be loaded first -->
+    <script src="/js/shoppingCart.js"></script>
+    <!-- Actual item ID functions -->
+    <script src="/js/itemId.js"></script>
 </body>
 </html>
 <!-- Author: Mathis Burger -->
