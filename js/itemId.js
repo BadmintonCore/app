@@ -1,4 +1,8 @@
 /**
+ * @author Mathis Burger
+ */
+
+/**
  * Handles the form submission on the item ID page
  *
  * @param {SubmitEvent} e The submit event

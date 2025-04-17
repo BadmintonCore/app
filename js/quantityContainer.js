@@ -1,3 +1,6 @@
+/**
+ * @author Mathis Burger
+ */
 const containers = document.getElementsByClassName("quantity-container");
 for (const container of containers) {
     const input = container.children.item(1);

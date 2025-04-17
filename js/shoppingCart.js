@@ -1,4 +1,8 @@
 /**
+ * @author Mathis Burger
+ */
+
+/**
  * JSDoc type definition for shopping cart item.
  *
  * @typedef {Object} ShoppingCartItem
