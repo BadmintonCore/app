@@ -392,6 +392,10 @@ input:focus {
     outline: 2px solid var(--accent-color);
 }
 
+input:hover {
+    outline: 2px solid var(--accent-color);
+}
+
 /* Quantity input */
 
 .quantity-container {
@@ -483,8 +487,8 @@ form {
     width: 100%;
 }
 
-/* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind */
-.form-input-success {
+/* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind, aber nur beim focus (Wenn das Feld ausgewählt ist) */
+.form-input-success:focus {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -492,8 +496,8 @@ form {
     outline: 2px solid var(--success-color) !important;
 }
 
-/* Outline des Inputs färben, falls Benutzername/Passwort falsch sind */
-.form-input-error {
+/* Outline des Inputs färben, falls Benutzername/Passwort falsch sind,  aber nur beim focus (Wenn das Feld ausgewählt ist) */
+.form-input-error:focus {
     display: flex;
     flex-direction: column;
     gap: 2px;
