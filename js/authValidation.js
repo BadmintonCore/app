@@ -46,8 +46,8 @@ function passwordsMatch(password, passwordConfirmation) {
 /**
  * Markiert die Eingabefelder farblich
  *
- * @param inputElement Eingabefeld
- * @param isValid Valides Eingabefeld
+ * @param {Element} inputElement Eingabefeld
+ * @param {boolean} isValid Valides Eingabefeld
  */
 function markField(inputElement, isValid) {
     if(!inputElement) return; //Wenn das inputElement nicht existiert, return
@@ -78,9 +78,6 @@ function validateForm() {
     // Button nur aktivieren, wenn alles gültig ist
     submitButton.disabled = !(validateUsername(usernameInput.value) && validatePassword(passwordInput.value) && passwordsOk);
 }
-
-//Button initial deaktivieren
-submitButton.disabled = true;
 
 if (registrationForm) {
     registrationForm.addEventListener("submit", function (event) {
