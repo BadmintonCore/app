@@ -10,6 +10,7 @@
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
     --danger-color: darkred;
+    --success-color: #73956f;
     --form-box-shadow-color: rgba(0, 0, 0, 0.62);
     --z-index-popover: 1000;
     --header-height: 100px;
@@ -391,6 +392,10 @@ input:focus {
     outline: 2px solid var(--accent-color);
 }
 
+input:hover {
+    outline: 2px solid var(--accent-color);
+}
+
 /* Quantity input */
 
 .quantity-container {
@@ -482,6 +487,24 @@ form {
     width: 100%;
 }
 
+/* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind, aber nur beim focus (Wenn das Feld ausgewählt ist) */
+.form-input-success:focus {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    outline: 2px solid var(--success-color) !important;
+}
+
+/* Outline des Inputs färben, falls Benutzername/Passwort falsch sind,  aber nur beim focus (Wenn das Feld ausgewählt ist) */
+.form-input-error:focus {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    outline: 2px solid var(--danger-color) !important;
+}
+
 .form-input label.checkbox {
     display: flex;
     align-items: center;
@@ -504,10 +527,7 @@ form {
     height: 100%;
 }
 
-
-
 /** Layout */
-
 
 .stack { /*Stapel mit Gap dazwischen (e.g. Abstandshalter für Warenkorb) */
     display: flex;

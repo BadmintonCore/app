@@ -11,6 +11,12 @@
     <!--Reference to mystyle.css-->
     <link rel="stylesheet" type="text/css" href="mystyle.css">
 
+    <!--Reference to authValidation.js-->
+    <script src="../js/authValidation.js" defer></script>
+    <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
+    Alternative: Script am Ende vom body erst aufführen-->
+
+
     <!--vestis.-Logo in Browser-Tab-->
     <link rel="shortcut icon" href="/img/logo.png" />
 </head>
@@ -60,8 +66,8 @@
 <!--Inhalt der Seite-->
 <main>
 
-    <!--Formular der Klasse loginRegisterReset-->
-    <form class="form-box">
+    <!--Formular der Klasse form-box-->
+    <form class="form-box" id="loginForm">
 
         <!--Seitenüberschrift-->
         <h1>
@@ -79,13 +85,12 @@
 
         <!--Container der Klasse "form-input"-->
         <div class="form-input">
-            <label for="email">
-                <b>E-Mail</b>
+            <label for="username">
+                <b>Benutzername</b>
             </label>
 
-            <!--Input für die E-Mail-->
-            <input type="email" id="email" placeholder="E-Mail eingeben" name="email" required
-                   oninvalid="this.setCustomValidity('Bitte eine gültige E-Mail eingeben.')">
+            <!--Input für den Benutzernamen-->
+            <input type="text" id="username" placeholder="Benutzername eingeben" name="username" required>
         </div>
 
         <br/>
@@ -97,8 +102,7 @@
             </label>
 
             <!--Input für das Passwort-->
-            <input type="password" id="password" placeholder="Passwort eingeben" name="password" required
-                   oninvalid="this.setCustomValidity('Bitte gebe dein Passwort ein.')">
+            <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
         </div>
 
         <br/>
@@ -114,9 +118,11 @@
         </div>
 
         <!--Button zum Einreichen (submit)-->
-        <button type="submit" class="btn align-start">
+        <button type="submit" class="btn align-start" id="subBtn" disabled>
             login.
         </button>
+
+        <p id="message"></p>
 
         <br/>
 

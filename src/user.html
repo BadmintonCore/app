@@ -3,13 +3,21 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>vestis. - Benutzer</title>
+    <title>vestis. - Benutzerbereich</title>
+
+    <!--Keywords für die Suchmaschine-->
     <meta name="keywords" content="clothing, fashion, kleidung">
+
     <!--Reference to mystyle.css-->
     <link rel="stylesheet" type="text/css" href="mystyle.css">
 
+    <!--Reference to authValidation.js-->
+    <script src="../js/authValidation.js" defer></script>
+    <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
+    Alternative: Script am Ende vom body erst aufführen-->
+
     <!--vestis.-Logo in Browser-Tab-->
-    <link rel="shortcut icon" href="/img/logo.png"/>
+    <link rel="shortcut icon" href="/img/logo.png" />
 </head>
 
 <!--Header der Website-->
@@ -56,7 +64,7 @@
 
 <main>
 
-    <form class="form-box">
+    <form class="form-box" id="userForm">
 
         <h1>Benutzerbereich</h1>
         <a class="back-btn" href="index.html">
@@ -68,24 +76,23 @@
         </a>
 
         <div class="form-input">
-            <label for="mail"><b>E-Mail</b></label>
-            <input type="text" id="mail" name="mail" value="deezify@test.de" required>
+            <label for="username"><b>Benutzername</b></label>
+            <input type="text" id="username" name="username" value="kontakt@vestis.de" required>
         </div>
         <br/>
         <div class="form-input">
-            <label for="currentPassword"><b>Aktuelles Passwort</b></label>
-            <input type="password" id="currentPassword" name="currentPassword" value="meinsupersicheresPasswort123"
-                   required>
+            <label for="password"><b>Aktuelles Passwort</b></label>
+            <input type="password" id="password" name="password" value="meinsupersicheresPasswort123" required>
         </div>
         <br/>
-        <button type="submit" class="btn align-start">
+        <button type="submit" class="btn align-start" id="subBtn" disabled>
             aktualisieren.
         </button>
     </form>
 </main>
 <footer>
     <a href="about.html">Über uns</a>
-    <p>Copyright <span style="font-size: 1rem">&#169;</span> 2025 vestis.</p>
+    <p>Copyright <span style="font-size: 1rem">&#169;</span> 2025 vestis.</p> <!--Instyle-CSS-->
     <a href="impress.html">Impressum</a>
 </footer>
 </html>
