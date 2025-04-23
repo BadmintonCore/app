@@ -10,6 +10,7 @@
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
     --danger-color: darkred;
+    --success-color: #73956f;
     --form-box-shadow-color: rgba(0, 0, 0, 0.62);
     --z-index-popover: 1000;
     --header-height: 100px;
@@ -482,6 +483,24 @@ form {
     width: 100%;
 }
 
+/* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind */
+.form-input-success {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    outline: 2px solid var(--success-color) !important;
+}
+
+/* Outline des Inputs färben, falls Benutzername/Passwort falsch sind */
+.form-input-error {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    outline: 2px solid var(--danger-color) !important;
+}
+
 .form-input label.checkbox {
     display: flex;
     align-items: center;
@@ -504,10 +523,7 @@ form {
     height: 100%;
 }
 
-
-
 /** Layout */
-
 
 .stack { /*Stapel mit Gap dazwischen (e.g. Abstandshalter für Warenkorb) */
     display: flex;
