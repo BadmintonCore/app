@@ -40,6 +40,10 @@ p.large-text {
     text-align: justify;
 }
 
+p.text-align-left {
+    align-self: flex-start; /* Überschreibt das align-items in der Flexbox (für das form in diesem Fall) */
+}
+
 /*zentriert und setzt Hintergrundfarbe*/
 body {
     background-color: var(--primary-background-color);
