@@ -1,0 +1,27 @@
+services:
+  php-server:
+    image: ghcr.io/BadmintonCore/app-php-server:latest
+    restart: unless-stopped
+    environment:
+      SERVER_NAME: localhost, php:80
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8000:80"
+      - "9003:9003"
+  db:
+    image: mariadb:latest
+    container_name: typo3-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vestis
+      MYSQL_USER: vestis
+      MYSQL_PASSWORD: vestis
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  db_data:
