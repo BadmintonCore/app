@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 php:8.2-apache
+FROM --platform=linux/amd64 php:8.4-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 ENV COMPOSER_ALLOW_SUPERUSER 1
