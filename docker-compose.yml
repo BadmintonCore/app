@@ -1,6 +1,6 @@
 services:
   php-server:
-    image: ghcr.io/BadmintonCore/app-php-server:latest
+    image: ghcr.io/badmintoncore/app-php-server:latest
     restart: unless-stopped
     environment:
       SERVER_NAME: localhost, php:80
