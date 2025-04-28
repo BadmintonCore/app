@@ -2,6 +2,7 @@ services:
   php-server:
     image: ghcr.io/badmintoncore/app-php-server:latest
     restart: unless-stopped
+    platform: linux/amd64
     environment:
       SERVER_NAME: localhost, php:80
     volumes:
@@ -11,8 +12,8 @@ services:
       - "9003:9003"
   db:
     image: mariadb:latest
-    container_name: typo3-db
     restart: always
+    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: vestis
