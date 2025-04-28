@@ -23,6 +23,11 @@ services:
       - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
+  maildev:
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
 
 volumes:
   db_data:
