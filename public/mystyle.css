@@ -2,6 +2,7 @@
 
 /** Variable definitions */
 :root {
+    /*Standard-Farben / White-Mode*/
     --primary-background-color: #fff9e9;
     --footer-background-color: #e5dacb;
     --header-background-color: #fbf3e7;
@@ -18,11 +19,26 @@
     --button-font-size: 14px;
 }
 
+/*Dark-Mode Farbpalette*/
+html[data-theme='dark'] {
+    --primary-background-color: #000000;
+    --footer-background-color: #2b2a28;
+    --header-background-color: #2d2b29;
+    --card-background-color: #353330;
+    --text-color: #fff9e9;
+    --button-hover-color: #888888;
+    --accent-color: #d98fa7;
+    --danger-color: #ff4c4c;
+    --success-color: #9fcfa0;
+    --form-box-shadow-color: rgba(255, 255, 255, 0.15);
+}
+
 /* Generelle Styles */
 
 /* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
 h1 {
     text-align: center;
+    color: var(--text-color);
 }
 
 * {
@@ -32,12 +48,14 @@ h1 {
 p {
     font-size: 12px;
     text-align: justify; /*Es gibt entweder nur Blocksatz oder text-align: right, beides geht nicht!*/
+    color: var(--text-color);
 }
 
 /* genutzt für Texte, die größere Buchstaben benötigen (e.g. Impressum.html */
 p.large-text {
     font-size: 16px;
     text-align: justify;
+    color: var(--text-color);
 }
 
 p.text-align-left {
@@ -56,10 +74,12 @@ body {
 /*Zelle im Tabellenkopf*/
 th {
     background-color: lightgray;
+
 }
 
 h2 small {
     font-size: .6em;
+    color: var(--text-color);
 }
 
 /** Header */
@@ -71,10 +91,11 @@ header {
     display: grid;
     width: 100%;
     place-items: center;
-    grid-template-columns: 1fr var(--header-height) 1fr; /*flexible Einheit, die sich an vorhandener Menge der 1fr bemisst minus anderer Elemente*/
+    grid-template-columns: 1fr var(--header-height) 1fr auto; /*flexible Einheit, die sich an vorhandener Menge der 1fr bemisst minus anderer Elemente - auto für Darkmode-Button*/
     height: var(--header-height);
     box-shadow: 0 1px 0 var(--text-color); /*vertikaler Schatten Größe 1 Pixel*/
     z-index: 500; /*wichtig, damit Header immer über Elementen von main angezeigt wird*/
+    padding-right: 25px; /*Abstand zum rechten Rand, damit Darkmode-Button immer mit 25 Pixel Abstand dargestellt wird*/
 }
 
 /*Höhe Bild im Header (Logo)*/
@@ -276,17 +297,75 @@ a:hover {
     display: block;
 }
 
+/*Darkmode-Button*/
+.darkmode-btn{
+    justify-self: end; /*Darkmode Button wird ganz rechts ausgerichtet*/
+    position: relative;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    }
+
+.darkmode-btn svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease; /* Weicher Übergang */
+}
+
+
+/* Standard (Light Mode): Sonne sichtbar, Mond unsichtbar */
+html:not([data-theme='dark']) .darkmode-btn .bi-moon {
+    opacity: 0;
+}
+html:not([data-theme='dark']) .darkmode-btn .bi-sun {
+    opacity: 1;
+}
+
+/* Dark Mode: Sonne unsichtbar, Mond sichtbar */
+html[data-theme='dark'] .darkmode-btn .bi-moon {
+    opacity: 1;
+}
+html[data-theme='dark'] .darkmode-btn .bi-sun {
+    opacity: 0;
+}
+
+
+/*Hover-Effekte mit Icon-Wechsel im Light-Mode*/
+html:not([data-theme='dark']) .darkmode-btn:hover .bi-sun {
+    opacity: 0; /* Sonne ausblenden */
+}
+
+html:not([data-theme='dark']) .darkmode-btn:hover .bi-moon {
+    opacity: 1; /* Mond einblenden */
+}
+
+/*Hover-Effekte mit Icon-Wechsel im Dark-Mode*/
+html[data-theme='dark'] .darkmode-btn:hover .bi-moon {
+    opacity: 0; /* Mond ausblenden */
+}
+
+html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
+    opacity: 1; /* Sonne einblenden */
+}
+
 /** Cards */
 
 .card {
     border: 1px solid var(--text-color);
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 8px;
     height: 100%;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62);
+    box-shadow: 1px 1px 1px var(--form-box-shadow-color);
     background-color: var(--card-background-color);
 }
 
@@ -599,4 +678,5 @@ form {
 #resetAndRegister {
     text-align: center;
 }
+
 /*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/
