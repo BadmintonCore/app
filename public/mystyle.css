@@ -6,6 +6,7 @@
     --footer-background-color: #e5dacb;
     --header-background-color: #fbf3e7;
     --card-background-color: #fbf4e2;
+    --sidebar-color: #ebdfcf;
     --text-color: black;
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
@@ -83,7 +84,7 @@ header img {
 }
 
 /*ordnet die UL im Header in einer Reihe an - Accesoires und Kleidung werden nebeneinander statt untereinander als Bullets angezeigt*/
-header nav ul {
+header ul {
     display: flex;
     gap: 20px;
     list-style: none; /*keine Bulletpoints*/
@@ -91,13 +92,13 @@ header nav ul {
 }
 
 /*Kleidung und Accesoire*/
-header nav ul li {
+header ul li {
     position: relative;
     padding: 5px;
 }
 
 /*einzelne Drop-Downs*/
-header nav ul li ul {
+header ul li ul {
     display: none; /*standardmäßig nicht angezeigt*/
     position: absolute; /*Position frei wählbar abhängig von übergeordnetem Element*/
     top: 100%; /*Abstand zum übergeordneten Element*/
@@ -111,8 +112,74 @@ header nav ul li ul {
 }
 
 
-header nav ul li:hover ul {
+header ul li:hover ul {
     display: flex; /*Wenn Accesoire oder Kleidung gehovert wird, wird das Dropdown angezeigt*/
+}
+
+.sidebar-drawer {
+    display: none;
+    flex-direction: column;
+    width: 75%;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    position: absolute;
+    background: var(--sidebar-color);
+}
+
+.sidebar-drawer .close-icon {
+    height: 50px;
+    align-self: flex-end;
+    position: relative;
+}
+
+.sidebar-drawer .close-icon:hover {
+    transform: rotate(360deg);
+    transition: ease-in .3s;
+    padding: inherit;
+}
+
+@keyframes drawerSlide {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+.drawer-toggler {
+    display: none;
+    position: relative;
+    justify-self: flex-start;
+}
+
+.drawer-toggler svg {
+    height: calc(var(--header-height) / 2);
+}
+
+@media screen and (max-width: 820px) {
+    header {
+        display: grid;
+        place-items: center;
+    }
+    header nav {
+        display: none;
+    }
+    header .button-row-center {
+        display: none;
+    }
+    .drawer-toggler {
+        display: block;
+    }
+    .sidebar-drawer.open {
+        display: flex;
+        animation-name: drawerSlide;
+        animation-duration: .3s;
+        animation-fill-mode: forwards;
+
+    }
 }
 
 
@@ -358,7 +425,7 @@ label:has(input[type="radio"]) {
     border: 1px solid var(--text-color);
     cursor: pointer;
     padding: 4px 8px;
-    transition: ease-in .3s;
+    transition: ease-in .5s;
 }
 
 label:has(input[type="radio"]):hover {

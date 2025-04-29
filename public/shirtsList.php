@@ -4,14 +4,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
+    <?php include("../components/head.php"); ?>
     <title>Vestis - Kategorie 1</title>
-    <meta name="keywords" content="clothing, fashion, kleidung">
-    <!--Reference to mystyle.css-->
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
-
-    <!--vestis.-Logo in Browser-Tab-->
-    <link rel="shortcut icon" href="/img/logo.png" />
 </head>
 <body>
 <?php include("../components/header.php"); ?>
