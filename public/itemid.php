@@ -14,12 +14,14 @@
 <body>
     <?php include("../components/header.php"); ?>
     <main>
-        <?php include("../components/back-btn.php"); ?>
-        <div class="grid-50-50">
+        <div class="details-flex">
+            <div class="back-btn-container">
+                <?php include("../components/back-btn.php"); ?>
+            </div>
             <img src="/img/tshirt-beige.webp"
                  alt="product image"
-                 height="500" width="500"/>
-            <div>
+                 />
+            <div class="info">
                 <h1>Modernes grünes Tshirt</h1>
                 <h5>
                     Ein modernes Tshirt mit guten Look. Perfekt für den Sommer und den Winter. <br/>
