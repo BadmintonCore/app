@@ -164,26 +164,55 @@ header ul li:hover ul {
 .sidebar-drawer {
     display: none;
     flex-direction: column;
-    width: 75%;
+    width: 40vw;
     min-height: 100vh;
     top: 0;
     left: 0;
     z-index: 999;
+    margin: 0;
     position: absolute;
     background: var(--sidebar-color);
+    backdrop-filter: blur(100px);
+    border-right: 1px solid var(--text-color);
+    padding: 0 10px;
+}
+
+@media screen and (max-width: 680px) {
+    .sidebar-drawer {
+        width: 60vw;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .sidebar-drawer {
+        width: 75vw;
+    }
+}
+
+.sidebar-drawer a.btn {
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .sidebar-drawer .close-icon {
-    height: 50px;
+    height: 35px;
     align-self: flex-end;
     position: relative;
     color: var(--text-color);
 }
 
-.sidebar-drawer .close-icon:hover {
-    transform: rotate(90deg);
-    transition: ease-in .3s;
-    padding: inherit;
+.sidebar-overlay {
+    width: 105vw;
+    position: absolute;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+.sidebar-overlay.open {
+    display: block;
 }
 
 @keyframes drawerSlide {
@@ -207,7 +236,7 @@ header ul li:hover ul {
     color: var(--text-color);
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 945px) {
     header {
         display: grid;
         place-items: center;
