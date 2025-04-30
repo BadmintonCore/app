@@ -2,23 +2,10 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
+    <?php include("../components/head.php"); ?>
     <title>vestis. - Einloggen</title>
-
-    <!--Keywords für die Suchmaschine-->
-    <meta name="keywords" content="clothing, fashion, kleidung">
-
-    <!--Reference to mystyle.css-->
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
-
     <!--Reference to authValidation.js-->
     <script src="js/authValidation.js" defer></script>
-    <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
-    Alternative: Script am Ende vom body erst aufführen-->
-
-
-    <!--vestis.-Logo in Browser-Tab-->
-    <link rel="shortcut icon" href="/img/logo.png" />
 </head>
 <body>
 
