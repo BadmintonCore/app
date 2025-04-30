@@ -8,11 +8,13 @@
     --header-background-color: #fbf3e7;
     --card-background-color: #fbf4e2;
     --text-color: black;
+    --button-color: black;
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
     --danger-color: darkred;
     --success-color: #73956f;
     --form-box-shadow-color: rgba(0, 0, 0, 0.62);
+    --th-background-color: lightgray;
     --z-index-popover: 1000;
     --header-height: 100px;
     --footer-height: 50px;
@@ -26,11 +28,13 @@ html[data-theme='dark'] {
     --header-background-color: #2d2b29;
     --card-background-color: #353330;
     --text-color: #fff9e9;
-    --button-hover-color: #888888;
+    --button-color: rgba(255, 249, 233, 0.7);
+    --button-hover-color: rgba(255, 249, 233, 0.9);
     --accent-color: #d98fa7;
     --danger-color: #ff4c4c;
     --success-color: #9fcfa0;
     --form-box-shadow-color: rgba(255, 255, 255, 0.15);
+    --th-background-color: #353330;
 }
 
 /* Generelle Styles */
@@ -73,7 +77,8 @@ body {
 }
 /*Zelle im Tabellenkopf*/
 th {
-    background-color: lightgray;
+    background-color: var(--th-background-color);
+    color: var(--text-color);
 
 }
 
@@ -91,17 +96,30 @@ header {
     display: grid;
     width: 100%;
     place-items: center;
-    grid-template-columns: 1fr var(--header-height) 1fr auto; /*flexible Einheit, die sich an vorhandener Menge der 1fr bemisst minus anderer Elemente - auto für Darkmode-Button*/
+    grid-template-columns: 1fr var(--header-height) 1fr; /*flexible Einheit, die sich an vorhandener Menge der 1fr bemisst minus anderer Elemente - auto für Darkmode-Button*/
     height: var(--header-height);
     box-shadow: 0 1px 0 var(--text-color); /*vertikaler Schatten Größe 1 Pixel*/
     z-index: 500; /*wichtig, damit Header immer über Elementen von main angezeigt wird*/
     padding-right: 25px; /*Abstand zum rechten Rand, damit Darkmode-Button immer mit 25 Pixel Abstand dargestellt wird*/
 }
 
+/*extra-Element im Header (z.B. Darkmode-Buuton*/
+.extra-button {
+    position: absolute;
+    right: 25px; /* wird immer mit 25 Pixel Abstand zum rechten Rand dargestellt*/
+
+}
+
 /*Höhe Bild im Header (Logo)*/
 header img {
     height: var(--header-height);
 }
+
+/* Logo im Dark Mode invertieren */
+html[data-theme='dark'] .logo-link .logo-image {
+    filter: invert(100%) sepia(10%) saturate(300%) hue-rotate(10deg) brightness(105%); /* Ändert die Farben des Logos zu hellbeige*/
+}
+
 
 /*ordnet die UL im Header in einer Reihe an - Accesoires und Kleidung werden nebeneinander statt untereinander als Bullets angezeigt*/
 header nav ul {
@@ -155,6 +173,10 @@ main.banner-content {
     padding: var(--header-height) 0;
 }
 
+html[data-theme='dark'] .banner-content .banner-image {
+    filter: brightness(50%); /*Ändert die Helligkeit des Bildes auf Startsteite, sobald Dark-Mode aktiv*/
+}
+
 /*für breiteren Content im main Tag (e.g. ShirtList*/
 main.content-wide {
     width: 80%;
@@ -200,7 +222,7 @@ a {
 /*Setzen der Animation beim Hover*/
 a:hover {
     animation-name: link-hover;
-    animation-duration: .3s;
+    animation-duration: .7s;
     animation-fill-mode: forwards; /*nach Animation bleibt der Stand solang gehovert und geht nicht autom. in Ursprungszustand*/
 }
 
@@ -214,7 +236,7 @@ a:hover {
 /*Normaler Button*/
 .btn {
     color: var(--primary-background-color);
-    background-color: var(--text-color);
+    background-color: var(--button-color);
     border-radius: 0; /*um Browser-abhängige border-radius zu überschreiben*/
     border: none; /*um Border zu entfernen*/
     padding: 18px 36px;
@@ -247,18 +269,19 @@ a:hover {
 
 /*kleiner Button (button-small)*/
 .btn.btn-sm {
+    color: var(--primary-background-color);
     padding: 9px 19px;
 }
 
 /*Sekundärer Button mit anderem Aussehen (e.g. itemid.html --> direkt bestellen (primär) und Warenkorb hinzufügen (sekundär))*/
 .btn.secondary {
     background-color: unset;
-    color: var(--text-color);
-    border: 1px solid var(--text-color);
+    color: var(--button-color);
+    border: 1px solid var(--button-color);
 }
 
 .btn.secondary:hover {
-    color: var(--primary-background-color);
+    color: var(--button-color);
 }
 
 .btn.danger {
@@ -322,36 +345,44 @@ a:hover {
 /* Standard (Light Mode): Sonne sichtbar, Mond unsichtbar */
 html:not([data-theme='dark']) .darkmode-btn .bi-moon {
     opacity: 0;
+    color: var(--text-color);
 }
 html:not([data-theme='dark']) .darkmode-btn .bi-sun {
     opacity: 1;
+    color: var(--text-color);
 }
 
 /* Dark Mode: Sonne unsichtbar, Mond sichtbar */
 html[data-theme='dark'] .darkmode-btn .bi-moon {
     opacity: 1;
+    color: var(--text-color);
 }
 html[data-theme='dark'] .darkmode-btn .bi-sun {
     opacity: 0;
+    color: var(--text-color);
 }
 
 
 /*Hover-Effekte mit Icon-Wechsel im Light-Mode*/
 html:not([data-theme='dark']) .darkmode-btn:hover .bi-sun {
     opacity: 0; /* Sonne ausblenden */
+    color: var(--text-color);
 }
 
 html:not([data-theme='dark']) .darkmode-btn:hover .bi-moon {
     opacity: 1; /* Mond einblenden */
+    color: var(--text-color);
 }
 
 /*Hover-Effekte mit Icon-Wechsel im Dark-Mode*/
 html[data-theme='dark'] .darkmode-btn:hover .bi-moon {
     opacity: 0; /* Mond ausblenden */
+    color: var(--text-color);
 }
 
 html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     opacity: 1; /* Sonne einblenden */
+    color: var(--text-color);
 }
 
 /** Cards */
@@ -379,10 +410,12 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
 }
 
 .card * {
+    color: var(--text-color);
     text-align: center;
 }
 
 .card h2 {
+    color: var(--text-color);
     text-wrap: wrap; /*Zeilenumbruch, wenn Inhalt > 200px*/
     width: 200px;
 }
@@ -391,7 +424,7 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
 }
 
 .card.no-hover:hover {
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.62); /*Box-Shadow bleibt gleich*/
+    box-shadow: 1px 1px 1px  var(--form-box-shadow-color); /*Box-Shadow bleibt gleich*/
 }
 
 .card.justify-start { /*Optionskarte: Inhalte werden links angeordnet*/
@@ -542,6 +575,7 @@ table tr:last-child td { /*jede Zelle der letzten Zeile hat unten keine Border*/
 /** Formulare */
 
 form {
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -551,6 +585,7 @@ form {
 }
 
 .form-box {
+    color: var(--text-color);
     width: 30vw;
     border: 1px solid var(--text-color);
     display: flex;
