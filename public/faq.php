@@ -2,17 +2,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
     <title>vestis. - FAQs</title>
-
-    <!--Keywords für die Suchmaschine-->
-    <meta name="keywords" content="clothing, fashion, kleidung">
-
-    <!--Reference to mystyle.css-->
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
-
-    <!--vestis.-Logo in Browser-Tab-->
-    <link rel="shortcut icon" href="/img/logo.png" />
+    <?php include("../components/head.php"); ?>
 </head>
 <body>
 
