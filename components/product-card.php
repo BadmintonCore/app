@@ -4,7 +4,7 @@
 function generateProjectCard(string $imgLocation, string $detailPath, string $name, float $price): string
 {
     return <<<EOT
-        <div class="card">
+        <div class="card product-card">
                 <img
                         src="$imgLocation"
                         alt="product image"/>

@@ -4,3 +4,4 @@
 <link rel="stylesheet" type="text/css" href="mystyle.css">
 <link rel="shortcut icon" href="/img/logo.png" />
 <script src="/js/header.js" defer></script>
+<script src="/js/convertCurrency.js" defer></script>
