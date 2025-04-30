@@ -37,7 +37,7 @@ html[data-theme='dark'] {
     --accent-color: #d98fa7;
     --danger-color: #ff4c4c;
     --success-color: #9fcfa0;
-    --form-box-shadow-color: rgba(255, 255, 255, 0.15);
+    --form-box-shadow-color: #fff9e9;
     --th-background-color: #353330;
 }
 
