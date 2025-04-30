@@ -81,6 +81,7 @@ function renderShoppingCart() {
         row.appendChild(quantityTd);
 
         const priceId = document.createElement("td");
+        priceId.classList.add("price-field");
         priceId.textContent = `${getTotalPrice(shoppingCartItem.productPrice).toFixed(2)}€`;
         row.appendChild(priceId);
 
@@ -95,8 +96,11 @@ function renderShoppingCart() {
         tableBody.appendChild(row);
     }
     const priceWoTax = getPriceWOTax(shoppingCart);
-    document.getElementById('priceWOTax').textContent = `Gesamt (ohne Steuern): ${priceWoTax.toFixed(2)}€`;
-    document.getElementById('priceWITax').textContent = `Gesamt (inkl. 19%): ${getTotalPrice(priceWoTax).toFixed(2)}€`;
+    document.getElementById('priceWOTax').innerHTML = `Gesamt (ohne Steuern): <span class="price-field">${priceWoTax.toFixed(2)}</span>`;
+    document.getElementById('priceWITax').innerHTML = `Gesamt (inkl. 19%): <span class="price-field">${getTotalPrice(priceWoTax).toFixed(2)}</span>`;
+
+    // Update all prices afterward
+    updatePrices();
 }
 
 

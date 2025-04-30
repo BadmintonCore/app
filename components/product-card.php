@@ -10,7 +10,7 @@ function generateProjectCard(string $imgLocation, string $detailPath, string $na
                         alt="product image"/>
                 <br>
                 <h2><a href="$detailPath">$name</a></h2>
-                <h4>$price €</h4>
+                <h4 class="price-field">$price</h4>
                 <a href="itemid.php" class="btn btn-sm">details.</a>
             </div>
         EOT;

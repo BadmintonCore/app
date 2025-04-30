@@ -42,5 +42,6 @@
     </form>
 </main>
 <?php include("../components/footer.php"); ?>
+<?php include("../components/scripts.php"); ?>
 </html>
 <!--Author: Lennart Moog-->

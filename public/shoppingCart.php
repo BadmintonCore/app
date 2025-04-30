@@ -30,7 +30,7 @@
         </div>
     </main>
     <?php include("../components/footer.php"); ?>
-
+<?php include("../components/scripts.php"); ?>
 <script src="/js/shoppingCart.js"></script>
 <script>
     renderShoppingCart();

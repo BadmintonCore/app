@@ -23,7 +23,7 @@
                     gekleidet.
                 </h5>
 
-                <h2>55,00€ <small>incl. 19% MwSt.</small></h2>
+                <h2 class="price-field">55,00<small>&nbsp;incl. 19% MwSt.</small></h2>
 
                 <!-- For later submission of the order request -->
                 <form class="flex-align-left" id="itemIdForm">
@@ -83,6 +83,7 @@
     <script src="/js/shoppingCart.js"></script>
     <!-- Actual item ID functions -->
     <script src="/js/itemId.js"></script>
+    <?php include("../components/scripts.php"); ?>
 </body>
 </html>
 <!-- Author: Mathis Burger -->

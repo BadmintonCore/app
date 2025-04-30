@@ -112,6 +112,7 @@
 
 <!--Footer der Website-->
 <?php include("../components/footer.php"); ?>
+<?php include("../components/scripts.php"); ?>
 </body>
 </html>
 <!--Author: Lasse Hoffmann-->
