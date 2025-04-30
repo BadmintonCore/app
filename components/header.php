@@ -91,5 +91,5 @@
 
 
     </div>
-    <script src="/js/toggleDarkMode.js" defer></script>
+
 </header>

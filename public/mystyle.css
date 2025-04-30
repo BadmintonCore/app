@@ -10,7 +10,7 @@
     --sidebar-color: #ebdfcf;
     --text-color: black;
     --button-color: black;
-    --button-secondard-text-color: var(--text-color);
+    --button-secondary-text-color: var(--text-color);
     --button-hover-color: #656565;
     --accent-color: #b35c7d;
     --danger-color: darkred;
@@ -32,7 +32,7 @@ html[data-theme='dark'] {
     --sidebar-color: #2c2a27;
     --text-color: #fff9e9;
     --button-color: rgba(255, 249, 233, 0.9);
-    --button-secondard-text-color: #000;
+    --button-secondary-text-color: #000;
     --button-hover-color: rgba(255, 249, 233, 1);
     --accent-color: #d98fa7;
     --danger-color: #ff4c4c;
@@ -357,7 +357,7 @@ a:hover {
 }
 
 .btn.secondary:hover {
-    color: var(--button-secondard-text-color);
+    color: var(--button-secondary-text-color);
 }
 
 .btn.danger {
@@ -477,10 +477,13 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     background-color: var(--card-background-color);
     min-width: 250px;
 }
+.card .btn.btn-sm{
+    margin-top: 10px;
+}
 
 
 .card:hover {
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.62);
+    box-shadow: 3px 3px 3px var(--form-box-shadow-color);
 }
 
 .card img {
