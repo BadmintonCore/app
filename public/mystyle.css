@@ -164,7 +164,7 @@ header ul li:hover ul {
 .sidebar-drawer {
     display: none;
     flex-direction: column;
-    width: 50vw;
+    width: 40vw;
     min-height: 100vh;
     top: 0;
     left: 0;
@@ -177,6 +177,18 @@ header ul li:hover ul {
     padding: 0 10px;
 }
 
+@media screen and (max-width: 680px) {
+    .sidebar-drawer {
+        width: 60vw;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .sidebar-drawer {
+        width: 75vw;
+    }
+}
+
 .sidebar-drawer a.btn {
     margin-top: 10px;
     margin-left: 10px;
@@ -187,7 +199,6 @@ header ul li:hover ul {
     align-self: flex-end;
     position: relative;
     color: var(--text-color);
-    margin: 10px;
 }
 
 .sidebar-overlay {
