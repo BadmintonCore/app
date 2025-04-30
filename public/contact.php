@@ -3,7 +3,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>vestis. - Einloggen</title>
+    <title>vestis. - Kontakt</title>
 
     <!--Keywords für die Suchmaschine-->
     <meta name="keywords" content="clothing, fashion, kleidung">
@@ -18,7 +18,7 @@
 
 
     <!--vestis.-Logo in Browser-Tab-->
-    <link rel="shortcut icon" href="/img/logo.png" />
+    <link rel="shortcut icon" href="/img/logo.png"/>
 </head>
 <body>
 
@@ -33,7 +33,7 @@
 
         <!--Seitenüberschrift-->
         <h1>
-            Einloggen
+            Kontaktformular
         </h1>
 
         <!--Zurückbutton-->
@@ -41,51 +41,26 @@
 
         <!--Container der Klasse "form-input"-->
         <div class="form-input">
-            <label for="username">
-                <b>Benutzername/E-Mail</b>
+            <label for="email">
+                <b>E-Mail</b>
             </label>
 
             <!--Input für den Benutzernamen-->
-            <input type="text" id="username" placeholder="Benutzername oder E-Mail eingeben" name="username" required>
+            <input type="email" id="email" placeholder="E-Mail eingeben" name="email" required>
         </div>
 
-        <!--Container der Klasse "form-input"-->
         <div class="form-input">
-            <label for="password">
-                <b>Passwort</b>
+            <label for="message">
+                <b>Deine Nachricht</b>
             </label>
 
-            <!--Input für das Passwort-->
-            <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
-        </div>
-
-        <!--Container der Klasse "form-input"-->
-        <div class="form-input">
-            <label class="checkbox">
-
-                <!--Checkbox für "Angemeldet bleiben"-->
-                <input type="checkbox" name="rememberMe">
-                Angemeldet bleiben
-            </label>
+            <textarea id="message" placeholder="Nachricht eingeben" name="message" required></textarea>
         </div>
 
         <!--Button zum Einreichen (submit)-->
-        <button type="submit" class="btn align-start" id="subBtn" disabled>
-            login.
+        <button type="submit" class="btn align-start">
+            abschicken.
         </button>
-
-        <br/>
-
-        <!--Container mit der id "resetAndRegister"-->
-        <div id="resetAndRegister">
-            <a href="reset.php">
-                Passwort zurücksetzen
-            </a>
-            <hr/>
-            <a href="registration.php">
-                Jetzt registrieren
-            </a>
-        </div>
     </form>
 </main>
 

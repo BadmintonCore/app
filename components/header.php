@@ -16,7 +16,7 @@
         </ul>
     </nav>
     <a class="logo-link" href="index.php">
-        <img src="/img/logo.png" alt="vestis.">
+        <img src="../img/logo-transparent.png" alt="vestis.">
     </a>
     <div class="button-row-center">
         <a class="btn" href="login.php">
@@ -35,5 +35,12 @@
             &nbsp;
             warenkorb.
         </a>
+        <label for="currency">
+            <select name="currency" id="currency">
+                <option value="EUR" selected>&#x1F1E9;&#x1F1EA;</option>
+                <option value="CHF">&#x1F1E8;&#x1F1ED;</option>
+                <option value="USD">&#x1F1FA;&#x1F1F8;</option>
+            </select>
+        </label>
     </div>
 </header>

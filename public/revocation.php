@@ -1,0 +1,52 @@
+<!--Author: Lasse Hoffmann-->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>vestis. - Wiederruf</title>
+
+    <!--Keywords für die Suchmaschine-->
+    <meta name="keywords" content="clothing, fashion, kleidung">
+
+    <!--Reference to mystyle.css-->
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+
+    <!--vestis.-Logo in Browser-Tab-->
+    <link rel="shortcut icon" href="/img/logo.png" />
+</head>
+<body>
+
+<!--Header der Website-->
+<?php include("../components/header.php"); ?>
+<!--Inhalt der Seite-->
+<main>
+
+    <!--Zurückbutton-->
+    <?php include("../components/back-btn.php"); ?>
+
+    <h1>Widerrufserklärung</h1>
+
+    <!--Abschnitt mit zwei Absätzen-->
+    <section>
+        <p class="large-text" style="text-align: justify">
+            <b>Widerrufsrecht für Verbraucher</b> <br>
+            <br>
+            Verbraucher haben ein vierzehntägiges Widerrufsrecht.<br>
+            <br>
+            <b>Widerrufsrecht</b> <br>
+            Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.<br>
+            Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter,<br>
+            der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat, <br>
+            im Falle einer Teillieferung: an dem Sie oder ein Dritter die letzte Ware in Besitz genommen haben.<br>
+            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (MusterShop GmbH, Musterstraße 1, 12345 Musterstadt,<br>
+            E-Mail: info@mustershop.de, Telefon: 01234 / 567890)mittels einer eindeutigen Erklärung <br>
+            (per E-Mail oder Post) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.
+        </p>
+        </section>
+</main>
+
+<!--Footer der Website-->
+<?php include("../components/footer.php"); ?>
+</body>
+</html>
+<!--Author: Lasse Hoffmann-->
