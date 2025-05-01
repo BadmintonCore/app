@@ -34,9 +34,9 @@
         <div class="footer-category">
             <h4>Über uns</h4>
             <a href="about.php">Das sind wir</a>
-            <a href="about.php">Jobs</a>
-            <a href="about.php">Presse</a>
-            <a href="about.php">Verantwortung</a>
+            <a href="jobs.php">Jobs</a>
+            <a href="press.php">Presse</a>
+            <a href="responsibility.php">Verantwortung</a>
         </div>
 
         <!--Container der Klasse "footer-category"-->
@@ -51,10 +51,10 @@
         <!--Container der Klasse "footer-category"-->
         <div class="footer-category">
             <h4>Dein Einkauf</h4>
-            <a href="about.php">Fragen zur Bestellung</a>
-            <a href="about.php">Zahlungsmethoden</a>
-            <a href="about.php">Versand und Lieferung</a>
-            <a href="about.php">Online-Gutscheine</a>
+            <a href="order.php">Fragen zur Bestellung</a>
+            <a href="paymentmethods.php">Zahlungsmethoden</a>
+            <a href="shipment.php">Versand und Lieferung</a>
+            <a href="vouchers.php">Online-Gutscheine</a>
         </div>
 
         <!--Container der Klasse "footer-category"-->
