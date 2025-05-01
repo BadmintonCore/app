@@ -17,7 +17,7 @@
 
     <h1>Widerrufserklärung</h1>
 
-    <!--Abschnitt mit zwei Absätzen-->
+    <!--Abschnitt mit einem Absatz-->
     <section>
         <p class="large-text" style="text-align: justify">
             <b>Widerrufsrecht für Verbraucher</b> <br>

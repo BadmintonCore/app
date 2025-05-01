@@ -13,7 +13,7 @@
 <!--Inhalt der Seite-->
 <main>
 
-    <!--Formular der Klasse form-box-->
+    <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="loginForm">
 
         <!--Seitenüberschrift-->
@@ -30,15 +30,17 @@
                 <b>E-Mail</b>
             </label>
 
-            <!--Input für den Benutzernamen-->
+            <!--Input für die E-Mail-->
             <input type="email" id="email" placeholder="E-Mail eingeben" name="email" required>
         </div>
 
+        <!--Container der Klasse "form-input"-->
         <div class="form-input">
             <label for="message">
                 <b>Deine Nachricht</b>
             </label>
 
+            <!--Textarea für die Nachricht des Benutzers-->
             <textarea id="message" placeholder="Nachricht eingeben" name="message" required></textarea>
         </div>
 

@@ -17,7 +17,7 @@
 
     <h1>Rücksendungen</h1>
 
-    <!--Abschnitt mit zwei Absätzen-->
+    <!--Abschnitt mit mehreren Absätzen-->
     <section>
         <p class="large-text">
             <b>Rücksendung</b> <br>

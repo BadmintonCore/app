@@ -17,7 +17,7 @@
 
     <h1>Fragen und Antworten</h1>
 
-    <!--Abschnitt mit zwei Absätzen-->
+    <!--Abschnitt mit mehreren Absätzen-->
     <section>
         <p class="large-text">
             <b>1. Wie lange dauert der Versand?</b> <br>

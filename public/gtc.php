@@ -17,7 +17,7 @@
 
     <h1>Allgemeine Geschäftsbedingungen</h1>
 
-    <!--Abschnitt mit zwei Absätzen-->
+    <!--Abschnitt mit mehreren Absätzen-->
     <section>
         <p class = "large-text">
             <b>1. Geltungsbereich</b> <br>

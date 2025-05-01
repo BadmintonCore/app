@@ -15,7 +15,7 @@
 <!--Inhalt der Seite-->
 <main>
 
-    <!--Formular der Klasse form-box-->
+    <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="loginForm">
 
         <!--Seitenüberschrift-->
