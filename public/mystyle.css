@@ -19,7 +19,7 @@
     --th-background-color: lightgray;
     --z-index-popover: 1000;
     --header-height: 100px;
-    --footer-height: 50px;
+    --footer-height: 485px;
     --button-font-size: 14px;
 }
 
@@ -62,6 +62,15 @@ p {
     color: var(--text-color);
 }
 
+textarea {
+    height: 250px;
+    border-radius: 0;
+    border: 1px solid var(--text-color);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
 /* genutzt für Texte, die größere Buchstaben benötigen (e.g. Impressum.html */
 p.large-text {
     font-size: 16px;
@@ -82,6 +91,7 @@ body {
     margin: 0;
     min-height: 100vh;
 }
+
 /*Zelle im Tabellenkopf*/
 th {
     background-color: var(--th-background-color);
@@ -105,7 +115,7 @@ header {
     place-items: center;
     grid-template-columns: 1fr var(--header-height) 1fr; /*flexible Einheit, die sich an vorhandener Menge der 1fr bemisst minus anderer Elemente - auto für Darkmode-Button*/
     height: var(--header-height);
-    box-shadow: 0 1px 0 var(--text-color); /*vertikaler Schatten Größe 1 Pixel*/
+    border-bottom: 1px solid var(--text-color);
     z-index: 500; /*wichtig, damit Header immer über Elementen von main angezeigt wird*/
     padding-right: 25px; /*Abstand zum rechten Rand, damit Darkmode-Button immer mit 25 Pixel Abstand dargestellt wird*/
 }
@@ -113,8 +123,28 @@ header {
 /*extra-Element im Header (z.B. Darkmode-Buuton*/
 .extra-button {
     position: absolute;
-    right: 25px; /* wird immer mit 25 Pixel Abstand zum rechten Rand dargestellt*/
+    right: 40px; /* wird immer mit 40 Pixel Abstand zum rechten Rand dargestellt*/
 
+}
+
+/*Extra-Element im Header (Währungs-Selektion) - Position im Header*/
+.extra-button select {
+    display: flex;
+    align-items: center;
+    padding: 10px 50px 0 0;
+}
+
+/*Aussehen des Währungs-Selektors im Header*/
+.currency-select {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-family: monospace;
+    cursor: pointer;
+    padding: 4px 6px;
+    appearance: none; /* Entfernt Standard-Dropdown-Styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 /*Höhe Bild im Header (Logo)*/
@@ -211,6 +241,7 @@ header ul li:hover ul {
     display: none;
     backdrop-filter: blur(10px);
 }
+
 .sidebar-overlay.open {
     display: block;
 }
@@ -241,15 +272,19 @@ header ul li:hover ul {
         display: grid;
         place-items: center;
     }
+
     header nav {
         display: none;
     }
+
     header .button-row-center {
         display: none;
     }
+
     .drawer-toggler {
         display: block;
     }
+
     .sidebar-drawer.open {
         display: flex;
         animation-name: drawerSlide;
@@ -294,19 +329,113 @@ main.content-wide {
     }
 }
 
+/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog */
+
 /** Footer */
+
+/*Author: Lasse Hoffmann*/
 footer {
     width: 90%; /*für Padding wichtig, damit insg. 100 Prozent*/
     bottom: 0;
     height: var(--footer-height);
     background-color: var(--footer-background-color);
     display: flex;
-    gap: 10px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    flex-direction: column;
     padding: 0 5%; /*rechts und links je 5 %*/
     margin: 0 auto;
+    box-shadow: 0 0 2px var(--text-color); /*vertikaler Schatten Größe 1 Pixel*/
 }
+
+/*setzt die vier Footer Kategorien in eine Flexbox (angeordnet in einer Zeile)*/
+.footer-categories {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 0;
+    gap: 80px;
+}
+
+/*setzt eine Kategorie in eine Flexbox (angeordnet in einer Spalte)*/
+.footer-category {
+    display: flex;
+    gap: 10px;
+    margin: 1em;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 90%;
+    width: max-content;
+    padding: 0 60px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+/*setzt die Überschrift für eine Kategorie*/
+.footer-category h4 {
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+/*Setzt den Link-Style für eine Kategorie*/
+.footer-category a {
+    width: fit-content;
+}
+
+/*Setzt einen margin für den newsletter*/
+.footer-newsletter {
+    margin: 2rem;
+}
+
+/*setzt den Style eines Absatzes im Newsletter*/
+.footer-newsletter p {
+    opacity: 0.5;
+    text-align: center;
+    margin: 1rem;
+}
+
+/*setzt den Style für die Überschrift des newsletters*/
+.footer-newsletter h2 {
+    margin: 1rem;
+}
+
+/*setzt den Style für den Input/das Label des Newsletters*/
+.footer-newsletter input, .footer-newsletter label {
+    height: 40px;
+    width: 100%;
+}
+
+/*setzt den Style für den Button des Newsletters*/
+.form-newsletter button {
+    height: 40px;
+}
+
+/*setzt den Style für die Social-Media-Icons*/
+.footer-social {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--text-color);
+}
+
+/*setzt den Style für die Social-Media-Icons beim Mouse-Hover*/
+.footer-social a:hover {
+    animation: none;
+}
+
+/*setzt den Style für den Copyright Absatz am Ende des Footers*/
+.footer-copyright p {
+    display: flex;
+    font-size: 0.8em;
+    margin: 2em;
+}
+
+/*Author: Lasse Hoffmann*/
+
+/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog */
 
 /** Komponenten */
 
@@ -324,6 +453,7 @@ a {
         color: var(--primary-background-color)
     }
 }
+
 /*Setzen der Animation beim Hover*/
 a:hover {
     animation-name: link-hover;
@@ -428,7 +558,7 @@ a:hover {
 }
 
 /*Darkmode-Button*/
-.darkmode-btn{
+.darkmode-btn {
     justify-self: end; /*Darkmode Button wird ganz rechts ausgerichtet*/
     position: relative;
     width: 24px;
@@ -437,7 +567,7 @@ a:hover {
     border: none;
     outline: none;
     background: none;
-    }
+}
 
 .darkmode-btn svg {
     position: absolute;
@@ -454,6 +584,7 @@ html:not([data-theme='dark']) .darkmode-btn .bi-moon {
     opacity: 0;
     color: var(--text-color);
 }
+
 html:not([data-theme='dark']) .darkmode-btn .bi-sun {
     opacity: 1;
     color: var(--text-color);
@@ -464,6 +595,7 @@ html[data-theme='dark'] .darkmode-btn .bi-moon {
     opacity: 1;
     color: var(--text-color);
 }
+
 html[data-theme='dark'] .darkmode-btn .bi-sun {
     opacity: 0;
     color: var(--text-color);
@@ -506,7 +638,8 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     background-color: var(--card-background-color);
     min-width: 250px;
 }
-.card .btn.btn-sm{
+
+.card .btn.btn-sm {
     margin-top: 10px;
 }
 
@@ -529,12 +662,13 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     text-wrap: wrap; /*Zeilenumbruch, wenn Inhalt > 200px*/
     width: 200px;
 }
+
 .card h2, h4 {
     margin: 0;
 }
 
 .card.no-hover:hover {
-    box-shadow: 1px 1px 1px  var(--form-box-shadow-color); /*Box-Shadow bleibt gleich*/
+    box-shadow: 1px 1px 1px var(--form-box-shadow-color); /*Box-Shadow bleibt gleich*/
 }
 
 .card.justify-start { /*Optionskarte: Inhalte werden links angeordnet*/
@@ -544,6 +678,7 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
 .card button, .card a {
     width: 100%;
 }
+
 .card .btn-sm {
     padding: 9px 0;
 }
@@ -551,7 +686,7 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
 /** Checkbox */
 
 /*Label für Checkbox-Input*/
-label:has(input[type="checkbox"]) {  /*ist im Label-Tag ein Input mit Checkbox-Type?*/
+label:has(input[type="checkbox"]) { /*ist im Label-Tag ein Input mit Checkbox-Type?*/
     display: flex;
     align-items: center;
     gap: 4px;
@@ -586,7 +721,7 @@ label:has(input[type="radio"]) {
 }
 
 label:has(input[type="radio"]):hover {
-    background-color:  var(--text-color);
+    background-color: var(--text-color);
     color: var(--primary-background-color);
 }
 
@@ -626,11 +761,11 @@ input {
     color: var(--text-color);
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
     outline: 2px solid var(--accent-color);
 }
 
-input[type="text"]:hover {
+input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover:hover, textarea:hover {
     outline: 2px solid var(--accent-color);
 }
 
@@ -683,14 +818,17 @@ table { /*Tabellendesign generell*/
     border: 1px solid var(--text-color);
     outline: none;
 }
+
 table th, td { /*einzelne Zellen haben immer rechts und unten Border */
     padding: 10px;
     border-bottom: 1px solid var(--text-color);
     border-right: 1px solid var(--text-color);
 }
+
 table th:last-child, td:last-child { /*letzte Zellen einer Reihe haben keine Border*/
     border-right: none;
 }
+
 table tr:last-child td { /*jede Zelle der letzten Zeile hat unten keine Border*/
     border-bottom: none;
 }
@@ -721,11 +859,21 @@ form {
     background-color: var(--card-background-color);
 }
 
+.form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .form-input {
     display: flex;
     flex-direction: column;
     gap: 2px;
     width: 100%;
+}
+
+.form-input p {
+    margin: 0;
 }
 
 /* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind, aber nur beim focus (Wenn das Feld ausgewählt ist) */
@@ -834,8 +982,8 @@ form {
 .filter-options .option-box-with-title {
     display: flex;
     flex-direction: column;
-    align-items: stretch;  /* Full width inside the box */
-    min-width: 150px;      /* Optional: sets a base width */
+    align-items: stretch; /* Full width inside the box */
+    min-width: 150px; /* Optional: sets a base width */
 }
 
 .filter-options .option-box-with-title.can-grow {
@@ -903,6 +1051,7 @@ form {
         width: 100%;
         height: 50vh;
     }
+
     .details-flex .info {
         width: 100%;
     }

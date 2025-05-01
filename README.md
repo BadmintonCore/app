@@ -5,10 +5,9 @@ Dies ist unser Projekt für das WebTech Praktikum. TODO: Hier eine sinnvolle Ein
 
 ## Requirements
 
-TODO: Am Projektende definieren
-- PHP 8.2? 
-- Apache / Nginx? 
-- Browser?
+- PHP 8.4 
+- Apache2
+- Firefox
 
 ## Setup
 
@@ -22,3 +21,9 @@ TODO: Setup instructions hinzufügen
 - `conf/` Konfigurationsdateien für den Apache2 Server im Docker Container
 - `public/` Öffentlich verfügbare Dateien (Alle Seiten, Bilder, CSS, Javascript)
 - Bei dem Rest handelt es sich um Files, die nicht öffentlich zugänglich sein sollen (Business Logik / Persistence Abstraktionen / etc.)
+
+## Wie benutze ich das Währungssystem?
+
+Bei jedem HTML Element mit der Klasse `price-field` wird der Inhalt zu einem Float konveriert und anhand der aktuellen Forex-Kurse der jeweilige Preis in einer anderen Währung angezeigt.
+
+Um die Preise im nachhinein zu aktualisieren kann man die Funktion `updatePrices()` nutzen. Diese aktualisiert alle Preise im aktuellen Dokument
