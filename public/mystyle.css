@@ -122,8 +122,27 @@ header {
 /*extra-Element im Header (z.B. Darkmode-Buuton*/
 .extra-button {
     position: absolute;
-    right: 25px; /* wird immer mit 25 Pixel Abstand zum rechten Rand dargestellt*/
+    right: 40px; /* wird immer mit 40 Pixel Abstand zum rechten Rand dargestellt*/
 
+}
+/*Extra-Element im Header (Währungs-Selektion) - Position im Header*/
+.extra-button select{
+    display: flex;
+    align-items: center;
+    padding: 10px 50px 0 0;
+}
+
+/*Aussehen des Währungs-Selektors im Header*/
+.currency-select {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-family: monospace;
+    cursor: pointer;
+    padding: 4px 6px;
+    appearance: none; /* Entfernt Standard-Dropdown-Styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 /*Höhe Bild im Header (Logo)*/

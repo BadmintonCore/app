@@ -40,13 +40,7 @@
             &nbsp;
             warenkorb.
         </a>
-        <label for="currency">
-            <select name="currency" id="currency">
-                <option value="EUR" selected>&#x1F1E9;&#x1F1EA;</option>
-                <option value="CHF">&#x1F1E8;&#x1F1ED;</option>
-                <option value="USD">&#x1F1FA;&#x1F1F8;</option>
-            </select>
-        </label>
+
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="sidebar-drawer" id="sidebarDrawer">
@@ -83,8 +77,15 @@
             &nbsp;
             warenkorb.
         </a>
-
     </div>
+
+    <label for="currency" class="currency-select">
+        <select name="currency" id="currency">
+            <option value="EUR" selected>&#x1F1E9;&#x1F1EA;</option>
+            <option value="CHF">&#x1F1E8;&#x1F1ED;</option>
+            <option value="USD">&#x1F1FA;&#x1F1F8;</option>
+        </select>
+    </label>
 
     <!-- Button für Dark-Mode -->
     <div class="extra-button">
