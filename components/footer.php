@@ -67,6 +67,98 @@
         </div>
     </div>
 
+    <!--Container der Klasse "footer-accordion"-->
+    <div class="footer-accordion">
+
+        <!--Ein Akkordion-Element-->
+        <button class="accordion-button">Über uns
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-down-fill open" viewBox="0 0 16 16" style="float: right">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-up-fill close" viewBox="0 0 16 16" style="float: right">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+        </button>
+        <div class="accordion-content">
+            <a href="about.php">Das sind wir</a> <br>
+            <a href="jobs.php">Jobs</a> <br>
+            <a href="press.php">Presse</a> <br>
+            <a href="responsibility.php">Verantwortung</a>
+        </div>
+
+        <!--Ein Akkordion-Element-->
+        <button class="accordion-button">Kundenservice
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-down-fill open" viewBox="0 0 16 16" style="float: right">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-up-fill close" viewBox="0 0 16 16" style="float: right">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+        </button>
+        <div class="accordion-content">
+            <a href="faq.php">Fragen und Antworten</a> <br>
+            <a href="contact.php">Kontakt</a> <br>
+            <a href="returns.php">Rücksendungen</a> <br>
+            <a href="user.php">Benutzerbereich</a>
+        </div>
+
+        <!--Ein Akkordion-Element-->
+        <button class="accordion-button">Dein Einkauf
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-down-fill open" viewBox="0 0 16 16" style="float: right">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-up-fill close" viewBox="0 0 16 16" style="float: right">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+        </button>
+        <div class="accordion-content">
+            <a href="order.php">Fragen zur Bestellung</a> <br>
+            <a href="paymentmethods.php">Zahlungsmethoden</a> <br>
+            <a href="shipment.php">Versand und Lieferung</a> <br>
+            <a href="vouchers.php">Online-Gutscheine</a>
+        </div>
+
+        <!--Ein Akkordion-Element-->
+        <button class="accordion-button">Rechtliches
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-down-fill open" viewBox="0 0 16 16" style="float: right">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-caret-up-fill close" viewBox="0 0 16 16" style="float: right">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+        </button>
+        <div class="accordion-content">
+            <a href="impress.php">Impressum</a> <br>
+            <a href="gtc.php">AGBs</a> <br>
+            <a href="privacypolicy.php">Datenschutz</a> <br>
+            <a href="revocation.php">Widerrufserklärung</a>
+        </div>
+    </div>
+
     <!--Container der Klasse "footer-social"-->
     <div class="footer-social">
 
