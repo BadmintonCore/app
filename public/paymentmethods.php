@@ -1,30 +1,33 @@
-<!--Author: Lennart Moog-->
+<!--Author: Lasse Hoffmann-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <title>vestis. - Zahlungsmethoden</title>
     <?php include("../components/head.php"); ?>
-    <title>vestis. - Logout</title>
 </head>
+<body>
 
 <!--Header der Website-->
 <?php include("../components/header.php"); ?>
-
 <!--Inhalt der Seite-->
 <main>
-<!--Zurück-Button-->
-<?php include("../components/back-btn.php"); ?>
 
-<h1>Auf Wiedersehen!</h1>
-<p class = "large-text">
-    Sie haben sich erfolgreich abgemeldet.  <br>
-    Vielen Dank und bis zum nächsten Mal.
-</p>
+    <!--Zurückbutton-->
+    <?php include("../components/back-btn.php"); ?>
+
+    <h1>Zahlungsmethoden</h1>
+
+    <!--Abschnitt mit mehreren Absätzen-->
+    <section>
+
+    </section>
+
+
 </main>
 
 <!--Footer der Website-->
 <?php include("../components/footer.php"); ?>
 <?php include("../components/scripts.php"); ?>
-
-
+</body>
 </html>
-<!--Author: Lennart Moog-->
+<!--Author: Lasse Hoffmann-->

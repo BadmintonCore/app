@@ -15,7 +15,7 @@
 <!--Inhalt der Seite-->
 <main>
 
-    <!--Formular der Klasse form-box-->
+    <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="loginForm">
 
         <!--Seitenüberschrift-->
@@ -61,8 +61,6 @@
             login.
         </button>
 
-        <p id="message"></p>
-
         <br/>
 
         <!--Container mit der id "resetAndRegister"-->
@@ -80,6 +78,7 @@
 
 <!--Footer der Website-->
 <?php include("../components/footer.php"); ?>
+<?php include("../components/scripts.php"); ?>
 </body>
 </html>
 <!--Author: Lasse Hoffmann-->

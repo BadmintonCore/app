@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <title>vestis. - Kontakt</title>
     <?php include("../components/head.php"); ?>
-    <title>vestis. - Passwort zurücksetzen</title>
 </head>
 <body>
 
@@ -13,12 +13,12 @@
 <!--Inhalt der Seite-->
 <main>
 
-    <!--Formular der Klasse loginRegisterReset-->
-    <form class="form-box">
+    <!--Formular der Klasse "form-box"-->
+    <form class="form-box" id="loginForm">
 
         <!--Seitenüberschrift-->
         <h1>
-            Passwort zurücksetzen
+            Kontaktformular
         </h1>
 
         <!--Zurückbutton-->
@@ -26,18 +26,27 @@
 
         <!--Container der Klasse "form-input"-->
         <div class="form-input">
-            <label for="mail">
+            <label for="email">
                 <b>E-Mail</b>
             </label>
 
             <!--Input für die E-Mail-->
-            <input type="email" id="mail" placeholder="E-Mail eingeben" name="mail" required
-                   oninvalid="this.setCustomValidity('Bitte eine gültige E-Mail eingeben.')">
+            <input type="email" id="email" placeholder="E-Mail eingeben" name="email" required>
+        </div>
+
+        <!--Container der Klasse "form-input"-->
+        <div class="form-input">
+            <label for="message">
+                <b>Deine Nachricht</b>
+            </label>
+
+            <!--Textarea für die Nachricht des Benutzers-->
+            <textarea id="message" placeholder="Nachricht eingeben" name="message" required></textarea>
         </div>
 
         <!--Button zum Einreichen (submit)-->
         <button type="submit" class="btn align-start">
-            zurücksetzen.
+            abschicken.
         </button>
     </form>
 </main>
