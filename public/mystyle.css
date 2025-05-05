@@ -48,7 +48,7 @@ h1 {
     text-align: center;
 }
 
-h1, h2, h3, h4, h5, p, span, strong, td {
+h1, h2, h3, h4, h5, p, span, strong, td, small, th {
     color: var(--text-color);
 }
 
@@ -60,6 +60,11 @@ p {
     font-size: 12px;
     text-align: justify; /*Es gibt entweder nur Blocksatz oder text-align: right, beides geht nicht!*/
     color: var(--text-color);
+}
+
+*::selection{
+    background-color: var(--text-color);
+    color: var(--primary-background-color);
 }
 
 textarea {
