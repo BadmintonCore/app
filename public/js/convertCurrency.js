@@ -1,6 +1,5 @@
 /*Author: Lasse Hoffmann, Mathis Burger*/
 
-
 const currencyDropdown = document.getElementById('currency');
 
 // Die zuletzt ausgewähle Währung (wird benötigt für Rückrechnung auf EUR)
@@ -16,7 +15,8 @@ let currencyRates = {};
 const currencySymbolMap = {
     EUR: '€',
     USD: '$',
-    CHF: 'CHF'
+    CHF: 'CHF',
+    KBP: '🥙'
 }
 
 /**
@@ -47,6 +47,7 @@ async function getCurrencyRates() {
     const resp = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD,CHF');
     if (resp.ok) {
         const jsonData = await resp.json();
+        jsonData.rates.KBP = (1/7).toFixed(2);
         currencyRates = jsonData.rates;
     }
 }
@@ -55,10 +56,32 @@ async function getCurrencyRates() {
  * Updates all prices in the current document (All elements that have "price-field" class)
  */
 function updatePrices() {
-    for (const priceField of document.getElementsByClassName("price-field")) {
+    let orderButton = document.getElementById("orderButton")
+    let addToCartButton = document.getElementById("addToCartButton")
+
+    for (const priceField of document.getElementsByClassName("price-field")){
         const priceString = priceField.childNodes[0].nodeValue;
-        const price = parseFloat(priceString);
-        priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2)} ${currencySymbolMap[currentCurrency]}`;
+        const price = parseFloat(priceString.replace(',', '.'));
+        if (currentCurrency === "EUR" || currentCurrency === "KBP" || currentCurrency === "CHF") {
+            priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2).replace('.', ',')} ${currencySymbolMap[currentCurrency]}`;
+        } else {
+            priceString.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2)} ${currencySymbolMap[currentCurrency]}`;
+        }
+    }
+    for (const feeField of document.getElementsByClassName("fee-field")){
+        if (currentCurrency === "EUR" || currentCurrency === "USD" || currentCurrency === "CHF") {
+            feeField.innerHTML = "&nbsp;inkl. 19% MwSt.";
+        } else {
+            feeField.innerHTML = "&nbsp;inkl. 19% Fleisch";
+        }
+    }
+
+    if(currentCurrency === "KBP"){
+        orderButton.disabled = true;
+        addToCartButton.disabled = true;
+    } else {
+        orderButton.disabled = false;
+        addToCartButton.disabled = false;
     }
 }
 
