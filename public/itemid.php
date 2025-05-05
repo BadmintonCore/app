@@ -23,7 +23,7 @@
                     gekleidet.
                 </h5>
 
-                <h2 class="price-field">55,00<small>&nbsp;inkl. 19% MwSt.</small></h2>
+                <h2 class="price-field">55,00<small class="fee-field">&nbsp;inkl. 19% MwSt.</small></h2>
 
                 <!-- For later submission of the order request -->
                 <form class="flex-align-left" id="itemIdForm">
@@ -68,8 +68,8 @@
                         <button class="quantity-btn" type="button">+</button>
                     </div>
                     <div class="button-row">
-                        <button type="submit" class="btn" name="buy_direct">Direkt bestellen</button>
-                        <button type="submit" class="btn secondary" name="add_to_cart">Zum Warenkorb hinzufügen</button>
+                        <button type="submit" class="btn" name="buy_direct" id="orderButton">Direkt bestellen</button>
+                        <button type="submit" class="btn secondary" name="add_to_cart" id="addToCartButton">Zum Warenkorb hinzufügen</button>
                     </div>
                 </form>
             </div>
