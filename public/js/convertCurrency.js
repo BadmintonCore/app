@@ -79,21 +79,9 @@ function updatePrices() {
     if(currentCurrency === "KBP"){
         orderButton.disabled = true;
         addToCartButton.disabled = true;
-        orderButton.innerHTML = "Dönerladen geschlossen ..."
-        addToCartButton.innerHTML = "Lieferdienst geschlossen ..."
-        orderButton.style.backgroundColor = "darkred";
-        addToCartButton.style.backgroundColor = "darkred";
-        addToCartButton.style.color = "#fff9e9";
-        addToCartButton.style.border = "none";
     } else {
         orderButton.disabled = false;
         addToCartButton.disabled = false;
-        orderButton.innerHTML = "Direkt bestellen"
-        addToCartButton.innerHTML = "Zum Warenkorb hinzufügen"
-        orderButton.style.backgroundColor = "var(--button-color)";
-        addToCartButton.style.backgroundColor = "unset";
-        addToCartButton.style.color = "var(--text-color)";
-        addToCartButton.style.border = "1px solid var(--button-color)";
     }
 }
 
