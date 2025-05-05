@@ -95,10 +95,10 @@
     <!--Dropdown für Währungs-Selektion-->
     <label for="currency" class="extra-button">
         <select name="currency" id="currency" class="currency-select">
-            <option value="EUR" selected>&#x1F1E9;&#x1F1EA;</option>
-            <option value="CHF">&#x1F1E8;&#x1F1ED;</option>
-            <option value="USD">&#x1F1FA;&#x1F1F8;</option>
-            <option value="KBP">&#x1F959;</option>
+            <option value="EUR" selected>&#x1F1E9;&#x1F1EA; EUR</option>
+            <option value="CHF">&#x1F1E8;&#x1F1ED; CHF</option>
+            <option value="USD">&#x1F1FA;&#x1F1F8; USD</option>
+            <option value="KBP">&#x1F959; KBP</option>
         </select>
     </label>
     <!--Author: Lasse Hoffmann-->

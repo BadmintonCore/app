@@ -65,7 +65,7 @@ function updatePrices() {
         if (currentCurrency === "EUR" || currentCurrency === "KBP" || currentCurrency === "CHF") {
             priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2).replace('.', ',')} ${currencySymbolMap[currentCurrency]}`;
         } else {
-            priceString.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2)} ${currencySymbolMap[currentCurrency]}`;
+            priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2)} ${currencySymbolMap[currentCurrency]}`;
         }
     }
     for (const feeField of document.getElementsByClassName("fee-field")){
