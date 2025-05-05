@@ -16,7 +16,8 @@ let currencyRates = {};
 const currencySymbolMap = {
     EUR: '€',
     USD: '$',
-    CHF: 'CHF'
+    CHF: 'CHF',
+    KBP: '🥙'
 }
 
 /**
@@ -48,6 +49,7 @@ async function getCurrencyRates() {
     if (resp.ok) {
         const jsonData = await resp.json();
         currencyRates = jsonData.rates;
+        jsonData.rates.KBP = (1/7).toFixed(2);
     }
 }
 
@@ -55,10 +57,14 @@ async function getCurrencyRates() {
  * Updates all prices in the current document (All elements that have "price-field" class)
  */
 function updatePrices() {
-    for (const priceField of document.getElementsByClassName("price-field")) {
+    for (const priceField of document.getElementsByClassName("price-field")){
         const priceString = priceField.childNodes[0].nodeValue;
-        const price = parseFloat(priceString);
-        priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2)} ${currencySymbolMap[currentCurrency]}`;
+        const price = parseFloat(priceString.replace(',', '.'));
+        if (currentCurrency === "EUR" || currentCurrency === "KBP" || currentCurrency === "CHF") {
+            priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2).replace('.', ',')} ${currencySymbolMap[currentCurrency]}`;
+        } else {
+            priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2)} ${currencySymbolMap[currentCurrency]}`;
+        }
     }
 }
 

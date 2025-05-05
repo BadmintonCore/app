@@ -23,7 +23,7 @@
                     gekleidet.
                 </h5>
 
-                <h2 class="price-field">55,00<small>&nbsp;incl. 19% MwSt.</small></h2>
+                <h2 class="price-field">55,00<small>&nbsp;inkl. 19% MwSt.</small></h2>
 
                 <!-- For later submission of the order request -->
                 <form class="flex-align-left" id="itemIdForm">
