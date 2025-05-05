@@ -137,6 +137,7 @@ header {
     display: flex;
     align-items: center;
     padding: 10px 50px 0 0;
+    color: var(--text-color);
 }
 
 /*Aussehen des Währungs-Selektors im Header*/
