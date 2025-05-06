@@ -1,10 +1,10 @@
 INSERT INTO category (id, name, parentCategoryId)
 VALUES (1, 'Kleidung', NULL),
        (2, 'Accessoires', NULL),
-       (3, 'Shirt', 1),
+       (3, 'Shirts', 1),
        (4, 'Sweater', 1),
-       (5, 'Bag', 2),
-       (6, 'Cap', 2);
+       (5, 'Taschen', 2),
+       (6, 'Caps', 2);
 
 INSERT INTO size (size)
 VALUES ('S'),
