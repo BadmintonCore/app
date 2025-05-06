@@ -1,4 +1,13 @@
 <!--Author: Mathis Burger-->
+
+<?php
+
+use Vestis\Database\Repositories\CategoryRepository;
+
+// Loads all categories without a parent category
+$categories = CategoryRepository::findAllWithNoParent();
+?>
+
 <header>
     <div class="drawer-toggler" id="sidebarDrawerToggler">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -8,18 +17,17 @@
     </div>
     <nav>
         <ul>
-            <li><a href="clothingList.html">Kleidung</a>
+            <?php foreach ($categories as $category) : ?>
+            <li><a href="clothingList.html"><?= $category->name ?></a>
+                <?php if (count($category->childCategories) > 0): ?>
                 <ul>
-                    <li><a href="shirtsList.php">Shirts</a></li>
-                    <li><a href="sweaterList.html">Sweater</a></li>
+                    <?php foreach ($category->childCategories as $childCategory) : ?>
+                    <li><a href="shirtsList.php"><?= $childCategory->name ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
+                <?php endif; ?>
             </li>
-            <li><a href="accessoriesList.html">Accessoires</a>
-                <ul>
-                    <li><a href="capsList.html">Caps</a></li>
-                    <li><a href="bagsList.html">Taschen</a></li>
-                </ul>
-            </li>
+            <?php endforeach; ?>
         </ul>
     </nav>
     <a class="logo-link" href="index.php">
