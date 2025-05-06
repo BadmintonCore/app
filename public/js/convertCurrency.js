@@ -58,6 +58,7 @@ async function getCurrencyRates() {
 function updatePrices() {
     let orderButton = document.getElementById("orderButton")
     let addToCartButton = document.getElementById("addToCartButton")
+    let payButton = document.getElementById("payButton");
 
     for (const priceField of document.getElementsByClassName("price-field")){
         const priceString = priceField.childNodes[0].nodeValue;
@@ -79,9 +80,11 @@ function updatePrices() {
     if(currentCurrency === "KBP"){
         orderButton.disabled = true;
         addToCartButton.disabled = true;
+        payButton.disabled = true;
     } else {
         orderButton.disabled = false;
         addToCartButton.disabled = false;
+        payButton.disabled=false;
     }
 }
 

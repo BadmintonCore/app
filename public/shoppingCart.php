@@ -26,7 +26,7 @@
             </table>
             <strong id="priceWOTax"></strong>
             <strong id="priceWITax"></strong>
-            <button type="submit" class="btn">Zur Kasse</button>
+            <button type="submit" class="btn" id="payButton">Zur Kasse</button>
         </div>
     </main>
     <?php include("../components/footer.php"); ?>
