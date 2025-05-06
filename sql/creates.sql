@@ -99,11 +99,13 @@ CREATE TABLE joinAddressAcc
 CREATE TABLE allowedColor
 (
     productTypeId INTEGER REFERENCES productType (id),
-    colorId       INTEGER REFERENCES color (id)
+    colorId       INTEGER REFERENCES color (id),
+    PRIMARY KEY (productTypeId, colorId)
 );
 
 CREATE TABLE allowedSize
 (
     productTypeId INTEGER REFERENCES productType (id),
-    sizeID        INTEGER REFERENCES size (id)
+    sizeId        INTEGER REFERENCES size (id),
+    PRIMARY KEY (productTypeId, sizeId)
 );
