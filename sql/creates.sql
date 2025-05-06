@@ -95,3 +95,17 @@ CREATE TABLE joinAddressAcc
     type      VARCHAR(255) NOT NULL,
     PRIMARY KEY (accountId, addressId, type)
 );
+
+CREATE TABLE allowedColor
+(
+    productTypeId INTEGER REFERENCES productType (id),
+    colorId       INTEGER REFERENCES color (id),
+    PRIMARY KEY (productTypeId, colorId)
+);
+
+CREATE TABLE allowedSize
+(
+    productTypeId INTEGER REFERENCES productType (id),
+    sizeId        INTEGER REFERENCES size (id),
+    PRIMARY KEY (productTypeId, sizeId)
+);
