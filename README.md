@@ -1,5 +1,7 @@
 # Vestis.
 
+[![](https://tokei.rs/b1/github/BadmintonCore/app?category=lines)](https://github.com/XAMPPRocky/tokei)
+
 Dies ist unser Projekt für das WebTech Praktikum. TODO: Hier eine sinnvolle Einleitung
 
 
