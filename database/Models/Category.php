@@ -43,4 +43,19 @@ class Category
         }
     }
 
+    /**
+     * NOTE: Second option with language standard from PHP 8.2 for @see Category::$childCategories::__get()
+     *
+     * @return Category[]
+     */
+    public function getChildCategories(): array
+    {
+        if (null !== $this->childCategories) {
+            return $this->childCategories;
+        }
+        $childCategories = QueryAbstraction::fetchManyAs(self::class, "SELECT * FROM category WHERE parentCategoryId = :id", ["id" => $this->id]);
+        $this->childCategories = $childCategories;
+        return $childCategories;
+    }
+
 }
