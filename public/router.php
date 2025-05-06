@@ -19,6 +19,7 @@ $pathname = explode("?", $requestUri)[0];
 
 if ($pathname === "") {
     require_once "../pages/index.php";
+    return;
 }
 
 // If the requested file exists in pages folder and is a php file, we require it in order to load the contents of the file
