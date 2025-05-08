@@ -4,6 +4,7 @@
  ?>
 <header>
     <div class="drawer-toggler" id="sidebarDrawerToggler">
+        <!--Grafik von: https://getbootstrap.com/-->
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
                   d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
@@ -29,16 +30,18 @@
         <img class="logo-image" src="/img/logo-transparent.png" alt="vestis.">
     </a>
     <div class="button-row-center">
-        <a class="btn" href="login.php">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
-            &nbsp;
-            login.
-        </a>
 
         <!-- Only display shopping cart link if the user is currently logged in -->
         <?php if (AuthService::isCustomer()) : ?>
+            <a class="btn" href="user.php">
+
+                <!--Grafik von: https://getbootstrap.com/-->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                &nbsp;
+                benutzerbereich.
+            </a>
             <a class="btn" href="shoppingCart.php">
 
                 <!--Grafik von: https://getbootstrap.com/-->
@@ -48,6 +51,15 @@
                 </svg>
                 &nbsp;
                 warenkorb.
+            </a>
+        <?php else :  ?>
+            <a class="btn" href="login.php">
+                <!--Grafik von: https://getbootstrap.com/-->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                &nbsp;
+                login.
             </a>
         <?php endif; ?>
 
@@ -74,18 +86,19 @@
                 </ul>
             </li>
         </ul>
-        <a class="btn" href="login.php">
 
-            <!--Grafik von: https://getbootstrap.com/-->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
-            &nbsp;
-            login.
-        </a>
 
         <!-- Only display shopping cart link if the user is currently logged in -->
         <?php if (AuthService::isCustomer()) : ?>
+            <a class="btn" href="user.php">
+
+                <!--Grafik von: https://getbootstrap.com/-->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                &nbsp;
+                benutzerbereich.
+            </a>
             <a class="btn" href="shoppingCart.php">
 
                 <!--Grafik von: https://getbootstrap.com/-->
@@ -96,6 +109,16 @@
                 &nbsp;
                 warenkorb.
             </a>
+        <?php else : ?>
+        <a class="btn" href="login.php">
+
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+            &nbsp;
+            login.
+        </a>
         <?php endif; ?>
 
     </div>
