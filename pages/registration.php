@@ -4,7 +4,9 @@
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\AccountRepository;
+use Vestis\Exception\EmailException;
 use Vestis\Exception\ValidationException;
+use Vestis\Service\EmailService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -20,10 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         ];
     try {
         ValidationService::validateForm($validationRules);
-        AccountRepository::create(AccountType::Customer ,$_POST['firstName'], $_POST['surname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['newsletter'] ?? false);
-    } catch (ValidationException $e) {
+        $account = AccountRepository::create(AccountType::Customer ,$_POST['firstName'], $_POST['surname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['newsletter'] ?? false);
+        EmailService::sendRegistrationConfirmation($account);
+    } catch (ValidationException|EmailException $e) {
         $validationError = $e->getMessage();
     }
+} else {
+    EmailService::sendRegistrationConfirmation(AccountRepository::findByUsername("lassehoff"));
 }
 
 ?>

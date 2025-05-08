@@ -9,7 +9,7 @@ class Account
 
     public AccountType $type;
 
-    public string $firstName;
+    public string $firstname;
 
     public string $surname;
 

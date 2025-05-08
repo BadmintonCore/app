@@ -22,6 +22,7 @@ RUN set -ex \
        libpq-dev \
        libicu-dev \
        libxml2-dev \
+       msmtp \
        libzip-dev \
        nano \
        mariadb-client \
@@ -49,6 +50,7 @@ WORKDIR /var/www/html
 
 COPY conf/vhost.conf /etc/apache2/sites-enabled/000-default.conf
 COPY conf/php.ini /usr/local/etc/php/php.ini
+COPY conf/msmtprc /etc/msmtprc
 
 EXPOSE 80
 EXPOSE 9003

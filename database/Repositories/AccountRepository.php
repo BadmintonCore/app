@@ -47,6 +47,6 @@ class AccountRepository
      */
     public static function findByUsername(string $username): ?Account
     {
-        return QueryAbstraction::fetchOneAs(AccountType::class, "SELECT * FROM account WHERE username = :username", ["username" => $username]);
+        return QueryAbstraction::fetchOneAs(Account::class, "SELECT * FROM account WHERE username = :username", ["username" => $username]);
     }
 }
