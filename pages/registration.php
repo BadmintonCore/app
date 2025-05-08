@@ -4,6 +4,8 @@
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\AccountRepository;
+use Vestis\Exception\DatabaseException;
+use Vestis\Exception\DatabaseExceptionReason;
 use Vestis\Exception\EmailException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
@@ -37,6 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         die();
     } catch (ValidationException|EmailException $e) {
         $validationError = $e->getMessage();
+    } catch (DatabaseException $e) {
+        if ($e->getReason() === DatabaseExceptionReason::ViolatedUniqueConstraint) {
+            var_dump($e->getMessage());
+            $validationError = sprintf("%s already exists.", $e->getColumnName());
+        } else {
+            $validationError = $e->getMessage();
+        }
     }
 }
 
@@ -70,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         </h1>
 
         <?php if (isset($validationError)) : ?>
-            <p><?= $validationError ?></p>
+            <h4 class="error-message"><?= $validationError ?></h4>
         <?php endif; ?>
 
         <!--Zurückbutton-->

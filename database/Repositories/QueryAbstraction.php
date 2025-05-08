@@ -2,7 +2,7 @@
 
 namespace Vestis\Database\Repositories;
 
-use Vestis\Exception\ValidationException;
+use Vestis\Exception\DatabaseException;
 
 /**
  * Abstraction layer on top of the database. It allows to simplify building native SQL queries and maps the
@@ -16,6 +16,7 @@ class QueryAbstraction
      * @param string $query The custom SQL query
      * @param array $params All parameters of the SQL query
      * @return array<int, mixed> The result array
+     * @throws DatabaseException on database or reflection error
      */
     public static function fetchManyAs(string $className, string $query, array $params = []): array
     {
@@ -29,6 +30,7 @@ class QueryAbstraction
      * @param string $query The custom SQL query
      * @param array $params All parameters of the SQL query
      * @return mixed The result as the requested class
+     * @throws DatabaseException on database or reflection error
      */
     public static function fetchOneAs(string $className, string $query, array $params = []): mixed
     {
@@ -47,6 +49,7 @@ class QueryAbstraction
      * @param string $query The SQL statement that should be executed
      * @param array $params The parameters that are required
      * @return void
+     * @throws DatabaseException on database error
      */
     public static function execute(string $query, array $params = []): void
     {
@@ -59,6 +62,7 @@ class QueryAbstraction
      * @param string $query The sql statement with params
      * @param array $params The params
      * @return \PDOStatement The executed statement
+     * @throws DatabaseException On database error
      */
     private static function prepareAndExecuteStatement(string $query, array $params = []): \PDOStatement
     {
@@ -75,7 +79,11 @@ class QueryAbstraction
                 $statement->bindValue($key, $value);
             }
         }
-        $statement->execute();
+        try {
+            $statement->execute();
+        } catch (\PDOException $e) {
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
+        }
         return $statement;
     }
 
@@ -87,20 +95,23 @@ class QueryAbstraction
      * @param string $className The name of the target class
      * @param array $assoc The associative array
      * @return mixed The returned value
-     * @throws ValidationException Errors that might occur on invalid enum values
-     * @throws \ReflectionException General reflection error
+     * @throws DatabaseException Errors that might occur on invalid enum values
      */
     private static function convertAssocToClass(string $className, array $assoc): mixed
     {
         // Checks if the target class even exists
         if (!class_exists($className)) {
-            throw new \RuntimeException("Class $className does not exist");
+            throw new DatabaseException("Class $className does not exist");
         }
 
         // creates a reflection class object and actual instance of the desired class
         // More info about reflection: https://www.php.net/manual/en/intro.reflection.php
         $reflectionClass = new \ReflectionClass($className);
-        $instance = $reflectionClass->newInstance();
+        try {
+            $instance = $reflectionClass->newInstance();
+        } catch (\ReflectionException $e) {
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
+        }
 
         foreach ($assoc as $key => $value) {
 
@@ -118,7 +129,7 @@ class QueryAbstraction
                         // Try to instance the enum instance from the primitive data value
                         $value = $type->getName()::from($value);
                     } catch (\RuntimeException) {
-                        throw new ValidationException(sprintf("Value cannot be validated as proper value associated with %s type", $type->getName()));
+                        throw new DatabaseException(sprintf("Value cannot be validated as proper value associated with %s type", $type->getName()));
                     }
                 }
 

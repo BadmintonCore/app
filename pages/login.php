@@ -3,6 +3,7 @@
 <?php
 
 use Vestis\Exception\AuthException;
+use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -24,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Redirect to landing page after successful login
         header("Location: /");
         return;
-    } catch (ValidationException|AuthException $e) {
+    } catch (ValidationException|AuthException|DatabaseException $e) {
         // Sets all exception errors. Those are then displayed in the frontend
         $errorMessage = $e->getMessage();
     }
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <?php include("../components/back-btn.php"); ?>
 
         <?php if (isset($errorMessage)) : ?>
-            <p><?= $errorMessage ?></p>
+            <h4 class="error-message"><?= $errorMessage ?></h4>
         <?php endif; ?>
 
         <!--Container der Klasse "form-input"-->

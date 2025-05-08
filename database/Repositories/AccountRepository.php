@@ -4,6 +4,7 @@ namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Models\Account;
 use Vestis\Database\Models\AccountType;
+use Vestis\Exception\DatabaseException;
 
 class AccountRepository
 {
@@ -18,6 +19,7 @@ class AccountRepository
      * @param string $password The password that is hashed later
      * @param bool $newsletter Whether the user subscribes to the newsletter
      * @return Account The created account
+     * @throws DatabaseException
      */
     public static function create(AccountType $type, string $firstName, string $surname, string $username, string $email, string $password, bool $newsletter): Account
     {
@@ -44,6 +46,7 @@ class AccountRepository
      *
      * @param string $username The username
      * @return Account|null The fetched account or null
+     * @throws DatabaseException
      */
     public static function findByUsername(string $username): ?Account
     {
@@ -55,6 +58,7 @@ class AccountRepository
      *
      * @param int $id The ID
      * @return Account|null The fetched account or null
+     * @throws DatabaseException
      */
     public static function findById(int $id): ?Account
     {
