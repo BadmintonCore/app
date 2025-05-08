@@ -1,7 +1,9 @@
 {
   "autoload": {
     "psr-4": {
-      "Vestis\\Database\\": "database/"
+      "Vestis\\Database\\": "database/",
+      "Vestis\\Service\\": "service/",
+      "Vestis\\Exception\\": "exception/"
     }
   }
 }

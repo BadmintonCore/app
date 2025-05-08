@@ -31,7 +31,20 @@ class QueryAbstraction
     {
         $newQuery = sprintf("%s LIMIT 1", $query);
         $statement = QueryAbstraction::prepareAndExecuteStatement($newQuery, $params);
-        return $statement->fetch(\PDO::FETCH_CLASS, $className);
+        $statement->setFetchMode(\PDO::FETCH_CLASS, $className);
+        return $statement->fetch(\PDO::FETCH_CLASS) ?? null;
+    }
+
+    /**
+     * Executes an SQL statement
+     *
+     * @param string $query The SQL statement that should be executed
+     * @param array $params The parameters that are required
+     * @return void
+     */
+    public static function execute(string $query, array $params = []): void
+    {
+        QueryAbstraction::prepareAndExecuteStatement($query, $params);
     }
 
     /**
@@ -50,7 +63,11 @@ class QueryAbstraction
         }
         $statement = $connection->prepare($query);
         foreach ($params as $key => $value) {
-            $statement->bindValue($key, $value);
+            if (is_bool($value)) {
+                $statement->bindValue($key, $value, \PDO::PARAM_BOOL);
+            } else {
+                $statement->bindValue($key, $value);
+            }
         }
         $statement->execute();
         return $statement;

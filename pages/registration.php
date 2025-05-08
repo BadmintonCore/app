@@ -1,4 +1,33 @@
 <!--Author: Lasse Hoffmann-->
+
+<?php
+
+use Vestis\Database\Models\AccountType;
+use Vestis\Database\Repositories\AccountRepository;
+use Vestis\Exception\ValidationException;
+use Vestis\Service\validation\ValidationRule;
+use Vestis\Service\validation\ValidationType;
+use Vestis\Service\ValidationService;
+
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        $validationRules = [
+            'firstName' => new ValidationRule(ValidationType::String),
+            'surname' => new ValidationRule(ValidationType::String),
+            'username' => new ValidationRule(ValidationType::String),
+            'email' => new ValidationRule(ValidationType::Email),
+            'password' => new ValidationRule(ValidationType::String),
+            'newsletter' => new ValidationRule(ValidationType::Boolean, true),
+        ];
+    try {
+        ValidationService::validateForm($validationRules);
+        AccountRepository::create(AccountType::Customer ,$_POST['firstName'], $_POST['surname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['newsletter'] ?? false);
+    } catch (ValidationException $e) {
+        $validationError = $e->getMessage();
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -19,12 +48,16 @@
 <main>
 
     <!--Formular der Klasse "form-box"-->
-    <form class="form-box" id="registrationForm">
+    <form class="form-box" id="registrationForm" method="post">
 
         <!--Seitenüberschrift-->
         <h1>
             Registrieren
         </h1>
+
+        <?php if (isset($validationError)) : ?>
+            <p><?= $validationError ?></p>
+        <?php endif; ?>
 
         <!--Zurückbutton-->
         <?php include("../components/back-btn.php"); ?>
@@ -36,7 +69,7 @@
             </label>
 
             <!--Input für den Vornamen-->
-            <input type="text" id="firstname" placeholder="Vorname eingeben" name="firstname" required>
+            <input type="text" id="firstname" placeholder="Vorname eingeben" name="firstName" required>
         </div>
 
         <!--Container der Klasse "form-input"-->
@@ -121,7 +154,7 @@
             </a>
 
             <!--Button zum Einreichen (submit)-->
-            <button type="submit" class="btn" id="subBtn" disabled>
+            <button type="submit" class="btn" id="subBtn">
                 registrieren.
             </button>
         </div>
