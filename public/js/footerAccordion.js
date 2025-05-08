@@ -9,10 +9,12 @@ for (let i = 0; i < accordionElements.length; i++) {
 
         /*Das zugehörige accordion-content-Element (Container) als Variable speichern*/
         let accordionContent = this.nextElementSibling;
-        if (accordionContent.style.display === "block") {
+
+        if (accordionContent.classList.contains("open")) {
 
             /*Accordion-Content vertecken*/
-            accordionContent.style.display = "none";
+            accordionContent.classList.remove("open");
+            accordionContent.classList.add("closed");
 
             /*Umschalten zwischen den geöffnet/geschlossen-Icon des Akkordeons*/
             accordionElements[i].querySelector(".close").style.display = "none";
@@ -20,7 +22,9 @@ for (let i = 0; i < accordionElements.length; i++) {
         } else {
 
             /*Accordion-Content zeigen*/
-            accordionContent.style.display = "block";
+            accordionContent.classList.remove("closed");
+            accordionContent.classList.add("open");
+
 
             /*Umschalten zwischen den geöffnet/geschlossen-Icon des Akkordeons*/
             accordionElements[i].querySelector(".close").style.display = "block";

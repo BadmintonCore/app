@@ -6,7 +6,7 @@
     <title>vestis. - Registrieren</title>
 
     <!--Reference to authValidation.js-->
-    <script src="../public/js/authValidation.js" defer></script>
+    <script src="../../public/js/authValidation.js" defer></script>
     <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
     Alternative: Script am Ende vom body erst aufführen-->
 </head>
@@ -104,7 +104,7 @@
             <label class="checkbox">
                 <!--Input für die AGB-Abfrage-->
                 <input type="checkbox" id="agb" name="agb" required>
-                <p>Ich habe die <u><a href="gtc.php">AGBs</a></u> gelesen und akzeptiere diese<sup>*</sup></p>
+                <p>Ich habe die <u><a href="../legal/gtc.php">AGBs</a></u> gelesen und akzeptiere diese<sup>*</sup></p>
             </label>
         </div>
 

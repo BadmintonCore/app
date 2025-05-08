@@ -443,6 +443,28 @@ footer {
     display: none
 }
 
+@keyframes accordionOpen {
+    from {
+        height: 0;
+        padding: 0 10px;
+    }
+    to {
+        height: auto;
+        padding: 10px;
+    }
+}
+
+@keyframes accordionClose {
+    from {
+        height: auto;
+        padding: 10px;
+    }
+    to {
+        height: 0;
+        padding: 0 10px;
+    }
+}
+
 @media screen and (max-width: 750px) {
 
     /*Automatische Höhe des Footers*/
@@ -489,6 +511,21 @@ footer {
         flex-direction: column;
         align-items: start;
         padding: 10px;
+    }
+
+    .accordion-content.open {
+        animation-fill-mode: forwards;
+        animation-duration: .3s;
+        animation-name: accordionOpen;
+        display: block;
+    }
+
+    .accordion-content.closed {
+        animation-duration: .3s;
+        animation-name: accordionClose;
+        display: block;
+        animation-fill-mode: forwards;
+        overflow: hidden;
     }
 
     /*Style der Links im ausgeklappten Akkordion setzen*/
