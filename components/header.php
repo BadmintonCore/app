@@ -1,13 +1,5 @@
 <!--Author: Mathis Burger-->
 
-<?php
-
-use Vestis\Database\Repositories\CategoryRepository;
-
-// Loads all categories without a parent category
-$categories = CategoryRepository::findAllWithNoParent();
-?>
-
 <header>
     <div class="drawer-toggler" id="sidebarDrawerToggler">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -17,17 +9,18 @@ $categories = CategoryRepository::findAllWithNoParent();
     </div>
     <nav>
         <ul>
-            <?php foreach ($categories as $category) : ?>
-            <li><a href="clothingList.html"><?= $category->name ?></a>
-                <?php if (count($category->childCategories) > 0): ?>
+            <li><a>Kleidung</a>
                 <ul>
-                    <?php foreach ($category->childCategories as $childCategory) : ?>
-                    <li><a href="shirtsList.php"><?= $childCategory->name ?></a></li>
-                    <?php endforeach; ?>
+                    <li><a href="categoryList.php?categoryId=shirt">Shirts</a></li>
+                    <li><a href="categoryList.php?categoryId=sweater">Sweater</a></li>
                 </ul>
-                <?php endif; ?>
             </li>
-            <?php endforeach; ?>
+            <li><a>Accessoires</a>
+                <ul>
+                    <li><a href="categoryList.php?categoryId=cap">Caps</a></li>
+                    <li><a href="categoryList.php?categoryId=bag">Taschen</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
     <a class="logo-link" href="index.php">
@@ -63,16 +56,16 @@ $categories = CategoryRepository::findAllWithNoParent();
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
         </svg>
         <ul>
-            <li><a href="clothingList.html">Kleidung</a>
+            <li><a>Kleidung</a>
                 <ul>
-                    <li><a href="shirtsList.php">Shirts</a></li>
-                    <li><a href="sweaterList.html">Sweater</a></li>
+                    <li><a href="categoryList.php?categoryId=shirt">Shirts</a></li>
+                    <li><a href="categoryList.php?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
-            <li><a href="accessoriesList.html">Accessoires</a>
+            <li><a>Accessoires</a>
                 <ul>
-                    <li><a href="capsList.html">Caps</a></li>
-                    <li><a href="bagsList.html">Taschen</a></li>
+                    <li><a href="categoryList.php?categoryId=cap">Caps</a></li>
+                    <li><a href="categoryList.php?categoryId=bag">Taschen</a></li>
                 </ul>
             </li>
         </ul>

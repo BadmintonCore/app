@@ -17,7 +17,8 @@
                 <tr>
                     <th>Produkt</th>
                     <th>Anzahl</th>
-                    <th>Preis</th>
+                    <th>Stückpreis</th>
+                    <th>Gesamtpreis</th>
                     <th>Aktionen</th>
                 </tr>
                 </thead>

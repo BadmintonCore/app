@@ -1,6 +1,4 @@
 <!-- Author: Mathis Burger -->
-<?php require_once("../components/product-card.php"); ?>
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -48,10 +46,32 @@
         </div>
         <div class="card-flex">
             <?php
-                for ($i = 0; $i<8; $i++) {
-                    echo generateProjectCard("/img/tshirt-beige.webp", "itemid.php", "Tshirt", 55.00);
+                if (!empty($_GET["categoryId"])) {
+                    $categoryId = $_GET["categoryId"];
+                    $filePath = sprintf("../json/%s.json", $categoryId);
+                    if (file_exists($filePath)) {
+                        $content = file_get_contents($filePath);
+                        $jsonContent = json_decode($content, true)[$categoryId];
+                    }
+
                 }
+
             ?>
+            <?php if (!empty($jsonContent)) : ?>
+                <?php foreach ($jsonContent as $item) : ?>
+                    <div class="card product-card">
+                        <img
+                                src="/img/tshirt-beige.webp"
+                                alt="product image"/>
+                        <br>
+                        <h2><a href="<?= sprintf("/itemId.php?itemId=%s", $item["pid"]) ?>"><?= $item["name"] ?></a></h2>
+                        <h4 class="price-field"><?= $item["price"] ?></h4>
+                        <a href="<?= sprintf("/itemId.php?itemId=%s", $item["pid"]) ?>" class="btn btn-sm">details.</a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <h1>Parameter fehlt oder ist Invalide</h1>
+            <?php endif; ?>
         </div>
     </div>
 </main>
