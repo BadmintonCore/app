@@ -49,4 +49,15 @@ class AccountRepository
     {
         return QueryAbstraction::fetchOneAs(Account::class, "SELECT * FROM account WHERE username = :username", ["username" => $username]);
     }
+
+    /**
+     * Finds an account by the ID
+     *
+     * @param int $id The ID
+     * @return Account|null The fetched account or null
+     */
+    public static function findById(int $id): ?Account
+    {
+        return QueryAbstraction::fetchOneAs(Account::class, "SELECT * FROM account WHERE id = :id", ["id" => $id]);
+    }
 }
