@@ -11,14 +11,14 @@
         <ul>
             <li><a>Kleidung</a>
                 <ul>
-                    <li><a href="/categoryList.php?categoryId=shirt">Shirts</a></li>
-                    <li><a href="/categoryList.php?categoryId=sweater">Sweater</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=shirt">Shirts</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
             <li><a>Accessoires</a>
                 <ul>
-                    <li><a href="/categoryList.php?categoryId=cap">Caps</a></li>
-                    <li><a href="/categoryList.php?categoryId=bag">Taschen</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=cap">Caps</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=bag">Taschen</a></li>
                 </ul>
             </li>
         </ul>
@@ -58,14 +58,14 @@
         <ul>
             <li><a>Kleidung</a>
                 <ul>
-                    <li><a href="/categoryList.php?categoryId=shirt">Shirts</a></li>
-                    <li><a href="/categoryList.php?categoryId=sweater">Sweater</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=shirt">Shirts</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
             <li><a>Accessoires</a>
                 <ul>
-                    <li><a href="/categoryList.php?categoryId=cap">Caps</a></li>
-                    <li><a href="/categoryList.php?categoryId=bag">Taschen</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=cap">Caps</a></li>
+                    <li><a href="/categories/categoryList.php?categoryId=bag">Taschen</a></li>
                 </ul>
             </li>
         </ul>
