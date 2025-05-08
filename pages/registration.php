@@ -104,7 +104,7 @@
             <label class="checkbox">
                 <!--Input für die AGB-Abfrage-->
                 <input type="checkbox" id="agb" name="agb" required>
-                <p>Ich habe die <u><a href="gtc.php">AGBs</a></u> gelesen und akzeptiere diese<sup>*</sup></p>
+                <p>Ich habe die <u><a href="legal/gtc.php">AGBs</a></u> gelesen und akzeptiere diese<sup>*</sup></p>
             </label>
         </div>
 
