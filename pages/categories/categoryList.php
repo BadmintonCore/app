@@ -64,9 +64,9 @@
                                 src="/img/tshirt-beige.webp"
                                 alt="product image"/>
                         <br>
-                        <h2><a href="<?= sprintf("/itemId.php?itemId=%s", $item["pid"]) ?>"><?= $item["name"] ?></a></h2>
+                        <h2><a href="<?= sprintf("product/itemId.php?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>"><?= $item["name"] ?></a></h2>
                         <h4 class="price-field"><?= $item["price"] ?></h4>
-                        <a href="<?= sprintf("/itemId.php?itemId=%s", $item["pid"]) ?>" class="btn btn-sm">details.</a>
+                        <a href="<?= sprintf("product/itemId.php?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>" class="btn btn-sm">details.</a>
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>

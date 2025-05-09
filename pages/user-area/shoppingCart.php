@@ -14,7 +14,7 @@ AuthService::checkAccess(AccountType::Customer);
 </head>
 <body>
     <?php include("../components/header.php"); ?>
-    <main>
+    <main> 
         <?php include("../components/back-btn.php"); ?>
         <div class="stack">
             <h1>Warenkorb</h1>

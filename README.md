@@ -37,3 +37,7 @@ composer dump-autoload
 Bei jedem HTML Element mit der Klasse `price-field` wird der Inhalt zu einem Float konveriert und anhand der aktuellen Forex-Kurse der jeweilige Preis in einer anderen Währung angezeigt.
 
 Um die Preise im nachhinein zu aktualisieren kann man die Funktion `updatePrices()` nutzen. Diese aktualisiert alle Preise im aktuellen Dokument
+
+## Wichtige Infos
+
+Die `include` oder auch `require_once`-Funktion geht immer von dem DocumentRoot aus. Das ist in unserem Fall der pages-Ordner. Wenn man also zu components will, ist es immer `../components`, egal wo man sich gerade befindet.
