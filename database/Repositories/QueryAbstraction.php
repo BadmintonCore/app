@@ -10,7 +10,6 @@ use Vestis\Exception\DatabaseException;
  */
 class QueryAbstraction
 {
-
     /**
      * @param string $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query

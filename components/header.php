@@ -1,7 +1,8 @@
 <!--Author: Mathis Burger-->
 <?php
     use Vestis\Service\AuthService;
- ?>
+
+?>
 <header>
     <div class="drawer-toggler" id="sidebarDrawerToggler">
         <!--Grafik von: https://getbootstrap.com/-->

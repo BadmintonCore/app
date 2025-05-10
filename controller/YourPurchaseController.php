@@ -4,7 +4,6 @@ namespace Vestis\Controller;
 
 class YourPurchaseController
 {
-
     public function order(): void
     {
         require_once '../views/your-purchase/order.php';

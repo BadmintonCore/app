@@ -5,7 +5,6 @@ use Vestis\Service\AuthService;
 
 class Kernel
 {
-
     public function run(): void
     {
         $this->initializeDatabaseConnection();

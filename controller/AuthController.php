@@ -17,7 +17,6 @@ use Vestis\Service\ValidationService;
 
 class AuthController
 {
-
     public function login(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -66,7 +65,7 @@ class AuthController
                 ValidationService::validateForm($validationRules);
 
                 // Creates the customer account
-                $account = AccountRepository::create(AccountType::Customer ,$_POST['firstName'], $_POST['surname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['newsletter'] ?? false);
+                $account = AccountRepository::create(AccountType::Customer, $_POST['firstName'], $_POST['surname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['newsletter'] ?? false);
 
                 // Sends confirmation mail and creates user session cookie
                 EmailService::sendRegistrationConfirmation($account);

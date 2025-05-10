@@ -4,7 +4,6 @@ namespace Vestis\Controller;
 
 class ProductController
 {
-
     public function index(): void
     {
         $categories = ["bag", "cap", "shirt", "sweater"];

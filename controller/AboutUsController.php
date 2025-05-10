@@ -4,7 +4,6 @@ namespace Vestis\Controller;
 
 class AboutUsController
 {
-
     public function about(): void
     {
         require_once "../views/about-us/about.php";

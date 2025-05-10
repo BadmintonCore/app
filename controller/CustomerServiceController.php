@@ -4,7 +4,6 @@ namespace Vestis\Controller;
 
 class CustomerServiceController
 {
-
     public function contact(): void
     {
         require_once "../views/customer-service/contact.php";

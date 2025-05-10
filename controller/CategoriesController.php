@@ -4,7 +4,6 @@ namespace Vestis\Controller;
 
 class CategoriesController
 {
-
     public function index(): void
     {
         if (!empty($_GET["categoryId"])) {

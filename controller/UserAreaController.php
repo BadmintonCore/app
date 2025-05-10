@@ -7,7 +7,6 @@ use Vestis\Service\AuthService;
 
 class UserAreaController
 {
-
     public function shoppingCart(): void
     {
         AuthService::checkAccess(AccountType::Customer);

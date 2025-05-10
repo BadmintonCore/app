@@ -2,7 +2,6 @@
 
 namespace Vestis\Database\Models;
 
-
 class Account
 {
     public int $id;

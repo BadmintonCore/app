@@ -4,7 +4,6 @@ namespace Vestis\Controller;
 
 class LegalController
 {
-
     public function gtc(): void
     {
         require_once "../views/legal/gtc.php";
@@ -25,4 +24,3 @@ class LegalController
         require_once "../views/legal/revocation.php";
     }
 }
-

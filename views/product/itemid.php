@@ -54,7 +54,7 @@
                             <div class="flex-row">
                                 <?php
                                 $colors = $product["color"] ? explode("/", $product["color"]) : [];
-                                ?>
+                ?>
                                 <?php foreach ($colors as $color) : ?>
                                     <label>
                                         <input type="radio" name="color" value="<?= $color ?>">
@@ -122,7 +122,7 @@
                         <div class="flex-row">
                             <?php
                             $colors = $product2["color"] ? explode("/", $product2["color"]) : [];
-                            ?>
+            ?>
                             <?php foreach ($colors as $color) : ?>
                                 <label>
                                     <input type="radio" name="color" value="<?= $color ?>">

@@ -1,4 +1,5 @@
 <?php
+
 /** Author: Mathis Burger */
 
 require_once "../vendor/autoload.php";

@@ -11,7 +11,6 @@ use Vestis\Service\validation\ValidationType;
  */
 class ValidationService
 {
-
     /**
      * Validates the current form submission
      *

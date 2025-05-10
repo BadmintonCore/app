@@ -7,7 +7,6 @@ namespace Vestis\Service\validation;
  */
 class ValidationRule
 {
-
     public ValidationType $type;
 
     public bool $nullable;

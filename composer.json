@@ -9,5 +9,8 @@
   },
   "require": {
     "ext-pdo": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.75"
   }
 }
