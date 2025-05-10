@@ -1,4 +1,13 @@
 <!--Author: Lennart Moog-->
+
+<?php
+
+use Vestis\Database\Models\AccountType;
+use Vestis\Service\AuthService;
+
+AuthService::checkAccess(AccountType::Customer);
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -23,18 +32,14 @@
 
         <div class="form-input">
             <label for="username"><b>Benutzername</b></label>
-            <input type="text" id="username" name="username" value="TestNutzer" required>
+            <input type="text" id="username" name="username" value="<?= AuthService::$currentAccount?->username ?>" required>
         </div>
         <br/>
         <div class="form-input">
             <label for="email"><b>E-Mail</b></label>
-            <input type="email" id="email" name="email" value="kontakt@vestis.de" required>
+            <input type="email" id="email" name="email" value="<?= AuthService::$currentAccount?->email ?>" required>
         </div>
         <br/>
-        <div class="form-input">
-            <label for="password"><b>Aktuelles Passwort</b></label>
-            <input type="password" id="password" name="password" value="meinsupersicheresPasswort123" required>
-        </div>
         <br/>
         <button type="submit" class="btn align-start" id="subBtn" disabled>
             aktualisieren.

@@ -45,7 +45,6 @@
             <a href="/customer-service/faq.php">Fragen und Antworten</a>
             <a href="/customer-service/contact.php">Kontakt</a>
             <a href="/customer-service/returns.php">Rücksendungen</a>
-            <a href="/user-area/user.php">Benutzerbereich</a>
         </div>
 
         <!--Container der Klasse "footer-category"-->
@@ -111,7 +110,6 @@
             <a href="/customer-service/faq.php">Fragen und Antworten</a> <br>
             <a href="/customer-service/contact.php">Kontakt</a> <br>
             <a href="/customer-service/returns.php">Rücksendungen</a> <br>
-            <a href="/user-area/user.php">Benutzerbereich</a>
         </div>
 
         <!--Ein Akkordion-Element-->

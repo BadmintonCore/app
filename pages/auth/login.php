@@ -1,4 +1,39 @@
 <!--Author: Lasse Hoffmann-->
+
+<?php
+
+use Vestis\Exception\AuthException;
+use Vestis\Exception\DatabaseException;
+use Vestis\Exception\ValidationException;
+use Vestis\Service\AuthService;
+use Vestis\Service\validation\ValidationRule;
+use Vestis\Service\validation\ValidationType;
+use Vestis\Service\ValidationService;
+
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $validationRules = [
+        'username' => new ValidationRule(ValidationType::String),
+        'password' => new ValidationRule(ValidationType::String),
+    ];
+    try {
+        // Validate form
+        ValidationService::validateForm($validationRules);
+
+        // Login the user with the given credentials in $_POST
+        AuthService::loginUser($_POST["username"], $_POST["password"]);
+
+        // Redirect to landing page after successful login
+        header("Location: /");
+        return;
+    } catch (ValidationException|AuthException|DatabaseException $e) {
+        // Sets all exception errors. Those are then displayed in the frontend
+        $errorMessage = $e->getMessage();
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -16,7 +51,7 @@
 <main>
 
     <!--Formular der Klasse "form-box"-->
-    <form class="form-box" id="loginForm">
+    <form class="form-box" id="loginForm" method="post">
 
         <!--Seitenüberschrift-->
         <h1>
@@ -25,6 +60,10 @@
 
         <!--Zurückbutton-->
         <?php include("../components/back-btn.php"); ?>
+
+        <?php if (isset($errorMessage)) : ?>
+            <h4 class="error-message"><?= $errorMessage ?></h4>
+        <?php endif; ?>
 
         <!--Container der Klasse "form-input"-->
         <div class="form-input">
@@ -57,7 +96,7 @@
         </div>
 
         <!--Button zum Einreichen (submit)-->
-        <button type="submit" class="btn align-start" id="subBtn" disabled>
+        <button type="submit" class="btn align-start" id="subBtn">
             login.
         </button>
 

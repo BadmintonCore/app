@@ -97,6 +97,10 @@ body {
     min-height: 100vh;
 }
 
+.error-message {
+    color: var(--danger-color);
+}
+
 /*Zelle im Tabellenkopf*/
 th {
     background-color: var(--th-background-color);

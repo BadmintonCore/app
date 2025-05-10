@@ -1,4 +1,11 @@
 <!-- Author: Mathis Burger -->
+<?php
+
+use Vestis\Database\Models\AccountType;
+use Vestis\Service\AuthService;
+
+AuthService::checkAccess(AccountType::Customer);
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
