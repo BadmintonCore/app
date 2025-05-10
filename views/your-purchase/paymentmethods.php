@@ -3,17 +3,17 @@
 <html lang="de">
 <head>
     <title>vestis. - Zahlungsmethoden</title>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
 </head>
 <body>
 
 <!--Header der Website-->
-<?php include("../components/header.php"); ?>
+<?php include(__DIR__."/../../components/header.php"); ?>
 <!--Inhalt der Seite-->
 <main>
 
     <!--Zurückbutton-->
-    <?php include("../components/back-btn.php"); ?>
+    <?php include(__DIR__."/../../components/back-btn.php"); ?>
 
     <h1>Zahlungsmethoden</h1>
 
@@ -26,8 +26,8 @@
 </main>
 
 <!--Footer der Website-->
-<?php include("../components/footer.php"); ?>
-<?php include("../components/scripts.php"); ?>
+<?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
 <!--Author: Lasse Hoffmann-->

@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
     <title>Vestis - Warenkorb</title>
 </head>
 <body>
-    <?php include("../components/header.php"); ?>
+    <?php include(__DIR__."/../../components/header.php"); ?>
     <main> 
-        <?php include("../components/back-btn.php"); ?>
+        <?php include(__DIR__."/../../components/back-btn.php"); ?>
         <div class="stack">
             <h1>Warenkorb</h1>
 
@@ -30,8 +30,8 @@
             <button type="submit" class="btn" id="payButton">Zur Kasse</button>
         </div>
     </main>
-    <?php include("../components/footer.php"); ?>
-<?php include("../components/scripts.php"); ?>
+    <?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/scripts.php"); ?>
 <script src="/js/shoppingCart.js"></script>
 <script>
     renderShoppingCart();

@@ -23,7 +23,7 @@ class ProductController
             $itemId = intval($_GET["itemId2"]);
             $product2 = array_find($mergedContent, fn ($item) => $item["pid"] === $itemId);
         }
-        require_once '../views/product/itemid.php';
+        require_once __DIR__.'/../views/product/itemid.php';
     }
 
 }

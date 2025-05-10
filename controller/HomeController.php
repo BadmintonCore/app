@@ -6,7 +6,7 @@ class HomeController
 {
     public function index(): void
     {
-        require_once '../views/index.php';
+        require_once __DIR__.'/../views/index.php';
     }
 
 }

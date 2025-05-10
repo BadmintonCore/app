@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
     <title>Vestis - Produktdetails</title>
 </head>
 <body>
-    <?php include("../components/header.php"); ?>
+    <?php include(__DIR__."/../../components/header.php"); ?>
     <main>
         <?php if (empty($_GET["itemId"])) : ?>
             <h1>Parameter nicht gegeben</h1>
@@ -14,7 +14,7 @@
             <?php if (isset($product)) : ?>
                 <div class="details-flex">
                     <div class="back-btn-container">
-                        <?php include("../components/back-btn.php"); ?>
+                        <?php include(__DIR__."/../../components/back-btn.php"); ?>
                     </div>
                     <img src="/img/tshirt-beige.webp"
                          alt="product image"
@@ -82,7 +82,7 @@
         <?php if (isset($product2) && $product2 !== null) : ?>
             <div class="details-flex">
                 <div class="back-btn-container">
-                    <?php include("../components/back-btn.php"); ?>
+                    <?php include(__DIR__."/../../components/back-btn.php"); ?>
                 </div>
                 <img src="/img/tshirt-beige.webp"
                      alt="product image"
@@ -145,7 +145,7 @@
             </div>
         <?php endif; ?>
     </main>
-    <?php include("../components/footer.php"); ?>
+    <?php include(__DIR__."/../../components/footer.php"); ?>
 
     <!-- Quantity container event listeners -->
     <script src="/js/quantityContainer.js"></script>
@@ -170,7 +170,7 @@
 
         document.getElementById("itemIdForm").addEventListener("submit", handleFormSubmit);
     </script>
-    <?php include("../components/scripts.php"); ?>
+    <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
 <!-- Author: Mathis Burger -->

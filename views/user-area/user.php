@@ -6,7 +6,7 @@ use Vestis\Service\AuthService;
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
     <title>vestis. - Benutzerbereich</title>
 
     <!--Reference to authValidation.js-->
@@ -16,14 +16,14 @@ use Vestis\Service\AuthService;
 </head>
 
 <!--Header der Website-->
-<?php include("../components/header.php"); ?>
+<?php include(__DIR__."/../../components/header.php"); ?>
 
 <main>
 
     <form class="form-box" id="userForm">
 
         <h1>Benutzerbereich</h1>
-        <?php include("../components/back-btn.php"); ?>
+        <?php include(__DIR__."/../../components/back-btn.php"); ?>
 
         <div class="form-input">
             <label for="username"><b>Benutzername</b></label>
@@ -41,7 +41,7 @@ use Vestis\Service\AuthService;
         </button>
     </form>
 </main>
-<?php include("../components/footer.php"); ?>
-<?php include("../components/scripts.php"); ?>
+<?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/scripts.php"); ?>
 </html>
 <!--Author: Lennart Moog-->

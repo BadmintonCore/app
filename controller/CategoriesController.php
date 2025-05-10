@@ -14,7 +14,7 @@ class CategoriesController
                 $jsonContent = json_decode($content, true)[$categoryId];
             }
         }
-        require_once '../views/categories/categoryList.php';
+        require_once __DIR__.'/../views/categories/categoryList.php';
     }
 
 }

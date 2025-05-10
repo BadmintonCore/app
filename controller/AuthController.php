@@ -40,13 +40,13 @@ class AuthController
             }
 
         }
-        require_once '../views/auth/login.php';
+        require_once __DIR__.'/../views/auth/login.php';
     }
 
     public function logout(): void
     {
         AuthService::destroyCurrentSession();
-        require_once "../views/auth/logout.php";
+        require_once __DIR__."/../views/auth/logout.php";
     }
 
     public function register(): void
@@ -85,11 +85,11 @@ class AuthController
                 }
             }
         }
-        require_once '../views/auth/registration.php';
+        require_once __DIR__.'/../views/auth/registration.php';
     }
 
     public function resetPassword(): void
     {
-        require_once '../views/auth/reset.php';
+        require_once __DIR__.'/../views/auth/reset.php';
     }
 }

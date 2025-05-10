@@ -1,0 +1,14 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+	level: 9
+	reportUnmatchedIgnoredErrors: false
+	paths:
+		- controller
+		- components
+		- database
+		- exception
+		- public
+		- service
+		- views
