@@ -29,15 +29,15 @@ $requestUri = substr($_SERVER["REQUEST_URI"], 1);
 $pathname = explode("?", $requestUri)[0];
 
 if ($pathname === "") {
-    require_once "../pages/index.php";
+    require_once "../views/index.php";
     return;
 }
 
 // If the requested file exists in pages folder and is a php file, we require it in order to load the contents of the file
-if (str_ends_with($pathname, ".php") && file_exists(sprintf("../pages/%s", $pathname))) {
-    require_once sprintf("../pages/%s", $pathname);
+if (str_ends_with($pathname, ".php") && file_exists(sprintf("../views/%s", $pathname))) {
+    require_once sprintf("../views/%s", $pathname);
 } else {
-    require_once "../pages/404.php";
+    require_once "../views/404.php";
 }
 
 /** Author: Mathis Burger */

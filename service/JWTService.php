@@ -48,7 +48,6 @@ class JWTService
     public static function verifyJWT(string $jwt): array
     {
         self::loadSecretKey();
-
         // Splits the JWT into its three parts
         $parts = explode('.', $jwt);
 

@@ -123,7 +123,7 @@ class AuthService
     public static function setCurrentUserAccountSessionFromCookie(): void
     {
         $sessionCookie = $_COOKIE['session'] ?? null;
-        if ($sessionCookie !== null) {
+        if ($sessionCookie !== null && trim($sessionCookie) !== '') {
             $payload = JWTService::verifyJWT($sessionCookie);
 
             if ($payload['expiresAt'] > time()) {
