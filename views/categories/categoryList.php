@@ -45,28 +45,16 @@
             </div>
         </div>
         <div class="card-flex">
-            <?php
-                if (!empty($_GET["categoryId"])) {
-                    $categoryId = $_GET["categoryId"];
-                    $filePath = sprintf("../json/%s.json", $categoryId);
-                    if (file_exists($filePath)) {
-                        $content = file_get_contents($filePath);
-                        $jsonContent = json_decode($content, true)[$categoryId];
-                    }
-
-                }
-
-            ?>
-            <?php if (!empty($jsonContent)) : ?>
+            <?php if (!empty($jsonContent) && isset($categoryId)) : ?>
                 <?php foreach ($jsonContent as $item) : ?>
                     <div class="card product-card">
                         <img
                                 src="/img/tshirt-beige.webp"
                                 alt="product image"/>
                         <br>
-                        <h2><a href="<?= sprintf("product/itemId.php?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>"><?= $item["name"] ?></a></h2>
+                        <h2><a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>"><?= $item["name"] ?></a></h2>
                         <h4 class="price-field"><?= $item["price"] ?></h4>
-                        <a href="<?= sprintf("product/itemId.php?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>" class="btn btn-sm">details.</a>
+                        <a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>" class="btn btn-sm">details.</a>
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>

@@ -1,39 +1,5 @@
 <!--Author: Lasse Hoffmann-->
 
-<?php
-
-use Vestis\Exception\AuthException;
-use Vestis\Exception\DatabaseException;
-use Vestis\Exception\ValidationException;
-use Vestis\Service\AuthService;
-use Vestis\Service\validation\ValidationRule;
-use Vestis\Service\validation\ValidationType;
-use Vestis\Service\ValidationService;
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $validationRules = [
-        'username' => new ValidationRule(ValidationType::String),
-        'password' => new ValidationRule(ValidationType::String),
-    ];
-    try {
-        // Validate form
-        ValidationService::validateForm($validationRules);
-
-        // Login the user with the given credentials in $_POST
-        AuthService::loginUser($_POST["username"], $_POST["password"]);
-
-        // Redirect to landing page after successful login
-        header("Location: /");
-        return;
-    } catch (ValidationException|AuthException|DatabaseException $e) {
-        // Sets all exception errors. Those are then displayed in the frontend
-        $errorMessage = $e->getMessage();
-    }
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -104,11 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         <!--Container mit der id "resetAndRegister"-->
         <div id="resetAndRegister">
-            <a href="reset.php">
+            <a href="/auth/reset">
                 Passwort zurücksetzen
             </a>
             <hr/>
-            <a href="registration.php">
+            <a href="/auth/registration">
                 Jetzt registrieren
             </a>
         </div>

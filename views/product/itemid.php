@@ -1,26 +1,4 @@
 <!-- Author: Mathis Burger -->
-
-
-<?php
-$categories = ["bag", "cap", "shirt", "sweater"];
-$mergedContent = [];
-foreach ($categories as $category) {
-    $filePath = sprintf("../json/%s.json", $category);
-    $jsonContent = json_decode(file_get_contents($filePath), true);
-    $mergedContent = array_merge($mergedContent, $jsonContent[$category]);
-}
-
-if (!empty($_GET["itemId"])) {
-    $itemId = intval($_GET["itemId"]);
-    $product = array_find($mergedContent, fn ($item) => $item["pid"] === $itemId);
-}
-
-if (!empty($_GET["itemId2"])) {
-    $itemId = intval($_GET["itemId2"]);
-    $product2 = array_find($mergedContent, fn ($item) => $item["pid"] === $itemId);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -33,7 +11,7 @@ if (!empty($_GET["itemId2"])) {
         <?php if (empty($_GET["itemId"])) : ?>
             <h1>Parameter nicht gegeben</h1>
         <?php else : ?>
-            <?php if ($product !== null) : ?>
+            <?php if (isset($product)) : ?>
                 <div class="details-flex">
                     <div class="back-btn-container">
                         <?php include("../components/back-btn.php"); ?>

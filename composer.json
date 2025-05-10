@@ -3,7 +3,8 @@
     "psr-4": {
       "Vestis\\Database\\": "database/",
       "Vestis\\Service\\": "service/",
-      "Vestis\\Exception\\": "exception/"
+      "Vestis\\Exception\\": "exception/",
+      "Vestis\\Controller\\": "controller/"
     }
   },
   "require": {
