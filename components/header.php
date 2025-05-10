@@ -14,14 +14,14 @@
         <ul>
             <li><a>Kleidung</a>
                 <ul>
-                    <li><a href="/categories/categoryList.php?categoryId=shirt">Shirts</a></li>
-                    <li><a href="/categories/categoryList.php?categoryId=sweater">Sweater</a></li>
+                    <li><a href="/categories?categoryId=shirt">Shirts</a></li>
+                    <li><a href="/categories?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
             <li><a>Accessoires</a>
                 <ul>
-                    <li><a href="/categories/categoryList.php?categoryId=cap">Caps</a></li>
-                    <li><a href="/categories/categoryList.php?categoryId=bag">Taschen</a></li>
+                    <li><a href="/categories?categoryId=cap">Caps</a></li>
+                    <li><a href="/categories?categoryId=bag">Taschen</a></li>
                 </ul>
             </li>
         </ul>
@@ -33,7 +33,7 @@
 
         <!-- Only display shopping cart link if the user is currently logged in -->
         <?php if (AuthService::isCustomer()) : ?>
-            <a class="btn" href="/user-area/user.php">
+            <a class="btn" href="/user-area/user">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -42,7 +42,7 @@
                 &nbsp;
                 benutzerbereich.
             </a>
-            <a class="btn" href="/user-area/shoppingCart.php">
+            <a class="btn" href="/user-area/shoppingCart">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4"
@@ -53,7 +53,7 @@
                 warenkorb.
             </a>
         <?php else :  ?>
-            <a class="btn" href="/auth/login.php">
+            <a class="btn" href="/auth/login">
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -75,14 +75,14 @@
         <ul>
             <li><a>Kleidung</a>
                 <ul>
-                    <li><a href="/categories/categoryList.php?categoryId=shirt">Shirts</a></li>
-                    <li><a href="/categories/categoryList.php?categoryId=sweater">Sweater</a></li>
+                    <li><a href="/categories?categoryId=shirt">Shirts</a></li>
+                    <li><a href="/categories?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
             <li><a>Accessoires</a>
                 <ul>
-                    <li><a href="/categories/categoryList.php?categoryId=cap">Caps</a></li>
-                    <li><a href="/categories/categoryList.php?categoryId=bag">Taschen</a></li>
+                    <li><a href="/categories?categoryId=cap">Caps</a></li>
+                    <li><a href="/categories?categoryId=bag">Taschen</a></li>
                 </ul>
             </li>
         </ul>
@@ -90,7 +90,7 @@
 
         <!-- Only display shopping cart link if the user is currently logged in -->
         <?php if (AuthService::isCustomer()) : ?>
-            <a class="btn" href="/user-area/user.php">
+            <a class="btn" href="/user-area/user">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -99,7 +99,7 @@
                 &nbsp;
                 benutzerbereich.
             </a>
-            <a class="btn" href="/user-area/shoppingCart.php">
+            <a class="btn" href="/user-area/shoppingCart">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4"
@@ -110,7 +110,7 @@
                 warenkorb.
             </a>
         <?php else : ?>
-        <a class="btn" href="/auth/login.php">
+        <a class="btn" href="/auth/login">
 
             <!--Grafik von: https://getbootstrap.com/-->
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">

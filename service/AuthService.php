@@ -48,6 +48,22 @@ class AuthService
     }
 
     /**
+     * Destroys the current user session
+     *
+     * @return void
+     */
+    public static function destroyCurrentSession(): void
+    {
+        self::$currentAccount = null;
+        setcookie("session", "", [
+            'path' => '/',
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ]);
+    }
+
+    /**
      * Logs in the user. This means the credentials are checked. In case the login failed an exception is thrown.
      *
      * @param string $username The username entered by the user

@@ -1,56 +1,5 @@
 <!--Author: Lasse Hoffmann-->
 
-<?php
-
-use Vestis\Database\Models\AccountType;
-use Vestis\Database\Repositories\AccountRepository;
-use Vestis\Exception\DatabaseException;
-use Vestis\Exception\DatabaseExceptionReason;
-use Vestis\Exception\EmailException;
-use Vestis\Exception\ValidationException;
-use Vestis\Service\AuthService;
-use Vestis\Service\EmailService;
-use Vestis\Service\validation\ValidationRule;
-use Vestis\Service\validation\ValidationType;
-use Vestis\Service\ValidationService;
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        $validationRules = [
-            'firstName' => new ValidationRule(ValidationType::String),
-            'surname' => new ValidationRule(ValidationType::String),
-            'username' => new ValidationRule(ValidationType::String),
-            'email' => new ValidationRule(ValidationType::Email),
-            'password' => new ValidationRule(ValidationType::String),
-            'newsletter' => new ValidationRule(ValidationType::Boolean, true),
-        ];
-    try {
-        // Validates the form
-        ValidationService::validateForm($validationRules);
-
-        // Creates the customer account
-        $account = AccountRepository::create(AccountType::Customer ,$_POST['firstName'], $_POST['surname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['newsletter'] ?? false);
-
-        // Sends confirmation mail and creates user session cookie
-        EmailService::sendRegistrationConfirmation($account);
-        AuthService::createUserAccountSession($account);
-
-        // Redirects to landing page
-        header("Location: /");
-        die();
-    } catch (ValidationException|EmailException $e) {
-        $validationError = $e->getMessage();
-    } catch (DatabaseException $e) {
-        if ($e->getReason() === DatabaseExceptionReason::ViolatedUniqueConstraint) {
-            var_dump($e->getMessage());
-            $validationError = sprintf("%s already exists.", $e->getColumnName());
-        } else {
-            $validationError = $e->getMessage();
-        }
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
