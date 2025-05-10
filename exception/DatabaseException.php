@@ -27,7 +27,11 @@ class DatabaseException extends \PDOException
         if ($code === 23000 && str_contains(strtolower($message), "duplicate entry")) {
             $this->reason = DatabaseExceptionReason::ViolatedUniqueConstraint;
             // use 9 here, because needle is 8 chars long and we need strpos + needle-length + 1 as offset
-            $this->columnName = rtrim(substr($message, strrpos($message, "for key ") + 9), "'");
+            $pos = strrpos($message, "for key ");
+            if ($pos !== false) {
+                $this->columnName = rtrim(substr($message, $pos + 9), "'");
+            }
+
         }
     }
 

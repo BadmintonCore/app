@@ -1,20 +1,28 @@
 <!-- Author: Mathis Burger -->
+<?php
+/** @var array<string, string|int>|null $product */
+/** @var array<string, string|int>|null $product2 */
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
     <title>Vestis - Produktdetails</title>
 </head>
 <body>
-    <?php include("../components/header.php"); ?>
+    <?php include(__DIR__."/../../components/header.php"); ?>
     <main>
-        <?php if (empty($_GET["itemId"])) : ?>
+        <?php
+        /** @var string|null $itemId */
+        $itemId = $_GET["itemId"];
+if ($itemId === null || trim($itemId) === ""): ?> :
+        ?>
             <h1>Parameter nicht gegeben</h1>
         <?php else : ?>
-            <?php if (isset($product)) : ?>
+            <?php if ($product !== null) : ?>
                 <div class="details-flex">
                     <div class="back-btn-container">
-                        <?php include("../components/back-btn.php"); ?>
+                        <?php include(__DIR__."/../../components/back-btn.php"); ?>
                     </div>
                     <img src="/img/tshirt-beige.webp"
                          alt="product image"
@@ -53,8 +61,9 @@
                             <strong>Farbe</strong>
                             <div class="flex-row">
                                 <?php
-                                $colors = $product["color"] ? explode("/", $product["color"]) : [];
-                                ?>
+                        /** @var array<string, string> $product */
+                        $colors = isset($product["color"]) ? explode("/", $product["color"]) : [];
+                ?>
                                 <?php foreach ($colors as $color) : ?>
                                     <label>
                                         <input type="radio" name="color" value="<?= $color ?>">
@@ -79,10 +88,10 @@
                 <h1>Produkt nicht gefunden</h1>
             <?php endif; ?>
         <?php endif; ?>
-        <?php if (isset($product2) && $product2 !== null) : ?>
+        <?php if ($product2 !== null) : ?>
             <div class="details-flex">
                 <div class="back-btn-container">
-                    <?php include("../components/back-btn.php"); ?>
+                    <?php include(__DIR__."/../../components/back-btn.php"); ?>
                 </div>
                 <img src="/img/tshirt-beige.webp"
                      alt="product image"
@@ -121,8 +130,9 @@
                         <strong>Farbe</strong>
                         <div class="flex-row">
                             <?php
-                            $colors = $product2["color"] ? explode("/", $product2["color"]) : [];
-                            ?>
+                            /** @var array<string, string> $product2 */
+                            $colors = isset($product2["color"]) ? explode("/", $product2["color"]) : [];
+            ?>
                             <?php foreach ($colors as $color) : ?>
                                 <label>
                                     <input type="radio" name="color" value="<?= $color ?>">
@@ -145,7 +155,7 @@
             </div>
         <?php endif; ?>
     </main>
-    <?php include("../components/footer.php"); ?>
+    <?php include(__DIR__."/../../components/footer.php"); ?>
 
     <!-- Quantity container event listeners -->
     <script src="/js/quantityContainer.js"></script>
@@ -163,14 +173,14 @@
             }
             const quantity = formData.get("quantity");
             if (action === "add_to_cart" && typeof quantity === "string") {
-                addToShoppingCart(<?= $product["pid"] ?>, "<?= $product["name"] ?>", <?= $product["price"] ?> / 1.19, parseInt(quantity, 10));
+                addToShoppingCart(<?= $product["pid"] ?? "" ?>, "<?= $product["name"] ?? "" ?>", <?= $product["price"] ?? "" ?> / 1.19, parseInt(quantity, 10));
                 alert("Produkt erfolgreich dem Warenkorb hinzugefügt");
             }
         }
 
         document.getElementById("itemIdForm").addEventListener("submit", handleFormSubmit);
     </script>
-    <?php include("../components/scripts.php"); ?>
+    <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
 <!-- Author: Mathis Burger -->

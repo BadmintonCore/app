@@ -18,10 +18,10 @@ class AccountRepository
      * @param string $email The email, that is used for login purposes
      * @param string $password The password that is hashed later
      * @param bool $newsletter Whether the user subscribes to the newsletter
-     * @return Account The created account
+     * @return Account|null The created account
      * @throws DatabaseException
      */
-    public static function create(AccountType $type, string $firstName, string $surname, string $username, string $email, string $password, bool $newsletter): Account
+    public static function create(AccountType $type, string $firstName, string $surname, string $username, string $email, string $password, bool $newsletter): ?Account
     {
 
         $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);

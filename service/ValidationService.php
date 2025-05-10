@@ -11,6 +11,8 @@ use Vestis\Service\validation\ValidationType;
  */
 class ValidationService
 {
+    /** @var array<int, string>  */
+    private static array $paramNames = [];
 
     /**
      * Validates the current form submission
@@ -21,9 +23,24 @@ class ValidationService
      */
     public static function validateForm(array $params): void
     {
+        self::$paramNames = array_keys($params);
         foreach ($params as $name => $value) {
             self::validateField($name, $value);
         }
+    }
+
+    /**
+     * Gets the form data
+     *
+     * @return array<string, mixed>
+     */
+    public static function getFormData(): array
+    {
+        $target = [];
+        foreach (self::$paramNames as $name) {
+            $target[$name] = $_POST[$name] ?? null;
+        }
+        return $target;
     }
 
     /**
@@ -54,7 +71,7 @@ class ValidationService
                 }
                 break;
             case ValidationType::Email:
-                if (!filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {
+                if (false === filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {
                     throw new ValidationException(sprintf("Field %s must be a valid email address.", $fieldName));
                 }
                 break;

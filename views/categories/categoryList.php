@@ -1,12 +1,16 @@
 <!-- Author: Mathis Burger -->
+<?php
+/** @var array<int, array<string, string>|null $jsonContent */
+/** @var string $categoryId */
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
     <title>Vestis - Kategorie 1</title>
 </head>
 <body>
-<?php include("../components/header.php"); ?>
+<?php include(__DIR__."/../../components/header.php"); ?>
 <main class="content-wide">
     <h1>Übersicht - Tshirts</h1>
     <div class="list-page-flex">
@@ -45,7 +49,7 @@
             </div>
         </div>
         <div class="card-flex">
-            <?php if (!empty($jsonContent) && isset($categoryId)) : ?>
+            <?php if (isset($jsonContent)) : ?>
                 <?php foreach ($jsonContent as $item) : ?>
                     <div class="card product-card">
                         <img
@@ -64,8 +68,8 @@
     </div>
 </main>
 
-<?php include("../components/footer.php"); ?>
-<?php include("../components/scripts.php"); ?>
+<?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
 <!-- Author: Mathis Burger -->

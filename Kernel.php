@@ -3,9 +3,11 @@
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 
+/**
+ * Central kernel for handling requests
+ */
 class Kernel
 {
-
     public function run(): void
     {
         $this->initializeDatabaseConnection();
@@ -15,16 +17,20 @@ class Kernel
 
     private function handleRoute(): void
     {
-        $routes = require 'routes.php';
-        $requestUri = $_SERVER['REQUEST_URI'];
+        /** @var array<string, array<int, string>> $routes */
+        $routes = require __DIR__.'/routes.php';
+        /** @var string $requestUri */
+        $requestUri = $_SERVER['REQUEST_URI'] ?? "/";
         $pathname = explode("?", $requestUri)[0];
         if (!array_key_exists($pathname, $routes)) {
-            require_once 'views/404.php';
+            require_once __DIR__.'/views/404.php';
             return;
         }
 
         [$controllerClass, $method] = $routes[$pathname];
+        /** @phpstan-ignore-next-line */
         $controller = new $controllerClass();
+        /** @phpstan-ignore-next-line */
         $controller->$method();
 
     }

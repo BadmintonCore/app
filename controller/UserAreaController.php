@@ -7,17 +7,16 @@ use Vestis\Service\AuthService;
 
 class UserAreaController
 {
-
     public function shoppingCart(): void
     {
         AuthService::checkAccess(AccountType::Customer);
-        require_once '../views/user-area/shoppingCart.php';
+        require_once __DIR__.'/../views/user-area/shoppingCart.php';
     }
 
     public function user(): void
     {
         AuthService::checkAccess(AccountType::Customer);
-        require_once '../views/user-area/user.php';
+        require_once __DIR__.'/../views/user-area/user.php';
     }
 
 }

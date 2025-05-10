@@ -4,25 +4,24 @@ namespace Vestis\Controller;
 
 class AboutUsController
 {
-
     public function about(): void
     {
-        require_once "../views/about-us/about.php";
+        require_once __DIR__."/../views/about-us/about.php";
     }
 
     public function jobs(): void
     {
-        require_once "../views/about-us/jobs.php";
+        require_once __DIR__."/../views/about-us/jobs.php";
     }
 
     public function press(): void
     {
-        require_once "../views/about-us/press.php";
+        require_once __DIR__."/../views/about-us/press.php";
     }
 
     public function responsibility(): void
     {
-        require_once "../views/about-us/responsibility.php";
+        require_once __DIR__."/../views/about-us/responsibility.php";
     }
 
 }

@@ -10,7 +10,6 @@ use Vestis\Exception\EmailException;
  */
 class EmailService
 {
-
     /**
      * Sends a registration confirmation email to the account owner.
      *
@@ -21,7 +20,8 @@ class EmailService
     public static function sendRegistrationConfirmation(Account $account): void
     {
         $subject = 'Registrierung erfolgreich';
-        $message = sprintf(<<<EMAIL
+        $message = sprintf(
+            <<<EMAIL
             Hallo %s %s,
             danke, dass du dich bei Vestis registriert hast.
             Wir wünschen dir viel Spaß beim Shopping.
@@ -30,7 +30,8 @@ class EmailService
             Dein Vestis Team
 
         EMAIL,
-        $account->firstname, $account->surname
+            $account->firstname,
+            $account->surname
         );
         $headers = 'From: noreply@vestis.shop';
         if (false === mail($account->email, $subject, $message, $headers)) {

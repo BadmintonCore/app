@@ -2,17 +2,17 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
     <title>vestis. - Logout</title>
 </head>
 
 <!--Header der Website-->
-<?php include("../components/header.php"); ?>
+<?php include(__DIR__."/../../components/header.php"); ?>
 
 <!--Inhalt der Seite-->
 <main>
 <!--Zurück-Button-->
-<?php include("../components/back-btn.php"); ?>
+<?php include(__DIR__."/../../components/back-btn.php"); ?>
 
 <h1>Auf Wiedersehen!</h1>
 <p class = "large-text">
@@ -22,8 +22,8 @@
 </main>
 
 <!--Footer der Website-->
-<?php include("../components/footer.php"); ?>
-<?php include("../components/scripts.php"); ?>
+<?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/scripts.php"); ?>
 
 
 </html>

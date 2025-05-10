@@ -6,7 +6,6 @@ use Vestis\Database\Models\Category;
 
 class CategoryRepository
 {
-
     /**
      * Gets all categories that do not have a parent category
      *
