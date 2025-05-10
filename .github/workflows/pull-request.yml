@@ -26,7 +26,7 @@ jobs:
         run: composer install --prefer-dist --no-interaction --optimize-autoloader
 
       - name: Run PhpCsFixer
-        run: vendor/bin/php-cs-fixer fix . --dry-run --verbose
+        run: PHP_CS_FIXER_IGNORE_ENV=true vendor/bin/php-cs-fixer fix . --dry-run --verbose
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse .
