@@ -3,7 +3,7 @@
 /** Author: Mathis Burger */
 
 require_once "../vendor/autoload.php";
-require_once "../kernel.php";
+require_once "../Kernel.php";
 
 new Kernel()->run();
 
