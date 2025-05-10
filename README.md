@@ -40,4 +40,4 @@ Um die Preise im nachhinein zu aktualisieren kann man die Funktion `updatePrices
 
 ## Wichtige Infos
 
-Die `include` oder auch `require_once`-Funktion geht immer von dem DocumentRoot aus. Das ist in unserem Fall der pages-Ordner. Wenn man also zu components will, ist es immer `../components`, egal wo man sich gerade befindet.
+Wenn der Code nicht richtig formatiert ist einfach im Docker Container `vendor/bin/php-cs-fixer` ausführen.
