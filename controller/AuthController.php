@@ -28,8 +28,12 @@ class AuthController
                 // Validate form
                 ValidationService::validateForm($validationRules);
 
+                /** @var string $username */
+                /** @var string $password */
+                ['username' => $username, 'password' => $password] = ValidationService::getFormData();
+
                 // Login the user with the given credentials in $_POST
-                AuthService::loginUser($_POST["username"], $_POST["password"]);
+                AuthService::loginUser($username, $password);
 
                 // Redirect to landing page after successful login
                 header("Location: /");
@@ -64,8 +68,16 @@ class AuthController
                 // Validates the form
                 ValidationService::validateForm($validationRules);
 
-                // Creates the customer account
-                $account = AccountRepository::create(AccountType::Customer, $_POST['firstName'], $_POST['surname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['newsletter'] ?? false);
+                $formData = ValidationService::getFormData();
+
+                /** @phpstan-ignore-next-line all selected parameters are checked before for type safety in form validation */
+                $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password'], $formData['newsletter'] ?? false);
+
+                if (null === $account) {
+                    $validationError = "Cannot create an account";
+                    require_once __DIR__.'/../views/auth/registration.php';
+                    return;
+                }
 
                 // Sends confirmation mail and creates user session cookie
                 EmailService::sendRegistrationConfirmation($account);

@@ -138,12 +138,15 @@ class AuthService
      */
     public static function setCurrentUserAccountSessionFromCookie(): void
     {
+        /** @var string|null $sessionCookie */
         $sessionCookie = $_COOKIE['session'] ?? null;
         if ($sessionCookie !== null && trim($sessionCookie) !== '') {
             $payload = JWTService::verifyJWT($sessionCookie);
 
             if ($payload['expiresAt'] > time()) {
-                self::$currentAccount = AccountRepository::findById($payload['accountId']);
+                /** @var int $accountId */
+                $accountId = $payload['accountId'];
+                self::$currentAccount = AccountRepository::findById($accountId);
             }
         }
     }

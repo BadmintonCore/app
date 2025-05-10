@@ -10,16 +10,24 @@ class ProductController
         $mergedContent = [];
         foreach ($categories as $category) {
             $filePath = sprintf("../json/%s.json", $category);
-            $jsonContent = json_decode(file_get_contents($filePath), true);
-            $mergedContent = array_merge($mergedContent, $jsonContent[$category]);
+            $content = file_get_contents($filePath);
+            if ($content !== false) {
+                /** @var array<string, array<int, array<string, int|string>>> $jsonContent */
+                $jsonContent = json_decode($content, true);
+                $mergedContent = array_merge($mergedContent, $jsonContent[$category]);
+            }
+
         }
 
-        if (!empty($_GET["itemId"])) {
+        $product = null;
+        $product2 = null;
+
+        if (is_string($_GET["itemId"])) {
             $itemId = intval($_GET["itemId"]);
             $product = array_find($mergedContent, fn ($item) => $item["pid"] === $itemId);
         }
 
-        if (!empty($_GET["itemId2"])) {
+        if (is_string($_GET["itemId2"])) {
             $itemId = intval($_GET["itemId2"]);
             $product2 = array_find($mergedContent, fn ($item) => $item["pid"] === $itemId);
         }

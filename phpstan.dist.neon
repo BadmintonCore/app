@@ -4,6 +4,9 @@ includes:
 parameters:
 	level: 9
 	reportUnmatchedIgnoredErrors: false
+	excludePaths:
+	    analyse:
+	        - %currentWorkingDirectory%/vendor
 	paths:
 		- controller
 		- components

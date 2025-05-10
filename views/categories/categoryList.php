@@ -1,4 +1,8 @@
 <!-- Author: Mathis Burger -->
+<?php
+/** @var array<int, array<string, string>|null $jsonContent */
+/** @var string $categoryId */
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -45,7 +49,7 @@
             </div>
         </div>
         <div class="card-flex">
-            <?php if (!empty($jsonContent) && isset($categoryId)) : ?>
+            <?php if (isset($jsonContent)) : ?>
                 <?php foreach ($jsonContent as $item) : ?>
                     <div class="card product-card">
                         <img

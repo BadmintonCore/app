@@ -23,21 +23,27 @@ class JWTService
     /**
      * Generates a JWT from the given payload
      *
-     * @param array $payload The payload that should be used
+     * @param array<string, mixed> $payload The payload that should be used
      * @return string The final JWT string
+     * @throws ValidationException
      */
     public static function generateJWT(array $payload): string
     {
         self::loadSecretKey();
 
         // Header encoded as base64 (JSON data)
+        /** @phpstan-ignore-next-line */
         $base64UrlHeader = self::base64UrlEncode(json_encode(self::JWT_HEADER));
 
         // payload encoded as base64 (JSON data)
-        $base64UrlPayload = self::base64UrlEncode(json_encode($payload));
+        $jsonEncodedPayload = json_encode($payload);
+        if (false === $jsonEncodedPayload) {
+            throw new ValidationException('Invalid JSON payload');
+        }
+        $base64UrlPayload = self::base64UrlEncode($jsonEncodedPayload);
 
         // The signature that is later used to verify the JWT is valid.
-        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, self::$secretKey, true);
+        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, self::$secretKey ?? "secret", true);
 
         // Signature as base64 string
         $base64UrlSignature = self::base64UrlEncode($signature);
@@ -45,6 +51,13 @@ class JWTService
         return $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
     }
 
+    /**
+     * Verifies the JSON web token
+     *
+     * @param string $jwt The JSON web token
+     * @return array<string, mixed>
+     * @throws ValidationException
+     */
     public static function verifyJWT(string $jwt): array
     {
         self::loadSecretKey();
@@ -59,7 +72,7 @@ class JWTService
 
         // Calculates the expected signature by the header and payload given in the JWT string
         $expectedSignature = self::base64UrlEncode(
-            hash_hmac('sha256', "$headerB64.$payloadB64", self::$secretKey, true)
+            hash_hmac('sha256', "$headerB64.$payloadB64", self::$secretKey ?? "secret", true)
         );
 
         // Checks whether the signatures are equal. If they are not, the JWT got modified on the client side.
@@ -68,8 +81,12 @@ class JWTService
             throw new ValidationException("The JWT does not match the expected signature.");
         }
 
-        // get the payload as associative array
-        return json_decode(self::base64UrlDecode($payloadB64), true);
+        /** @var array<string|mixed>|null $payloadJson */
+        $payloadJson = json_decode(self::base64UrlDecode($payloadB64), true);
+        if (null === $payloadJson) {
+            throw new ValidationException("The JWT does not contain a valid payload.");
+        }
+        return $payloadJson;
     }
 
     /**
@@ -92,21 +109,31 @@ class JWTService
      *
      * @param string $data The url encoded base64 string
      * @return string The normal string
+     * @throws ValidationException
      */
     private static function base64UrlDecode(string $data): string
     {
-        return base64_decode(strtr($data, '-_', '+/'));
+        $result = base64_decode(strtr($data, '-_', '+/'), true);
+        if ($result === false) {
+            throw new ValidationException("Cannot decode base64.");
+        }
+        return $result;
     }
 
     /**
      * Loads the secret key into the static attribute.
      *
      * @return void
+     * @throws ValidationException On JWT_SECRET not existing
      */
     private static function loadSecretKey(): void
     {
-        if (empty(self::$secretKey)) {
-            self::$secretKey = file_get_contents("../conf/JWT_SECRET");
+        if (self::$secretKey === null) {
+            $contents = file_get_contents("../conf/JWT_SECRET");
+            if (false === $contents) {
+                throw new ValidationException("The JWT_SECRET does not exist.");
+            }
+            self::$secretKey = $contents;
         }
     }
 }
