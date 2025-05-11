@@ -6,16 +6,14 @@
 const html = document.documentElement;
 
 
-
-
- /*Aktiviert das helle Theme*/
+/*Aktiviert das helle Theme*/
 function setLightTheme() {
     html.setAttribute('data-theme', ''); // Leeres Attribut = Standard-/Light-Theme
     localStorage.setItem('theme', 'light'); // Speichere Auswahl im Browser
 }
 
 /* Aktiviert das dunkle Theme.*/
-function setDarkTheme(){
+function setDarkTheme() {
     html.setAttribute('data-theme', 'dark'); // Dunkles Theme aktivieren
     localStorage.setItem('theme', 'dark'); // Speichere Auswahl im Browser
 }
@@ -47,3 +45,8 @@ function setStartTheme() {
 // Ruft die Startfunktion auf, sobald das Skript geladen wird
 // Dadurch wird beim ersten Laden das gespeicherte Theme angewendet
 setStartTheme();
+
+document.addEventListener("DOMContentLoaded", function (e) {
+    const darkModeButton = document.getElementById('darkModeToggle');
+    darkModeButton.addEventListener('click', toggleDarkMode);
+});

@@ -18,8 +18,15 @@ function handleFormSubmit(e) {
     const quantity = formData.get("quantity");
     if (action === "add_to_cart" && typeof quantity === "string") {
         addToShoppingCart(1, "Tshirt", 55.00 / 1.19, parseInt(quantity, 10));
-        alert("Produkt erfolgreich dem Warenkorb hinzugefügt");
     }
 }
 
 document.getElementById("itemIdForm").addEventListener("submit", handleFormSubmit);
+
+document.getElementById('addToWishlistButtonEmpty').addEventListener('click', function () {
+    addToWishlist(1, "Tshirt", 55.00 / 1.19);
+});
+
+document.getElementById('addToWishlistButtonFilled').addEventListener('click', function () {
+    removeFromWishlist(1);
+});
