@@ -22,12 +22,12 @@ class ProductController
         $product = null;
         $product2 = null;
 
-        if (is_string($_GET["itemId"])) {
+        if (isset($_GET["itemId"]) && is_string($_GET["itemId"])) {
             $itemId = intval($_GET["itemId"]);
             $product = array_find($mergedContent, fn ($item) => $item["pid"] === $itemId);
         }
 
-        if (is_string($_GET["itemId2"])) {
+        if (isset($_GET["itemId2"]) && is_string($_GET["itemId2"])) {
             $itemId = intval($_GET["itemId2"]);
             $product2 = array_find($mergedContent, fn ($item) => $item["pid"] === $itemId);
         }

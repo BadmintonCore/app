@@ -19,4 +19,9 @@ class UserAreaController
         require_once __DIR__.'/../views/user-area/user.php';
     }
 
+    public function wishlist(): void
+    {
+        require_once __DIR__.'/../views/user-area/wishlist.php';
+    }
+
 }

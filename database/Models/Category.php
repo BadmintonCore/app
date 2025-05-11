@@ -36,7 +36,9 @@ class Category
             if (null !== $this->childCategories) {
                 return $this->childCategories;
             }
-            $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
+            if (null !== $this->parentCategoryId) {
+                $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
+            }
             return $this->childCategories;
         }
     }
@@ -51,8 +53,10 @@ class Category
         if (null !== $this->childCategories) {
             return $this->childCategories;
         }
-        $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
-        return $this->childCategories;
+        if (null !== $this->parentCategoryId) {
+            $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
+        }
+        return $this->childCategories ?? [];
     }
 
 }
