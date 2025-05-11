@@ -95,11 +95,11 @@ class AuthService
     public static function checkAccess(AccountType $type): void
     {
         if (null === self::$currentAccount) {
-            header("Location: /login.php");
+            header("Location: /auth/login");
             die();
         }
         if (self::$currentAccount->type !== $type) {
-            header("Location: /login.php");
+            header("Location: /auth/login");
             die();
         }
     }

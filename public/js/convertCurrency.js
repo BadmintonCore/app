@@ -78,13 +78,25 @@ function updatePrices() {
     }
 
     if(currentCurrency === "KBP"){
-        orderButton.disabled = true;
-        addToCartButton.disabled = true;
-        payButton.disabled = true;
+        if (orderButton) {
+            orderButton.disabled = true;
+        }
+        if (addToCartButton) {
+            addToCartButton.disabled = true;
+        }
+        if (payButton) {
+            payButton.disabled = true;
+        }
     } else {
-        orderButton.disabled = false;
-        addToCartButton.disabled = false;
-        payButton.disabled=false;
+        if (orderButton) {
+            orderButton.disabled = false;
+        }
+        if (addToCartButton) {
+            addToCartButton.disabled = false;
+        }
+        if (payButton) {
+            payButton.disabled=false;
+        }
     }
 }
 

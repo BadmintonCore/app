@@ -5,24 +5,30 @@
 const wishlistButtonEmpty = document.getElementById('addToWishlistButtonEmpty');
 const wishlistButtonFilled = document.getElementById('addToWishlistButtonFilled');
 
-wishlistButtonEmpty.addEventListener("click", function () {
-    wishlistButtonEmpty.style.display = "none";
-    wishlistButtonFilled.style.display = "flex";
-});
+if (wishlistButtonEmpty) {
+    wishlistButtonEmpty.addEventListener("click", function () {
+        wishlistButtonEmpty.style.display = "none";
+        wishlistButtonFilled.style.display = "flex";
+    });
+}
 
-wishlistButtonFilled.addEventListener("click", function () {
-    wishlistButtonFilled.style.display = "none";
-    wishlistButtonEmpty.style.display = "flex";
-});
+if (wishlistButtonFilled) {
+    wishlistButtonFilled.addEventListener("click", function () {
+        wishlistButtonFilled.style.display = "none";
+        wishlistButtonEmpty.style.display = "flex";
+    });
+}
 
 function loadWishlistButton() {
     const searchParams = new URLSearchParams(location.search);
-    if (isWishlist(searchParams.get('itemId'))) {
-        wishlistButtonFilled.style.display = "flex";
-        wishlistButtonEmpty.style.display = "none";
-    } else {
-        wishlistButtonEmpty.style.display = "flex";
-        wishlistButtonFilled.style.display = "none";
+    if (wishlistButtonEmpty && wishlistButtonFilled) {
+        if (isWishlist(searchParams.get('itemId'))) {
+            wishlistButtonFilled.style.display = "flex";
+            wishlistButtonEmpty.style.display = "none";
+        } else {
+            wishlistButtonEmpty.style.display = "flex";
+            wishlistButtonFilled.style.display = "none";
+        }
     }
 }
 
@@ -59,7 +65,6 @@ function getWishlist() {
  */
 function getItemFromWishlist(productId) {
     const wishlist = getWishlist();
-    console.log(wishlist, productId);
     return wishlist[`${productId}`]
 }
 

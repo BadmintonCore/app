@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
     <title>Vestis - Wunschliste</title>
 </head>
 <body>
-<?php include("../components/header.php"); ?>
+<?php include(__DIR__."/../../components/header.php"); ?>
 <main>
-    <?php include("../components/back-btn.php"); ?>
+    <?php include(__DIR__."/../../components/back-btn.php"); ?>
     <div class="stack">
         <h1>Wunschliste</h1>
 
@@ -27,11 +27,12 @@
         </table>
     </div>
 </main>
-<?php include("../components/footer.php"); ?>
-<?php include("../components/scripts.php"); ?>
-<script src="/js/wishlist.js"></script>
+<?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/scripts.php"); ?>
 <script>
-    renderWishlist();
+    document.addEventListener("DOMContentLoaded", () => {
+        renderWishlist();
+    })
 </script>
 </body>
 </html>

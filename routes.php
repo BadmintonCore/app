@@ -31,6 +31,7 @@ return [
     '/legal/revocation' => [LegalController::class, 'revocation'],
     '/user-area/shoppingCart' => [UserAreaController::class, 'shoppingCart'],
     '/user-area/user' => [UserAreaController::class, 'user'],
+    '/user-area/wishlist' => [UserAreaController::class, 'wishlist'],
     '/your-purchase/order' => [YourPurchaseController::class, 'order'],
     '/your-purchase/paymentmethods' => [YourPurchaseController::class, 'paymentMethods'],
     '/your-purchase/shipment' => [YourPurchaseController::class, 'shipment'],

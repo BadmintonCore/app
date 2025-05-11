@@ -959,6 +959,11 @@ form {
     gap: 3em;
 }
 
+.sidebar-drawer .button-row-center {
+    display: flex !important;
+    justify-content: center;
+}
+
 .flex-align-left {
     display: flex;
     align-items: flex-start;

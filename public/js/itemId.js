@@ -12,18 +12,26 @@ function handleFormSubmit(e) {
         alert("Direktkäufe sind noch nicht möglich");
         return;
     }
-    const quantity = formData.get("quantity");
-    if (action === "add_to_cart" && typeof quantity === "string") {
-        addToShoppingCart(1, "Tshirt", 55.00 / 1.19, parseInt(quantity, 10));
-    }
 }
+
+document.getElementById("addToCartButton").addEventListener("click", () => {
+    const searchParams = new URLSearchParams(location.search);
+    const productName = document.getElementById("nameText").textContent;
+    const price = parseFloat(document.getElementById("priceText").textContent);
+    addToShoppingCart(parseInt(searchParams.get("itemId"), 10), productName, price / 1.19, 1);
+    alert("Erfolgreich zum Warenkorb hinzugefügt.")
+})
 
 document.getElementById("itemIdForm").addEventListener("submit", handleFormSubmit);
 
-document.getElementById('addToWishlistButtonEmpty').addEventListener('click', function () {
-    addToWishlist(1, "Tshirt", 55.00 / 1.19);
+document.getElementById('addToWishlistButtonEmpty').addEventListener('click',  () => {
+    const searchParams = new URLSearchParams(location.search);
+    const productName = document.getElementById("nameText").textContent;
+    const price = parseFloat(document.getElementById("priceText").textContent);
+    addToWishlist(parseInt(searchParams.get("itemId"), 10), productName, price / 1.19);
 });
 
-document.getElementById('addToWishlistButtonFilled').addEventListener('click', function () {
-    removeFromWishlist(1);
+document.getElementById('addToWishlistButtonFilled').addEventListener('click',  () => {
+    const searchParams = new URLSearchParams(location.search);
+    removeFromWishlist(parseInt(searchParams.get("itemId"), 10));
 });
