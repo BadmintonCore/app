@@ -75,8 +75,12 @@ function validateForm() {
         markField(passwordConfirmationInput, passwordsOk);
     }
 
-    // Button nur aktivieren, wenn alles gültig ist
-    submitButton.disabled = !(validateUsername(usernameInput.value) && validatePassword(passwordInput.value) && passwordsOk);
+    if (registrationForm) {
+        // Button nur aktivieren, wenn alles gültig ist
+        submitButton.disabled = !(validateUsername(usernameInput.value) && validatePassword(passwordInput.value) && passwordsOk);
+
+    }
+
 }
 
 if (registrationForm) {

@@ -1,6 +1,3 @@
-/**
- * @author Mathis Burger
- */
 
 /**
  * Handles the form submission on the item ID page

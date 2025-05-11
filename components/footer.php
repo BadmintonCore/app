@@ -33,37 +33,36 @@
         <!--Container der Klasse "footer-category"-->
         <div class="footer-category">
             <h4>Über uns</h4>
-            <a href="about.php">Das sind wir</a>
-            <a href="jobs.php">Jobs</a>
-            <a href="press.php">Presse</a>
-            <a href="responsibility.php">Verantwortung</a>
+            <a href="/about-us/about">Das sind wir</a>
+            <a href="/about-us/jobs">Jobs</a>
+            <a href="/about-us/press">Presse</a>
+            <a href="/about-us/responsibility">Verantwortung</a>
         </div>
 
         <!--Container der Klasse "footer-category"-->
         <div class="footer-category">
             <h4>Kundenservice</h4>
-            <a href="faq.php">Fragen und Antworten</a>
-            <a href="contact.php">Kontakt</a>
-            <a href="returns.php">Rücksendungen</a>
-            <a href="user.php">Benutzerbereich</a>
+            <a href="/customer-service/faq">Fragen und Antworten</a>
+            <a href="/customer-service/contact">Kontakt</a>
+            <a href="/customer-service/returns">Rücksendungen</a>
         </div>
 
         <!--Container der Klasse "footer-category"-->
         <div class="footer-category">
             <h4>Dein Einkauf</h4>
-            <a href="order.php">Fragen zur Bestellung</a>
-            <a href="paymentmethods.php">Zahlungsmethoden</a>
-            <a href="shipment.php">Versand und Lieferung</a>
-            <a href="vouchers.php">Online-Gutscheine</a>
+            <a href="/your-purchase/order">Fragen zur Bestellung</a>
+            <a href="/your-purchase/paymentmethods">Zahlungsmethoden</a>
+            <a href="/your-purchase/shipment">Versand und Lieferung</a>
+            <a href="/your-purchase/vouchers">Online-Gutscheine</a>
         </div>
 
         <!--Container der Klasse "footer-category"-->
         <div class="footer-category">
             <h4>Rechtliches</h4>
-            <a href="impress.php">Impressum</a>
-            <a href="gtc.php">AGBs</a>
-            <a href="privacypolicy.php">Datenschutz</a>
-            <a href="revocation.php">Widerrufserklärung</a>
+            <a href="/legal/impress">Impressum</a>
+            <a href="/legal/gtc">AGBs</a>
+            <a href="/legal/privacypolicy">Datenschutz</a>
+            <a href="/legal/revocation">Widerrufserklärung</a>
         </div>
     </div>
 
@@ -86,10 +85,10 @@
             </svg>
         </button>
         <div class="accordion-content">
-            <a href="about.php">Das sind wir</a> <br>
-            <a href="jobs.php">Jobs</a> <br>
-            <a href="press.php">Presse</a> <br>
-            <a href="responsibility.php">Verantwortung</a>
+            <a href="/about-us/about">Das sind wir</a> <br>
+            <a href="/about-us/jobs">Jobs</a> <br>
+            <a href="/about-us/press">Presse</a> <br>
+            <a href="/about-us/responsibility">Verantwortung</a>
         </div>
 
         <!--Ein Akkordion-Element-->
@@ -108,10 +107,9 @@
             </svg>
         </button>
         <div class="accordion-content">
-            <a href="faq.php">Fragen und Antworten</a> <br>
-            <a href="contact.php">Kontakt</a> <br>
-            <a href="returns.php">Rücksendungen</a> <br>
-            <a href="user.php">Benutzerbereich</a>
+            <a href="/customer-service/faq">Fragen und Antworten</a> <br>
+            <a href="/customer-service/contact">Kontakt</a> <br>
+            <a href="/customer-service/returns">Rücksendungen</a> <br>
         </div>
 
         <!--Ein Akkordion-Element-->
@@ -130,10 +128,10 @@
             </svg>
         </button>
         <div class="accordion-content">
-            <a href="order.php">Fragen zur Bestellung</a> <br>
-            <a href="paymentmethods.php">Zahlungsmethoden</a> <br>
-            <a href="shipment.php">Versand und Lieferung</a> <br>
-            <a href="vouchers.php">Online-Gutscheine</a>
+            <a href="/your-purchase/order">Fragen zur Bestellung</a> <br>
+            <a href="/your-purchase/paymentmethods">Zahlungsmethoden</a> <br>
+            <a href="/your-purchase/shipment">Versand und Lieferung</a> <br>
+            <a href="/your-purchase/vouchers">Online-Gutscheine</a>
         </div>
 
         <!--Ein Akkordion-Element-->
@@ -152,10 +150,10 @@
             </svg>
         </button>
         <div class="accordion-content">
-            <a href="impress.php">Impressum</a> <br>
-            <a href="gtc.php">AGBs</a> <br>
-            <a href="privacypolicy.php">Datenschutz</a> <br>
-            <a href="revocation.php">Widerrufserklärung</a>
+            <a href="/legal/impress">Impressum</a> <br>
+            <a href="/legal/gtc">AGBs</a> <br>
+            <a href="/legal/privacypolicy">Datenschutz</a> <br>
+            <a href="/legal/revocation">Widerrufserklärung</a>
         </div>
     </div>
 

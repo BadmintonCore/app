@@ -102,6 +102,10 @@ body {
     min-height: 100vh;
 }
 
+.error-message {
+    color: var(--danger-color);
+}
+
 /*Zelle im Tabellenkopf*/
 th {
     background-color: var(--th-background-color);
@@ -396,6 +400,7 @@ footer {
 /* ============================================================================================================================
                                                              Komponenten
 ===============================================================================================================================*/
+/*Author: Lasse Hoffmann*/
 
 /* ================================================
                        Links
@@ -1167,6 +1172,43 @@ form {
         width: fit-content;
         margin: 3px;
         font-size: 1rem;
+    }
+
+    .accordion-content.open {
+        animation-fill-mode: forwards;
+        animation-duration: .3s;
+        animation-name: accordionOpen;
+        display: block;
+    }
+
+    @keyframes accordionOpen {
+        from {
+            height: 0;
+            padding: 0 10px;
+        }
+        to {
+            height: auto;
+            padding: 10px;
+        }
+    }
+
+    @keyframes accordionClose {
+        from {
+            height: auto;
+            padding: 10px;
+        }
+        to {
+            height: 0;
+            padding: 0 10px;
+        }
+    }
+
+    .accordion-content.closed {
+        animation-duration: .3s;
+        animation-name: accordionClose;
+        display: block;
+        animation-fill-mode: forwards;
+        overflow: hidden;
     }
 
     /*Close-Icon eines Akkordion-Buttons initial verbergen*/

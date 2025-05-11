@@ -1,15 +1,12 @@
 <!--Author: Mathis Burger, Lennart Moog, Lasse Hoffmann-->
 
 <?php
+    use Vestis\Service\AuthService;
 
-use Vestis\Database\Repositories\CategoryRepository;
-
-// Loads all categories without a parent category
-$categories = CategoryRepository::findAllWithNoParent();
 ?>
-
 <header>
     <div class="drawer-toggler" id="sidebarDrawerToggler">
+        <!--Grafik von: https://getbootstrap.com/-->
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
                   d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
@@ -17,17 +14,18 @@ $categories = CategoryRepository::findAllWithNoParent();
     </div>
     <nav>
         <ul>
-            <?php foreach ($categories as $category) : ?>
-                <li><a href="clothingList.html"><?= $category->name ?></a>
-                    <?php if (count($category->childCategories) > 0): ?>
-                        <ul>
-                            <?php foreach ($category->childCategories as $childCategory) : ?>
-                                <li><a href="shirtsList.php"><?= $childCategory->name ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
-                </li>
-            <?php endforeach; ?>
+            <li><a>Kleidung</a>
+                <ul>
+                    <li><a href="/categories?categoryId=shirt">Shirts</a></li>
+                    <li><a href="/categories?categoryId=sweater">Sweater</a></li>
+                </ul>
+            </li>
+            <li><a>Accessoires</a>
+                <ul>
+                    <li><a href="/categories?categoryId=cap">Caps</a></li>
+                    <li><a href="/categories?categoryId=bag">Taschen</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
@@ -44,30 +42,33 @@ $categories = CategoryRepository::findAllWithNoParent();
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
         </svg>
         <ul>
-            <li><a href="clothingList.html">Kleidung</a>
+            <li><a>Kleidung</a>
                 <ul>
-                    <li><a href="shirtsList.php">Shirts</a></li>
-                    <li><a href="sweaterList.html">Sweater</a></li>
+                    <li><a href="/categories?categoryId=shirt">Shirts</a></li>
+                    <li><a href="/categories?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
-            <li><a href="accessoriesList.html">Accessoires</a>
+            <li><a>Accessoires</a>
                 <ul>
-                    <li><a href="capsList.html">Caps</a></li>
-                    <li><a href="bagsList.html">Taschen</a></li>
+                    <li><a href="/categories?categoryId=cap">Caps</a></li>
+                    <li><a href="/categories?categoryId=bag">Taschen</a></li>
                 </ul>
             </li>
         </ul>
-        <a class="btn" href="login.php">
 
-            <!--Grafik von: https://getbootstrap.com/-->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
-            &nbsp;
-            login.
-        </a>
 
-        <a class="btn" href="shoppingCart.php">
+        <!-- Only display shopping cart link if the user is currently logged in -->
+        <?php if (AuthService::isCustomer()) : ?>
+            <a class="btn" href="/user-area/user">
+
+                <!--Grafik von: https://getbootstrap.com/-->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+                &nbsp;
+                benutzerbereich.
+            </a>
+            <a class="btn" href="/user-area/shoppingCart">
 
             <!--Grafik von: https://getbootstrap.com/-->
             <!--Grafik von: https://getbootstrap.com/-->
@@ -77,6 +78,8 @@ $categories = CategoryRepository::findAllWithNoParent();
             &nbsp;
             warenkorb.
         </a>
+        <?php endif; ?>
+
 
         <!-- Wunschliste-Icon -->
         <a class="btn" href="whishlist.php">

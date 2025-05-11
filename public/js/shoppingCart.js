@@ -85,6 +85,11 @@ function renderShoppingCart() {
         priceId.textContent = `${getTotalPrice(shoppingCartItem.productPrice).toFixed(2)}€`;
         row.appendChild(priceId);
 
+        const priceFullId = document.createElement("td");
+        priceFullId.classList.add("price-field");
+        priceFullId.textContent = `${getTotalPrice(shoppingCartItem.productPrice*shoppingCartItem.quantity).toFixed(2)}€`;
+        row.appendChild(priceFullId);
+
         const actionsTd = document.createElement("td");
         const removeButton = document.createElement("button");
         removeButton.textContent = 'entfernen.';
