@@ -89,9 +89,9 @@ function addToWishlist(productId, productName, productPrice) {
  * @param {number} productId The ID of the product
  */
 function removeFromWishlist(productId) {
-    const Wishlist = getWishlist();
-    delete Wishlist[productId];
-    localStorage.setItem("wishlist", JSON.stringify(Wishlist));
+    const wishlist = getWishlist();
+    delete wishlist[productId];
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
     renderWishlist();
 }
 
@@ -111,22 +111,22 @@ function getTotalPrice(price) {
 function renderWishlist() {
     const tableBody = document.getElementById("WishlistTBody");
     tableBody.innerHTML = '';
-    const Wishlist = getWishlist();
-    for (const [productId, WishlistItem] of Object.entries(Wishlist)) {
+    const wishlist = getWishlist();
+    for (const [productId, wishlistItem] of Object.entries(wishlist)) {
         const row = document.createElement("tr");
 
         const nameTd = document.createElement("td");
-        nameTd.textContent = WishlistItem.productName;
+        nameTd.textContent = wishlistItem.productName;
         row.appendChild(nameTd);
 
         const priceId = document.createElement("td");
         priceId.classList.add("price-field");
-        priceId.textContent = `${getTotalPrice(WishlistItem.productPrice).toFixed(2)}€`;
+        priceId.textContent = `${getTotalPrice(wishlistItem.productPrice).toFixed(2)}€`;
         row.appendChild(priceId);
 
         // Neue Spalte für das Hinzufügedatum (nur Datum ohne Uhrzeit)
         const dateAddedTd = document.createElement("td");
-        const dateAdded = new Date(WishlistItem.addedDate);
+        const dateAdded = new Date(wishlistItem.addedDate);
         // Formatierung des Datums (nur DD.MM.YYYY)
         dateAddedTd.textContent = `${("0" + dateAdded.getDate()).slice(-2)}.${("0" + (dateAdded.getMonth() + 1)).slice(-2)}.${dateAdded.getFullYear()}`;  // Nur das Datum anzeigen
         row.appendChild(dateAddedTd);

@@ -62,7 +62,7 @@ if ($itemId === null || trim($itemId) === ""): ?> :
                                 <?php
                                     /** @var array<string, string> $product */
                                     $colors = isset($product["color"]) ? explode("/", $product["color"]) : [];
-                                ?>
+                ?>
                                 <?php foreach ($colors as $color) : ?>
                                     <label>
                                         <input type="radio" name="color" value="<?= $color ?>">
