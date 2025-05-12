@@ -29,7 +29,7 @@
         </ul>
     </nav>
 
-    <a class="logo-link" href="index.php">
+    <a class="logo-link" href="/">
         <img class="logo-image" src="/img/logo-transparent.png" alt="vestis.">
     </a>
 
