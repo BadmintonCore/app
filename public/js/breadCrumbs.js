@@ -46,7 +46,7 @@ function categoryListBreadcrumbGenerator() {
     }
 
     return [
-        { name: "Startseite", url: "/index.php" },
+        { name: "Startseite", url: "/" },
         { name: "Kategorie", url: null }
     ];
 }

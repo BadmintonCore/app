@@ -89,8 +89,6 @@
             <button id="toggle-breadcrumbs" class="btn"  >Breadcrumbs ausblenden</button>
         </nav>
 
-        <script>
-
 </main>
 
 <!--Footer der Website-->

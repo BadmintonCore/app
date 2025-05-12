@@ -733,6 +733,16 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     color: var(--text-color);
 }
 
+/** Breadcrumbs */
+
+.breadcrumbs {
+    display: none;
+}
+
+.breadcrumbs.open {
+    display: block;
+}
+
 /** Cards */
 
 .card {
