@@ -15,6 +15,15 @@
 <!--Inhalt der Seite-->
 <main>
 
+    <!--Breadcrumbs-->
+    <?php include("../components/breadcrumbs.php"); ?>
+    <script id="breadcrumb-data">
+        [
+            {"name": "Startseite", "url": "/index.php"},
+            {"name": "Login", "url": null}
+        ]
+    </script>
+
     <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="loginForm">
 
@@ -74,6 +83,14 @@
             </a>
         </div>
     </form>
+
+    <!-- Button für User-Funktion Breadcrumbs -->
+        <nav label="breadcrumb">
+            <button id="toggle-breadcrumbs" class="btn"  >Breadcrumbs ausblenden</button>
+        </nav>
+
+        <script>
+
 </main>
 
 <!--Footer der Website-->

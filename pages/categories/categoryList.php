@@ -8,6 +8,22 @@
 <body>
 <?php include("../components/header.php"); ?>
 <main class="content-wide">
+
+    <!--Breadcrumbs-->
+    <?php include("../components/breadcrumbs.php"); ?>
+
+    <!-- Funktion beim Laden der Seite automatisch aufrufen -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            categoryListBreadcrumbGenerator();
+        });
+
+
+    </script>
+
+
+    <script src="/js/breadCrumbs.js"></script>
+
     <h1>Übersicht - Tshirts</h1>
     <div class="list-page-flex">
         <div class="card no-hover">

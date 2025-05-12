@@ -9,13 +9,13 @@
     </div>
     <nav>
         <ul>
-            <li><a>Kleidung</a>
+            <li><a href="/categories/clothes.php">Kleidung</a>
                 <ul>
                     <li><a href="/categories/categoryList.php?categoryId=shirt">Shirts</a></li>
                     <li><a href="/categories/categoryList.php?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
-            <li><a>Accessoires</a>
+            <li><a href="/categories/accesories.php">Accessoires</a>
                 <ul>
                     <li><a href="/categories/categoryList.php?categoryId=cap">Caps</a></li>
                     <li><a href="/categories/categoryList.php?categoryId=bag">Taschen</a></li>
@@ -23,7 +23,7 @@
             </li>
         </ul>
     </nav>
-    <a class="logo-link" href="index.php">
+    <a class="logo-link" href="/index.php">
         <img class="logo-image" src="/img/logo-transparent.png" alt="vestis.">
     </a>
     <div class="button-row-center">
