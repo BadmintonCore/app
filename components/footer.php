@@ -1,4 +1,9 @@
 <!--Author: Lasse Hoffmann-->
+
+<?php
+use Vestis\Service\AuthService;
+
+?>
 <footer>
 
     <!--Container der Klasse "footer-newsletter"-->
@@ -45,9 +50,7 @@
             <a href="/customer-service/faq">Fragen und Antworten</a>
             <a href="/customer-service/contact">Kontakt</a>
             <a href="/customer-service/returns">Rücksendungen</a>
-            <?php use Vestis\Service\AuthService;
-
-            if (AuthService::isCustomer()) : ?>
+            <?php if (AuthService::isCustomer()) : ?>
                 <a href="/user-area/user">Benutzerbereich</a>
             <?php else: ?>
                 <a href="/auth/login">Benutzerbereich</a>
