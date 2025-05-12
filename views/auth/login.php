@@ -84,6 +84,7 @@
 <!--Footer der Website-->
 <?php include(__DIR__."/../../components/footer.php"); ?>
 <?php include(__DIR__."/../../components/scripts.php"); ?>
+<script src="/js/authValidation.js" defer></script>
 </body>
 </html>
 <!--Author: Lasse Hoffmann-->
