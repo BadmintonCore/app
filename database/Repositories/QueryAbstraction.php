@@ -41,7 +41,7 @@ class QueryAbstraction
         $statement = QueryAbstraction::prepareAndExecuteStatement($newQuery, $params);
         /** @var array<string, int|bool|string|null>|null $assoc */
         $assoc =  $statement->fetch(\PDO::FETCH_ASSOC) ?? null;
-        if (null !== $assoc) {
+        if (null !== $assoc && $assoc !== false) {
             return self::convertAssocToClass($className, $assoc);
         }
         return null;
