@@ -48,7 +48,9 @@
             <?php use Vestis\Service\AuthService;
 
             if (AuthService::isCustomer()) : ?>
-            <a href="/user-area/user">Benutzerbereich</a>
+                <a href="/user-area/user">Benutzerbereich</a>
+            <?php else: ?>
+                <a href="/auth/login">Benutzerbereich</a>
             <?php endif; ?>
         </div>
 
@@ -118,6 +120,8 @@
             <?php
             if (AuthService::isCustomer()) : ?>
                 <a href="/user-area/user">Benutzerbereich</a>
+            <?php else: ?>
+                <a href="/auth/login">Benutzerbereich</a>
             <?php endif; ?>
         </div>
 
