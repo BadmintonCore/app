@@ -1,7 +1,18 @@
 {
   "autoload": {
     "psr-4": {
-      "Vestis\\Database\\": "database/"
+      "Vestis\\Database\\": "database/",
+      "Vestis\\Service\\": "service/",
+      "Vestis\\Exception\\": "exception/",
+      "Vestis\\Controller\\": "controller/"
     }
+  },
+  "require": {
+    "ext-pdo": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.75",
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-strict-rules": "^2.0"
   }
 }

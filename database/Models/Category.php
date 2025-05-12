@@ -2,7 +2,7 @@
 
 namespace Vestis\Database\Models;
 
-use Vestis\Database\Repositories\QueryAbstraction;
+use Vestis\Database\Repositories\CategoryRepository;
 
 /**
  * The category model that represents the data of the category database table
@@ -23,8 +23,7 @@ class Category
             if (null !== $this->parentCategory) {
                 return $this->parentCategory;
             }
-            $parentCategory = QueryAbstraction::fetchOneAs(self::class, "SELECT * FROM category WHERE id = :id", ["id" => $this->parentCategoryId]);
-            $this->parentCategory = $parentCategory;
+            $this->parentCategory = CategoryRepository::findById($this->parentCategoryId);
             return $this->parentCategory;
         }
     }
@@ -37,9 +36,10 @@ class Category
             if (null !== $this->childCategories) {
                 return $this->childCategories;
             }
-            $childCategories = QueryAbstraction::fetchManyAs(self::class, "SELECT * FROM category WHERE parentCategoryId = :id", ["id" => $this->id]);
-            $this->childCategories = $childCategories;
-            return $childCategories;
+            if (null !== $this->parentCategoryId) {
+                $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
+            }
+            return $this->childCategories;
         }
     }
 
@@ -53,9 +53,10 @@ class Category
         if (null !== $this->childCategories) {
             return $this->childCategories;
         }
-        $childCategories = QueryAbstraction::fetchManyAs(self::class, "SELECT * FROM category WHERE parentCategoryId = :id", ["id" => $this->id]);
-        $this->childCategories = $childCategories;
-        return $childCategories;
+        if (null !== $this->parentCategoryId) {
+            $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
+        }
+        return $this->childCategories ?? [];
     }
 
 }

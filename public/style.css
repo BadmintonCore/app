@@ -1,0 +1,1277 @@
+/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog */
+
+/* ================================================
+                   Variablen
+===================================================*/
+
+:root {
+    /*Standard-Farben / White-Mode*/
+    --primary-background-color: #fff9e9;
+    --footer-background-color: #e5dacb;
+    --header-background-color: #fbf3e7;
+    --card-background-color: #fbf4e2;
+    --sidebar-color: #ebdfcf;
+    --text-color: black;
+    --button-color: black;
+    --button-secondary-text-color: var(--text-color);
+    --button-hover-color: #656565;
+    --accent-color: #b35c7d;
+    --danger-color: darkred;
+    --success-color: #73956f;
+    --form-box-shadow-color: rgba(0, 0, 0, 0.62);
+    --th-background-color: lightgray;
+    --z-index-popover: 1000;
+    --header-height: 100px;
+    --footer-height: 485px;
+    --button-font-size: 14px;
+}
+
+/*Dark-Mode Farbpalette*/
+html[data-theme='dark'] {
+    --primary-background-color: #000000;
+    --footer-background-color: #2b2a28;
+    --header-background-color: #2d2b29;
+    --card-background-color: #353330;
+    --sidebar-color: #2c2a27;
+    --text-color: #fff9e9;
+    --button-color: rgba(255, 249, 233, 0.9);
+    --button-secondary-text-color: #000;
+    --button-hover-color: rgba(255, 249, 233, 1);
+    --accent-color: #d98fa7;
+    --danger-color: #ff4c4c;
+    --success-color: #9fcfa0;
+    --form-box-shadow-color: #fff9e9;
+    --th-background-color: #353330;
+}
+
+/* ================================================
+                Generelle Styles
+===================================================*/
+
+/* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
+h1 {
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, p, span, strong, td, small, th {
+    color: var(--text-color);
+}
+
+* {
+    font-family: "PT Mono", serif;
+}
+
+p {
+    font-size: 12px;
+    text-align: justify; /*Es gibt entweder nur Blocksatz oder text-align: right, beides geht nicht!*/
+    color: var(--text-color);
+}
+
+*::selection {
+    background-color: var(--text-color);
+    color: var(--primary-background-color);
+}
+
+textarea {
+    height: 250px;
+    border-radius: 0;
+    border: 1px solid var(--text-color);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+/* genutzt für Texte, die größere Buchstaben benötigen (e.g. Impressum.html */
+p.large-text {
+    font-size: 16px;
+    text-align: justify;
+    color: var(--text-color);
+}
+
+p.text-align-left {
+    align-self: flex-start; /* Überschreibt das align-items in der Flexbox (für das form in diesem Fall) */
+}
+
+/*zentriert und setzt Hintergrundfarbe*/
+body {
+    background-color: var(--primary-background-color);
+    display: flex; /*Elemente ordnen sich flexibel an (Flexcontainer) */
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.error-message {
+    color: var(--danger-color);
+}
+
+/*Zelle im Tabellenkopf*/
+th {
+    background-color: var(--th-background-color);
+    color: var(--text-color);
+
+}
+
+h2 small {
+    font-size: .6em;
+    color: var(--text-color);
+}
+
+/* ============================================================================================================================
+                                                        Header-Main-Footer
+===============================================================================================================================*/
+
+/* ================================================
+                       Header
+===================================================*/
+
+header {
+    position: fixed; /*Header immer an fixer Stelle auf Bildschirm - auch bei Scrollen*/
+    top: 0; /*Abstand nach oben = 0*/
+    background-color: var(--header-background-color);
+    display: grid;
+    width: 100%;
+    place-items: center;
+    grid-template-columns: 1fr var(--header-height) 1fr; /*flexible Einheit, die sich an vorhandener Menge der 1fr bemisst minus anderer Elemente - auto für Darkmode-Button*/
+    height: var(--header-height);
+    border-bottom: 1px solid var(--text-color);
+    z-index: 500; /*wichtig, damit Header immer über Elementen von main angezeigt wird*/
+    padding-right: 25px; /*Abstand zum rechten Rand, damit Darkmode-Button immer mit 25 Pixel Abstand dargestellt wird*/
+}
+
+/*Aussehen des Währungs-Selektors im Header*/
+.currency-select {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-family: monospace;
+    cursor: pointer;
+    appearance: none; /* Entfernt Standard-Dropdown-Styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: absolute;
+    right: 110px;
+    top: 44px;
+}
+
+/*Höhe Bild im Header (Logo)*/
+header img {
+    height: var(--header-height);
+}
+
+/* Logo im Dark Mode invertieren */
+html[data-theme='dark'] .logo-link .logo-image {
+    filter: invert(100%) sepia(10%) saturate(300%) hue-rotate(10deg) brightness(105%); /* Ändert die Farben des Logos zu hellbeige*/
+}
+
+/*ordnet die UL im Header in einer Reihe an - Accesoires und Kleidung werden nebeneinander statt untereinander als Bullets angezeigt*/
+header ul {
+    display: flex;
+    gap: 20px;
+    list-style: none; /*keine Bulletpoints*/
+    position: relative; /*Pos. relativ zu anderen Objekten*/
+}
+
+/*Kleidung und Accesoire*/
+header ul li {
+    position: relative;
+    padding: 5px;
+}
+
+/*einzelne Drop-Downs*/
+header ul li ul {
+    display: none; /*standardmäßig nicht angezeigt*/
+    position: absolute; /*Position frei wählbar abhängig von übergeordnetem Element*/
+    top: 100%; /*Abstand zum übergeordneten Element*/
+    background-color: var(--header-background-color);
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    list-style: none; /*keine Bullets*/
+    z-index: var(--z-index-popover); /*sorgt dafür, dass alle Elemente des Dropdowns des Headers über anderen Inhalten angezeigt werden (Z-Achse)*/
+    flex-direction: column;
+    box-shadow: 1px 1px 1px var(--text-color); /*Schatten nach unten und rechts mit Blur*/
+}
+
+header ul li:hover ul {
+    display: flex; /*Wenn Accesoire oder Kleidung gehovert wird, wird das Dropdown angezeigt*/
+}
+
+.sidebar-drawer {
+    display: none;
+    flex-direction: column;
+    width: 40vw;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    margin: 0;
+    position: absolute;
+    background: var(--sidebar-color);
+    backdrop-filter: blur(100px);
+    border-right: 1px solid var(--text-color);
+    padding: 0 10px;
+}
+
+.sidebar-drawer a.btn {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.sidebar-drawer .close-icon {
+    height: 35px;
+    align-self: flex-end;
+    position: relative;
+    color: var(--text-color);
+    margin: 7px 0 0 0;
+}
+
+.sidebar-overlay {
+    width: 105vw;
+    position: absolute;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+.sidebar-overlay.open {
+    display: block;
+}
+
+@keyframes drawerSlide {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+.drawer-toggler {
+    display: none;
+    position: relative;
+    justify-self: flex-start;
+    left: 10px;
+}
+
+.drawer-toggler svg {
+    height: calc(var(--header-height) / 2);
+    color: var(--text-color);
+}
+
+/* ================================================
+                   Main-Content
+===================================================*/
+
+main {
+    padding: calc(var(--header-height) + 16px) 0; /*Setzt einen Abstand zwischen Main-Inhalten und Header, damit Elemente nicht hinter Header verschwinden */
+    flex: 1; /*Kurzversion für flex-grow - Elemente in main sollen so viel Platz einnehmen, dass Footer ganz unten angezeigt wird und nicht mitten im Bild*/
+}
+
+/*Style für Index-Seite mit Banner*/
+main.banner-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: var(--header-height) 0;
+}
+
+html[data-theme='dark'] .banner-content .banner-image {
+    filter: brightness(50%); /*Ändert die Helligkeit des Bildes auf Startsteite, sobald Dark-Mode aktiv*/
+}
+
+/*für breiteren Content im main Tag (e.g. ShirtList*/
+main.content-wide {
+    width: 80%;
+}
+
+/* ================================================
+                       Footer
+===================================================*/
+
+footer {
+    width: 100%;
+    bottom: 0;
+    height: var(--footer-height);
+    background-color: var(--footer-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0;
+    box-shadow: 0 0 2px var(--text-color); /*vertikaler Schatten Größe 1 Pixel*/
+}
+
+/*setzt die vier Footer Kategorien in eine Flexbox (angeordnet in einer Zeile)*/
+.footer-categories {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0;
+}
+
+/*setzt eine Kategorie in eine Flexbox (angeordnet in einer Spalte)*/
+.footer-category {
+    display: flex;
+    gap: 10px;
+    margin: 1em;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 90%;
+    width: max-content;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+/*setzt die Überschrift für eine Kategorie*/
+.footer-category h4 {
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+/*Setzt den Link-Style für eine Kategorie*/
+.footer-category a {
+    width: fit-content;
+}
+
+/*Setzt einen margin für den newsletter*/
+.footer-newsletter {
+    margin: 2rem;
+}
+
+/*setzt den Style eines Absatzes im Newsletter*/
+.footer-newsletter p {
+    opacity: 0.5;
+    text-align: center;
+    margin: 1rem;
+}
+
+/*setzt den Style für die Überschrift des newsletters*/
+.footer-newsletter h2 {
+    margin: 1rem;
+    text-align: center;
+}
+
+/*setzt den Style für den Input/das Label des Newsletters*/
+.footer-newsletter input, .footer-newsletter label {
+    height: 40px;
+    width: 100%;
+}
+
+/*setzt den Style für den Button des Newsletters*/
+.form-newsletter button {
+    height: 40px;
+}
+
+/*setzt den Style für die Social-Media-Icons*/
+.footer-social {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--text-color);
+}
+
+/*setzt den Style für die Social-Media-Icons beim Mouse-Hover*/
+.footer-social a:hover {
+    animation: none;
+}
+
+/*setzt den Style für den Copyright Absatz am Ende des Footers*/
+.footer-copyright p {
+    display: flex;
+    font-size: 0.8em;
+    margin: 2em;
+}
+
+/*Akkordion initial verbergen*/
+.footer-accordion {
+    display: none
+}
+
+/* ============================================================================================================================
+                                                             Komponenten
+===============================================================================================================================*/
+/*Author: Lasse Hoffmann*/
+
+/* ================================================
+                       Links
+===================================================*/
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+/*Animationsverhalten bei Hover des Links mit Maus*/
+@keyframes link-hover {
+    to {
+        background-color: var(--text-color);
+        color: var(--primary-background-color)
+    }
+}
+
+/*Setzen der Animation beim Hover*/
+a:hover {
+    animation-name: link-hover;
+    animation-duration: .7s;
+    animation-fill-mode: forwards; /*nach Animation bleibt der Stand solang gehovert und geht nicht autom. in Ursprungszustand*/
+}
+
+/*keine Hover-Animation bei Logo*/
+.logo-link:hover {
+    animation: none;
+}
+
+/* ================================================
+                      Buttons
+===================================================*/
+
+/*Normaler Button*/
+.btn {
+    color: var(--primary-background-color);
+    background-color: var(--button-color);
+    border-radius: 0; /*um Browser-abhängige border-radius zu überschreiben*/
+    border: none; /*um Border zu entfernen*/
+    padding: 18px 36px;
+    font-size: var(--button-font-size);
+    cursor: pointer; /*bei Hover wird Cursor zum Klicken angezeigt*/
+    position: relative; /*wichtig für Button-Hover-Animation, dass nicht ganzer Bildschirm gefüllt wird*/
+    overflow: hidden; /*Animation spielt sich nur in Button ab*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0; /*auf 0, damit ::before -1 sein kann */
+}
+
+.btn::before { /*erstellt Pseudo-Element für Animation über Button*/
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--button-hover-color);
+    z-index: -1; /*liegt hinter Schrift des Buttons*/
+    transition: width 0.3s ease-in; /*legt fest, wie Animation verlaufen soll (Dauer)*/
+}
+
+/*Pseudo-Element wird 100% breit, wenn Button gehovert*/
+.btn:hover::before {
+    width: 100%;
+}
+
+/*kleiner Button (button-small)*/
+.btn.btn-sm {
+    color: var(--primary-background-color);
+    padding: 9px 19px;
+}
+
+/*Sekundärer Button mit anderem Aussehen (e.g. itemid.html --> direkt bestellen (primär) und Warenkorb hinzufügen (sekundär))*/
+.btn.secondary {
+    background-color: unset;
+    color: var(--text-color);
+    border: 1px solid var(--button-color);
+}
+
+.btn.secondary:hover {
+    color: var(--button-secondary-text-color);
+}
+
+.btn.danger {
+    background-color: var(--danger-color);
+}
+
+/*Button mit SVG - wird an Font-Size angepasst*/
+.btn svg {
+    width: var(--button-font-size);
+    height: var(--button-font-size);
+}
+
+/*Zurück-Button*/
+.back-btn {
+    align-self: flex-start; /*immer links angeordnet*/
+    display: flex;
+    align-items: center;
+    gap: 8px; /*Abstand zu anderen Elementen*/
+    width: fit-content; /*Button nur so breit wie Inhalt*/
+    color: var(--text-color);
+}
+
+/*Zurückpfeil*/
+.back-btn svg {
+    height: 32px;
+}
+
+/*Zurücktext*/
+.back-btn span {
+    display: none;
+    font-size: 1.15em;
+    padding-right: 5px;
+    color: inherit;
+}
+
+/*wenn Button gehovert wird, wird Span angezeigt*/
+.back-btn:hover span {
+    display: block;
+}
+
+/*Wishlist-Button*/
+.wishlist-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background: none;
+    transition: ease 0.5s;
+}
+
+/*Wishlost-Button beim Hovern*/
+.wishlist-btn:hover {
+    transform: scale(1.1);
+}
+
+/*Darkmode-Button*/
+.darkmode-btn {
+    justify-self: end; /*Darkmode Button wird ganz rechts ausgerichtet*/
+    position: absolute;
+    right: 60px;
+    top: 42px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.darkmode-btn svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease; /* Weicher Übergang */
+}
+
+/* Standard (Light Mode): Sonne sichtbar, Mond unsichtbar */
+html:not([data-theme='dark']) .darkmode-btn .bi-moon {
+    opacity: 0;
+    color: var(--text-color);
+}
+
+html:not([data-theme='dark']) .darkmode-btn .bi-sun {
+    opacity: 1;
+    color: var(--text-color);
+}
+
+/* Dark Mode: Sonne unsichtbar, Mond sichtbar */
+html[data-theme='dark'] .darkmode-btn .bi-moon {
+    opacity: 1;
+    color: var(--text-color);
+}
+
+html[data-theme='dark'] .darkmode-btn .bi-sun {
+    opacity: 0;
+    color: var(--text-color);
+}
+
+/*Hover-Effekte mit Icon-Wechsel im Light-Mode*/
+html:not([data-theme='dark']) .darkmode-btn:hover .bi-sun {
+    opacity: 0; /* Sonne ausblenden */
+    color: var(--text-color);
+}
+
+html:not([data-theme='dark']) .darkmode-btn:hover .bi-moon {
+    opacity: 1; /* Mond einblenden */
+    color: var(--text-color);
+}
+
+/*Hover-Effekte mit Icon-Wechsel im Dark-Mode*/
+html[data-theme='dark'] .darkmode-btn:hover .bi-moon {
+    opacity: 0; /* Mond ausblenden */
+    color: var(--text-color);
+}
+
+html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
+    opacity: 1; /* Sonne einblenden */
+    color: var(--text-color);
+}
+
+/*Buttons im Header (Merkliste, Einkaufswagen, Login)*/
+.header-btn {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.header-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+.header-btn:hover {
+    animation: none;
+}
+
+.header-btn:hover svg {
+    transform: scale(1.1);
+}
+
+/* ================================================
+                        Cards
+===================================================*/
+
+/** Cards */
+
+.card {
+    border: 1px solid var(--text-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    box-shadow: 1px 1px 1px var(--form-box-shadow-color);
+    background-color: var(--card-background-color);
+    min-width: 250px;
+}
+
+.card .btn.btn-sm {
+    margin-top: 10px;
+}
+
+.card:hover {
+    box-shadow: 3px 3px 3px var(--form-box-shadow-color);
+}
+
+.card img {
+    height: 250px;
+}
+
+.card * {
+    color: var(--text-color);
+    text-align: center;
+}
+
+.card h2 {
+    color: var(--text-color);
+    text-wrap: wrap; /*Zeilenumbruch, wenn Inhalt > 200px*/
+    width: 200px;
+}
+
+.card h2, h4 {
+    margin: 0;
+}
+
+.card.no-hover:hover {
+    box-shadow: 1px 1px 1px var(--form-box-shadow-color); /*Box-Shadow bleibt gleich*/
+}
+
+.card.justify-start { /*Optionskarte: Inhalte werden links angeordnet*/
+    justify-content: flex-start;
+}
+
+.card button, .card a {
+    width: 100%;
+}
+
+.card .btn-sm {
+    padding: 9px 0;
+}
+
+/* ================================================
+                     Checkbox
+===================================================*/
+
+/*Label für Checkbox-Input*/
+label:has(input[type="checkbox"]) { /*ist im Label-Tag ein Input mit Checkbox-Type?*/
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+input[type="checkbox"] { /*setzt eine Regel, die für allle Inputs vom Typ Checkbox Standardmaße setzt*/
+    width: 24px;
+    height: 24px;
+    appearance: none;
+}
+
+input[type="checkbox"]:checked { /*Wenn angeklickt, dann Farbe*/
+    accent-color: var(--accent-color);
+    appearance: auto;
+}
+
+input[type="checkbox"]:focus { /*keine Outline wenn fokussiert*/
+    outline: none !important;
+}
+
+/* ================================================
+                   Radio-Buttons
+===================================================*/
+
+/*Style für Label, das einen Input von Typ Radio beinhaltet (e.g. Detailseite Größen- und Farbauswahl)*/
+label:has(input[type="radio"]) {
+    display: inline-flex;
+    align-items: center;
+    background: none;
+    border: 1px solid var(--text-color);
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: ease-in .5s;
+}
+
+label:has(input[type="radio"]):hover {
+    background-color: var(--text-color);
+    color: var(--primary-background-color);
+}
+
+input[type="radio"] {
+    display: none; /*Button selbst wird nicht angezeigt, aber da Button in Label wird bei Klick auf Label auch immer Button geklickt*/
+}
+
+/*Style des Labels wenn Button gecheckt*/
+label:has(input[type="radio"]:checked) {
+    background-color: var(--text-color);
+    color: var(--primary-background-color);
+}
+
+/* ================================================
+                   Range-Select
+===================================================*/
+
+input[type="range"] {
+    accent-color: var(--accent-color); /*Sliderfarbe*/
+    padding: 0;
+}
+
+input[type="range"]:focus {
+    outline: none; /*keine Outline bei Slider*/
+}
+
+/* ================================================
+                     Inputs
+===================================================*/
+
+input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 0;
+    border: 1px solid var(--text-color);
+    width: 100%;
+    text-align: left !important; /*Standardwert*/
+    box-sizing: border-box;
+    background: inherit;
+    color: var(--text-color);
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
+    outline: 2px solid var(--accent-color);
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover:hover, textarea:hover {
+    outline: 2px solid var(--accent-color);
+}
+
+/* ================================================
+                   Quantity-Input
+===================================================*/
+
+.quantity-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--text-color);
+    border-radius: 0;
+    overflow: hidden;
+    width: fit-content;
+    background: var(--primary-background-color);
+}
+
+.quantity-container:focus {
+    outline: 2px solid var(--accent-color);
+}
+
+.quantity-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-color);
+}
+
+.quantity-btn:focus {
+    outline: none;
+}
+
+.quantity-container input[type="number"] {
+    text-align: center !important;
+    border: none;
+    font-size: 1rem;
+    padding: 10px 0;
+    width: 50px;
+    -moz-appearance: textfield; /*damit Standardpfeile von Firefox ausgeblendet werden*/
+    background-color: var(--primary-background-color);
+}
+
+.quantity-container input[type="number"]:focus {
+    outline: none;
+}
+
+/* ================================================
+                      Tabelle
+===================================================*/
+
+table { /*Tabellendesign generell*/
+    border: 1px solid var(--text-color);
+    outline: none;
+}
+
+table th, td { /*einzelne Zellen haben immer rechts und unten Border */
+    padding: 10px;
+    border-bottom: 1px solid var(--text-color);
+    border-right: 1px solid var(--text-color);
+}
+
+table th:last-child, td:last-child { /*letzte Zellen einer Reihe haben keine Border*/
+    border-right: none;
+}
+
+table tr:last-child td { /*jede Zelle der letzten Zeile hat unten keine Border*/
+    border-bottom: none;
+}
+
+/* ================================================
+                    Formulare
+===================================================*/
+
+form {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+}
+
+.form-box {
+    color: var(--text-color);
+    width: 30vw;
+    border: 1px solid var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    height: 100%;
+    box-shadow: 1px 1px 1px var(--form-box-shadow-color);
+    background-color: var(--card-background-color);
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+}
+
+.form-input p {
+    margin: 0;
+}
+
+/* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind, aber nur beim focus (Wenn das Feld ausgewählt ist) */
+.form-input-success:focus {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    outline: 2px solid var(--success-color) !important;
+}
+
+/* Outline des Inputs färben, falls Benutzername/Passwort falsch sind,  aber nur beim focus (Wenn das Feld ausgewählt ist) */
+.form-input-error:focus {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    outline: 2px solid var(--danger-color) !important;
+}
+
+.form-input label.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-input input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+}
+
+/* ================================================
+                Banner-Index-Seite
+===================================================*/
+
+.banner {
+    position: relative; /*damit sich Banner an Bildschirm-Breite anpasst*/
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ================================================
+                Breadcrumbs
+===================================================*/
+
+
+.breadcrumbs {
+    display: none;
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    width: fit-content;
+}
+
+.breadcrumbs.open {
+    display: block;
+}
+
+/* ================================================
+                        Layout
+===================================================*/
+
+.stack { /*Stapel mit Gap dazwischen (e.g. Abstandshalter für Warenkorb) */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button-row { /*Reihe für Buttons*/
+    display: flex;
+    gap: 20px;
+    align-self: flex-start;
+}
+
+/*Setzt den Style für die beiden Buttons "Login" und "Warenkorb" im Header*/
+.button-row-center {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 3em;
+}
+
+.sidebar-drawer .button-row-center {
+    display: flex !important;
+    justify-content: center;
+}
+
+.flex-align-left {
+    display: flex;
+    align-items: flex-start;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.card-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    row-gap: 2rem;
+    flex-basis: 400px;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: fit-content;
+}
+
+.card-flex .card {
+    flex: 1;
+}
+
+.list-page-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start; /* Aligns the tops of each option-box */
+}
+
+/* Box containing title and input/fields */
+.filter-options .option-box-with-title {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Full width inside the box */
+    min-width: 150px; /* Optional: sets a base width */
+}
+
+.filter-options .option-box-with-title.can-grow {
+    flex: 1;
+}
+
+/* Makes all <strong> titles align to the top */
+.filter-options .option-box-with-title strong {
+    margin-bottom: 8px;
+    text-align: left;
+    display: block;
+}
+
+.filter-options .option-box-with-title .align-start {
+    align-self: flex-start;
+    text-align: left;
+}
+
+.filter-options .btn {
+    align-self: center;
+}
+
+.details-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+    width: 90%;
+    padding: 0 5%;
+}
+
+.details-flex .back-btn-container {
+    width: 100%;
+    margin-left: 5%;
+}
+
+.details-flex img {
+    width: calc(40% - 25px);
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.details-flex .info {
+    width: 60%;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.gap-3 {
+    gap: 12px;
+}
+
+/* ================================================
+                 Responsive-Design
+===================================================*/
+
+@media screen and (max-width: 680px) {
+    .sidebar-drawer {
+        width: 60vw;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .sidebar-drawer {
+        width: 75vw;
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    header {
+        display: grid;
+        place-items: center;
+    }
+
+    header nav {
+        display: none;
+    }
+
+    .darkmode-btn {
+        display: none;
+    }
+
+    .currency-select {
+        display: none;
+    }
+
+    .button-row-center {
+        display: none !important;
+    }
+
+    .drawer-toggler {
+        display: block;
+    }
+
+    .sidebar-drawer.open {
+        display: flex;
+        animation-name: drawerSlide;
+        animation-duration: .3s;
+        animation-fill-mode: forwards;
+
+    }
+}
+
+@media screen and (max-width: 1550px) {
+    main.content-wide {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+
+    /*Automatische Höhe des Footers*/
+    footer {
+        height: auto;
+    }
+
+    /*Footer-categories verbergen*/
+    .footer-categories {
+        display: none;
+    }
+
+    /*Akkordion anzeigen*/
+    .footer-accordion {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /*Padding nach oben vergrößern*/
+    .footer-social {
+        padding: 20px 0 15px 0;
+    }
+
+    /*Style des Akkordion-Buttons setzen*/
+    .accordion-button {
+        position: relative;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        max-width: 100vw;
+        color: var(--text-color);
+        background-color: var(--footer-background-color);
+        text-align: left;
+        padding: 10px;
+        border: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.8);
+        font-size: 1.1rem;
+        border-radius: 0;
+    }
+
+    /*Style des Akkordion-Inhalts setzen, initial: verborgen*/
+    .accordion-content {
+        display: none;
+        flex-direction: column;
+        align-items: start;
+        padding: 10px;
+    }
+
+    /*Style der Links im ausgeklappten Akkordion setzen*/
+    .accordion-content a {
+        width: fit-content;
+        margin: 3px;
+        font-size: 1rem;
+    }
+
+    .accordion-content.open {
+        animation-fill-mode: forwards;
+        animation-duration: .3s;
+        animation-name: accordionOpen;
+        display: block;
+    }
+
+    @keyframes accordionOpen {
+        from {
+            height: 0;
+            padding: 0 10px;
+        }
+        to {
+            height: auto;
+            padding: 10px;
+        }
+    }
+
+    @keyframes accordionClose {
+        from {
+            height: auto;
+            padding: 10px;
+        }
+        to {
+            height: 0;
+            padding: 0 10px;
+        }
+    }
+
+    .accordion-content.closed {
+        animation-duration: .3s;
+        animation-name: accordionClose;
+        display: block;
+        animation-fill-mode: forwards;
+        overflow: hidden;
+    }
+
+    /*Close-Icon eines Akkordion-Buttons initial verbergen*/
+    .close {
+        display: none;
+    }
+
+}
+
+@media screen and (min-width: 830px) {
+    .filter-options .btn {
+        width: auto;
+        padding: 9px 19px;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .details-flex img {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .details-flex .info {
+        width: 100%;
+    }
+}
+
+/* ================================================
+                   ID-Spezifisch
+===================================================*/
+
+/**Zentriert auf der login-Seite die beiden Links für "Passwort zurücksetzen" und "Jetzt registrieren"*/
+#resetAndRegister {
+    text-align: center;
+}
+
+/*Setzt die Farbe für den ausgefüllten Wishlist-Button auf der Item-Seite*/
+#addToWishlistButtonFilled {
+    color: var(--accent-color);
+}
+
+/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/
