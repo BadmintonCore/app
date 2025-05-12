@@ -76,7 +76,7 @@ class ValidationService
                 }
                 break;
             case ValidationType::Boolean:
-                if (!is_bool($fieldValue)) {
+                if (!is_bool($fieldValue) && $fieldValue !== "on") {
                     throw new ValidationException(sprintf("Field %s must be a boolean.", $fieldName));
                 }
                 break;
