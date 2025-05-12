@@ -7,7 +7,7 @@
 <html lang="de">
 <head>
     <?php include(__DIR__."/../../components/head.php"); ?>
-    <title>Vestis - Kategorie 1</title>
+    <title>Vestis - <?= $categoryId ?></title>
 </head>
 <body>
 <?php include(__DIR__."/../../components/header.php"); ?>
@@ -28,7 +28,7 @@
 
     <script src="/js/breadCrumbs.js"></script>
 
-    <h1>Übersicht - Tshirts</h1>
+    <h1>Übersicht - <?= $categoryId ?></h1>
     <div class="list-page-flex">
         <div class="card no-hover">
             <div class="filter-options">

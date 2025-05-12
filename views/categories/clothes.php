@@ -2,24 +2,35 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>vestis. - Accesoires</title>
+    <title>vestis. - Kleidung</title>
     <?php include("../components/head.php"); ?>
 </head>
 <body>
 
 <!--Header der Website-->
 <?php include("../components/header.php"); ?>
+
 <!--Inhalt der Seite-->
 <main>
+
+    <!--Breadcrumbs-->
+    <?php include("../components/breadcrumbs.php"); ?>
+
+    <script id="breadcrumb-data">
+        [
+            {"name": "Startseite", "url": "/index.php"},
+            {"name": "Kleidung", "url": null}
+        ]
+    </script>
 
     <!--Zurückbutton-->
     <?php include("../components/back-btn.php"); ?>
 
-    <h1>Accesoires</h1>
+    <h1>Kleidung</h1>
 
-    <button class="btn" >Caps shoppen.</button><br>
+    <a class="btn" href="/categories?categoryId=shirt">Shirts shoppen.</a><br>
 
-    <button class="btn" >Bags shoppen.</button>
+    <a class="btn" href="/categories?categoryId=sweater">Sweater shoppen.</a>
 
 
 
@@ -31,4 +42,3 @@
 </body>
 </html>
 <!--Author: Lennart Moog -->
-

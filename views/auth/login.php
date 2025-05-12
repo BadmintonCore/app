@@ -89,11 +89,6 @@
         </div>
     </form>
 
-    <!-- Button für User-Funktion Breadcrumbs -->
-        <nav label="breadcrumb">
-            <button id="toggle-breadcrumbs" class="btn"  >Breadcrumbs ausblenden</button>
-        </nav>
-
 </main>
 
 <!--Footer der Website-->

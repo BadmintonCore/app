@@ -50,20 +50,3 @@ function categoryListBreadcrumbGenerator() {
         { name: "Kategorie", url: null }
     ];
 }
-// Funktion, um Breadcrumbs ein- oder auszuschalten (Toggle)
-document.addEventListener("DOMContentLoaded", function () {
-    const breadcrumbsContainer = document.getElementById('breadcrumbs-container');
-    const toggleButton = document.getElementById('toggle-breadcrumbs');
-
-    if (!breadcrumbsContainer || !toggleButton) return;
-
-    toggleButton.addEventListener('click', function () {
-        if (breadcrumbsContainer.style.display === 'none') {
-            breadcrumbsContainer.style.display = 'block';
-            toggleButton.textContent = 'Breadcrumbs ausblenden';
-        } else {
-            breadcrumbsContainer.style.display = 'none';
-            toggleButton.textContent = 'Breadcrumbs einblenden';
-        }
-    });
-});

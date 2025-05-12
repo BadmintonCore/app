@@ -13,6 +13,8 @@ use Vestis\Controller\YourPurchaseController;
 return [
     '/' => [HomeController::class, 'index'],
     '/categories' => [CategoriesController::class, 'index'],
+    '/categories/clothes' => [CategoriesController::class, 'clothes'],
+    '/categories/accesories' => [CategoriesController::class, 'accesories'],
     '/categories/product' => [ProductController::class, 'index'],
     '/about-us/about' => [AboutUsController::class, 'about'],
     '/about-us/jobs' => [AboutUsController::class, 'jobs'],
