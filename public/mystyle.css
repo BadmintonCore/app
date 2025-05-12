@@ -737,6 +737,9 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
 
 .breadcrumbs {
     display: none;
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    width: fit-content;
 }
 
 .breadcrumbs.open {
