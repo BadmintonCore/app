@@ -66,8 +66,10 @@ function updatePrices() {
         const priceString = priceField.childNodes[0].nodeValue;
         let kebapConvert = false;
         if (lastCurrency === "KBP"){
+            //Preis wird aus dem HTML-Attribut gelesen und entspricht dem Euro-Wert
             price = parseFloat(priceField.dataset.priceEur.valueOf());
             lastCurrency = "EUR"
+            //Damit die lastCurrency nach einem Durchlauf wieder auf KBP gesetzt werden kann
             kebapConvert = true;
         } else {
             price = parseFloat(priceString.replace(',', '.'));
@@ -79,6 +81,7 @@ function updatePrices() {
         }
 
         if(kebapConvert){
+            //Setzt die lastCurrency wieder auf Kebap für den nächsten Durchlauf
             lastCurrency = "KBP";
         }
     }
