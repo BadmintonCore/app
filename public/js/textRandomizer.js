@@ -32,8 +32,6 @@ const greetingTexts = [
     'Howdy,'
 ];
 
-const lastTextNumber = greetingTexts.length + 1;
-
 /**
  * Generiert ein zufälliges Emoji aus dem Array "emojiArray"
  */
@@ -43,19 +41,21 @@ function randomizeText() {
 
     /*Berechnet eine zufällige Zahl in dem angegebenen Intervall [min, max[,
     Math.floor rundet eine Zahl immer ab, damit die Wahrscheinlichkeit nicht manipuliert wird*/
-    do {
-    var randomTextNumber = Math.floor(Math.random() * (max - min)) + min;
-    } while (randomTextNumber === lastTextNumber);
-
-    return greetingTexts[randomTextNumber];
+    return greetingTexts[Math.floor(Math.random() * (max - min)) + min];
 }
 
 /**
  * "Malt" ein zufällig generierten Text in das dafür vorgesehene Feld im Benutzerbereich
  */
 function writeText() {
-    const emojiField = document.getElementById('welcomeTextField');
-    emojiField.innerHTML = randomizeText();
+    const welcomeTextField = document.getElementById('welcomeTextField');
+    if (sessionStorage.getItem('greetingText') === null || sessionStorage.getItem('greetingText') === "") {
+        const randomizedText = randomizeText();
+        welcomeTextField.innerHTML = randomizedText;
+        sessionStorage.setItem('greetingText', randomizedText);
+    } else {
+        welcomeTextField.innerHTML = sessionStorage.getItem('greetingText');
+    }
 }
 
 document.addEventListener("DOMContentLoaded", writeText);
