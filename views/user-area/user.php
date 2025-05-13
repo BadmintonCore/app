@@ -25,6 +25,8 @@ use Vestis\Service\AuthService;
         <h1>Benutzerbereich</h1>
         <?php include(__DIR__."/../../components/back-btn.php"); ?>
 
+        <h3>Hallo, <?= AuthService::$currentAccount?->firstname?> <span id="emojiField"></span>!</h3>
+
         <div class="form-input">
             <label for="username"><b>Benutzername</b></label>
             <input type="text" id="username" name="username" value="<?= AuthService::$currentAccount?->username ?>" required>
@@ -39,7 +41,13 @@ use Vestis\Service\AuthService;
         <button type="submit" class="btn align-start" id="subBtn" disabled>
             aktualisieren.
         </button>
+        <br/>
+        <br/>
+        <a href="/auth/logout" class="btn align-start">
+            logout.
+        </a>
     </form>
+    <script src="/js/emojiRandomizer.js"></script>
 </main>
 <?php include(__DIR__."/../../components/footer.php"); ?>
 <?php include(__DIR__."/../../components/scripts.php"); ?>
