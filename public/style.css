@@ -22,7 +22,6 @@
     --th-background-color: lightgray;
     --z-index-popover: 1000;
     --header-height: 100px;
-    --footer-height: 485px;
     --button-font-size: 14px;
 }
 
@@ -48,6 +47,11 @@ html[data-theme='dark'] {
                 Generelle Styles
 ===================================================*/
 
+@font-face {
+    font-family: "PT Mono";
+    src: url('/font/PTMono-Regular.ttf');
+}
+
 /* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
 h1 {
     text-align: center;
@@ -58,7 +62,7 @@ h1, h2, h3, h4, h5, p, span, strong, td, small, th {
 }
 
 * {
-    font-family: "PT Mono", serif;
+    font-family: "PT Mono", monospace;
 }
 
 p {
@@ -297,7 +301,7 @@ main.content-wide {
 footer {
     width: 100%;
     bottom: 0;
-    height: var(--footer-height);
+    height: auto;
     background-color: var(--footer-background-color);
     display: flex;
     align-items: center;
@@ -1268,7 +1272,7 @@ form {
 }
 
 #addToWishlistButtonEmpty svg {
-    color:  var(--text-color);
+    color: var(--text-color);
     width: 25px;
     height: 25px;
 }

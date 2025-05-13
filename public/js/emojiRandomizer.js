@@ -8,7 +8,7 @@ const greetingEmojis = [
     '🤠','🫡','😏','🤤','😮‍💨','😌','😻','🤓','🧐','😸'
 ];
 
-const lastEmojiNumber = greetingEmojis.length + 1;
+let lastEmojiNumber = greetingEmojis.length + 1;
 
 /**
  * Generiert ein zufälliges Emoji aus dem Array "emojiArray"
@@ -19,11 +19,7 @@ function randomizeEmoji() {
 
     /*Berechnet eine zufällige Zahl in dem angegebenen Intervall [min, max[,
     Math.floor rundet eine Zahl immer ab, damit die Wahrscheinlichkeit nicht manipuliert wird*/
-    do {
-        var randomEmojiNumber = Math.floor(Math.random() * (max - min)) + min;
-    } while (randomEmojiNumber === lastEmojiNumber);
-
-    return greetingEmojis[randomEmojiNumber];
+    return greetingEmojis[Math.floor(Math.random() * (max - min)) + min];
 }
 
 /**
@@ -31,7 +27,13 @@ function randomizeEmoji() {
  */
 function drawEmoji() {
     const emojiField = document.getElementById('emojiField');
-    emojiField.innerHTML = randomizeEmoji();
+    if (sessionStorage.getItem('greetingEmoji') === null || sessionStorage.getItem('greetingEmoji') === "") {
+        const randomizedEmoji = randomizeEmoji();
+        emojiField.innerHTML = randomizedEmoji;
+        sessionStorage.setItem('greetingEmoji', randomizedEmoji);
+    } else {
+        emojiField.innerHTML = sessionStorage.getItem('greetingEmoji');
+    }
 }
 
 document.addEventListener("DOMContentLoaded", drawEmoji);
