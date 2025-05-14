@@ -153,6 +153,7 @@ header {
     position: absolute;
     right: 110px;
     top: 44px;
+    color: var(--text-color);
 }
 
 /*Höhe Bild im Header (Logo)*/
@@ -1117,14 +1118,6 @@ form {
     }
 
     header nav {
-        display: none;
-    }
-
-    .darkmode-btn {
-        display: none;
-    }
-
-    .currency-select {
         display: none;
     }
 
