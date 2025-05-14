@@ -28,7 +28,8 @@
 
     <script src="/js/breadCrumbs.js"></script>
 
-    <h1>Übersicht - <?= $categoryId ?></h1>
+
+    <h1><?= ucfirst($categoryId) . (substr($categoryId, -1) === 's' ? '' : 's') ?></h1>
     <div class="list-page-flex">
         <div class="card no-hover">
             <div class="filter-options">

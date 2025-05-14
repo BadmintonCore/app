@@ -13,6 +13,9 @@
 <!--Inhalt der Seite-->
 <main>
 
+    <!--Breadcrumbs-->
+    <?php include("../components/breadcrumbs.php"); ?>
+
     <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="loginForm">
 

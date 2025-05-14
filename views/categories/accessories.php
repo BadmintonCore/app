@@ -12,6 +12,9 @@
 <!--Inhalt der Seite-->
 <main>
 
+    <!--Breadcrumbs-->
+    <?php include("../components/breadcrumbs.php"); ?>
+
     <!--Zurückbutton-->
     <?php include("../components/back-btn.php"); ?>
 

@@ -1,5 +1,7 @@
+// @Author: Lennart Moog
+
 const translation = {
-    categories: 'Kategorie',
+    categories: 'Kategorien',
     clothes: 'Kleidung',
     bags: 'Taschen',
     accessories: 'Accessoires',
@@ -8,7 +10,9 @@ const translation = {
     "your-purchases": 'Dein Einkauf',
     legal: 'Rechtliches',
     impress: 'Impressum',
-    "user-area": 'Benutzerbereich',
+    "user-area": 'Nutzer',
+    auth: "Anmeldung",
+    "your-purchase": 'Dein Einkauf',
 }
 
 
@@ -23,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     breadcrumbsContainer.innerHTML = ''; // Container leeren
 
 
-    // // Breadcrumbs hardcoded generieren / nur möglich, wenn Pfad in jeweiliger Seite angegeben
+    // Breadcrumbs generieren
     breadcrumbData.forEach((item, index) => {
          if (item.url) {
              const link = document.createElement('a');
@@ -59,6 +63,27 @@ function generateBreadcrumbList() {
         window.location.href.includes("categoryId=bag") ||
         window.location.href.includes("categoryId=cap")
     ) {
+
+        if(window.location.href.includes("itemId=3") ||
+            window.location.href.includes("itemId=4")){
+            if (window.location.href.includes("itemId=3")){
+                previousCategory = "Taschen"; // Setze die vorherige Kategorie auf "accessories"
+                previousCategoryUrl = "/categories?categoryId=bag"; // Setze die URL der vorherigen Kategorie
+
+            }
+            if (window.location.href.includes("itemId=4")){
+                previousCategory = "Caps"; // Setze die vorherige Kategorie auf "bags"
+                previousCategoryUrl = "/categories?categoryId=cap"; // Setze die URL der vorherigen Kategorie
+            }
+            return [
+                {name: "Startseite", url: "/"},
+                {name: "Accessoires", url: "/categories/accessories"},
+                {name: previousCategory, url: previousCategoryUrl},
+                {name: h1Text, url: null}
+            ];
+        }
+
+
         /* Breadcrumbs für die Kategorie "Accessoires" generieren und Link-Weiterleitung zu "/categories/accessoires.php"
         * z.B. "Accessoires / Cap" oder "Accessoires / Bag"
         * Für die aktuelle Seite wird der h1-Text verwendet
@@ -75,6 +100,24 @@ function generateBreadcrumbList() {
         window.location.href.includes("categoryId=shirt") ||
         window.location.href.includes("categoryId=sweater")
     ) {
+        if(window.location.href.includes("itemId=1") ||
+            window.location.href.includes("itemId=2")){
+            if (window.location.href.includes("itemId=1")){
+                previousCategory = "Shirts"; // Setze die vorherige Kategorie auf "accessories"
+                previousCategoryUrl = "/categories?categoryId=shirt"; // Setze die URL der vorherigen Kategorie
+
+            }
+            if (window.location.href.includes("itemId=2")){
+                previousCategory = "Sweater"; // Setze die vorherige Kategorie auf "bags"
+                previousCategoryUrl = "/categories?categoryId=sweater"; // Setze die URL der vorherigen Kategorie
+            }
+            return [
+                {name: "Startseite", url: "/"},
+                {name: "Kleidung", url: "/categories/clothes"},
+                {name: previousCategory, url: previousCategoryUrl},
+                {name: h1Text, url: null}
+            ];
+        }
         return [
             {name: "Startseite", url: "/"},
             {name: "Kleidung", url: "/categories/clothes"},
@@ -84,7 +127,7 @@ function generateBreadcrumbList() {
 
     for (let i = 1; i < parts.length; i++) {
         const part = parts[i];
-        const translated = translation[part] ?? decodeURIComponent(part); // decodeURIComponent für Sonderzeichen
+        const translated = translation[part]; // decodeURIComponent für Sonderzeichen
         path += part + "/"; // Pfad aktualisieren
         if (i === parts.length - 1) {
             breadcrumbs.push({ name: h1Text, url: null }); // Seitenname von aktueller Seite ohne URL
@@ -95,3 +138,5 @@ function generateBreadcrumbList() {
 
     return breadcrumbs; // Rückgabe der Breadcrumbs
 }
+
+// @Author: Lennart Moog

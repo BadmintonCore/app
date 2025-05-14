@@ -7,7 +7,11 @@
 </head>
 <body>
     <?php include(__DIR__."/../../components/header.php"); ?>
-    <main> 
+    <main>
+
+        <!--Breadcrumbs-->
+        <?php include("../components/breadcrumbs.php"); ?>
+
         <?php include(__DIR__."/../../components/back-btn.php"); ?>
         <div class="stack">
             <h1>Warenkorb</h1>

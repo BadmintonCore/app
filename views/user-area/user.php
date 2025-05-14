@@ -19,7 +19,10 @@ use Vestis\Service\AuthService;
 <?php include(__DIR__."/../../components/header.php"); ?>
 
 <main>
+
+    <!--Breadcrumbs-->
     <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+
     <form class="form-box" id="userForm">
 
         <h1>Benutzerbereich</h1>
