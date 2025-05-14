@@ -29,24 +29,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Breadcrumbs generieren
     breadcrumbData.forEach((item, index) => {
-         if (item.url) {
-             const link = document.createElement('a');
-             link.href = item.url;
-             link.textContent = item.name;
-             breadcrumbsContainer.appendChild(link);
-         } else {
-             const span = document.createElement('span');
-             span.textContent = item.name;
-             breadcrumbsContainer.appendChild(span);
-         }
+        if (item.url) {
+            const link = document.createElement('a');
+            link.href = item.url;
+            link.textContent = item.name;
+            breadcrumbsContainer.appendChild(link);
+        } else {
+            const span = document.createElement('span');
+            span.textContent = item.name;
+            breadcrumbsContainer.appendChild(span);
+        }
 
-         // Trennzeichen hinzufügen, außer beim letzten Element
-         if (index < breadcrumbData.length - 1) {
-             const separator = document.createElement('span');
-             separator.textContent = ' / ';
-             breadcrumbsContainer.appendChild(separator);
-         }
-     });
+        // Trennzeichen hinzufügen, außer beim letzten Element
+        if (index < breadcrumbData.length - 1) {
+            const separator = document.createElement('span');
+            separator.textContent = ' / ';
+            breadcrumbsContainer.appendChild(separator);
+        }
+    });
 });
 
 function generateBreadcrumbList() {

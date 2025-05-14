@@ -21,12 +21,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             generateBreadcrumbList();
         });
-
-
     </script>
-
-
-    <script src="/js/breadCrumbs.js"></script>
 
 
     <h1><?= ucfirst($categoryId) . (substr($categoryId, -1) === 's' ? '' : 's') ?></h1>
