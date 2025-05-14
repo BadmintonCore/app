@@ -17,7 +17,7 @@
 <main>
 
     <!--Breadcrumbs-->
-    <?php include("../components/breadcrumbs.php"); ?>
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
     <script id="breadcrumb-data">
         [
             {"name": "Startseite", "url": "/index.php"},

@@ -30,8 +30,8 @@
 </main>
 
 <!--Footer der Website-->
-<?php include("../components/footer.php"); ?>
-<?php include("../components/scripts.php"); ?>
+<?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
 <!--Author: Lennart Moog -->
