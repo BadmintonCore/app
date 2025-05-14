@@ -524,6 +524,10 @@ a:hover {
     display: block;
 }
 
+.back-btn:hover {
+    cursor: pointer;
+}
+
 /*Wishlist-Button*/
 .wishlist-btn {
     width: 50px;
