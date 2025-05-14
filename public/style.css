@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, p, span, strong, td, small, th {
 }
 
 * {
-    font-family: "PT Mono", serif;
+    font-family: "PT Mono", monospace; /*Schriftart für alle Elemente*/
 }
 
 p {

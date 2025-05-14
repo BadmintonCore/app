@@ -19,7 +19,7 @@
     <!-- Funktion beim Laden der Seite automatisch aufrufen -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            categoryListBreadcrumbGenerator();
+            generateBreadcrumbList();
         });
 
 

@@ -21,6 +21,9 @@ if ($itemId === null || trim($itemId) === ""): ?> :
         <?php else : ?>
             <?php if ($product !== null) : ?>
                 <div class="details-flex">
+                    <!--Breadcrumbs-->
+                    <?php include("../components/breadcrumbs.php"); ?>
+
                     <div class="back-btn-container">
                         <?php include(__DIR__."/../../components/back-btn.php"); ?>
                     </div>

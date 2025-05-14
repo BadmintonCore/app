@@ -30,7 +30,7 @@ class CategoriesController
 
     public function accesories(): void
     {
-        require_once __DIR__.'/../views/categories/accesories.php';
+        require_once __DIR__ . '/../views/categories/accessories.php';
     }
 
 }

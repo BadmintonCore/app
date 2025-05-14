@@ -14,12 +14,6 @@
 <main>
     <!--Breadcrumbs-->
     <?php include("../components/breadcrumbs.php"); ?>
-    <script id="breadcrumb-data">
-        [
-            {"name": "Startseite", "url": "/index.php"},
-            {"name": "Impressum", "url": null}
-        ]
-    </script>
 
     <!--Zurückbutton-->
     <?php include(__DIR__."/../../components/back-btn.php"); ?>
