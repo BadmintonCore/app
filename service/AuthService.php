@@ -21,7 +21,7 @@ class AuthService
     /**
      * The duration of the account session in seconds
      */
-    private const SESSION_DURATION = 3600 * 12;
+    private const SESSION_DURATION = 3600;
 
     /**
      * Creates a new JWT and sets the required cookie as response header

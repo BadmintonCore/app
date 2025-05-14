@@ -1,4 +1,9 @@
 <!--Author: Lasse Hoffmann-->
+
+<?php
+use Vestis\Service\AuthService;
+
+?>
 <footer>
 
     <!--Container der Klasse "footer-newsletter"-->
@@ -45,6 +50,11 @@
             <a href="/customer-service/faq">Fragen und Antworten</a>
             <a href="/customer-service/contact">Kontakt</a>
             <a href="/customer-service/returns">Rücksendungen</a>
+            <?php if (AuthService::isCustomer()) : ?>
+                <a href="/user-area/user">Benutzerbereich</a>
+            <?php else: ?>
+                <a href="/auth/login">Benutzerbereich</a>
+            <?php endif; ?>
         </div>
 
         <!--Container der Klasse "footer-category"-->
@@ -110,6 +120,12 @@
             <a href="/customer-service/faq">Fragen und Antworten</a> <br>
             <a href="/customer-service/contact">Kontakt</a> <br>
             <a href="/customer-service/returns">Rücksendungen</a> <br>
+            <?php
+            if (AuthService::isCustomer()) : ?>
+                <a href="/user-area/user">Benutzerbereich</a>
+            <?php else: ?>
+                <a href="/auth/login">Benutzerbereich</a>
+            <?php endif; ?>
         </div>
 
         <!--Ein Akkordion-Element-->

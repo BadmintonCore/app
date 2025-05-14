@@ -1275,7 +1275,25 @@ form {
 
 /*Setzt die Farbe für den ausgefüllten Wishlist-Button auf der Item-Seite*/
 #addToWishlistButtonFilled {
+    width: 30px;
+    height: 30px;
+}
+
+#addToWishlistButtonFilled svg {
     color: var(--accent-color);
+    width: 25px;
+    height: 25px;
+}
+
+#addToWishlistButtonEmpty {
+    width: 30px;
+    height: 30px;
+}
+
+#addToWishlistButtonEmpty svg {
+    color:  var(--text-color);
+    width: 25px;
+    height: 25px;
 }
 
 /*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/

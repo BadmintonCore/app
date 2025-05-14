@@ -30,6 +30,7 @@ function convertCurrency(price) {
     if (currentCurrency === "EUR" && lastCurrency === "EUR") {
         return price;
     }
+
     // If no value present, the default value is 1 for EUR
     const priceInEur = price / (currencyRates[lastCurrency] ?? 1);
     if (currentCurrency === "EUR") {
@@ -47,7 +48,7 @@ async function getCurrencyRates() {
     const resp = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD,CHF');
     if (resp.ok) {
         const jsonData = await resp.json();
-        jsonData.rates.KBP = (1/7).toFixed(2);
+        jsonData.rates.KBP = (1/7);
         currencyRates = jsonData.rates;
     }
 }
@@ -59,14 +60,29 @@ function updatePrices() {
     let orderButton = document.getElementById("orderButton")
     let addToCartButton = document.getElementById("addToCartButton")
     let payButton = document.getElementById("payButton");
+    let price = undefined;
 
     for (const priceField of document.getElementsByClassName("price-field")){
         const priceString = priceField.childNodes[0].nodeValue;
-        const price = parseFloat(priceString.replace(',', '.'));
+        let kebapConvert = false;
+        if (lastCurrency === "KBP"){
+            //Preis wird aus dem HTML-Attribut gelesen und entspricht dem Euro-Wert
+            price = parseFloat(priceField.dataset.priceEur.valueOf());
+            lastCurrency = "EUR"
+            //Damit die lastCurrency nach einem Durchlauf wieder auf KBP gesetzt werden kann
+            kebapConvert = true;
+        } else {
+            price = parseFloat(priceString.replace(',', '.'));
+        }
         if (currentCurrency === "EUR" || currentCurrency === "KBP" || currentCurrency === "CHF") {
             priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2).replace('.', ',')} ${currencySymbolMap[currentCurrency]}`;
         } else {
             priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2)} ${currencySymbolMap[currentCurrency]}`;
+        }
+
+        if(kebapConvert){
+            //Setzt die lastCurrency wieder auf Kebap für den nächsten Durchlauf
+            lastCurrency = "KBP";
         }
     }
     for (const feeField of document.getElementsByClassName("fee-field")){
@@ -114,6 +130,11 @@ document.addEventListener("DOMContentLoaded", () => {
     currencyDropdown.value = storedCurrency;
     currentCurrency = storedCurrency;
     getCurrencyRates().then(() => {
+        for (const priceField of document.getElementsByClassName("price-field")) {
+            const priceString = priceField.childNodes[0].nodeValue;
+            let price = parseFloat(priceString.replace(',', '.'));
+            priceField.dataset.priceEur = price; // speichere Original-EUR-Wert
+        }
         updatePrices();
     });
 

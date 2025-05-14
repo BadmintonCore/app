@@ -39,9 +39,9 @@ class QueryAbstraction
     {
         $newQuery = sprintf("%s LIMIT 1", $query);
         $statement = QueryAbstraction::prepareAndExecuteStatement($newQuery, $params);
-        /** @var array<string, int|bool|string|null>|null $assoc */
+        /** @var array<string, int|bool|string|null>|null|false $assoc */
         $assoc =  $statement->fetch(\PDO::FETCH_ASSOC) ?? null;
-        if (null !== $assoc && $assoc !== false) {
+        if (null !== $assoc && false !== $assoc) {
             return self::convertAssocToClass($className, $assoc);
         }
         return null;

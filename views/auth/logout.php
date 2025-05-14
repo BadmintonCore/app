@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include(__DIR__."/../../components/head.php"); ?>
+    <?php use Vestis\Service\AuthService;
+
+    include(__DIR__."/../../components/head.php"); ?>
     <title>vestis. - Logout</title>
 </head>
 
