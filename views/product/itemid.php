@@ -22,7 +22,7 @@ if ($itemId === null || trim($itemId) === ""): ?> :
             <?php if ($product !== null) : ?>
                 <div class="details-flex">
                     <!--Breadcrumbs-->
-                    <?php include("../components/breadcrumbs.php"); ?>
+                    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
                     <div class="back-btn-container">
                         <?php include(__DIR__."/../../components/back-btn.php"); ?>

@@ -14,7 +14,7 @@
 <main class="content-wide">
 
     <!--Breadcrumbs-->
-    <?php include("../components/breadcrumbs.php"); ?>
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
     <!-- Funktion beim Laden der Seite automatisch aufrufen -->
     <script>

@@ -13,7 +13,7 @@
 <main>
 
     <!--Breadcrumbs-->
-    <?php include("../components/breadcrumbs.php"); ?>
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
     <!--Zurückbutton-->
     <?php include(__DIR__."/../../components/back-btn.php"); ?>

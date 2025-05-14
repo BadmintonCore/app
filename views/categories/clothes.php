@@ -3,28 +3,21 @@
 <html lang="de">
 <head>
     <title>vestis. - Kleidung</title>
-    <?php include("../components/head.php"); ?>
+    <?php include(__DIR__."/../../components/head.php"); ?>
 </head>
 <body>
 
 <!--Header der Website-->
-<?php include("../components/header.php"); ?>
+<?php include(__DIR__."/../../components/header.php"); ?>
 
 <!--Inhalt der Seite-->
 <main>
 
     <!--Breadcrumbs-->
-    <?php include("../components/breadcrumbs.php"); ?>
-
-    <script id="breadcrumb-data">
-        [
-            {"name": "Startseite", "url": "/index.php"},
-            {"name": "Kleidung", "url": null}
-        ]
-    </script>
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
     <!--Zurückbutton-->
-    <?php include("../components/back-btn.php"); ?>
+    <?php include(__DIR__."/../../components/back-btn.php"); ?>
 
     <h1>Kleidung</h1>
 

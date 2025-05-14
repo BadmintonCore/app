@@ -14,7 +14,7 @@
 <main>
 
     <!--Breadcrumbs-->
-    <?php include("../components/breadcrumbs.php"); ?>
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
     <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="loginForm">
