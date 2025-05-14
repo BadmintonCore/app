@@ -12,6 +12,9 @@
 <!--Inhalt der Seite-->
 <main>
 
+    <!--Breadcrumbs-->
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+
     <!--Zurückbutton-->
     <?php include(__DIR__."/../../components/back-btn.php"); ?>
 

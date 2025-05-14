@@ -10,7 +10,7 @@ use Vestis\Service\AuthService;
     <title>vestis. - Benutzerbereich</title>
 
     <!--Reference to authValidation.js-->
-    <script src="../../public/js/authValidation.js" defer></script>
+    <script src="/js/authValidation.js" defer></script>
     <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
     Alternative: Script am Ende vom body erst aufführen-->
 </head>
@@ -19,6 +19,9 @@ use Vestis\Service\AuthService;
 <?php include(__DIR__."/../../components/header.php"); ?>
 
 <main>
+
+    <!--Breadcrumbs-->
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
     <form class="form-box" id="userForm">
 
@@ -46,6 +49,7 @@ use Vestis\Service\AuthService;
         <a href="/auth/logout" class="btn align-start">
             logout.
         </a>
+        <button id="toggle-breadcrumbs" class="btn" type="button" >Breadcrumbs ausblenden</button>
     </form>
 </main>
 <?php include(__DIR__."/../../components/footer.php"); ?>

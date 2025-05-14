@@ -1,14 +1,15 @@
-<!--Author: Lasse Hoffmann-->
+<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>vestis. - Jobs</title>
+    <title>vestis. - Kleidung</title>
     <?php include(__DIR__."/../../components/head.php"); ?>
 </head>
 <body>
 
 <!--Header der Website-->
 <?php include(__DIR__."/../../components/header.php"); ?>
+
 <!--Inhalt der Seite-->
 <main>
 
@@ -18,12 +19,12 @@
     <!--Zurückbutton-->
     <?php include(__DIR__."/../../components/back-btn.php"); ?>
 
-    <h1>Karriere bei vestis.</h1>
+    <h1>Kleidung</h1>
 
-    <!--Abschnitt mit mehreren Absätzen-->
-    <section>
+    <a class="btn" href="/categories?categoryId=shirt">Shirts shoppen.</a><br>
 
-    </section>
+    <a class="btn" href="/categories?categoryId=sweater">Sweater shoppen.</a>
+
 
 
 </main>
@@ -33,4 +34,4 @@
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lasse Hoffmann-->
+<!--Author: Lennart Moog -->
