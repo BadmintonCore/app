@@ -19,7 +19,7 @@
     --danger-color: darkred;
     --success-color: #73956f;
     --form-box-shadow-color: rgba(0, 0, 0, 0.62);
-    --th-background-color: lightgray;
+    --th-background-color: #e5dacb;
     --z-index-popover: 1000;
     --header-height: 100px;
     --button-font-size: 14px;
@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, p, span, strong, td, small, th {
 }
 
 * {
-    font-family: "PT Mono", monospace;
+    font-family: "PT Mono", monospace; /*Schriftart für alle Elemente*/
 }
 
 p {
@@ -152,6 +152,7 @@ header {
     position: absolute;
     right: 110px;
     top: 44px;
+    color: var(--text-color);
 }
 
 /*Höhe Bild im Header (Logo)*/
@@ -486,7 +487,7 @@ a:hover {
 }
 
 .btn.danger {
-    background-color: var(--danger-color);
+    background-color: var(--accent-color);
 }
 
 /*Button mit SVG - wird an Font-Size angepasst*/
@@ -521,6 +522,10 @@ a:hover {
 /*wenn Button gehovert wird, wird Span angezeigt*/
 .back-btn:hover span {
     display: block;
+}
+
+.back-btn:hover {
+    cursor: pointer;
 }
 
 /*Wishlist-Button*/
@@ -934,6 +939,27 @@ form {
     height: 100%;
 }
 
+
+/* ================================================
+                Breadcrumbs
+===================================================*/
+
+
+.breadcrumbs {
+    display: none;
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    width: fit-content;
+}
+
+.breadcrumbs.open {
+    display: block;
+}
+
+.breadcrumbs.current {
+    text-decoration: underline;
+}
+
 /* ================================================
                         Layout
 ===================================================*/
@@ -1089,14 +1115,6 @@ form {
     }
 
     header nav {
-        display: none;
-    }
-
-    .darkmode-btn {
-        display: none;
-    }
-
-    .currency-select {
         display: none;
     }
 

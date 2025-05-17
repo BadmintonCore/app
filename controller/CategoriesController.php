@@ -23,4 +23,14 @@ class CategoriesController
         require_once __DIR__.'/../views/categories/categoryList.php';
     }
 
+    public function clothes(): void
+    {
+        require_once __DIR__.'/../views/categories/clothes.php';
+    }
+
+    public function accesories(): void
+    {
+        require_once __DIR__ . '/../views/categories/accessories.php';
+    }
+
 }

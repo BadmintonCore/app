@@ -16,6 +16,15 @@
 <!--Inhalt der Seite-->
 <main>
 
+    <!--Breadcrumbs-->
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+    <script id="breadcrumb-data">
+        [
+            {"name": "Startseite", "url": "/index.php"},
+            {"name": "Login", "url": null}
+        ]
+    </script>
+
     <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="loginForm" method="post">
 
@@ -79,6 +88,7 @@
             </a>
         </div>
     </form>
+
 </main>
 
 <!--Footer der Website-->

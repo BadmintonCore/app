@@ -10,7 +10,7 @@
 
 <main class="banner-content">
     <div>
-        <img src="/img/index-banner-text.png" alt="Banner" class="banner-image">
+        <img src="/img/index-banner.png" alt="Banner" class="banner-image">
     </div>
 </main>
 

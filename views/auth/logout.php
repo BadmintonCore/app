@@ -13,7 +13,7 @@
 
 <!--Inhalt der Seite-->
 <main>
-<!--Zurück-Button-->
+    <!--Zurück-Button-->
 <?php include(__DIR__."/../../components/back-btn.php"); ?>
 
 <h1>Auf Wiedersehen!</h1>

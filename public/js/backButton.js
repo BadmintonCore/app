@@ -1,10 +1,15 @@
 const backButton = document.getElementById("backButton");
 if (backButton) {
     backButton.addEventListener("click", function (e){
-
-        if(window.history.length > 2){ //Wenn Historie > 2
-            window.history.back(); //Zum vorherigen Dokument springen
-            e.preventDefault() //default Weiterleitung vermeiden
+        const pathname = location.pathname.split('/');
+        pathname.pop();
+        const search = new URLSearchParams(location.search);
+        // Remove itemId by default
+        search.delete("itemId");
+        let href = pathname.join('/');
+        if (search.size > 0) {
+            href += `?${search.toString()}`
         }
+        location.href = href;
     });
 }
