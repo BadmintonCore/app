@@ -6,5 +6,8 @@
     "friendsofphp/php-cs-fixer": "^3.75",
     "phpstan/phpstan": "^2.1",
     "phpstan/phpstan-strict-rules": "^2.0"
+  },
+  "scripts": {
+    "fix": "PHP_CS_FIXER_IGNORE_ENV=true vendor/bin/php-cs-fixer fix . && vendor/bin/phpstan analyse ."
   }
 }
