@@ -22,7 +22,6 @@
     --th-background-color: #e5dacb;
     --z-index-popover: 1000;
     --header-height: 100px;
-    --footer-height: 485px;
     --button-font-size: 14px;
 }
 
@@ -298,7 +297,7 @@ main.content-wide {
 footer {
     width: 100%;
     bottom: 0;
-    height: var(--footer-height);
+    height: auto;
     background-color: var(--footer-background-color);
     display: flex;
     align-items: center;
@@ -635,8 +634,6 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
 /* ================================================
                         Cards
 ===================================================*/
-
-/** Cards */
 
 .card {
     border: 1px solid var(--text-color);
@@ -1288,7 +1285,7 @@ form {
 }
 
 #addToWishlistButtonEmpty svg {
-    color:  var(--text-color);
+    color: var(--text-color);
     width: 25px;
     height: 25px;
 }
