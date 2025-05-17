@@ -47,11 +47,6 @@ html[data-theme='dark'] {
                 Generelle Styles
 ===================================================*/
 
-@font-face {
-    font-family: "PT Mono";
-    src: url('/font/PTMono-Regular.ttf');
-}
-
 /* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
 h1 {
     text-align: center;
