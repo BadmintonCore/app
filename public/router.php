@@ -2,7 +2,7 @@
 
 /** Author: Mathis Burger */
 
-require_once "../vendor/autoload.php";
+require_once "../autoload.php";
 require_once "../Kernel.php";
 
 /** @phpstan-ignore-next-line  */
