@@ -19,7 +19,7 @@ class DatabaseException extends \PDOException
      */
     private ?string $columnName = null;
 
-    public function __construct(string $message, int $code, ?Throwable $previous = null)
+    public function __construct(string $message, int|string $code, ?Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
 

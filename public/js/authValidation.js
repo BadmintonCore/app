@@ -11,7 +11,7 @@ const userForm = document.getElementById("userForm");
 /**
  * Funktion zur Validierung des Benutzernamens
  *
- * @param {string} username Benutzername des Kundens
+ * @param {string} username Benutzername des Kunden
  *
  * @returns {boolean} Korrekt formatierter Benutzername
  */
@@ -23,7 +23,7 @@ function validateUsername(username) {
 /**
  * Funktion zur Validierung des Passworts
  *
- * @param {string} password Passwort des Kundens
+ * @param {string} password Passwort des Kunden
  *
  * @returns {boolean} Korrekt formatiertes Passwort
  * */
@@ -75,7 +75,7 @@ function validateForm() {
         markField(passwordConfirmationInput, passwordsOk);
     }
 
-    if (registrationForm) {
+    if (registrationForm || userForm) {
         // Button nur aktivieren, wenn alles gültig ist
         submitButton.disabled = !(validateUsername(usernameInput.value) && validatePassword(passwordInput.value) && passwordsOk);
 
