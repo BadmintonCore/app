@@ -47,7 +47,11 @@ use Vestis\Service\AuthService;
             logout.
         </a>
     </form>
+    <script>
+        sessionStorage.setItem("lastUsername", <?= json_encode(AuthService::$currentAccount?->firstname)?>);
+    </script>
 </main>
+
 <?php include(__DIR__."/../../components/footer.php"); ?>
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 <script src="/js/authValidation.js" defer></script>

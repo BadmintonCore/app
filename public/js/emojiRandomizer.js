@@ -11,7 +11,7 @@ const greetingEmojis = [
 let lastEmojiNumber = greetingEmojis.length + 1;
 
 /**
- * Generiert ein zufälliges Emoji aus dem Array "emojiArray"
+ * Generiert ein zufälliges Emoji aus dem Array "greetingEmojis"
  */
 function randomizeEmoji() {
     const min = 0; //Intervall-Anfang, dieser Wert beginnt immer bei 0 - [0, x[

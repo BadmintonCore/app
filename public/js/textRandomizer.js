@@ -33,7 +33,7 @@ const greetingTexts = [
 ];
 
 /**
- * Generiert ein zufälliges Emoji aus dem Array "emojiArray"
+ * Generiert ein zufälligen Text aus dem Array "greetingTexts"
  */
 function randomizeText() {
     const min = 0; //Intervall-Anfang, dieser Wert beginnt immer bei 0 - [0, x[
