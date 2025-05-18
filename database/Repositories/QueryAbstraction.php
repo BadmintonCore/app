@@ -73,7 +73,8 @@ class QueryAbstraction
      */
     public static function executeReturning(string $className, string $query, array $params = []): mixed
     {
-        $statement = QueryAbstraction::prepareAndExecuteStatement($query, $params);
+        $newQuery = sprintf("%s RETURNING *", $query);
+        $statement = QueryAbstraction::prepareAndExecuteStatement($newQuery, $params);
         /** @var array<string, int|bool|string|null>|null|false $assoc */
         $assoc =  $statement->fetch(\PDO::FETCH_ASSOC) ?? null;
         if (null !== $assoc && false !== $assoc) {

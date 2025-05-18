@@ -37,7 +37,7 @@ class AccountRepository
             "newsletter" => $newsletter,
         ];
 
-        return QueryAbstraction::executeReturning(Account::class, "INSERT INTO account (type, firstName, surname, username,  email, password, newsletter) VALUES (:type, :firstName, :surname, :username, :email, :password, :newsletter) RETURNING *", $params);
+        return QueryAbstraction::executeReturning(Account::class, "INSERT INTO account (type, firstName, surname, username,  email, password, newsletter) VALUES (:type, :firstName, :surname, :username, :email, :password, :newsletter)", $params);
     }
 
     /**
