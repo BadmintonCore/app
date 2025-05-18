@@ -110,6 +110,10 @@ body {
     color: var(--danger-color);
 }
 
+.success-message {
+    color: var(--success-color);
+}
+
 /*Zelle im Tabellenkopf*/
 th {
     background-color: var(--th-background-color);
