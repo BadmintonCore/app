@@ -65,7 +65,7 @@ class EmailService
         );
         $headers = 'From: noreply@vestis.shop';
         if (false === mail($account->email, $subject, $message, $headers)) {
-            throw new EmailException("Cannot send registration confirmation email");
+            throw new EmailException("Kann Passwort-E-Mail nicht versenden");
         }
     }
 
