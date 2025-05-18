@@ -23,17 +23,18 @@ class EmailService
         $message = sprintf(
             <<<EMAIL
             Hallo %s %s,
-            danke, dass du dich bei Vestis registriert hast.
+            
+            danke, dass du dich bei vestis. registriert hast.
             Wir wünschen dir viel Spaß beim Shopping.
             
             Beste Grüße
-            Dein Vestis Team
+            Dein vestis-Team
 
         EMAIL,
             $account->firstname,
             $account->surname
         );
-        $headers = 'From: noreply@vestis.shop';
+        $headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
         if (false === mail($account->email, $subject, $message, $headers)) {
             throw new EmailException("Cannot send registration confirmation email");
         }
@@ -52,18 +53,19 @@ class EmailService
         $message = sprintf(
             <<<EMAIL
             Hallo %s %s,
+            
             hier ist dein neues Passwort: %s.
             Du kannst dein Passwort jederzeit im Benutzerbereich ändern.
             
             Beste Grüße
-            Dein Vestis Team
+            Dein vestis-Team
 
         EMAIL,
             $account->firstname,
             $account->surname,
             PasswordGeneratorService::generatePassword($account)
         );
-        $headers = 'From: noreply@vestis.shop';
+        $headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
         if (false === mail($account->email, $subject, $message, $headers)) {
             throw new EmailException("Kann Passwort-E-Mail nicht versenden");
         }
