@@ -2,8 +2,6 @@
 
 namespace Vestis\Exception;
 
-use Throwable;
-
 /**
  * Exception used in the context of database queries
  */
@@ -19,7 +17,7 @@ class DatabaseException extends \PDOException
      */
     private ?string $columnName = null;
 
-    public function __construct(string $message, int $code, ?Throwable $previous = null)
+    public function __construct(string $message, int $code, ?\Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
 
