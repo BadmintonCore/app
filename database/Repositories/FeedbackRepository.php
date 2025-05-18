@@ -17,7 +17,7 @@ class FeedbackRepository
      * @return Feedback|null The created account
      * @throws DatabaseException
      */
-    public static function createFeedback(string $name, int $evaluation, string $email, string $message) : ?Feedback
+    public static function createFeedback(string $name, int $evaluation, string $email, string $message): ?Feedback
     {
 
         $date = date("o-m-d H:i:s");
@@ -30,6 +30,6 @@ class FeedbackRepository
             "datetime" => $date
         ];
 
-        return QueryAbstraction::fetchOneAs(Feedback::class,"INSERT INTO feedback (name, evaluation, email, message, datetime) VALUES (:name, :evaluation, :email, :message, :datetime); SELECT LAST_INSERT_ID()", $params);
+        return QueryAbstraction::fetchOneAs(Feedback::class, "INSERT INTO feedback (name, evaluation, email, message, datetime) VALUES (:name, :evaluation, :email, :message, :datetime); SELECT LAST_INSERT_ID()", $params);
     }
 }

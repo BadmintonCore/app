@@ -106,7 +106,7 @@ class AuthController
      */
     public function resetPassword(): void
     {
-        if($_SERVER['REQUEST_METHOD'] === "POST") {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $validationRules = [
                 'mail' => new ValidationRule(ValidationType::Email)
             ];
@@ -118,7 +118,7 @@ class AuthController
                 ['mail' => $mail] = ValidationService::getFormData();
 
                 //Wenn die E-Mail nicht null ist (sie existiert)
-                if(null !== AccountRepository::findByEmail($mail)) {
+                if (null !== AccountRepository::findByEmail($mail)) {
                     EmailService::sendNewPassword(AccountRepository::findByEmail($mail));
                 } else {
                     throw new Exception("Es konnte kein Benutzer mit dieser E-Mail gefunden werden.");

@@ -15,7 +15,7 @@
     <?php
     /** @var string|null $itemId */
     $itemId = $_GET["itemId"];
-    if ($itemId === null || trim($itemId) === ""): ?>
+if ($itemId === null || trim($itemId) === ""): ?>
         <h1>Parameter nicht gegeben</h1>
     <?php else : ?>
         <?php if ($product !== null) : ?>
@@ -63,9 +63,9 @@
                         <strong>Farbe</strong>
                         <div class="flex-row">
                             <?php
-                            /** @var array<string, string> $product */
-                            $colors = isset($product["color"]) ? explode("/", $product["color"]) : [];
-                            ?>
+                        /** @var array<string, string> $product */
+                        $colors = isset($product["color"]) ? explode("/", $product["color"]) : [];
+            ?>
                             <?php foreach ($colors as $color) : ?>
                                 <label>
                                     <input type="radio" name="color" value="<?= $color ?>">
@@ -156,7 +156,7 @@
                         <?php
                         /** @var array<string, string> $product2 */
                         $colors = isset($product2["color"]) ? explode("/", $product2["color"]) : [];
-                        ?>
+        ?>
                         <?php foreach ($colors as $color) : ?>
                             <label>
                                 <input type="radio" name="color" value="<?= $color ?>">
