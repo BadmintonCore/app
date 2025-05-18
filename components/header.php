@@ -14,13 +14,13 @@
     </div>
     <nav>
         <ul>
-            <li><a>Kleidung</a>
+            <li><a href="/categories/clothes">Kleidung</a>
                 <ul>
                     <li><a href="/categories?categoryId=shirt">Shirts</a></li>
                     <li><a href="/categories?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
-            <li><a>Accessoires</a>
+            <li><a href="/categories/accesories">Accessoires</a>
                 <ul>
                     <li><a href="/categories?categoryId=cap">Caps</a></li>
                     <li><a href="/categories?categoryId=bag">Taschen</a></li>
@@ -28,7 +28,6 @@
             </li>
         </ul>
     </nav>
-
     <a class="logo-link" href="/">
         <img class="logo-image" src="/img/logo-transparent.png" alt="vestis.">
     </a>
@@ -82,13 +81,13 @@
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
         </svg>
         <ul>
-            <li><a>Kleidung</a>
+            <li><a href="/categories/clothes">Kleidung</a>
                 <ul>
                     <li><a href="/categories?categoryId=shirt">Shirts</a></li>
                     <li><a href="/categories?categoryId=sweater">Sweater</a></li>
                 </ul>
             </li>
-            <li><a>Accessoires</a>
+            <li><a href="/categories/accesories">Accessoires</a>
                 <ul>
                     <li><a href="/categories?categoryId=cap">Caps</a></li>
                     <li><a href="/categories?categoryId=bag">Taschen</a></li>

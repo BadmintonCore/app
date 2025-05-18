@@ -7,12 +7,24 @@
 <html lang="de">
 <head>
     <?php include(__DIR__."/../../components/head.php"); ?>
-    <title>Vestis - Kategorie 1</title>
+    <title>Vestis - <?= $categoryId ?></title>
 </head>
 <body>
 <?php include(__DIR__."/../../components/header.php"); ?>
 <main class="content-wide">
-    <h1>Übersicht - Tshirts</h1>
+
+    <!--Breadcrumbs-->
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+
+    <!-- Funktion beim Laden der Seite automatisch aufrufen -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            generateBreadcrumbList();
+        });
+    </script>
+
+
+    <h1><?= ucfirst($categoryId) . (substr($categoryId, -1) === 's' ? '' : 's') ?></h1>
     <div class="list-page-flex">
         <div class="card no-hover">
             <div class="filter-options">

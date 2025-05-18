@@ -13,6 +13,9 @@
 <!--Inhalt der Seite-->
 <main>
 
+    <!--Breadcrumbs-->
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+
     <!--Formular der Klasse "form-box"-->
     <form class="form-box" id="contactForm" method="post">
 

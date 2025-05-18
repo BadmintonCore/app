@@ -11,7 +11,7 @@ use Vestis\Service\AuthService;
     <title>vestis. - Benutzerbereich</title>
 
     <!--Reference to authValidation.js-->
-    <script src="../../public/js/authValidation.js" defer></script>
+    <script src="/js/authValidation.js" defer></script>
     <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
     Alternative: Script am Ende vom body erst aufführen-->
 </head>
@@ -21,7 +21,10 @@ use Vestis\Service\AuthService;
 
 <main>
 
-    <form class="form-box" id="userForm" method="post">
+    <!--Breadcrumbs-->
+    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+
+    <form class="form-box" id="userForm">
 
         <h1>Benutzerbereich</h1>
         <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
@@ -69,6 +72,7 @@ use Vestis\Service\AuthService;
         <a href="/auth/logout" class="btn align-start">
             logout.
         </a>
+        <button id="toggle-breadcrumbs" class="btn" type="button" >Breadcrumbs ausblenden</button>
     </form>
     <script>
         sessionStorage.setItem("lastUsername", <?= json_encode(AuthService::$currentAccount?->firstname)?>);

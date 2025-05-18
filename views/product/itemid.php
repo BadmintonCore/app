@@ -20,7 +20,10 @@
     <?php else : ?>
         <?php if ($product !== null) : ?>
             <div class="details-flex">
-                <div class="back-btn-container">
+                <!--Breadcrumbs-->
+                    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+
+                    <div class="back-btn-container">
                     <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
                 </div>
                 <img src="/img/tshirt-beige.webp"
