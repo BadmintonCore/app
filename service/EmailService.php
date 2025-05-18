@@ -39,4 +39,34 @@ class EmailService
         }
     }
 
+    /**
+     * Sendet ein neues, zufällig generiertes Passwort an den Nutzer
+     *
+     * @param Account $account Der Account, an den die E-Mail versendet werden soll
+     * @return void
+     * @throws EmailException Error, der bei dem E-Mail-Versandt auftritt
+     */
+    public static function sendNewPassword(Account $account): void
+    {
+        $subject = 'Dein neues Passwort';
+        $message = sprintf(
+            <<<EMAIL
+            Hallo %s %s,
+            hier ist dein neues Passwort: %s.
+            Du kannst dein Passwort jederzeit im Benutzerbereich ändern.
+            
+            Beste Grüße
+            Dein Vestis Team
+
+        EMAIL,
+            $account->firstname,
+            $account->surname,
+            PasswordGeneratorService::generatePassword($account)
+        );
+        $headers = 'From: noreply@vestis.shop';
+        if (false === mail($account->email, $subject, $message, $headers)) {
+            throw new EmailException("Cannot send registration confirmation email");
+        }
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace Vestis\Controller;
 
+use Exception;
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\AccountRepository;
 use Vestis\Exception\AuthException;
@@ -100,8 +101,34 @@ class AuthController
         require_once __DIR__.'/../views/auth/registration.php';
     }
 
+    /**
+     * @throws Exception
+     */
     public function resetPassword(): void
     {
+        if($_SERVER['REQUEST_METHOD'] === "POST") {
+            $validationRules = [
+                'mail' => new ValidationRule(ValidationType::Email)
+            ];
+            try {
+                // Validate form
+                ValidationService::validateForm($validationRules);
+
+                /** @var string $mail */
+                ['mail' => $mail] = ValidationService::getFormData();
+
+                //Wenn die E-Mail nicht null ist (sie existiert)
+                if(null !== AccountRepository::findByEmail($mail)) {
+                    EmailService::sendNewPassword(AccountRepository::findByEmail($mail));
+                } else {
+                    throw new Exception("Es konnte kein Benutzer mit dieser E-Mail gefunden werden.");
+                }
+                $successMessage = "Dein neues Passwort wurde erfolgreich an deine E-Mail gesendet.";
+            } catch (Exception|ValidationException|EmailException|DatabaseException $e) {
+                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                $errorMessage = $e->getMessage();
+            }
+        }
         require_once __DIR__.'/../views/auth/reset.php';
     }
 }
