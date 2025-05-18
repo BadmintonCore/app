@@ -30,7 +30,7 @@ class UpdateService
             if (!AccountRepository::findByUsername($newUsername)) {
                 AccountRepository::updateUsername($newUsername, $currentUsername);
             } else {
-                throw new UpdateException("username already exists");
+                throw new UpdateException("Der Benutzername wird bereits verwendet!");
             }
         }
 
@@ -39,7 +39,7 @@ class UpdateService
             if (!AccountRepository::findByEmail($newEmail)) {
                 AccountRepository::updateEmail($newEmail, $currentEmail, $newUsername);
             } else {
-                throw new UpdateException("email already exists");
+                throw new UpdateException("Die E-Mail wird bereits verwendet!");
             }
         }
 
