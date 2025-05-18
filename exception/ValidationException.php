@@ -2,7 +2,6 @@
 
 namespace Vestis\Exception;
 
-
 /**
  * Exception that is thrown if any type of validation error occurs.
  */
