@@ -61,6 +61,28 @@ class QueryAbstraction
     }
 
     /**
+     * Executes an SQL statement and returns the response.
+     *
+     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
+     * @param string $query The SQL statement that should be executed
+     * @param array<string, int|bool|string|null> $params The parameters that are required
+     * @return T|null The result as the requested class
+     * @throws DatabaseException on database error
+     *
+     * @template T of object
+     */
+    public static function executeReturning(string $className, string $query, array $params = []): mixed
+    {
+        $statement = QueryAbstraction::prepareAndExecuteStatement($query, $params);
+        /** @var array<string, int|bool|string|null>|null|false $assoc */
+        $assoc =  $statement->fetch(\PDO::FETCH_ASSOC) ?? null;
+        if (null !== $assoc && false !== $assoc) {
+            return self::convertAssocToClass($className, $assoc);
+        }
+        return null;
+    }
+
+    /**
      * Prepares and executes the statement
      *
      * @param string $query The sql statement with params
