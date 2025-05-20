@@ -23,7 +23,7 @@ class UserAreaController
     }
 
     //Author: Lasse Hoffmann
-    public function user(): ?Account
+    public function user(): void
     {
         AuthService::checkAccess(AccountType::Customer);
         if ($_SERVER['REQUEST_METHOD'] === "POST") {

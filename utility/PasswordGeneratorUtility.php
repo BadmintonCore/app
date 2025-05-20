@@ -28,7 +28,7 @@ class PasswordGeneratorUtility
                 $generatedPassword .= $characters[random_int(0, strlen($characters) - 1)];
             };
         } catch (RandomException $e) {
-            for ($i = 0; $i < $length; $i++) {
+            for ($j = 0; $j < $length; $j++) {
                 $generatedPassword .= $characters[mt_rand(0, strlen($characters) - 1)];
             };
         }
