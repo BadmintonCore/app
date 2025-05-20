@@ -11,7 +11,6 @@ use Vestis\Utility\PasswordGeneratorUtility;
  */
 class EmailService
 {
-
     private const string Headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
 
     /**
