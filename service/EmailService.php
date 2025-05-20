@@ -11,6 +11,9 @@ use Vestis\Utility\PasswordGeneratorUtility;
  */
 class EmailService
 {
+
+    private const string Headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
+
     /**
      * Sends a registration confirmation email to the account owner.
      *
@@ -35,8 +38,7 @@ class EmailService
             $account->firstname,
             $account->surname
         );
-        $headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
-        if (false === mail($account->email, $subject, $message, $headers)) {
+        if (false === mail($account->email, $subject, $message, self::Headers)) {
             throw new EmailException("Cannot send registration confirmation email");
         }
     }
@@ -66,8 +68,7 @@ class EmailService
             $account->surname,
             PasswordGeneratorUtility::generatePassword($account)
         );
-        $headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
-        if (false === mail($account->email, $subject, $message, $headers)) {
+        if (false === mail($account->email, $subject, $message, self::Headers)) {
             throw new EmailException("Kann Passwort-E-Mail nicht versenden");
         }
     }
