@@ -56,8 +56,7 @@ class AccountRepository
             "oldUsername" => $oldUsername,
         ];
 
-        QueryAbstraction::execute("UPDATE account SET username = :newUsername WHERE username = :oldUsername;", $params);
-        return self::findByUsername($newUsername);
+        return QueryAbstraction::executeReturning(Account::class, "UPDATE account SET username = :newUsername WHERE username = :oldUsername;", $params);
     }
 
     /**
@@ -76,8 +75,7 @@ class AccountRepository
             "oldEmail" => $oldEmail,
         ];
 
-        QueryAbstraction::execute("UPDATE account SET email = :newEmail WHERE email = :oldEmail;", $params);
-        return self::findByEmail($newEmail);
+        return QueryAbstraction::executeReturning(Account::class, "UPDATE account SET email = :newEmail WHERE email = :oldEmail;", $params);
     }
 
     /**
@@ -98,8 +96,7 @@ class AccountRepository
             "username" => $username,
         ];
 
-        QueryAbstraction::execute("UPDATE account SET password = :newPassword WHERE username = :username;", $params);
-        return self::findByUsername($username);
+        return QueryAbstraction::executeReturning(Account::class, "UPDATE account SET password = :newPassword WHERE username = :username;", $params);
     }
 
     /**

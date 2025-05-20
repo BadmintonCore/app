@@ -901,6 +901,11 @@ form {
     margin: 0;
 }
 
+.form-input textarea {
+    color: var(--text-color);
+    background-color: var(--card-background-color);
+}
+
 /* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind, aber nur beim focus (Wenn das Feld ausgewählt ist) */
 .form-input-success:focus {
     display: flex;

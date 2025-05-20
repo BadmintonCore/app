@@ -4,6 +4,7 @@ namespace Vestis\Service;
 
 use Vestis\Database\Models\Account;
 use Vestis\Exception\EmailException;
+use Vestis\Utility\PasswordGeneratorUtility;
 
 /**
  * Service that handles email sending
@@ -63,7 +64,7 @@ class EmailService
         EMAIL,
             $account->firstname,
             $account->surname,
-            PasswordGeneratorService::generatePassword($account)
+            PasswordGeneratorUtility::generatePassword($account)
         );
         $headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
         if (false === mail($account->email, $subject, $message, $headers)) {

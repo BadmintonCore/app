@@ -114,8 +114,8 @@ CREATE TABLE feedback
 (
     id         INTEGER PRIMARY KEY AUTO_INCREMENT,
     name       VARCHAR(255) NOT NULL,
-    evaluation INTEGER   NOT NULL,
+    evaluation INTEGER      NOT NULL,
     email      VARCHAR(255) NOT NULL,
     message    TEXT         NOT NULL,
-    datetime   DATETIME     NOT NULL
+    createdAt   DATETIME     NOT NULL
 );

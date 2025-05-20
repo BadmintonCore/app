@@ -2,8 +2,10 @@
 
 namespace Vestis\Controller;
 
-use Vestis\Exception\UpdateException;
-use Vestis\Service\UpdateService;
+use Vestis\Database\Models\Account;
+use Vestis\Exception\AuthException;
+use Vestis\Exception\LogicException;
+use Vestis\Service\AccountService;
 use Vestis\Database\Models\AccountType;
 use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
@@ -21,7 +23,7 @@ class UserAreaController
     }
 
     //Author: Lasse Hoffmann
-    public function user(): void
+    public function user(): ?Account
     {
         AuthService::checkAccess(AccountType::Customer);
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -40,12 +42,12 @@ class UserAreaController
                 ['username' => $username, 'email' => $email, 'password' => $password] = ValidationService::getFormData();
 
                 // Updated die eingegebenen Daten eines Benutzers
-                UpdateService::updateUserdata($username, $email, $password);
+                AccountService::updateUserdata($username, $email, $password);
 
-                // Ruft die Seite erneut auf, damit die Daten im Form neu geladen werden
-                header("Location: /user-area/user");
-                return;
-            } catch (ValidationException|UpdateException|DatabaseException $e) {
+                //Den neuen Nutzer setzen
+                AuthService::setCurrentUserAccountSessionFromCookie();
+
+            } catch (ValidationException|AuthException|LogicException|DatabaseException $e) {
                 // Setzt alle exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }

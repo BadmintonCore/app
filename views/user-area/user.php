@@ -24,7 +24,7 @@ use Vestis\Service\AuthService;
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-    <form class="form-box" id="userForm">
+    <form class="form-box" id="userForm" method="post">
 
         <h1>Benutzerbereich</h1>
         <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
@@ -62,16 +62,15 @@ use Vestis\Service\AuthService;
             <input type="password" id="passwordConfirmation" placeholder="Passwort eingeben" name="passwordConfirmation"
                    required>
         </div>
-        <br/>
-        <br/>
+
         <button type="submit" class="btn align-start" id="subBtn">
             aktualisieren.
         </button>
-        <br/>
-        <br/>
+
         <a href="/auth/logout" class="btn align-start">
             logout.
         </a>
+
         <button id="toggle-breadcrumbs" class="btn" type="button" >Breadcrumbs ausblenden</button>
     </form>
     <script>

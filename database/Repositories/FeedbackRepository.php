@@ -20,16 +20,16 @@ class FeedbackRepository
     public static function createFeedback(string $name, int $evaluation, string $email, string $message): ?Feedback
     {
 
-        $date = date("o-m-d H:i:s");
+        $datetime = date("o-m-d H:i:s");
 
         $params = [
             "name" => $name,
             "evaluation" => $evaluation,
             "email" => $email,
             "message" => $message,
-            "datetime" => $date
+            "createdAt" => $datetime
         ];
 
-        return QueryAbstraction::fetchOneAs(Feedback::class, "INSERT INTO feedback (name, evaluation, email, message, datetime) VALUES (:name, :evaluation, :email, :message, :datetime); SELECT LAST_INSERT_ID()", $params);
+        return QueryAbstraction::executeReturning(Feedback::class, "INSERT INTO feedback (name, evaluation, email, message, createdAt) VALUES (:name, :evaluation, :email, :message, :createdAt)", $params);
     }
 }

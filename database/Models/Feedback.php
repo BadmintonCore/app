@@ -2,6 +2,9 @@
 
 namespace Vestis\Database\Models;
 
+/**
+ * Das Feedback-Modell, das die Daten der Feedback-Datenbanktabelle darstellt
+ */
 class Feedback
 {
     public int $id;
@@ -14,5 +17,5 @@ class Feedback
 
     public string $message;
 
-    public string $date;
+    public string $createdAt;
 }
