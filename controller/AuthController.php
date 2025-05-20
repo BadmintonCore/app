@@ -100,8 +100,36 @@ class AuthController
         require_once __DIR__.'/../views/auth/registration.php';
     }
 
+    /**
+     * @throws \Exception
+     */
     public function resetPassword(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $validationRules = [
+                'mail' => new ValidationRule(ValidationType::Email)
+            ];
+            try {
+                // Validate form
+                ValidationService::validateForm($validationRules);
+
+                /** @var string $mail */
+                ['mail' => $mail] = ValidationService::getFormData();
+
+                $findByEmail = AccountRepository::findByEmail($mail);
+
+                //Wenn die E-Mail nicht null ist (sie existiert)
+                if (null !== $findByEmail) {
+                    EmailService::sendNewPassword($findByEmail);
+                } else {
+                    throw new \Exception("Es konnte kein Benutzer mit dieser E-Mail gefunden werden.");
+                }
+                $successMessage = "Dein neues Passwort wurde erfolgreich an deine E-Mail gesendet.";
+            } catch (\Exception|ValidationException|EmailException|DatabaseException $e) {
+                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                $errorMessage = $e->getMessage();
+            }
+        }
         require_once __DIR__.'/../views/auth/reset.php';
     }
 }

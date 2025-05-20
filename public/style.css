@@ -105,6 +105,10 @@ body {
     color: var(--danger-color);
 }
 
+.success-message {
+    color: var(--success-color);
+}
+
 /*Zelle im Tabellenkopf*/
 th {
     background-color: var(--th-background-color);
@@ -895,6 +899,11 @@ form {
 
 .form-input p {
     margin: 0;
+}
+
+.form-input textarea {
+    color: var(--text-color);
+    background-color: var(--card-background-color);
 }
 
 /* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind, aber nur beim focus (Wenn das Feld ausgewählt ist) */

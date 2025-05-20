@@ -7,6 +7,7 @@ spl_autoload_register(function ($class) {
         'Vestis\\Service\\' => __DIR__ . '/service/',
         'Vestis\\Exception\\' => __DIR__ . '/exception/',
         'Vestis\\Controller\\' => __DIR__ . '/controller/',
+        'Vestis\\Utility\\' => __DIR__ . '/utility/',
     ];
 
     foreach ($prefixes as $prefix => $baseDir) {

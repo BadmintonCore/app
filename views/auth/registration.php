@@ -121,7 +121,7 @@
         <div class="button-row">
 
             <!--Abbrechen "Button" als Link-->
-            <a href="login.php" class="btn secondary" id="cancelBtn">
+            <a href="/auth/login" class="btn secondary" id="cancelBtn">
                 abbrechen.
             </a>
 

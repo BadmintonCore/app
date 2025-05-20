@@ -109,3 +109,13 @@ CREATE TABLE allowedSize
     sizeId        INTEGER REFERENCES size (id),
     PRIMARY KEY (productTypeId, sizeId)
 );
+
+CREATE TABLE feedback
+(
+    id         INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name       VARCHAR(255) NOT NULL,
+    evaluation INTEGER      NOT NULL,
+    email      VARCHAR(255) NOT NULL,
+    message    TEXT         NOT NULL,
+    createdAt   DATETIME     NOT NULL
+);

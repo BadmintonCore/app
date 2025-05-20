@@ -3,13 +3,12 @@
 namespace Vestis\Exception;
 
 /**
- * Exception that is thrown if any type of validation error occurs.
+ * Exceptions für den Logikfehler
  */
-class ValidationException extends \Exception
+class LogicException extends \Exception
 {
     public function __construct(string $message, int $code = 0, ?\Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
-
 }
