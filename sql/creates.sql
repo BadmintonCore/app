@@ -119,3 +119,8 @@ CREATE TABLE feedback
     message    TEXT         NOT NULL,
     createdAt   DATETIME     NOT NULL
 );
+
+CREATE TABLE newsletter
+(
+    email VARCHAR(255) PRIMARY KEY
+);

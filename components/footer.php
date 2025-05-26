@@ -18,9 +18,9 @@ use Vestis\Service\AuthService;
         </p>
 
         <!--Formular der Klasse "form-row" und "form-newsletter"-->
-        <form class="form-row form-newsletter">
+        <form class="form-row form-newsletter" action="/newsletter/subscribe" method="post">
             <label>
-                <input type="email" name="email" placeholder="E-Mail Adresse">
+                <input type="email" name="mail" placeholder="E-Mail Adresse">
             </label>
             <button type="submit" class="btn">
 

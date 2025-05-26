@@ -12,6 +12,7 @@ use Vestis\Exception\ValidationException;
 use Vestis\Service\AccountService;
 use Vestis\Service\AuthService;
 use Vestis\Service\EmailService;
+use Vestis\Service\NewsletterService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -63,7 +64,7 @@ class AuthController
                 'username' => new ValidationRule(ValidationType::String),
                 'email' => new ValidationRule(ValidationType::Email),
                 'password' => new ValidationRule(ValidationType::String),
-                'newsletter' => new ValidationRule(ValidationType::Boolean, true),
+                'newsletter' => new ValidationRule(ValidationType::String, true),
             ];
             try {
                 // Validates the form
@@ -72,12 +73,18 @@ class AuthController
                 $formData = ValidationService::getFormData();
 
                 /** @phpstan-ignore-next-line all selected parameters are checked before for type safety in form validation */
-                $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password'], $formData['newsletter'] ?? false);
+                $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password'] ?? false);
 
                 if (null === $account) {
                     $validationError = "Cannot create an account";
                     require_once __DIR__ . '/../views/auth/registration.php';
                     return;
+                }
+
+                $newsletter = $formData['newsletter'];
+
+                if ($newsletter === "on") {
+                    NewsletterService::subscribe($account->email);
                 }
 
                 // Sends confirmation mail and creates user session cookie

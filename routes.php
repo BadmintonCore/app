@@ -9,6 +9,7 @@ use Vestis\Controller\LegalController;
 use Vestis\Controller\ProductController;
 use Vestis\Controller\UserAreaController;
 use Vestis\Controller\YourPurchaseController;
+use Vestis\Controller\NewsletterController;
 
 return [
     '/' => [HomeController::class, 'index'],
@@ -39,4 +40,5 @@ return [
     '/your-purchase/paymentmethods' => [YourPurchaseController::class, 'paymentMethods'],
     '/your-purchase/shipment' => [YourPurchaseController::class, 'shipment'],
     '/your-purchase/vouchers' => [YourPurchaseController::class, 'vouchers'],
+    '/newsletter/subscribe' => [NewsletterController::class, 'subscribe'],
 ];
