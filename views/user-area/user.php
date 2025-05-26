@@ -76,7 +76,7 @@ use Vestis\Service\AuthService;
         <a href="/auth/deleteConfirmation" class="btn secondary align start">Account löschen</a>
     </form>
     <script>
-        sessionStorage.setItem("lastUsername", <?php json_encode(AuthService::$currentAccount?->firstname)?>);
+        sessionStorage.setItem("lastUsername", <?php echo json_encode(AuthService::$currentAccount?->firstname)?>);
     </script>
 </main>
 

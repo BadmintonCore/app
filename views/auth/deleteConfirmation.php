@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <?php include(__DIR__ . "/../../components/head.php"); ?>
+    <?php
+    include(__DIR__ . "/../../components/head.php"); ?>
     <title>vestis. - Account löschen</title>
 </head>
 
@@ -23,7 +24,9 @@
         <h3 id="deleteAccount"></h3>
 
         <script>
-            document.getElementById("deleteAccount").innerHTML = "Bist du sicher, dass du deinen Account löschen möchtest, " + sessionStorage.getItem("lastUsername") + "?";
+            var lastUsername = sessionStorage.getItem("lastUsername");
+            var confirmation = lastUsername ? "Bist du sicher, dass du deinen Account löschen möchtest, " + lastUsername + "?" : "Bist du sicher, dass du deinen Account löschen möchtest?";
+            document.getElementById("deleteAccount").innerHTML = confirmation;
         </script>
 
         <div class="button-row-center">
