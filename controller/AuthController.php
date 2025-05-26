@@ -9,6 +9,7 @@ use Vestis\Exception\DatabaseException;
 use Vestis\Exception\DatabaseExceptionReason;
 use Vestis\Exception\EmailException;
 use Vestis\Exception\ValidationException;
+use Vestis\Service\AccountService;
 use Vestis\Service\AuthService;
 use Vestis\Service\EmailService;
 use Vestis\Service\validation\ValidationRule;
@@ -131,5 +132,35 @@ class AuthController
             }
         }
         require_once __DIR__.'/../views/auth/reset.php';
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function deleteConfirmation(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+            //Aktuellen Benutzeraccount aus den Cookies setzen
+            AuthService::setCurrentUserAccountSessionFromCookie();
+            $account = AuthService::$currentAccount;
+
+            try {
+
+                //Account löschen
+                AccountService::deleteAccount($account);
+
+                //Aktuelle Session auflösen
+                AuthService::destroyCurrentSession();
+
+            } catch (\Exception|DatabaseException $e) {
+                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                $errorMessage = $e->getMessage();
+            }
+
+            //Zurück zur Startseite
+            header("Location: /");
+        }
+        require_once __DIR__.'/../views/auth/deleteConfirmation.php';
     }
 }

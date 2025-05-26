@@ -53,4 +53,8 @@ class AccountService
         //Ändert das Passwort des Nutzers (immer, da ein Passwort benötigt wird, dass das Formular abgesendet werden kann (siehe AuthValidation.js)
         return AccountRepository::updatePassword($newPassword, $newUsername);
     }
+
+    public static function deleteAccount(Account $account): void {
+        AccountRepository::deleteById($account->id);
+    }
 }

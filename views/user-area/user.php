@@ -72,9 +72,11 @@ use Vestis\Service\AuthService;
         </a>
 
         <button id="toggle-breadcrumbs" class="btn" type="button" >Breadcrumbs ausblenden</button>
+
+        <a href="/auth/deleteConfirmation" class="btn secondary align start">Account löschen</a>
     </form>
     <script>
-        sessionStorage.setItem("lastUsername", <?= json_encode(AuthService::$currentAccount?->firstname)?>);
+        sessionStorage.setItem("lastUsername", <?php json_encode(AuthService::$currentAccount?->firstname)?>);
     </script>
 </main>
 

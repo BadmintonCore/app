@@ -24,6 +24,7 @@ return [
     '/auth/logout' => [AuthController::class, 'logout'],
     '/auth/registration' => [AuthController::class, 'register'],
     '/auth/reset' => [AuthController::class, 'resetPassword'],
+    '/auth/deleteConfirmation' => [AuthController::class, 'deleteConfirmation'],
     '/customer-service/contact' => [CustomerServiceController::class, 'contact'],
     '/customer-service/faq' => [CustomerServiceController::class, 'faq'],
     '/customer-service/returns' => [CustomerServiceController::class, 'returns'],
