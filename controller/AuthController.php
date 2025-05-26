@@ -45,13 +45,13 @@ class AuthController
             }
 
         }
-        require_once __DIR__.'/../views/auth/login.php';
+        require_once __DIR__ . '/../views/auth/login.php';
     }
 
     public function logout(): void
     {
         AuthService::destroyCurrentSession();
-        require_once __DIR__."/../views/auth/logout.php";
+        require_once __DIR__ . "/../views/auth/logout.php";
     }
 
     public function register(): void
@@ -76,7 +76,7 @@ class AuthController
 
                 if (null === $account) {
                     $validationError = "Cannot create an account";
-                    require_once __DIR__.'/../views/auth/registration.php';
+                    require_once __DIR__ . '/../views/auth/registration.php';
                     return;
                 }
 
@@ -98,7 +98,7 @@ class AuthController
                 }
             }
         }
-        require_once __DIR__.'/../views/auth/registration.php';
+        require_once __DIR__ . '/../views/auth/registration.php';
     }
 
     /**
@@ -131,7 +131,7 @@ class AuthController
                 $errorMessage = $e->getMessage();
             }
         }
-        require_once __DIR__.'/../views/auth/reset.php';
+        require_once __DIR__ . '/../views/auth/reset.php';
     }
 
     /**
@@ -148,7 +148,9 @@ class AuthController
             try {
 
                 //Account löschen
-                AccountService::deleteAccount($account);
+                if ($account !== null) {
+                    AccountService::deleteAccount($account);
+                }
 
                 //Aktuelle Session auflösen
                 AuthService::destroyCurrentSession();
@@ -161,6 +163,6 @@ class AuthController
             //Zurück zur Startseite
             header("Location: /");
         }
-        require_once __DIR__.'/../views/auth/deleteConfirmation.php';
+        require_once __DIR__ . '/../views/auth/deleteConfirmation.php';
     }
 }

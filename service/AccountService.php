@@ -54,7 +54,8 @@ class AccountService
         return AccountRepository::updatePassword($newPassword, $newUsername);
     }
 
-    public static function deleteAccount(Account $account): void {
+    public static function deleteAccount(Account $account): void
+    {
         AccountRepository::deleteById($account->id);
     }
 }

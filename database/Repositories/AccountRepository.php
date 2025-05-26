@@ -135,7 +135,8 @@ class AccountRepository
         return QueryAbstraction::fetchOneAs(Account::class, "SELECT * FROM account WHERE email = :email", ["email" => $email]);
     }
 
-    public static function deleteById(int $id): void {
-        queryAbstraction::execute("DELETE FROM account WHERE id = :id", ["id" => $id]);
+    public static function deleteById(int $id): void
+    {
+        QueryAbstraction::execute("DELETE FROM account WHERE id = :id", ["id" => $id]);
     }
 }
