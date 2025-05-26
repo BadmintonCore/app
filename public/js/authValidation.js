@@ -7,6 +7,15 @@ const submitButton = document.getElementById("subBtn");
 const registrationForm = document.getElementById("registrationForm");
 const loginForm = document.getElementById("loginForm");
 const userForm = document.getElementById("userForm");
+const usernameInputSpan = document.getElementById("usernameInputSpan");
+const passwordInputSpan = document.getElementById("passwordInputSpan")
+
+const errorMessages = {
+    usernameError: "Der Benutzername muss aus mindestens 5 Buchstaben bestehen.",
+    passwordError: "Das Passwort muss aus mindestens 10 Zeichen bestehen."
+}
+
+let activeField = null;
 
 /**
  * Funktion zur Validierung des Benutzernamens
@@ -16,7 +25,7 @@ const userForm = document.getElementById("userForm");
  * @returns {boolean} Korrekt formatierter Benutzername
  */
 function validateUsername(username) {
-    const usernameRegex = /^(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+    const usernameRegex = /^(?=.*[a-z]).{5,}$/;
     return usernameRegex.test(username);
 }
 
@@ -49,14 +58,31 @@ function passwordsMatch(password, passwordConfirmation) {
  * @param {Element} inputElement Eingabefeld
  * @param {boolean} isValid Valides Eingabefeld
  */
-function markField(inputElement, isValid) {
-    if(!inputElement) return; //Wenn das inputElement nicht existiert, return
+function handleField(inputElement, isValid) {
+    if (!inputElement) return;
+
+    //Prüft, ob das gerade fokussierte Element auch das inputElement ist
+    const isActive = activeField === inputElement;
+
     if (isValid) {
         inputElement.classList.remove("form-input-error");
         inputElement.classList.add("form-input-success");
+        if (isActive) {
+            if (inputElement === usernameInput) usernameInputSpan.innerHTML = "";
+            if (inputElement === passwordInput) passwordInputSpan.innerHTML = "";
+        }
+        inputElement.classList.remove("form-input-error-after-submit");
     } else {
         inputElement.classList.remove("form-input-success");
         inputElement.classList.add("form-input-error");
+        if (isActive) {
+            if (inputElement === usernameInput) {
+                usernameInputSpan.innerHTML = errorMessages["usernameError"];
+            }
+            if (inputElement === passwordInput) {
+                passwordInputSpan.innerHTML = errorMessages["passwordError"];
+            }
+        }
     }
 }
 
@@ -65,22 +91,20 @@ function markField(inputElement, isValid) {
  */
 function validateForm() {
     //Markierung der Input-Felder
-    markField(usernameInput, validateUsername(usernameInput.value));
-    markField(passwordInput, validatePassword(passwordInput.value));
+    handleField(usernameInput, validateUsername(usernameInput.value));
+    handleField(passwordInput, validatePassword(passwordInput.value));
 
     let passwordsOk = true;
 
     if (passwordConfirmationInput) {
         passwordsOk = passwordsMatch(passwordInput.value, passwordConfirmationInput.value);
-        markField(passwordConfirmationInput, passwordsOk);
+        handleField(passwordConfirmationInput, passwordsOk);
     }
 
-    if (registrationForm || userForm) {
+    if (userForm || registrationForm) {
         // Button nur aktivieren, wenn alles gültig ist
         submitButton.disabled = !(validateUsername(usernameInput.value) && validatePassword(passwordInput.value) && passwordsOk);
-
     }
-
 }
 
 if (registrationForm) {
@@ -110,5 +134,9 @@ if (registrationForm) {
 if (usernameInput) usernameInput.addEventListener("input", validateForm);
 if (passwordInput) passwordInput.addEventListener("input", validateForm);
 if (passwordConfirmationInput) passwordConfirmationInput.addEventListener("input", validateForm);
+
+//Reagiert auf focus-Events und setzt somit das gerade fokussierte Input-Feld
+if (usernameInput) usernameInput.addEventListener("focus", () => { activeField = usernameInput; });
+if (passwordInput) passwordInput.addEventListener("focus", () => { activeField = passwordInput; });
 
 /*Author: Lasse Hoffmann*/
