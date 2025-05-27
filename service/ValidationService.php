@@ -68,6 +68,9 @@ class ValidationService
                 if (!is_string($fieldValue)) {
                     throw new ValidationException(sprintf("Field %s must be a string.", $fieldName));
                 }
+                if (strlen($fieldValue) > 255) {
+                    throw new ValidationException(sprintf("Field %s should not be longer than 255 chars", $fieldName));
+                }
                 break;
             case ValidationType::Integer:
                 if (!is_int($fieldValue)) {
