@@ -11,8 +11,9 @@ use Vestis\Service\validation\ValidationType;
  */
 class ValidationService
 {
-    /** @var array<int, string>  */
-    private static array $paramNames = [];
+    /** @var array<string, ValidationType>  */
+    private static array $paramTypes = [];
+
 
     /**
      * Validates the current form submission
@@ -23,8 +24,8 @@ class ValidationService
      */
     public static function validateForm(array $params): void
     {
-        self::$paramNames = array_keys($params);
         foreach ($params as $name => $value) {
+            self::$paramTypes[$name] = $value->type;
             self::validateField($name, $value);
         }
     }
@@ -37,8 +38,11 @@ class ValidationService
     public static function getFormData(): array
     {
         $target = [];
-        foreach (self::$paramNames as $name) {
+        foreach (self::$paramTypes as $name => $type) {
             $target[$name] = $_POST[$name] ?? null;
+            if ($target[$name] !== null && $type === ValidationType::Boolean) {
+                $target[$name] = "on" === $target[$name];
+            }
         }
         return $target;
     }
