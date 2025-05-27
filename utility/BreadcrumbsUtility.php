@@ -10,7 +10,6 @@ use Vestis\Database\Models\ProductType;
  */
 class BreadcrumbsUtility
 {
-
     /**
      * Der Name des Query-Parameters, der im JS benutzt wird, um die Breadcrumbs zu laden
      */
@@ -38,7 +37,12 @@ class BreadcrumbsUtility
         $uri = sprintf('/categories?categoryId=%s&%s=%s', $category->id, self::FIELD_NAME, self::generateCategoryBreadcrumbsBase64($category));
         $links[] = ['name' => $category->name, 'url' => $uri];
         $links[] = ['name' => $productType->name, 'url' => null];
-        return Base64Utility::base64UrlEncode(json_encode($links));
+
+        $encoded = json_encode($links);
+        if (false === $encoded) {
+            return "";
+        }
+        return Base64Utility::base64UrlEncode($encoded);
     }
 
     /**
@@ -54,6 +58,10 @@ class BreadcrumbsUtility
             $links[] = ['name' => $category->getParentCategory()->name, 'url' => '/categories?categoryId=' . $category->getParentCategory()->id];
         }
         $links[] = ['name' => $category->name, 'url' => null];
-        return Base64Utility::base64UrlEncode(json_encode($links));
+        $encoded = json_encode($links);
+        if (false === $encoded) {
+            return "";
+        }
+        return Base64Utility::base64UrlEncode($encoded);
     }
 }

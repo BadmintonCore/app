@@ -6,7 +6,6 @@ use Vestis\Exception\ValidationException;
 
 class Base64Utility
 {
-
     /**
      * Encodes string as base64, but the URL safe version
      *

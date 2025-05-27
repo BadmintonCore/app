@@ -18,8 +18,9 @@ class CategoriesController
             require_once __DIR__.'/../views/categories/categoryList.php';
             return;
         }
-
-        $categoryId = intval($_GET["categoryId"]);
+        /** @var string|null $categoryIdString */
+        $categoryIdString = $_GET["categoryId"];
+        $categoryId = intval($categoryIdString);
         if ($categoryId === 0) {
             $errorMessage = "Kategorie nicht gefunden";
             require_once __DIR__.'/../views/categories/categoryList.php';

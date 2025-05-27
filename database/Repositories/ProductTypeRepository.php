@@ -7,7 +7,10 @@ use Vestis\Database\Models\ProductType;
 
 class ProductTypeRepository
 {
-
+    /**
+     * @param Category $category The category that should be used to fetch product types
+     * @return array<int, ProductType>
+     */
     public static function findByCategory(Category $category): array
     {
         return QueryAbstraction::fetchManyAs(ProductType::class, "SELECT * FROM productType WHERE categoryId = :catId", ["catId" => $category->id]);

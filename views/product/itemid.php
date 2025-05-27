@@ -16,7 +16,7 @@ use Vestis\Database\Models\ProductType;
 <body>
 <?php include(__DIR__ . "/../../components/header.php"); ?>
 <main>
-    <?php if ($product && $errorMessage === null) : ?>
+    <?php if ($product !== null && $errorMessage === null) : ?>
     <div class="details-flex">
         <!--Breadcrumbs-->
         <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>

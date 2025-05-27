@@ -3,7 +3,6 @@
 
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\Category;
-use Vestis\Utility\Base64Utility;
 use Vestis\Utility\BreadcrumbsUtility;
 
 /** @var array<int, ProductType> $products */
@@ -15,7 +14,7 @@ use Vestis\Utility\BreadcrumbsUtility;
 <html lang="de">
 <head>
     <?php include(__DIR__."/../../components/head.php"); ?>
-    <title>Vestis - <?= $category?->name ?? "Unbekannt" ?></title>
+    <title>Vestis - <?= $category->name ?? "Unbekannt" ?></title>
 </head>
 <body>
 <?php include(__DIR__."/../../components/header.php"); ?>
@@ -31,7 +30,7 @@ use Vestis\Utility\BreadcrumbsUtility;
         });
     </script>
 
-    <?php if ($category && $errorMessage === null): ?>
+    <?php if ($category !== null && $errorMessage === null): ?>
     <h1><?= $category->name ?></h1>
     <div class="list-page-flex">
         <div class="card no-hover">
@@ -73,10 +72,10 @@ use Vestis\Utility\BreadcrumbsUtility;
                 <?php
 
                     $uri = sprintf(
-                            "/categories/product?itemId=%s&%s=%s",
-                            $product->id,
-                            BreadcrumbsUtility::FIELD_NAME,
-                            BreadcrumbsUtility::generateProductBreadcrumbsBase64($category, $product)
+                        "/categories/product?itemId=%s&%s=%s",
+                        $product->id,
+                        BreadcrumbsUtility::FIELD_NAME,
+                        BreadcrumbsUtility::generateProductBreadcrumbsBase64($category, $product)
                     );
                 ?>
                 <div class="card product-card">
