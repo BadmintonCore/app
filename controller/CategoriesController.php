@@ -33,19 +33,13 @@ class CategoriesController
             return;
         }
 
+        if ($category->getParentCategory() === null) {
+            require_once __DIR__.'/../views/categories/childCategories.php';
+        }
+
         $products = ProductTypeRepository::findByCategory($category);
 
         require_once __DIR__.'/../views/categories/categoryList.php';
-    }
-
-    public function clothes(): void
-    {
-        require_once __DIR__.'/../views/categories/clothes.php';
-    }
-
-    public function accesories(): void
-    {
-        require_once __DIR__ . '/../views/categories/accessories.php';
     }
 
 }

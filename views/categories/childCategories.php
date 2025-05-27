@@ -1,3 +1,11 @@
+<?php
+
+use Vestis\Database\Models\Category;
+
+/** @var Category $category */
+
+?>
+
 <!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
@@ -18,11 +26,11 @@
     <!--Zurückbutton-->
     <?php include(__DIR__."/../../components/back-btn.php"); ?>
 
-    <h1>Accesoires</h1>
+    <h1><?= $category->name ?></h1>
 
-    <a class="btn" href="/categories?categoryId=cap">Caps shoppen.</a><br>
-
-    <a class="btn" href="/categories?categoryId=bag">Bags shoppen.</a>
+    <?php foreach ($category->getChildCategories() as $childCategory): ?>
+    <a class="btn" href="/categories?categoryId=<?= $childCategory->id ?>"><?= $childCategory->name ?> shoppen.</a><br>
+    <?php endforeach; ?>
 
 
 
