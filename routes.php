@@ -9,6 +9,7 @@ use Vestis\Controller\LegalController;
 use Vestis\Controller\ProductController;
 use Vestis\Controller\UserAreaController;
 use Vestis\Controller\YourPurchaseController;
+use Vestis\Controller\NewsletterController;
 
 return [
     '/' => [HomeController::class, 'index'],
@@ -24,6 +25,7 @@ return [
     '/auth/logout' => [AuthController::class, 'logout'],
     '/auth/registration' => [AuthController::class, 'register'],
     '/auth/reset' => [AuthController::class, 'resetPassword'],
+    '/auth/deleteConfirmation' => [AuthController::class, 'deleteConfirmation'],
     '/customer-service/contact' => [CustomerServiceController::class, 'contact'],
     '/customer-service/faq' => [CustomerServiceController::class, 'faq'],
     '/customer-service/returns' => [CustomerServiceController::class, 'returns'],
@@ -38,4 +40,5 @@ return [
     '/your-purchase/paymentmethods' => [YourPurchaseController::class, 'paymentMethods'],
     '/your-purchase/shipment' => [YourPurchaseController::class, 'shipment'],
     '/your-purchase/vouchers' => [YourPurchaseController::class, 'vouchers'],
+    '/newsletter/subscribe' => [NewsletterController::class, 'subscribe'],
 ];

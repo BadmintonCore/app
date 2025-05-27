@@ -17,27 +17,24 @@ class AccountRepository
      * @param string $username The username, that is used for login purposes
      * @param string $email The email, that is used for login purposes
      * @param string $password The password that is hashed later
-     * @param bool $newsletter Whether the user subscribes to the newsletter
      * @return Account|null The created account
      * @throws DatabaseException
      */
-    public static function create(AccountType $type, string $firstName, string $surname, string $username, string $email, string $password, bool $newsletter): ?Account
+    public static function create(AccountType $type, string $firstName, string $surname, string $username, string $email, string $password): ?Account
     {
 
         $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
 
-        var_dump($newsletter);
         $params = [
             "type" => $type->value,
             "firstName" => $firstName,
             "surname" => $surname,
             "username" => $username,
             "email" => $email,
-            "password" => $hashedPassword,
-            "newsletter" => $newsletter,
+            "password" => $hashedPassword
         ];
 
-        return QueryAbstraction::executeReturning(Account::class, "INSERT INTO account (type, firstName, surname, username,  email, password, newsletter) VALUES (:type, :firstName, :surname, :username, :email, :password, :newsletter)", $params);
+        return QueryAbstraction::executeReturning(Account::class, "INSERT INTO account (type, firstName, surname, username,  email, password) VALUES (:type, :firstName, :surname, :username, :email, :password)", $params);
     }
 
     /**
@@ -133,5 +130,10 @@ class AccountRepository
     public static function findByEmail(string $email): ?Account
     {
         return QueryAbstraction::fetchOneAs(Account::class, "SELECT * FROM account WHERE email = :email", ["email" => $email]);
+    }
+
+    public static function deleteById(int $id): void
+    {
+        QueryAbstraction::execute("DELETE FROM account WHERE id = :id", ["id" => $id]);
     }
 }

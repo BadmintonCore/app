@@ -9,8 +9,10 @@ use Vestis\Exception\DatabaseException;
 use Vestis\Exception\DatabaseExceptionReason;
 use Vestis\Exception\EmailException;
 use Vestis\Exception\ValidationException;
+use Vestis\Service\AccountService;
 use Vestis\Service\AuthService;
 use Vestis\Service\EmailService;
+use Vestis\Service\NewsletterService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -44,13 +46,13 @@ class AuthController
             }
 
         }
-        require_once __DIR__.'/../views/auth/login.php';
+        require_once __DIR__ . '/../views/auth/login.php';
     }
 
     public function logout(): void
     {
         AuthService::destroyCurrentSession();
-        require_once __DIR__."/../views/auth/logout.php";
+        require_once __DIR__ . "/../views/auth/logout.php";
     }
 
     public function register(): void
@@ -71,12 +73,19 @@ class AuthController
                 $formData = ValidationService::getFormData();
 
                 /** @phpstan-ignore-next-line all selected parameters are checked before for type safety in form validation */
-                $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password'], $formData['newsletter'] ?? false);
+                $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password']);
 
                 if (null === $account) {
                     $validationError = "Cannot create an account";
-                    require_once __DIR__.'/../views/auth/registration.php';
+                    require_once __DIR__ . '/../views/auth/registration.php';
                     return;
+                }
+
+                /** @var bool $newsletter */
+                $newsletter = $formData['newsletter'];
+
+                if ($newsletter === true) {
+                    NewsletterService::subscribe($account->email);
                 }
 
                 // Sends confirmation mail and creates user session cookie
@@ -97,7 +106,7 @@ class AuthController
                 }
             }
         }
-        require_once __DIR__.'/../views/auth/registration.php';
+        require_once __DIR__ . '/../views/auth/registration.php';
     }
 
     /**
@@ -130,6 +139,38 @@ class AuthController
                 $errorMessage = $e->getMessage();
             }
         }
-        require_once __DIR__.'/../views/auth/reset.php';
+        require_once __DIR__ . '/../views/auth/reset.php';
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function deleteConfirmation(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+            //Aktuellen Benutzeraccount aus den Cookies setzen
+            AuthService::setCurrentUserAccountSessionFromCookie();
+            $account = AuthService::$currentAccount;
+
+            try {
+
+                //Account löschen
+                if ($account !== null) {
+                    AccountService::deleteAccount($account);
+                }
+
+                //Aktuelle Session auflösen
+                AuthService::destroyCurrentSession();
+
+            } catch (\Exception|DatabaseException $e) {
+                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                $errorMessage = $e->getMessage();
+            }
+
+            //Zurück zur Startseite
+            header("Location: /");
+        }
+        require_once __DIR__ . '/../views/auth/deleteConfirmation.php';
     }
 }

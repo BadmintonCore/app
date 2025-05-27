@@ -373,20 +373,48 @@ footer {
     height: 40px;
 }
 
-/*setzt den Style für die Social-Media-Icons*/
-.footer-social {
-    width: 90%;
+.footer-bottom {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    border-bottom: 1px solid var(--text-color);
+}
+
+/*Setzt den Style für die Social-Media-Icons*/
+.footer-social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 20px;
     justify-content: center;
-    padding: 15px;
-    border-bottom: 1px solid var(--text-color);
+    padding: 15px 0 15px 30px;
+}
+
+.footer-social svg {
+    fill: var(--text-color);
+    height: 16px;
+    width: 16px;
 }
 
 /*setzt den Style für die Social-Media-Icons beim Mouse-Hover*/
 .footer-social a:hover {
     animation: none;
+}
+
+/*Setzt den Style für die Payment-Icons*/
+.footer-payment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    padding: 15px 30px 15px 0;
+}
+
+.footer-payment img {
+    height: 32px;
+    width: 32px;
 }
 
 /*setzt den Style für den Copyright Absatz am Ende des Footers*/
@@ -788,6 +816,10 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hove
     outline: 2px solid var(--accent-color);
 }
 
+.input-auth-error-msg{
+    color: var(--danger-color);
+}
+
 /* ================================================
                    Quantity-Input
 ===================================================*/
@@ -1166,11 +1198,6 @@ form {
     .footer-accordion {
         display: flex;
         flex-direction: column;
-    }
-
-    /*Padding nach oben vergrößern*/
-    .footer-social {
-        padding: 20px 0 15px 0;
     }
 
     /*Style des Akkordion-Buttons setzen*/

@@ -62,6 +62,9 @@
 
             <!--Input für den Benutzernamen-->
             <input type="text" id="username" placeholder="Benutzername eingeben" name="username">
+
+            <!--Span für die Error-Message, falls Benutzername nicht den Vorgaben entspricht-->
+            <span id="usernameInputSpan" class="input-auth-error-msg"></span>
         </div>
 
         <!--Container der Klasse "form-input"-->
@@ -82,6 +85,9 @@
 
             <!--Input für das Passwort-->
             <input type="password" id="password" placeholder="Passwort eingeben" name="password" required>
+
+            <!--Span für die Error-Message, falls Passwort nicht den Vorgaben entspricht-->
+            <span id="passwordInputSpan" class="input-auth-error-msg"></span>
         </div>
 
         <!--Container der Klasse "form-input"-->
