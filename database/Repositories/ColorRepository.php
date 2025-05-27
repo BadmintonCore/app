@@ -7,7 +7,6 @@ use Vestis\Database\Models\ProductType;
 
 class ColorRepository
 {
-
     /**
      * @param ProductType $productType
      * @return array<int, Color>

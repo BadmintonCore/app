@@ -7,7 +7,6 @@ use Vestis\Database\Models\Size;
 
 class SizeRepository
 {
-
     /**
      * @param ProductType $productType
      * @return array<int, Size>
