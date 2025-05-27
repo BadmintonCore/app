@@ -1,3 +1,12 @@
+<?php
+
+use Vestis\Database\Models\Category;
+use Vestis\Utility\BreadcrumbsUtility;
+
+/** @var Category $category */
+
+?>
+
 <!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
@@ -15,14 +24,14 @@
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-    <!--Zurückbutton-->
-    <?php include(__DIR__."/../../components/back-btn.php"); ?>
+    <h1><?= $category->name ?></h1>
 
-    <h1>Accesoires</h1>
-
-    <a class="btn" href="/categories?categoryId=cap">Caps shoppen.</a><br>
-
-    <a class="btn" href="/categories?categoryId=bag">Bags shoppen.</a>
+    <?php foreach ($category->getChildCategories() as $childCategory): ?>
+        <?php
+            $uri = sprintf('/categories?categoryId=%s&%s=%s', $childCategory->id, BreadcrumbsUtility::FIELD_NAME, BreadcrumbsUtility::generateCategoryBreadcrumbsBase64($childCategory));
+        ?>
+        <a class="btn" href="<?= $uri ?>"><?= $childCategory->name ?> shoppen.</a><br>
+    <?php endforeach; ?>
 
 
 
