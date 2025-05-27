@@ -4,8 +4,9 @@
 
 use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Service\AuthService;
+use Vestis\Utility\BreadcrumbsUtility;
 
-    $parentCategories = CategoryRepository::findAllWithNoParent();
+$parentCategories = CategoryRepository::findAllWithNoParent();
 
 ?>
 <header>
@@ -23,7 +24,10 @@ use Vestis\Service\AuthService;
                 <?php if (count($parentCategory->getChildCategories()) > 0) : ?>
                 <ul>
                     <?php foreach ($parentCategory->getChildCategories() as $childCategory): ?>
-                    <li><a href="/categories?categoryId=<?= $childCategory->id ?>"><?= $childCategory->name ?></a>
+                        <?php
+                            $uri = sprintf('/categories?categoryId=%s&%s=%s', $childCategory->id, BreadcrumbsUtility::FIELD_NAME, BreadcrumbsUtility::generateCategoryBreadcrumbsBase64($childCategory));
+                        ?>
+                        <li><a href="<?= $uri ?>"><?= $childCategory->name ?></a>
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>

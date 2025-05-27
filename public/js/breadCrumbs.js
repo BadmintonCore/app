@@ -58,15 +58,13 @@ function generateBreadcrumbList() {
 
     const searchParams = new URLSearchParams(window.location.search);
 
-    //wenn die URL "categoryId=bag" oder "categoryId=accessory" enthält
     if (
-        searchParams.has("categoryId") && searchParams.has("itemId") && searchParams.has("categoryName")
+        searchParams.has("breadcrumpsContent")
     ) {
-        return [
-            {name: "Startseite", url: "/"},
-            {name: searchParams.get("categoryName"), url: `/categories?categoryId=${searchParams.get("categoryId")}`},
-            {name: h1Text, url: null}
-        ];
+        const urlEncoded = searchParams.get("breadcrumpsContent");
+        const base64 = urlEncoded.replaceAll('-', '+').replaceAll('_', '/');
+        const jsonString = atob(base64);
+        return JSON.parse(jsonString);
     }
 
     for (let i = 1; i < parts.length; i++) {

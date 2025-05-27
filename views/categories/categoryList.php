@@ -3,6 +3,8 @@
 
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\Category;
+use Vestis\Utility\Base64Utility;
+use Vestis\Utility\BreadcrumbsUtility;
 
 /** @var array<int, ProductType> $products */
 /** @var Category|null $category */
@@ -69,11 +71,12 @@ use Vestis\Database\Models\Category;
         <div class="card-flex">
             <?php foreach ($products as $product) : ?>
                 <?php
+
                     $uri = sprintf(
-                            "/categories/product?itemId=%s&categoryId=%s&categoryName=%s",
+                            "/categories/product?itemId=%s&%s=%s",
                             $product->id,
-                            $product->categoryId,
-                            $category->name,
+                            BreadcrumbsUtility::FIELD_NAME,
+                            BreadcrumbsUtility::generateProductBreadcrumbsBase64($category, $product)
                     );
                 ?>
                 <div class="card product-card">
