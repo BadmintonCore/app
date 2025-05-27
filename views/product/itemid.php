@@ -2,6 +2,7 @@
 <?php
 
 use Vestis\Database\Models\ProductType;
+use Vestis\Utility\ColorUtility;
 
 /** @var ProductType|null $product */
 /** @var string|null $errorMessage */
@@ -21,9 +22,6 @@ use Vestis\Database\Models\ProductType;
         <!--Breadcrumbs-->
         <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-        <div class="back-btn-container">
-            <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
-        </div>
         <img src="/img/tshirt-beige.webp"
              alt="product image"
         />
@@ -37,33 +35,27 @@ use Vestis\Database\Models\ProductType;
             <form class="flex-align-left" id="itemIdForm">
                 <strong>Größe</strong>
                 <div class="flex-row">
+                    <?php foreach ($product->getSizes() as $size) : ?>
                     <label>
-                        <input type="radio" name="size" value="xs">
-                        XS
+                        <input type="radio" name="size" value="<?= $size->id ?>">
+                        <?= $size->size ?>
                     </label>
-                    <label>
-                        <input type="radio" name="size" value="s">
-                        S
-                    </label>
-                    <label>
-                        <input type="radio" name="size" value="m">
-                        M
-                    </label>
-                    <label>
-                        <input type="radio" name="size" value="l">
-                        L
-                    </label>
-                    <label>
-                        <input type="radio" name="size" value="xl">
-                        XL
-                    </label>
+                    <?php endforeach; ?>
                 </div>
                 <strong>Farbe</strong>
                 <div class="flex-row">
+                    <?php foreach ($product->getColors() as $color) : ?>
                     <label>
-                        <input type="radio" name="color" value="Red">
-                        Red
+                        <input
+                                type="radio"
+                                name="color"
+                                value="<?= $color->id ?>"
+                        >
+                        <?= $color->name ?>
+                        &nbsp;
+                        <div class="color-circle" style="background: #<?= $color->hex ?>"></div>
                     </label>
+                    <?php endforeach; ?>
                 </div>
                 <label for="amount"><strong>Anzahl</strong></label>
                 <div class="quantity-container">
