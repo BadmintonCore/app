@@ -12,20 +12,18 @@ class NewsletterService
 {
     public static function subscribe(string $email): void
     {
-        $isRegistered = NewsletterRepository::search($email);
+        $newsletterEntry = NewsletterRepository::search($email);
 
-        if ($isRegistered !== null) {
-            return;
-        } else {
+        if (null === $newsletterEntry) {
             NewsletterRepository::subscribe($email);
         }
     }
 
     public static function unsubscribe(string $email): void
     {
-        $isRegistered = NewsletterRepository::search($email);
+        $newsletterEntry = NewsletterRepository::search($email);
 
-        if ($isRegistered !== null) {
+        if ($newsletterEntry !== null) {
             NewsletterRepository::unsubscribe($email);
         }
     }

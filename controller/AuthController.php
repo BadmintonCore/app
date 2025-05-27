@@ -64,7 +64,7 @@ class AuthController
                 'username' => new ValidationRule(ValidationType::String),
                 'email' => new ValidationRule(ValidationType::Email),
                 'password' => new ValidationRule(ValidationType::String),
-                'newsletter' => new ValidationRule(ValidationType::String, true),
+                'newsletter' => new ValidationRule(ValidationType::Boolean, true),
             ];
             try {
                 // Validates the form
@@ -73,7 +73,7 @@ class AuthController
                 $formData = ValidationService::getFormData();
 
                 /** @phpstan-ignore-next-line all selected parameters are checked before for type safety in form validation */
-                $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password'] ?? false);
+                $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password']);
 
                 if (null === $account) {
                     $validationError = "Cannot create an account";
