@@ -779,6 +779,13 @@ label:has(input[type="radio"]:checked) {
     color: var(--primary-background-color);
 }
 
+.color-circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--text-color);
+}
+
 /* ================================================
                    Range-Select
 ===================================================*/
@@ -991,6 +998,10 @@ form {
     border: 1px solid var(--text-color);
     padding: 10px;
     width: fit-content;
+}
+
+nav:has(.breadcrumbs) {
+    width: 100%;
 }
 
 .breadcrumbs.open {
