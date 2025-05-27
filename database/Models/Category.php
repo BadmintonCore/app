@@ -15,48 +15,35 @@ class Category
 
     public ?int $parentCategoryId;
 
-    public ?Category $parentCategory = null {
-        get {
-            if (null === $this->parentCategoryId) {
-                return null;
-            }
-            if (null !== $this->parentCategory) {
-                return $this->parentCategory;
-            }
-            $this->parentCategory = CategoryRepository::findById($this->parentCategoryId);
-            return $this->parentCategory;
-        }
-    }
+    public ?Category $parentCategory = null;
 
     /**
-     * @var array<int, Category>
+     * @var array<int, Category>|null
      */
-    public ?array $childCategories = null {
-        get {
-            if (null !== $this->childCategories) {
-                return $this->childCategories;
-            }
-            if (null !== $this->parentCategoryId) {
-                $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
-            }
-            return $this->childCategories;
-        }
-    }
+    public ?array $childCategories = null;
 
     /**
-     * NOTE: Second option with language standard from PHP 8.2 for @see Category::$childCategories::__get()
-     *
-     * @return Category[]
+     * @return array|Category[]
      */
     public function getChildCategories(): array
     {
         if (null !== $this->childCategories) {
             return $this->childCategories;
         }
-        if (null !== $this->parentCategoryId) {
-            $this->childCategories = CategoryRepository::findByParentId($this->parentCategoryId);
+        $this->childCategories = CategoryRepository::findByParentId($this->id);
+        return $this->childCategories;
+    }
+
+    public function getParentCategory(): ?Category
+    {
+        if (null === $this->parentCategoryId) {
+            return null;
         }
-        return $this->childCategories ?? [];
+        if (null !== $this->parentCategory) {
+            return $this->parentCategory;
+        }
+        $this->parentCategory = CategoryRepository::findById($this->parentCategoryId);
+        return $this->parentCategory;
     }
 
 }

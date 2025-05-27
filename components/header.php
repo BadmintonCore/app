@@ -1,7 +1,11 @@
 <!--Author: Mathis Burger, Lennart Moog, Lasse Hoffmann-->
 
 <?php
-    use Vestis\Service\AuthService;
+
+use Vestis\Database\Repositories\CategoryRepository;
+use Vestis\Service\AuthService;
+
+    $parentCategories = CategoryRepository::findAllWithNoParent();
 
 ?>
 <header>
@@ -14,18 +18,17 @@
     </div>
     <nav>
         <ul>
-            <li><a href="/categories/clothes">Kleidung</a>
+            <?php foreach ($parentCategories as $parentCategory): ?>
+            <li><a href="/categories?categoryId=<?= $parentCategory->id ?>"><?= $parentCategory->name ?></a>
+                <?php if (count($parentCategory->getChildCategories()) > 0) : ?>
                 <ul>
-                    <li><a href="/categories?categoryId=shirt">Shirts</a></li>
-                    <li><a href="/categories?categoryId=sweater">Sweater</a></li>
+                    <?php foreach ($parentCategory->getChildCategories() as $childCategory): ?>
+                    <li><a href="/categories?categoryId=<?= $childCategory->id ?>"><?= $childCategory->name ?></a>
+                    <?php endforeach; ?>
                 </ul>
+                <?php endif; ?>
             </li>
-            <li><a href="/categories/accesories">Accessoires</a>
-                <ul>
-                    <li><a href="/categories?categoryId=cap">Caps</a></li>
-                    <li><a href="/categories?categoryId=bag">Taschen</a></li>
-                </ul>
-            </li>
+            <?php endforeach; ?>
         </ul>
     </nav>
     <a class="logo-link" href="/">
