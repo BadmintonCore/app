@@ -81,9 +81,10 @@ class AuthController
                     return;
                 }
 
+                /** @var bool $newsletter */
                 $newsletter = $formData['newsletter'];
 
-                if ($newsletter === "on") {
+                if ($newsletter === true) {
                     NewsletterService::subscribe($account->email);
                 }
 
