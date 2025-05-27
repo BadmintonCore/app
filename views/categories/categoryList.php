@@ -68,14 +68,22 @@ use Vestis\Database\Models\Category;
         </div>
         <div class="card-flex">
             <?php foreach ($products as $product) : ?>
+                <?php
+                    $uri = sprintf(
+                            "/categories/product?itemId=%s&categoryId=%s&categoryName=%s",
+                            $product->id,
+                            $product->categoryId,
+                            $category->name,
+                    );
+                ?>
                 <div class="card product-card">
                     <img
                             src="/img/tshirt-beige.webp"
                             alt="product image"/>
                     <br>
-                    <h2><a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s&categoryName=%s", $product->id, $product->categoryId, $category->name) ?>"><?= $product->name ?></a></h2>
+                    <h2><a href="<?= $uri ?>"><?= $product->name ?></a></h2>
                     <h4 class="price-field"><?= $product->price ?></h4>
-                    <a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s&categoryName=%s", $product->id, $category->id, $category->name) ?>" class="btn btn-sm">details.</a>
+                    <a href="<?= $uri ?>" class="btn btn-sm">details.</a>
                 </div>
             <?php endforeach; ?>
         </div>
