@@ -1,13 +1,19 @@
 <!-- Author: Mathis Burger -->
 <?php
-/** @var array<int, array<string, string>|null $jsonContent */
-/** @var string $categoryId */
+
+use Vestis\Database\Models\ProductType;
+use Vestis\Database\Models\Category;
+
+/** @var array<int, ProductType> $products */
+/** @var Category|null $category */
+/** @var string|null $errorMessage */
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <?php include(__DIR__."/../../components/head.php"); ?>
-    <title>Vestis - <?= $categoryId ?></title>
+    <title>Vestis - <?= $category?->name ?? "Unbekannt" ?></title>
 </head>
 <body>
 <?php include(__DIR__."/../../components/header.php"); ?>
@@ -23,8 +29,8 @@
         });
     </script>
 
-
-    <h1><?= ucfirst($categoryId) . (substr($categoryId, -1) === 's' ? '' : 's') ?></h1>
+    <?php if ($category && $errorMessage === null): ?>
+    <h1><?= $category->name ?></h1>
     <div class="list-page-flex">
         <div class="card no-hover">
             <div class="filter-options">
@@ -61,23 +67,24 @@
             </div>
         </div>
         <div class="card-flex">
-            <?php if (isset($jsonContent)) : ?>
-                <?php foreach ($jsonContent as $item) : ?>
-                    <div class="card product-card">
-                        <img
-                                src="/img/tshirt-beige.webp"
-                                alt="product image"/>
-                        <br>
-                        <h2><a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>"><?= $item["name"] ?></a></h2>
-                        <h4 class="price-field"><?= $item["price"] ?></h4>
-                        <a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s", $item["pid"], $categoryId) ?>" class="btn btn-sm">details.</a>
-                    </div>
-                <?php endforeach; ?>
-            <?php else : ?>
-                <h1>Parameter fehlt oder ist Invalide</h1>
-            <?php endif; ?>
+            <?php foreach ($products as $product) : ?>
+                <div class="card product-card">
+                    <img
+                            src="/img/tshirt-beige.webp"
+                            alt="product image"/>
+                    <br>
+                    <h2><a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s", $product->id, $product->categoryId) ?>"><?= $product->name ?></a></h2>
+                    <h4 class="price-field"><?= $product->price ?></h4>
+                    <a href="<?= sprintf("/categories/product?itemId=%s&categoryId=%s", $product->id, $product->categoryId) ?>" class="btn btn-sm">details.</a>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
+    <?php else: ?>
+    <h1><?= $errorMessage ?></h1>
+    <?php endif; ?>
+
+
 </main>
 
 <?php include(__DIR__."/../../components/footer.php"); ?>
