@@ -46,6 +46,9 @@ class ValidationService
             if ($target[$name] !== null && $type === ValidationType::Boolean) {
                 $target[$name] = "on" === $target[$name];
             }
+            if ($type === ValidationType::Integer && is_string($target[$name])) {
+                $target[$name] = intval($target[$name]);
+            }
         }
         return $target;
     }
@@ -76,15 +79,9 @@ class ValidationService
                 }
                 break;
             case ValidationType::Integer:
-                if (self::$method === "GET") {
-                    if (!is_string($fieldValue) || intval($fieldValue) <= 0) {
+                    if (!(is_string($fieldValue) && intval($fieldValue) !== 0) && !is_int($fieldValue)) {
                         throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
                     }
-                } else {
-                    if (!is_int($fieldValue)) {
-                        throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
-                    }
-                }
                 break;
             case ValidationType::Email:
                 if (false === filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {

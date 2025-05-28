@@ -43,4 +43,5 @@ return [
     '/newsletter/subscribe' => [NewsletterController::class, 'subscribe'],
     '/admin' => [AdminDashboardController::class, 'index'],
     '/admin/categories' => [AdminCategoriesController::class, 'index'],
+    '/admin/categories/edit' => [AdminCategoriesController::class, 'edit'],
 ];

@@ -1,3 +1,11 @@
+<?php
+
+use Vestis\Database\Models\Category;
+
+/** @var array<int, Category> $categories */
+
+?>
+
 <!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
@@ -17,7 +25,30 @@
 
     <h1>Kategorien</h1>
 
-
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Übergeordnete Kategorie</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($categories as $category): ?>
+            <tr>
+                <td><?= $category->id ?></td>
+                <td><?= $category->name ?></td>
+                <td>
+                    <?php if ($category->getParentCategory() !== null) : ?>
+                        <a href="/admin/categories/edit?id=<?= $category->getParentCategory()->id ?>"><?= $category->getParentCategory()?->name ?></a>
+                    <?php endif; ?>
+                </td>
+                <td><a class="btn btn-sm" href="/admin/categories/edit?id=<?= $category->id ?>">Edit.</a></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 
 </main>
 

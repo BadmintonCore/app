@@ -6,6 +6,15 @@ use Vestis\Database\Models\Category;
 
 class CategoryRepository
 {
+
+    /**
+     * @return array<int, Category>
+     */
+    public static function findAll(): array
+    {
+        return QueryAbstraction::fetchManyAs(Category::class, "SELECT * FROM category");
+    }
+
     /**
      * Gets all categories that do not have a parent category
      *
@@ -14,6 +23,18 @@ class CategoryRepository
     public static function findAllWithNoParent(): array
     {
         return QueryAbstraction::fetchManyAs(Category::class, "SELECT * FROM category WHERE parentCategoryId IS NULL");
+    }
+
+    /**
+     * Gets all categories that do not have a parent category and are not the given ID
+     *
+     * @param int $id
+     *
+     * @return array<int, Category>
+     */
+    public static function findAllWithNoParentNotSelf(int $id): array
+    {
+        return QueryAbstraction::fetchManyAs(Category::class, "SELECT * FROM category WHERE parentCategoryId IS NULL AND id != :id", ["id" => $id]);
     }
 
     /**
@@ -36,6 +57,11 @@ class CategoryRepository
     public static function findByParentId(int $id): array
     {
         return QueryAbstraction::fetchManyAs(Category::class, "SELECT * FROM category WHERE parentCategoryId = :id", ["id" => $id]);
+    }
+
+    public static function update(Category $category): void
+    {
+        QueryAbstraction::execute("UPDATE category SET name = :name, parentCategoryId = :parentId WHERE id = :id", ['name' => $category->name, 'id' => $category->id, 'parentId' => $category->parentCategoryId]);
     }
 
 }
