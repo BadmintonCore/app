@@ -8,6 +8,15 @@ use Vestis\Database\Models\ProductType;
 
 class ColorRepository
 {
+
+    /**
+     * @return array<int, Color>
+     */
+    public static function findAll(): array
+    {
+        return QueryAbstraction::fetchManyAs(Color::class, "SELECT * FROM color");
+    }
+
     /**
      * @param ProductType $productType
      * @return array<int, Color>

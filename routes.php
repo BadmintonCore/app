@@ -2,6 +2,7 @@
 
 use Vestis\Controller\AboutUsController;
 use Vestis\Controller\Admin\AdminCategoriesController;
+use Vestis\Controller\Admin\AdminColorsController;
 use Vestis\Controller\Admin\AdminDashboardController;
 use Vestis\Controller\AuthController;
 use Vestis\Controller\CategoriesController;
@@ -44,4 +45,5 @@ return [
     '/admin' => [AdminDashboardController::class, 'index'],
     '/admin/categories' => [AdminCategoriesController::class, 'index'],
     '/admin/categories/edit' => [AdminCategoriesController::class, 'edit'],
+    '/admin/colors' => [AdminColorsController::class, 'index'],
 ];

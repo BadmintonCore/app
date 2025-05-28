@@ -9,7 +9,13 @@
     </div>
     <nav>
         <ul>
-            <li><a href="/admin/categories">Kategorien</a></li>
+            <li>
+                Stammdaten
+                <ul>
+                    <a href="/admin/categories">Kategorien</a>
+                    <a href="/admin/colors">Farben</a>
+                </ul>
+            </li>
         </ul>
     </nav>
     <a class="logo-link" href="/">
