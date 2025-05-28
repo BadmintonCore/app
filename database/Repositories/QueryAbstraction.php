@@ -13,7 +13,7 @@ class QueryAbstraction
     /**
      * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
-     * @param array<string, int|bool|string|null> $params All parameters of the SQL query
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
      * @return array<T> The result array
      * @throws DatabaseException on database or reflection error
      *
@@ -27,21 +27,26 @@ class QueryAbstraction
     }
 
     /**
-     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
+     * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
-     * @param array<string, int|bool|string|null> $params All parameters of the SQL query
-     * @return T|null The result as the requested class
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
+     * @return ($className is null ?  array<string, int|bool|string|null|array<int, int|bool|string|null>>|null : T|null) The result as the requested class
      * @throws DatabaseException on database or reflection error
      *
      * @template T of object
      */
-    public static function fetchOneAs(string $className, string $query, array $params = []): mixed
+    public static function fetchOneAs(?string $className, string $query, array $params = []): mixed
     {
         $newQuery = sprintf("%s LIMIT 1", $query);
         $statement = QueryAbstraction::prepareAndExecuteStatement($newQuery, $params);
         /** @var array<string, int|bool|string|null>|null|false $assoc */
         $assoc =  $statement->fetch(\PDO::FETCH_ASSOC) ?? null;
-        if (null !== $assoc && false !== $assoc) {
+
+        // Wenn kein Klassenname gegeben, soll einfach das assoziative Array zurück gegeben werden
+        if ($className === null && $assoc !== false) {
+            return $assoc;
+        }
+        if (null !== $assoc && false !== $assoc && $className !== null) {
             return self::convertAssocToClass($className, $assoc);
         }
         return null;
@@ -51,7 +56,7 @@ class QueryAbstraction
      * Executes an SQL statement
      *
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null> $params The parameters that are required
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
      * @return void
      * @throws DatabaseException on database error
      */
@@ -65,7 +70,7 @@ class QueryAbstraction
      *
      * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null> $params The parameters that are required
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
      * @return T|null The result as the requested class
      * @throws DatabaseException on database error
      *
@@ -87,7 +92,7 @@ class QueryAbstraction
      * Prepares and executes the statement
      *
      * @param string $query The sql statement with params
-     * @param array<string, int|bool|string|null> $params The params
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The params
      * @return \PDOStatement The executed statement
      * @throws DatabaseException On database error
      */
@@ -98,8 +103,36 @@ class QueryAbstraction
         if ($connection === null) {
             throw new \RuntimeException("You need to initialize a database connection in order to execute queries.");
         }
-        $statement = $connection->prepare($query);
+
+        $normalizedParams = [];
+
         foreach ($params as $key => $value) {
+            // Wert ist ein Array
+            if (is_array($value)) {
+                $newParams = [];
+
+                // Ist das Array leer, ist der Parameter-Wert null
+                if (count($value) === 0) {
+                    $normalizedParams[$key] = null;
+                } else {
+
+                    // Ersetzt den einen Parameter durch beliebig viele Parameter, um das Array in der SQL query darzustellen
+
+                    foreach ($value as $i => $subValue) {
+                        $newParams["{$key}_$i"] = $subValue;
+                    }
+                    $newQueryParamArray = array_map(fn (string $param) => sprintf(":%s", $param), array_keys($newParams));
+                    $query = str_replace(':' . $key, sprintf('(%s)', implode(', ', $newQueryParamArray)), $query);
+                    $normalizedParams = array_merge($normalizedParams, $newParams);
+                }
+
+            } else {
+                // Ist es kein Array, kann der Paramerer normal verwendet werden
+                $normalizedParams[$key] = $value;
+            }
+        }
+        $statement = $connection->prepare($query);
+        foreach ($normalizedParams as $key => $value) {
             if (is_bool($value)) {
                 $statement->bindValue($key, $value, \PDO::PARAM_BOOL);
             } else {

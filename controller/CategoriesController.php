@@ -3,7 +3,13 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Repositories\CategoryRepository;
+use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
+use Vestis\Database\Repositories\SizeRepository;
+use Vestis\Exception\ValidationException;
+use Vestis\Service\validation\ValidationRule;
+use Vestis\Service\validation\ValidationType;
+use Vestis\Service\ValidationService;
 
 class CategoriesController
 {
@@ -38,9 +44,77 @@ class CategoriesController
             require_once __DIR__.'/../views/categories/childCategories.php';
         }
 
-        $products = ProductTypeRepository::findByCategory($category);
+
+
+        $colors = ColorRepository::findByCategory($category);
+        $sizes = SizeRepository::findByCategory($category);
+        $minMaxPricesResult = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
+
+        if ($minMaxPricesResult === null) {
+            $errorMessage = "Minimal und Maximal-Preise konnten nicht geladen werden";
+            require_once __DIR__.'/../views/categories/categoryList.php';
+            return;
+        }
+
+        ['min' => $minPrice, 'max' => $maxPrice] = $minMaxPricesResult;
+
+        // Wir validieren colors und sizes explizit nicht, da diese unten abgefragt werden und dort nur integer zurückgegeben werden.
+        // Es findet also schon eine Validierung statt
+        $validationRules = [
+            'price' => new ValidationRule(ValidationType::Integer, true),
+            'search' => new ValidationRule(ValidationType::String, true),
+        ];
+        try {
+
+            ValidationService::validateForm($validationRules, "GET");
+            /** @var int|null $maxAllowedPrice */
+            /** @var string|null $search */
+            ['price' => $maxAllowedPrice, 'search' => $search] = ValidationService::getFormData();
+
+            /** @var int $maxAllowedPrice */
+            $maxAllowedPrice = $maxAllowedPrice ?? $maxPrice;
+            $allowedColors = $this->getFilteredColorIds();
+            $allowedSizes = $this->getFilteredSizeIds();
+
+            $products = ProductTypeRepository::findByParams($category, $maxAllowedPrice, $allowedColors, $allowedSizes, $search);
+        } catch (ValidationException $e) {
+            $errorMessage = $e->getMessage();
+        }
 
         require_once __DIR__.'/../views/categories/categoryList.php';
+    }
+
+
+    /**
+     * @return array<int, int>
+     */
+    private function getFilteredColorIds(): array
+    {
+        $ids = [];
+        foreach ($_GET as $key => $value) {
+            if (str_starts_with($key, 'color_')) {
+                if (is_string($value) && intval($value) > 0) {
+                    $ids[] = intval($value);
+                }
+            }
+        }
+        return $ids;
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    private function getFilteredSizeIds(): array
+    {
+        $ids = [];
+        foreach ($_GET as $key => $value) {
+            if (str_starts_with($key, 'size_')) {
+                if (is_string($value) && intval($value) > 0) {
+                    $ids[] = intval($value);
+                }
+            }
+        }
+        return $ids;
     }
 
 }

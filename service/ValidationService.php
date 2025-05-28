@@ -14,6 +14,8 @@ class ValidationService
     /** @var array<string, ValidationType>  */
     private static array $paramTypes = [];
 
+    private static string $method = "post";
+
 
     /**
      * Validates the current form submission
@@ -22,11 +24,12 @@ class ValidationService
      * @return void
      * @throws ValidationException Thrown if a field is invalid
      */
-    public static function validateForm(array $params): void
+    public static function validateForm(array $params, string $method = "POST"): void
     {
+        self::$method = $method;
         foreach ($params as $name => $value) {
             self::$paramTypes[$name] = $value->type;
-            self::validateField($name, $value);
+            self::validateField($name, $value, $method);
         }
     }
 
@@ -39,7 +42,7 @@ class ValidationService
     {
         $target = [];
         foreach (self::$paramTypes as $name => $type) {
-            $target[$name] = $_POST[$name] ?? null;
+            $target[$name] = self::$method === "POST" ? ($_POST[$name] ?? null) : ($_GET[$name] ?? null);
             if ($target[$name] !== null && $type === ValidationType::Boolean) {
                 $target[$name] = "on" === $target[$name];
             }
@@ -53,9 +56,9 @@ class ValidationService
      * @return void
      * @throws ValidationException Thrown if a field is invalid
      */
-    private static function validateField(string $fieldName, ValidationRule $rule): void
+    private static function validateField(string $fieldName, ValidationRule $rule, string $method): void
     {
-        $fieldValue = $_POST[$fieldName] ?? null;
+        $fieldValue = $method === "POST" ? $_POST[$fieldName] ?? null : $_GET[$fieldName] ?? null;
         if ($fieldValue === null) {
             if (!$rule->nullable) {
                 throw new ValidationException(sprintf("Field %s is required.", $fieldName));
@@ -73,8 +76,14 @@ class ValidationService
                 }
                 break;
             case ValidationType::Integer:
-                if (!is_int($fieldValue)) {
-                    throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
+                if (self::$method === "GET") {
+                    if (!is_string($fieldValue) || intval($fieldValue) <= 0) {
+                        throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
+                    }
+                } else {
+                    if (!is_int($fieldValue)) {
+                        throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
+                    }
                 }
                 break;
             case ValidationType::Email:
