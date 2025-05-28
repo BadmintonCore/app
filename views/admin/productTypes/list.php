@@ -46,7 +46,7 @@ use Vestis\Utility\PaginationUtility;
                 <td>
                     <a href="/admin/categories/edit?id=<?= $productType->getCategory()->id ?>"><?= $productType->getCategory()->name ?></a>
                 </td>
-                <td><?= $productType->price ?></td>
+                <td class="price-field"><?= $productType->price ?>€</td>
                 <td><a class="btn btn-sm" href="/admin/productTypes/edit?id=<?= $productType->id ?>">Edit.</a></td>
             </tr>
         <?php endforeach; ?>
