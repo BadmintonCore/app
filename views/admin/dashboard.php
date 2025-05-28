@@ -6,6 +6,9 @@
     <?php include(__DIR__."/../../components/head.php"); ?>
 </head>
 <body>
+
+<?php include(__DIR__."/../../components/adminHeader.php"); ?>
+
 <!--Inhalt der Seite-->
 <main>
 

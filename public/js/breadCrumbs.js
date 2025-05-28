@@ -4,6 +4,7 @@ const translation = {
     categories: 'Kategorien',
     clothes: 'Kleidung',
     bags: 'Taschen',
+    admin: 'Admin Bereich',
     accessories: 'Accessoires',
     "about-us": 'Über uns',
     "customer-service": 'Kundenservice',

@@ -22,6 +22,10 @@ class Kernel
         /** @var string $requestUri */
         $requestUri = $_SERVER['REQUEST_URI'] ?? "/";
         $pathname = explode("?", $requestUri)[0];
+
+        if (strlen($pathname) > 1 && str_ends_with($pathname, "/")) {
+            $pathname = substr($pathname, 0, strlen($pathname) - 1);
+        }
         if (!array_key_exists($pathname, $routes)) {
             require_once __DIR__.'/views/404.php';
             return;

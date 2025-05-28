@@ -7,10 +7,13 @@
 </head>
 <body>
 <!--Inhalt der Seite-->
+
+<?php include(__DIR__."/../../../components/adminHeader.php"); ?>
+
 <main>
 
     <!--Breadcrumbs-->
-    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+    <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
     <h1>Kategorien</h1>
 
