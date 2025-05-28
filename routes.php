@@ -1,6 +1,8 @@
 <?php
 
 use Vestis\Controller\AboutUsController;
+use Vestis\Controller\Admin\AdminCategoriesController;
+use Vestis\Controller\Admin\AdminDashboardController;
 use Vestis\Controller\AuthController;
 use Vestis\Controller\CategoriesController;
 use Vestis\Controller\CustomerServiceController;
@@ -39,4 +41,6 @@ return [
     '/your-purchase/shipment' => [YourPurchaseController::class, 'shipment'],
     '/your-purchase/vouchers' => [YourPurchaseController::class, 'vouchers'],
     '/newsletter/subscribe' => [NewsletterController::class, 'subscribe'],
+    '/admin' => [AdminDashboardController::class, 'index'],
+    '/admin/categories' => [AdminCategoriesController::class, 'index'],
 ];

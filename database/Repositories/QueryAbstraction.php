@@ -142,7 +142,7 @@ class QueryAbstraction
         try {
             $statement->execute();
         } catch (\PDOException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), is_int($e->getCode()) ? $e->getCode() : -1, $e);
         }
         return $statement;
     }
