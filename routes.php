@@ -47,4 +47,6 @@ return [
     '/admin/categories/edit' => [AdminCategoriesController::class, 'edit'],
     '/admin/categories/create' => [AdminCategoriesController::class, 'create'],
     '/admin/colors' => [AdminColorsController::class, 'index'],
+    '/admin/colors/edit' => [AdminColorsController::class, 'edit'],
+    '/admin/colors/create' => [AdminColorsController::class, 'create'],
 ];

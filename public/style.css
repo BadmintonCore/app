@@ -273,6 +273,9 @@ header ul li:hover ul {
 main {
     padding: calc(var(--header-height) + 16px) 0; /*Setzt einen Abstand zwischen Main-Inhalten und Header, damit Elemente nicht hinter Header verschwinden */
     flex: 1; /*Kurzversion für flex-grow - Elemente in main sollen so viel Platz einnehmen, dass Footer ganz unten angezeigt wird und nicht mitten im Bild*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /*Style für Index-Seite mit Banner*/
@@ -822,6 +825,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 
 input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover:hover, textarea:hover {
     outline: 2px solid var(--accent-color);
+}
+
+input[type="color"] {
+    padding: initial;
 }
 
 .input-auth-error-msg{

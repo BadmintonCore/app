@@ -24,8 +24,9 @@ use Vestis\Database\Models\Color;
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
     <h1>Farben</h1>
+    <a href="/admin/colors/create" class="btn btn-sm">Erstellen</a>
 
-    <table>
+    <table class="mt-4">
         <thead>
             <tr>
                 <th>ID</th>
