@@ -59,7 +59,7 @@ use Vestis\Utility\BreadcrumbsUtility;
                                     style="--accent-color: #<?= $color->hex ?>"
                                     value="<?= $color->id ?>"
                                     name="color_<?= $color->id ?>"
-                                    <?= in_array($color->id, $allowedColors) ? "checked" : "" ?>
+                                    <?= in_array($color->id, $allowedColors, true) ? "checked" : "" ?>
                             >
                             <?= $color->name ?>
                         </label>
@@ -76,7 +76,7 @@ use Vestis\Utility\BreadcrumbsUtility;
                                     class="checkbox"
                                     value="<?= $size->id ?>"
                                     name="size_<?= $size->id ?>"
-                                <?= in_array($size->id, $allowedSizes) ? "checked" : "" ?>
+                                <?= in_array($size->id, $allowedSizes, true) ? "checked" : "" ?>
                             >
                             <?= $size->size ?>
                         </label>

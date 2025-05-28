@@ -48,7 +48,15 @@ class CategoriesController
 
         $colors = ColorRepository::findByCategory($category);
         $sizes = SizeRepository::findByCategory($category);
-        ['min' => $minPrice, 'max' => $maxPrice] = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
+        $minMaxPricesResult = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
+
+        if ($minMaxPricesResult === null) {
+            $errorMessage = "Minimal und Maximal-Preise konnten nicht geladen werden";
+            require_once __DIR__.'/../views/categories/categoryList.php';
+            return;
+        }
+
+        ['min' => $minPrice, 'max' => $maxPrice] = $minMaxPricesResult;
 
         // Wir validieren colors und sizes explizit nicht, da diese unten abgefragt werden und dort nur integer zurückgegeben werden.
         // Es findet also schon eine Validierung statt
@@ -59,11 +67,11 @@ class CategoriesController
         try {
 
             ValidationService::validateForm($validationRules, "GET");
-
             /** @var int|null $maxAllowedPrice */
             /** @var string|null $search */
             ['price' => $maxAllowedPrice, 'search' => $search] = ValidationService::getFormData();
 
+            /** @var int $maxAllowedPrice */
             $maxAllowedPrice = $maxAllowedPrice ?? $maxPrice;
             $allowedColors = $this->getFilteredColorIds();
             $allowedSizes = $this->getFilteredSizeIds();
@@ -85,7 +93,7 @@ class CategoriesController
         $ids = [];
         foreach ($_GET as $key => $value) {
             if (str_starts_with($key, 'color_')) {
-                if (intval($value) >0 ) {
+                if (is_string($value) && intval($value) > 0) {
                     $ids[] = intval($value);
                 }
             }
@@ -101,7 +109,7 @@ class CategoriesController
         $ids = [];
         foreach ($_GET as $key => $value) {
             if (str_starts_with($key, 'size_')) {
-                if (intval($value) > 0) {
+                if (is_string($value) && intval($value) > 0) {
                     $ids[] = intval($value);
                 }
             }

@@ -13,7 +13,7 @@ class QueryAbstraction
     /**
      * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
-     * @param array<string, int|bool|string|null> $params All parameters of the SQL query
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
      * @return array<T> The result array
      * @throws DatabaseException on database or reflection error
      *
@@ -29,8 +29,8 @@ class QueryAbstraction
     /**
      * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
-     * @param array<string, int|bool|string|null> $params All parameters of the SQL query
-     * @return T|null|array<string, int|bool|string|null> The result as the requested class
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
+     * @return ($className is null ?  array<string, int|bool|string|null|array<int, int|bool|string|null>>|null : T|null) The result as the requested class
      * @throws DatabaseException on database or reflection error
      *
      * @template T of object
@@ -46,7 +46,7 @@ class QueryAbstraction
         if ($className === null && $assoc !== false) {
             return $assoc;
         }
-        if (null !== $assoc && false !== $assoc) {
+        if (null !== $assoc && false !== $assoc && $className !== null) {
             return self::convertAssocToClass($className, $assoc);
         }
         return null;
@@ -56,7 +56,7 @@ class QueryAbstraction
      * Executes an SQL statement
      *
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null> $params The parameters that are required
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
      * @return void
      * @throws DatabaseException on database error
      */
@@ -70,7 +70,7 @@ class QueryAbstraction
      *
      * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null> $params The parameters that are required
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
      * @return T|null The result as the requested class
      * @throws DatabaseException on database error
      *
@@ -92,7 +92,7 @@ class QueryAbstraction
      * Prepares and executes the statement
      *
      * @param string $query The sql statement with params
-     * @param array<string, int|bool|string|null> $params The params
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The params
      * @return \PDOStatement The executed statement
      * @throws DatabaseException On database error
      */
