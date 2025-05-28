@@ -50,8 +50,9 @@ class CategoriesController
         $sizes = SizeRepository::findByCategory($category);
         $minMaxPricesResult = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
 
-        if ($minMaxPricesResult === null) {
-            $errorMessage = "Minimal und Maximal-Preise konnten nicht geladen werden";
+        // Wenn kein Minimalpreis existert, dann existert auch kein Maximalpreis
+        if ($minMaxPricesResult === null || $minMaxPricesResult['min'] === null) {
+            $errorMessage = "Minimal und Maximal-Preise konnten nicht geladen werden. Möglicherweise existieren keine Produkte zu dieser Kategorie";
             require_once __DIR__.'/../views/categories/categoryList.php';
             return;
         }
@@ -72,7 +73,7 @@ class CategoriesController
             ['price' => $maxAllowedPrice, 'search' => $search] = ValidationService::getFormData();
 
             /** @var int $maxAllowedPrice */
-            $maxAllowedPrice = $maxAllowedPrice ?? $maxPrice;
+            $maxAllowedPrice = $maxAllowedPrice ?? $maxPrice ?? 0;
             $allowedColors = $this->getFilteredColorIds();
             $allowedSizes = $this->getFilteredSizeIds();
 

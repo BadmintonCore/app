@@ -17,6 +17,8 @@
 
     <h1>Dashboard</h1>
 
+    <a href="/admin/categories" class="btn">Kategorien.</a>
+
 
 
 </main>
