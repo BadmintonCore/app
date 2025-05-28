@@ -2,7 +2,6 @@
 <?php
 
 use Vestis\Database\Models\ProductType;
-use Vestis\Utility\ColorUtility;
 
 /** @var ProductType|null $product */
 /** @var string|null $errorMessage */
