@@ -6,6 +6,10 @@ use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;
+use Vestis\Exception\ValidationException;
+use Vestis\Service\validation\ValidationRule;
+use Vestis\Service\validation\ValidationType;
+use Vestis\Service\ValidationService;
 
 class CategoriesController
 {
@@ -46,14 +50,28 @@ class CategoriesController
         $sizes = SizeRepository::findByCategory($category);
         ['min' => $minPrice, 'max' => $maxPrice] = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
 
-        $maxAllowedPrice = $_GET['price'] ?? $maxPrice;
-        $allowedColors = $this->getFilteredColorIds();
-        $allowedSizes = $this->getFilteredSizeIds();
-        $search = $_GET['search'] ?? null;
+        // Wir validieren colors und sizes explizit nicht, da diese unten abgefragt werden und dort nur integer zurückgegeben werden.
+        // Es findet also schon eine Validierung statt
+        $validationRules = [
+            'price' => new ValidationRule(ValidationType::Integer, true),
+            'search' => new ValidationRule(ValidationType::String, true),
+        ];
+        try {
 
+            ValidationService::validateForm($validationRules, "GET");
 
-        $products = ProductTypeRepository::findByParams($category, $maxAllowedPrice, $allowedColors, $allowedSizes, $search);
+            /** @var int|null $maxAllowedPrice */
+            /** @var string|null $search */
+            ['price' => $maxAllowedPrice, 'search' => $search] = ValidationService::getFormData();
 
+            $maxAllowedPrice = $maxAllowedPrice ?? $maxPrice;
+            $allowedColors = $this->getFilteredColorIds();
+            $allowedSizes = $this->getFilteredSizeIds();
+
+            $products = ProductTypeRepository::findByParams($category, $maxAllowedPrice, $allowedColors, $allowedSizes, $search);
+        } catch (ValidationException $e) {
+            $errorMessage = $e->getMessage();
+        }
 
         require_once __DIR__.'/../views/categories/categoryList.php';
     }
