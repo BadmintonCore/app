@@ -1,8 +1,8 @@
 <?php
 
-use Vestis\Database\Models\Color;
+use Vestis\Database\Models\Size;
 
-/** @var array<int, Color> $colors */
+/** @var array<int, Size> $sizes */
 
 ?>
 
@@ -10,7 +10,7 @@ use Vestis\Database\Models\Color;
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>vestis. - Farben</title>
+    <title>vestis. - Größen</title>
     <?php include(__DIR__."/../../../components/head.php"); ?>
 </head>
 <body>
@@ -24,29 +24,22 @@ use Vestis\Database\Models\Color;
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
     <h1>Farben</h1>
-    <a href="/admin/colors/create" class="btn btn-sm">Erstellen</a>
+    <a href="/admin/sizes/create" class="btn btn-sm">Erstellen</a>
 
     <table class="mt-4">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Hex</th>
                 <th>Aktionen</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach($colors as $color): ?>
+            <?php foreach($sizes as $size): ?>
             <tr>
-                <td><?= $color->id ?></td>
-                <td><?= $color->name ?></td>
-                <td>
-                   <div class="flex-row">
-                       #<?= $color->hex ?>
-                       <div class="color-circle" style="background: #<?= $color->hex ?>"></div>
-                   </div>
-                </td>
-                <td><a class="btn btn-sm" href="/admin/colors/edit?id=<?= $color->id ?>">Edit.</a></td>
+                <td><?= $size->id ?></td>
+                <td><?= $size->size ?></td>
+                <td><a class="btn btn-sm" href="/admin/sizes/edit?id=<?= $size->id ?>">Edit.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

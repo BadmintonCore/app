@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>vestis. - Kategorien</title>
+    <title>vestis. - Farben</title>
     <?php include(__DIR__."/../../../components/head.php"); ?>
 </head>
 <body>

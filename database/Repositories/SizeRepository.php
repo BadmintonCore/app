@@ -8,6 +8,21 @@ use Vestis\Database\Models\Size;
 
 class SizeRepository
 {
+
+    public static function findById(int $id): ?Size
+    {
+        return QueryAbstraction::fetchOneAs(Size::class, "SELECT * FROM size WHERE id = :id", ['id' => $id]);
+    }
+
+
+    /**
+     * @return array<int, Size>
+     */
+    public static function findAll(): array
+    {
+        return QueryAbstraction::fetchManyAs(Size::class, "SELECT * FROM size");
+    }
+
     /**
      * @param ProductType $productType
      * @return array<int, Size>
@@ -24,6 +39,16 @@ class SizeRepository
     public static function findByCategory(Category $category): array
     {
         return QueryAbstraction::fetchManyAs(Size::class, "SELECT DISTINCT s.* FROM size s JOIN allowedSize ac ON ac.sizeId = s.id JOIN productType pt ON pt.id = ac.productTypeId WHERE pt.categoryId = :catId", ["catId" => $category->id]);
+    }
+
+    public static function create(string $size): Size
+    {
+        return QueryAbstraction::executeReturning(Size::class, "INSERT INTO size (size) VALUES (:name)", ["name" => $size]);
+    }
+
+    public static function update(Size $size)
+    {
+        QueryAbstraction::execute("UPDATE size SET size = :name WHERE id = :id", ["name" => $size->size, "id" => $size->id]);
     }
 
 }

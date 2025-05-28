@@ -14,7 +14,8 @@ const translation = {
     "user-area": 'Nutzer',
     auth: "Anmeldung",
     "your-purchase": 'Dein Einkauf',
-    colors: "Farben"
+    colors: "Farben",
+    sizes: "Größen"
 }
 
 

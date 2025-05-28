@@ -20,6 +20,7 @@
     <div class="stack">
         <a href="/admin/categories" class="btn">Kategorien.</a>
         <a href="/admin/colors" class="btn">Farben.</a>
+        <a href="/admin/sizes" class="btn">Größen.</a>
     </div>
 
 

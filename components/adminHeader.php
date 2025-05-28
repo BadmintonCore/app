@@ -14,6 +14,7 @@
                 <ul>
                     <a href="/admin/categories">Kategorien</a>
                     <a href="/admin/colors">Farben</a>
+                    <a href="/admin/sizes">Größen</a>
                 </ul>
             </li>
         </ul>

@@ -1,15 +1,8 @@
-<?php
-
-use Vestis\Database\Models\Color;
-
-/** @var Color|null $color */
-?>
-
 <!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>vestis. - Farben</title>
+    <title>vestis. - Größen</title>
     <?php include(__DIR__."/../../../components/head.php"); ?>
 </head>
 <body>
@@ -21,21 +14,17 @@ use Vestis\Database\Models\Color;
 
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
-    <?php if (isset($errorMessage) || $color === null): ?>
-    <h1><?= $errorMessage ?? 'Not found' ?></h1>
+    <?php if (isset($errorMessage)): ?>
+    <h1><?= $errorMessage ?></h1>
     <?php else: ?>
-    <h1><?= $color->name ?></h1>
+    <h1>Größe erstellen</h1>
     <form method="post" class="form-box">
         <div class="form-input">
-            <label for="name">Name der Farbe</label>
-            <input name="name" value="<?= $color->name ?>" id="name" required />
-        </div>
-        <div class="form-input">
-            <label for="hex">Farbe</label>
-            <input type="color" name="hex" value="#<?= $color->hex ?>" id="hex" required />
+            <label for="name">Name der Größe</label>
+            <input name="size" id="name" required />
         </div>
         <button class="btn" type="submit">
-            Speichern.
+            Erstellen.
         </button>
     </form>
     <?php endif; ?>

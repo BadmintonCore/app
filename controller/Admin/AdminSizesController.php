@@ -4,53 +4,54 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ColorRepository;
+use Vestis\Database\Repositories\SizeRepository;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
-class AdminColorsController
+class AdminSizesController
 {
 
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
-        $colors = ColorRepository::findAll();
-        require_once __DIR__.'/../../views/admin/colors/list.php';
+        $sizes = SizeRepository::findAll();
+        require_once __DIR__.'/../../views/admin/sizes/list.php';
     }
 
     public function edit(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
         $colorId = intval($_GET['id']);
-        $color = ColorRepository::findById($colorId);
-        if ($color === null) {
-            $errorMessage = 'Farbe nicht gefunden!';
+        $size = SizeRepository::findById($colorId);
+        if ($size === null) {
+            $errorMessage = 'Größe nicht gefunden!';
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $validationRules = [
-                'name' => new ValidationRule(ValidationType::String),
-                'hex' => new ValidationRule(ValidationType::String),
+                'size' => new ValidationRule(ValidationType::String),
             ];
             try {
                 ValidationService::validateForm($validationRules);
-                /** @var string $name */
-                ['name' => $name, 'hex' => $hex] = ValidationService::getFormData();
 
-                if (strlen($hex) !== 7) {
-                    throw new ValidationException("Invalid color");
+                /** @var string $name */
+                ['size' => $name] = ValidationService::getFormData();
+
+                if (strlen($name) > 3) {
+                    throw new ValidationException("Die Größe darf nicht länger als 3 Buchstaben sein");
                 }
-                $color->hex = substr($hex, 1, strlen($hex));
-                $color->name = $name;
-                ColorRepository::update($color);
+                $size->size = $name;
+
+                SizeRepository::update($size);
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
             }
         }
 
-        require_once __DIR__.'/../../views/admin/colors/edit.php';
+        require_once __DIR__.'/../../views/admin/sizes/edit.php';
     }
 
     public function create(): void
@@ -58,27 +59,24 @@ class AdminColorsController
         AuthService::checkAccess(AccountType::Administrator);
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
-            require_once __DIR__.'/../../views/admin/colors/create.php';
+            require_once __DIR__.'/../../views/admin/sizes/create.php';
         } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             $validationRules = [
-                'name' => new ValidationRule(ValidationType::String),
-                'hex' => new ValidationRule(ValidationType::String),
+                'size' => new ValidationRule(ValidationType::String),
             ];
             try {
                 ValidationService::validateForm($validationRules);
 
                 /** @var string $name */
-                /** @var string $hex */
-                ['name' => $name, 'hex' => $hex] = ValidationService::getFormData();
+                ['size' => $name] = ValidationService::getFormData();
 
-                if (strlen($hex) !== 7) {
-                    throw new ValidationException("Invalid color");
+                if (strlen($name) > 3) {
+                    throw new ValidationException("Die Größe darf nicht länger als 3 Buchstaben sein");
                 }
-                $hex = substr($hex, 1, strlen($hex));
 
-                ColorRepository::create($name, $hex);
-                header('Location: /admin/colors');
+                SizeRepository::create($name);
+                header('Location: /admin/sizes');
                 return;
 
             } catch (ValidationException $e) {
