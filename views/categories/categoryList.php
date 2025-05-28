@@ -1,13 +1,23 @@
 <!-- Author: Mathis Burger -->
 <?php
 
+use Vestis\Database\Models\Color;
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\Category;
+use Vestis\Database\Models\Size;
 use Vestis\Utility\BreadcrumbsUtility;
 
 /** @var array<int, ProductType> $products */
 /** @var Category|null $category */
 /** @var string|null $errorMessage */
+/** @var Color[] $colors */
+/** @var Size[] $sizes */
+/** @var int $minPrice */
+/** @var int $maxPrice */
+/** @var string|null $search */
+/** @var int $maxAllowedPrice */
+/** @var array<int, int> $allowedColors */
+/** @var array<int, int> $allowedSizes */
 
 ?>
 <!DOCTYPE html>
@@ -34,38 +44,57 @@ use Vestis\Utility\BreadcrumbsUtility;
     <h1><?= $category->name ?></h1>
     <div class="list-page-flex">
         <div class="card no-hover">
-            <div class="filter-options">
+            <form class="filter-options" id="filterForm">
                 <div class="option-box-with-title can-grow">
                     <strong class="align-start">Suchen</strong>
-                    <input type="text" placeholder="Suche...">
+                    <input type="text" placeholder="Suche..." name="search" value="<?= $search ?? '' ?>">
                 </div>
                 <div class="option-box-with-title">
                     <strong class="align-start">Farben</strong>
                     <div class="flex-row">
-                        <label><input type="checkbox"> Grün</label>
-                        <label><input type="checkbox"> Blau</label>
-                        <label><input type="checkbox"> Schwarz</label>
-                        <label><input type="checkbox"> Pink</label>
+                        <?php foreach ($colors as $color): ?>
+                        <label>
+                            <input
+                                    type="checkbox"
+                                    style="--accent-color: #<?= $color->hex ?>"
+                                    value="<?= $color->id ?>"
+                                    name="color_<?= $color->id ?>"
+                                    <?= in_array($color->id, $allowedColors) ? "checked" : "" ?>
+                            >
+                            <?= $color->name ?>
+                        </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
                 <div class="option-box-with-title">
                     <strong class="align-start">Größe</strong>
                     <div class="flex-row">
-                        <label><input type="radio" value="xs" name="size"> XS</label>
-                        <label><input type="radio" value="s" name="size"> S</label>
-                        <label><input type="radio" value="m" name="size"> M</label>
-                        <label><input type="radio" value="l" name="size"> L</label>
-                        <label><input type="radio" value="xl" name="size"> XL</label>
+                        <?php foreach ($sizes as $size): ?>
+                        <label>
+                            <input
+                                    type="checkbox"
+                                    class="checkbox"
+                                    value="<?= $size->id ?>"
+                                    name="size_<?= $size->id ?>"
+                                <?= in_array($size->id, $allowedSizes) ? "checked" : "" ?>
+                            >
+                            <?= $size->size ?>
+                        </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
                 <div class="option-box-with-title">
                     <strong class="align-start">Preis</strong>
-                    <input type="range">
+                    <div class="flex-row">
+                        <span class="price-field"><?= $minPrice ?>€</span>
+                        <input type="range" min="<?= $minPrice ?>" max="<?= $maxPrice ?>" value="<?= $maxAllowedPrice ?>" name="price">
+                        <span class="price-field"><?= $maxPrice ?>€</span>
+                    </div>
                 </div>
-                <button class="btn btn-sm">
+                <button type="submit" class="btn btn-sm">
                     filtern.
                 </button>
-            </div>
+            </form>
         </div>
         <div class="card-flex">
             <?php foreach ($products as $product) : ?>
@@ -96,6 +125,29 @@ use Vestis\Utility\BreadcrumbsUtility;
 
 
 </main>
+
+<script>
+    const form = document.getElementById('filterForm');
+
+    // Ersetzt alle URL Params aus dem Formular und kombiniert diese mit der bestehenden Kategorie-ID und dem Content für die Breadcrumbs
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const url = new URL(window.location.href);
+        const existingParams = url.searchParams;
+
+        const newSearchParams = new URLSearchParams();
+        const formData = new FormData(form);
+        for (const [key, value] of formData) {
+            newSearchParams.set(key, value);
+        }
+
+        newSearchParams.set('categoryId', existingParams.get('categoryId'));
+        newSearchParams.set('breadcrumpsContent', existingParams.get('breadcrumpsContent'));
+
+        window.location.href = url.pathname + '?' + newSearchParams.toString();
+    });
+</script>
 
 <?php include(__DIR__."/../../components/footer.php"); ?>
 <?php include(__DIR__."/../../components/scripts.php"); ?>

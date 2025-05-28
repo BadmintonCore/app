@@ -754,7 +754,7 @@ input[type="checkbox"]:focus { /*keine Outline wenn fokussiert*/
 ===================================================*/
 
 /*Style für Label, das einen Input von Typ Radio beinhaltet (e.g. Detailseite Größen- und Farbauswahl)*/
-label:has(input[type="radio"]) {
+label:has(input[type="radio"], input.checkbox) {
     display: inline-flex;
     align-items: center;
     background: none;
@@ -764,17 +764,17 @@ label:has(input[type="radio"]) {
     transition: ease-in .5s;
 }
 
-label:has(input[type="radio"]):hover {
+label:has(input[type="radio"], input.checkbox):hover {
     background-color: var(--text-color);
     color: var(--primary-background-color);
 }
 
-input[type="radio"] {
+input[type="radio"], input.checkbox {
     display: none; /*Button selbst wird nicht angezeigt, aber da Button in Label wird bei Klick auf Label auch immer Button geklickt*/
 }
 
 /*Style des Labels wenn Button gecheckt*/
-label:has(input[type="radio"]:checked) {
+label:has(input[type="radio"]:checked, input.checkbox:checked) {
     background-color: var(--text-color);
     color: var(--primary-background-color);
 }
@@ -793,6 +793,7 @@ label:has(input[type="radio"]:checked) {
 input[type="range"] {
     accent-color: var(--accent-color); /*Sliderfarbe*/
     padding: 0;
+    width: auto;
 }
 
 input[type="range"]:focus {
@@ -1078,9 +1079,11 @@ nav:has(.breadcrumbs) {
 .filter-options {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     gap: 20px;
     width: 100%;
     align-items: flex-start; /* Aligns the tops of each option-box */
+    justify-content: flex-start;
 }
 
 /* Box containing title and input/fields */

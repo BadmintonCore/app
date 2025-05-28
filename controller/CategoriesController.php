@@ -3,7 +3,9 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Repositories\CategoryRepository;
+use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
+use Vestis\Database\Repositories\SizeRepository;
 
 class CategoriesController
 {
@@ -38,9 +40,55 @@ class CategoriesController
             require_once __DIR__.'/../views/categories/childCategories.php';
         }
 
-        $products = ProductTypeRepository::findByCategory($category);
+
+
+        $colors = ColorRepository::findByCategory($category);
+        $sizes = SizeRepository::findByCategory($category);
+        ['min' => $minPrice, 'max' => $maxPrice] = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
+
+        $maxAllowedPrice = $_GET['price'] ?? $maxPrice;
+        $allowedColors = $this->getFilteredColorIds();
+        $allowedSizes = $this->getFilteredSizeIds();
+        $search = $_GET['search'] ?? null;
+
+
+        $products = ProductTypeRepository::findByParams($category, $maxAllowedPrice, $allowedColors, $allowedSizes, $search);
+
 
         require_once __DIR__.'/../views/categories/categoryList.php';
+    }
+
+
+    /**
+     * @return array<int, int>
+     */
+    private function getFilteredColorIds(): array
+    {
+        $ids = [];
+        foreach ($_GET as $key => $value) {
+            if (str_starts_with($key, 'color_')) {
+                if (intval($value) >0 ) {
+                    $ids[] = intval($value);
+                }
+            }
+        }
+        return $ids;
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    private function getFilteredSizeIds(): array
+    {
+        $ids = [];
+        foreach ($_GET as $key => $value) {
+            if (str_starts_with($key, 'size_')) {
+                if (intval($value) > 0) {
+                    $ids[] = intval($value);
+                }
+            }
+        }
+        return $ids;
     }
 
 }
