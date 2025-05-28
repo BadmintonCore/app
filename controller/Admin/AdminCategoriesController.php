@@ -60,4 +60,37 @@ class AdminCategoriesController
         require_once __DIR__.'/../../views/admin/categories/edit.php';
     }
 
+    public function create(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+        if ($_SERVER['REQUEST_METHOD'] === "GET") {
+            require_once __DIR__.'/../../views/admin/categories/create.php';
+        } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $validationRules = [
+                'name' => new ValidationRule(ValidationType::String),
+                'parentCategoryId' => new ValidationRule(ValidationType::Integer),
+            ];
+            try {
+                ValidationService::validateForm($validationRules);
+                /** @var string $name */
+                /** @var int $parentCategoryId */
+                ['name' => $name, 'parentCategoryId' => $parentCategoryId] = ValidationService::getFormData();
+                // -1 soll hier an der Stelle null sein
+                $parentCategoryId = $parentCategoryId === -1 ? null : $parentCategoryId;
+
+                if ($parentCategoryId !== null && CategoryRepository::findById($parentCategoryId) === null) {
+                    throw new ValidationException('Übergeordnete Kategorie nicht gefunden!');
+                }
+
+                $category = CategoryRepository::create($name, $parentCategoryId);
+                header('Location: /admin/categories');
+                return;
+
+            } catch (ValidationException $e) {
+                $errorMessage = $e->getMessage();
+                require_once __DIR__.'/../../views/admin/categories/create.php';
+            }
+        }
+    }
+
 }

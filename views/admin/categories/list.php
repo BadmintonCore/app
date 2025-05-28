@@ -23,9 +23,10 @@ use Vestis\Database\Models\Category;
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
-    <h1>Kategorien</h1>
 
-    <table>
+        <h1>Kategorien</h1>
+        <a href="/admin/categories/create" class="btn btn-sm">Erstellen</a>
+    <table class="mt-4">
         <thead>
             <tr>
                 <th>ID</th>

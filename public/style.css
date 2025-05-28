@@ -1017,6 +1017,10 @@ nav:has(.breadcrumbs) {
                         Layout
 ===================================================*/
 
+.mt-4 {
+    margin-top: 16px;
+}
+
 .stack { /*Stapel mit Gap dazwischen (e.g. Abstandshalter für Warenkorb) */
     display: flex;
     flex-direction: column;

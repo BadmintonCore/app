@@ -59,6 +59,11 @@ class CategoryRepository
         return QueryAbstraction::fetchManyAs(Category::class, "SELECT * FROM category WHERE parentCategoryId = :id", ["id" => $id]);
     }
 
+    public static function create(string $name, ?int $parentCategoryId): Category
+    {
+        return QueryAbstraction::executeReturning(Category::class, "INSERT INTO category (name, parentCategoryId) VALUES (:name, :parentCategoryId)", ["name" => $name, "parentCategoryId" => $parentCategoryId]);
+    }
+
     public static function update(Category $category): void
     {
         QueryAbstraction::execute("UPDATE category SET name = :name, parentCategoryId = :parentId WHERE id = :id", ['name' => $category->name, 'id' => $category->id, 'parentId' => $category->parentCategoryId]);

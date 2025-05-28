@@ -17,7 +17,10 @@
 
     <h1>Dashboard</h1>
 
-    <a href="/admin/categories" class="btn">Kategorien.</a>
+    <div class="stack">
+        <a href="/admin/categories" class="btn">Kategorien.</a>
+        <a href="/admin/colors" class="btn">Farben.</a>
+    </div>
 
 
 
