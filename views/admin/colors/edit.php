@@ -21,11 +21,13 @@ use Vestis\Database\Models\Color;
 
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
-    <?php if (isset($errorMessage) || $color === null): ?>
-    <h1><?= $errorMessage ?? 'Not found' ?></h1>
-    <?php else: ?>
+
+    <?php if ($color !== null) : ?>
     <h1><?= $color->name ?></h1>
     <form method="post" class="form-box">
+        <?php if (isset($errorMessage)): ?>
+            <div class="error-message"><?= $errorMessage ?></div>
+        <?php endif; ?>
         <div class="form-input">
             <label for="name">Name der Farbe</label>
             <input name="name" value="<?= $color->name ?>" id="name" required />
@@ -38,6 +40,10 @@ use Vestis\Database\Models\Color;
             Speichern.
         </button>
     </form>
+    <?php endif; ?>
+
+    <?php if (isset($errorMessage) && $color === null): ?>
+        <h1 class="error-message"><?= $errorMessage ?></h1>
     <?php endif; ?>
 </main>
 

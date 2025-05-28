@@ -21,11 +21,12 @@ use Vestis\Database\Models\Size;
 
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
-    <?php if (isset($errorMessage) || $size === null): ?>
-    <h1><?= $errorMessage ?? 'Not found' ?></h1>
-    <?php else: ?>
+    <?php if ($size !== null) : ?>
     <h1><?= $size->size ?></h1>
     <form method="post" class="form-box">
+        <?php if (isset($errorMessage)): ?>
+            <div class="error-message"><?= $errorMessage ?></div>
+        <?php endif; ?>
         <div class="form-input">
             <label for="name">Name der Größe</label>
             <input name="size" value="<?= $size->size ?>" id="name" required />
@@ -35,6 +36,11 @@ use Vestis\Database\Models\Size;
         </button>
     </form>
     <?php endif; ?>
+
+    <?php if(isset($errorMessage) && $size === null) : ?>
+    <h1 class="error-message"><?= $errorMessage ?></h1>
+    <?php endif; ?>
+
 </main>
 
 <!--Footer der Website-->

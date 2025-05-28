@@ -21,11 +21,12 @@ use Vestis\Database\Models\Category;
 
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
-    <?php if (isset($errorMessage)): ?>
-    <h1><?= $errorMessage ?></h1>
-    <?php else: ?>
+
     <h1>Kategorie erstellen</h1>
     <form method="post" class="form-box">
+        <?php if (isset($errorMessage)): ?>
+            <div class="error-message"><?= $errorMessage ?></div>
+        <?php endif; ?>
         <div class="form-input">
             <label for="name">Name der Kategorie</label>
             <input name="name" id="name" required />
@@ -35,9 +36,9 @@ use Vestis\Database\Models\Category;
             <select name="parentCategoryId" id="parentCategoryId" required>
                 <option value="-1"> -- Keine --</option>
                 <?php foreach ($optionalParentCategories as $parentCategory): ?>
-                <option value="<?= $parentCategory->id ?>">
-                    <?= $parentCategory->name ?>
-                </option>
+                    <option value="<?= $parentCategory->id ?>">
+                        <?= $parentCategory->name ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -45,7 +46,6 @@ use Vestis\Database\Models\Category;
             Erstellen.
         </button>
     </form>
-    <?php endif; ?>
 </main>
 
 <!--Footer der Website-->

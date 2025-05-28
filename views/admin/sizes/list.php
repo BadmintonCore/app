@@ -23,7 +23,7 @@ use Vestis\Database\Models\Size;
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
-    <h1>Farben</h1>
+    <h1>Größen</h1>
     <a href="/admin/sizes/create" class="btn btn-sm">Erstellen</a>
 
     <table class="mt-4">

@@ -22,11 +22,13 @@ use Vestis\Database\Models\Category;
 
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
-    <?php if (isset($errorMessage) || $category === null): ?>
-    <h1><?= $errorMessage ?? 'Not found' ?></h1>
-    <?php else: ?>
+
+    <?php if ($category !== null): ?>
     <h1><?= $category->name ?></h1>
     <form method="post" class="form-box">
+        <?php if (isset($errorMessage)): ?>
+            <div class="error-message"><?= $errorMessage ?></div>
+        <?php endif; ?>
         <div class="form-input">
             <label for="name">Name der Kategorie</label>
             <input name="name" value="<?= $category->name ?>" id="name" required />
@@ -36,9 +38,9 @@ use Vestis\Database\Models\Category;
             <select name="parentCategoryId" id="parentCategoryId" required>
                 <option value="-1"> -- Keine --</option>
                 <?php foreach ($optionalParentCategories as $parentCategory): ?>
-                <option value="<?= $parentCategory->id ?>" <?= ($parentCategory->id == $category->parentCategoryId) ? "selected" : "" ?>>
-                    <?= $parentCategory->name ?>
-                </option>
+                    <option value="<?= $parentCategory->id ?>" <?= ($parentCategory->id == $category->parentCategoryId) ? "selected" : "" ?>>
+                        <?= $parentCategory->name ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -46,6 +48,10 @@ use Vestis\Database\Models\Category;
             Speichern.
         </button>
     </form>
+    <?php endif; ?>
+
+    <?php if (isset($errorMessage) && $category === null): ?>
+    <h1 class="error-message"><?= $errorMessage ?></h1>
     <?php endif; ?>
 </main>
 

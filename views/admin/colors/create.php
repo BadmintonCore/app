@@ -14,11 +14,11 @@
 
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
-    <?php if (isset($errorMessage)): ?>
-    <h1><?= $errorMessage ?></h1>
-    <?php else: ?>
     <h1>Farbe erstellen</h1>
     <form method="post" class="form-box">
+        <?php if (isset($errorMessage)): ?>
+            <div class="error-message"><?= $errorMessage ?></div>
+        <?php endif; ?>
         <div class="form-input">
             <label for="name">Name der Farbe</label>
             <input name="name" id="name" required />
@@ -31,7 +31,7 @@
             Erstellen.
         </button>
     </form>
-    <?php endif; ?>
+
 </main>
 
 <!--Footer der Website-->
