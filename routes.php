@@ -4,6 +4,7 @@ use Vestis\Controller\AboutUsController;
 use Vestis\Controller\Admin\AdminCategoriesController;
 use Vestis\Controller\Admin\AdminColorsController;
 use Vestis\Controller\Admin\AdminDashboardController;
+use Vestis\Controller\Admin\AdminProductTypesController;
 use Vestis\Controller\Admin\AdminSizesController;
 use Vestis\Controller\AuthController;
 use Vestis\Controller\CategoriesController;
@@ -53,4 +54,5 @@ return [
     '/admin/sizes' => [AdminSizesController::class, 'index'],
     '/admin/sizes/edit' => [AdminSizesController::class, 'edit'],
     '/admin/sizes/create' => [AdminSizesController::class, 'create'],
+    '/admin/productTypes' => [AdminProductTypesController::class, 'index'],
 ];

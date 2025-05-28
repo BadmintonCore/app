@@ -2,6 +2,7 @@
 
 namespace Vestis\Database\Models;
 
+use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
@@ -29,6 +30,8 @@ class ProductType
 
     public string $extraFields;
 
+    private ?Category $category = null;
+
     /**
      * @return array<int, Color>
      */
@@ -43,5 +46,14 @@ class ProductType
     public function getSizes(): array
     {
         return SizeRepository::findByProductType($this);
+    }
+
+    public function getCategory(): Category
+    {
+        if ($this->category !== null) {
+            return $this->category;
+        }
+        $this->category =  CategoryRepository::findById($this->categoryId);
+        return $this->category;
     }
 }

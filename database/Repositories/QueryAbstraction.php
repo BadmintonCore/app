@@ -2,6 +2,7 @@
 
 namespace Vestis\Database\Repositories;
 
+use Vestis\Database\Dto\PaginationDto;
 use Vestis\Exception\DatabaseException;
 
 /**
@@ -24,6 +25,30 @@ class QueryAbstraction
         $statement = QueryAbstraction::prepareAndExecuteStatement($query, $params);
         $results =  $statement->fetchAll(\PDO::FETCH_ASSOC);
         return array_map(fn (array $item) => self::convertAssocToClass($className, $item), $results);
+    }
+
+    /**
+     * Paginates a SQL query by using LIMIT and OFFSET dynamically. The result is then returned as DTO.
+     *
+     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
+     * @param string $query The custom SQL query
+     * @param int $page The page that should be selected via pagination
+     * @param int $perPage The amount of entries per page
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
+     * @return PaginationDto<T> The pagination result
+     *
+     * @template T of object
+     */
+    public static function fetchManyAsPaginated(string $className, string $query, int $page, int $perPage, array $params = []): PaginationDto
+    {
+        $fromIndex = strpos($query, ' FROM');
+        $countQuery = sprintf("SELECT COUNT(*) AS count %s", substr($query, $fromIndex));
+        ['count' => $count] = self::fetchOneAs(null, $countQuery, $params);
+
+        $resultsQuery = sprintf('%s LIMIT %s OFFSET %s',  $query, $perPage, ($page - 1) * $perPage);
+        $results = QueryAbstraction::fetchManyAs($className, $resultsQuery, $params);
+
+        return new PaginationDto($count, $results);
     }
 
     /**

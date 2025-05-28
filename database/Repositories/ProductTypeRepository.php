@@ -2,11 +2,22 @@
 
 namespace Vestis\Database\Repositories;
 
+use Vestis\Database\Dto\PaginationDto;
 use Vestis\Database\Models\Category;
 use Vestis\Database\Models\ProductType;
 
 class ProductTypeRepository
 {
+
+    /**
+     * @param int $page
+     * @return PaginationDto<ProductType>
+     */
+    public static function findPaginated(int $page): PaginationDto
+    {
+        return QueryAbstraction::fetchManyAsPaginated(ProductType::class, "SELECT * FROM productType", $page, 25);
+    }
+
     /**
      * @param Category $category The category that should be used to fetch product types
      * @param int $maxPrice The maximum allowed price
