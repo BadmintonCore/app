@@ -273,6 +273,9 @@ header ul li:hover ul {
 main {
     padding: calc(var(--header-height) + 16px) 0; /*Setzt einen Abstand zwischen Main-Inhalten und Header, damit Elemente nicht hinter Header verschwinden */
     flex: 1; /*Kurzversion für flex-grow - Elemente in main sollen so viel Platz einnehmen, dass Footer ganz unten angezeigt wird und nicht mitten im Bild*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /*Style für Index-Seite mit Banner*/
@@ -433,6 +436,39 @@ footer {
                                                              Komponenten
 ===============================================================================================================================*/
 /*Author: Lasse Hoffmann*/
+
+/* ================================================
+                     Pagination
+===================================================*/
+
+.pagination {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.pagination .page-link {
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 8px;
+}
+
+.pagination button.page-link {
+    background: inherit;
+}
+
+.pagination button.page-link:hover {
+    animation-name: link-hover;
+    animation-duration: .7s;
+    animation-fill-mode: forwards;
+}
+
+.pagination .page-link.active {
+    background: var(--text-color);
+    color: var(--primary-background-color);
+}
+
 
 /* ================================================
                        Links
@@ -688,8 +724,18 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     box-shadow: 3px 3px 3px var(--form-box-shadow-color);
 }
 
-.card img {
+.card .img-placeholder {
     height: 250px;
+}
+
+.card img {
+    max-height: 250px;
+    width: auto;
+    object-fit: fill;
+}
+
+.card.product-card {
+    overflow: hidden;
 }
 
 .card * {
@@ -804,7 +850,7 @@ input[type="range"]:focus {
                      Inputs
 ===================================================*/
 
-input {
+input, .form-box select {
     padding: 10px;
     font-size: 14px;
     border-radius: 0;
@@ -822,6 +868,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 
 input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover:hover, textarea:hover {
     outline: 2px solid var(--accent-color);
+}
+
+input[type="color"] {
+    padding: initial;
 }
 
 .input-auth-error-msg{
@@ -1017,10 +1067,27 @@ nav:has(.breadcrumbs) {
                         Layout
 ===================================================*/
 
+.mt-4 {
+    margin-top: 16px;
+}
+
+.full-size * {
+    width: 100%;
+}
+
+.auto-size * {
+    width: auto;
+}
+
 .stack { /*Stapel mit Gap dazwischen (e.g. Abstandshalter für Warenkorb) */
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.stack.align-center {
+    align-items: center;
+    width: 100%;
 }
 
 .button-row { /*Reihe für Buttons*/

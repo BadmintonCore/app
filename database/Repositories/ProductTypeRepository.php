@@ -2,12 +2,29 @@
 
 namespace Vestis\Database\Repositories;
 
+use Vestis\Database\Dto\PaginationDto;
 use Vestis\Database\Models\Category;
 use Vestis\Database\Models\ProductType;
 
+/**
+ * Repository für @see ProductType
+ */
 class ProductTypeRepository
 {
     /**
+     * Findet ProduktTypen paginiert
+     *
+     * @param int $page Die Seite, die geladen werden soll
+     * @return PaginationDto<ProductType>
+     */
+    public static function findPaginated(int $page): PaginationDto
+    {
+        return QueryAbstraction::fetchManyAsPaginated(ProductType::class, "SELECT * FROM productType", $page, 10);
+    }
+
+    /**
+     * Findet Produkte anhand von Parametern.
+     *
      * @param Category $category The category that should be used to fetch product types
      * @param int $maxPrice The maximum allowed price
      * @param array<int, int> $allowedColorIds
@@ -46,18 +63,137 @@ class ProductTypeRepository
         );
     }
 
+    /**
+     * Findet ein Produkt anhand seiner ID
+     *
+     * @param int $id
+     * @return ProductType|null
+     */
     public static function findById(int $id): ?ProductType
     {
         return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT DISTINCT * FROM productType WHERE id = :id", ["id" => $id]);
     }
 
     /**
+     * Findet den minimal und maximal Preis der Produkte einer Kategorie.
+     *
      * @param Category $category
-     * @return array<string, int|bool|string|null|array<int, int|bool|string|null>>|null
+     * @return array<string, int|null>
      */
-    public static function findMinAndMaxPricesByCategory(Category $category): ?array
+    public static function findMinAndMaxPricesByCategory(Category $category): array
     {
+        /** @phpstan-ignore-next-line  */
         return QueryAbstraction::fetchOneAs(null, "SELECT DISTINCT MIN(price) as min, MAX(price) as max FROM productType WHERE categoryId = :catId", ["catId" => $category->id]);
+    }
+
+    /**
+     * Aktualisiert ein Produkt-Typen
+     *
+     * @param ProductType $productType
+     * @return void
+     */
+    public static function update(ProductType $productType): void
+    {
+        $params = [
+            'id' => $productType->id,
+            'name' => $productType->name,
+            'categoryId' => $productType->categoryId,
+            'material' => $productType->material,
+            'price' => $productType->price,
+            'description' => $productType->description,
+            'collection' => $productType->collection,
+            'careInstructions' => $productType->careInstructions,
+            'origin' => $productType->origin,
+            'extraFields' => $productType->extraFields,
+        ];
+        QueryAbstraction::execute("UPDATE productType SET name = :name, categoryId = :categoryId, material = :material, price = :price, description = :description, collection = :collection, careInstructions = :careInstructions, origin = :origin, extraFields = :extraFields WHERE id = :id", $params);
+    }
+
+    /**
+     * @param array<string, int|bool|string|float|null> $formData
+     * @return ProductType
+     */
+    public static function create(array $formData): ?ProductType
+    {
+        $params = [
+            'name' => $formData['name'],
+            'categoryId' => $formData['categoryId'],
+            'material' => $formData['material'],
+            'price' => $formData['price'],
+            'description' => $formData['description'],
+            'collection' => $formData['collection'],
+            'careInstructions' => $formData['careInstructions'],
+            'origin' => $formData['origin'],
+            'extraFields' => $formData['extraFields'] ?? '{}',
+        ];
+        return QueryAbstraction::executeReturning(ProductType::class, "INSERT INTO productType (name, material, price, description, collection, careInstructions, origin, categoryId, extraFields) VALUES (:name, :material, :price, :description, :collection, :careInstructions, :origin, :categoryId, :extraFields)", $params);
+    }
+
+    /**
+     * @param int $id
+     * @param array<int, int> $sizeIds
+     * @return void
+     */
+    public static function updateSizeMapping(int $id, array $sizeIds): void
+    {
+
+        $existingSizes = QueryAbstraction::fetchManyAs(null, "SELECT sizeId FROM allowedSize WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        /** @var array<int, int> $existingSizeIds */
+        $existingSizeIds = array_column($existingSizes, 'sizeId');
+
+        $sizesToRemove = array_diff($existingSizeIds, $sizeIds);
+        foreach ($sizesToRemove as $sizeId) {
+            QueryAbstraction::execute("DELETE FROM allowedSize WHERE productTypeId = :productTypeId AND sizeId = :sizeId", ['productTypeId' => $id, 'sizeId' => $sizeId]);
+        }
+
+        $sizesToAdd = array_diff($sizeIds, $existingSizeIds);
+        foreach ($sizesToAdd as $sizeId) {
+            QueryAbstraction::execute("INSERT INTO allowedSize (productTypeId, sizeId) VALUES (:productTypeId, :sizeId)", ['productTypeId' => $id, 'sizeId' => $sizeId]);
+        }
+    }
+
+    /**
+     * @param int $id
+     * @param array<int, int> $colorIds
+     * @return void
+     */
+    public static function updateColorMapping(int $id, array $colorIds): void
+    {
+        $existingColors = QueryAbstraction::fetchManyAs(null, "SELECT colorId FROM allowedColor WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        /** @var array<int, int> $existingColorIds */
+        $existingColorIds = array_column($existingColors, 'colorId');
+
+        $colorsToRemove = array_diff($existingColorIds, $colorIds);
+        foreach ($colorsToRemove as $colorId) {
+            QueryAbstraction::execute("DELETE FROM allowedColor WHERE productTypeId = :productTypeId AND colorId = :colorId", ['productTypeId' => $id, 'colorId' => $colorId]);
+        }
+
+        $colorsToAdd = array_diff($colorIds, $existingColorIds);
+        foreach ($colorsToAdd as $colorId) {
+            QueryAbstraction::execute("INSERT INTO allowedColor (productTypeId, colorId) VALUES (:productTypeId, :colorId)", ['productTypeId' => $id, 'colorId' => $colorId]);
+        }
+    }
+
+    /**
+     * @param int $id
+     * @param array<int, int> $imageIds
+     * @return void
+     */
+    public static function updateImageMapping(int $id, array $imageIds): void
+    {
+        $existingImages = QueryAbstraction::fetchManyAs(null, "SELECT imageId FROM productImage WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        /** @var array<int, int> $existingImageIds */
+        $existingImageIds = array_column($existingImages, 'imageId');
+
+        $imagesToRemove = array_diff($existingImageIds, $imageIds);
+        foreach ($imagesToRemove as $imageId) {
+            QueryAbstraction::execute("DELETE FROM productImage WHERE productTypeId = :productTypeId AND imageId = :imageId", ['productTypeId' => $id, 'imageId' => $imageId]);
+        }
+
+        $imagesToAdd = array_diff($imageIds, $existingImageIds);
+        foreach ($imagesToAdd as $imageId) {
+            QueryAbstraction::execute("INSERT INTO productImage (productTypeId, imageId) VALUES (:productTypeId, :imageId)", ['productTypeId' => $id, 'imageId' => $imageId]);
+        }
     }
 
 }

@@ -3,7 +3,7 @@
 namespace Vestis\Exception;
 
 /**
- * Exceptions für den Logikfehler
+ * Exception für den Logikfehler
  */
 class LogicException extends \Exception
 {

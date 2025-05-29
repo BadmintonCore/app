@@ -108,9 +108,13 @@ use Vestis\Utility\BreadcrumbsUtility;
                     );
                 ?>
                 <div class="card product-card">
-                    <img
-                            src="/img/tshirt-beige.webp"
-                            alt="product image"/>
+                        <div class="img-placeholder">
+                            <?php if (count($product->getImages()) > 0): ?>
+                                <img
+                                        src="<?= $product->getImages()[0]->path ?>"
+                                        alt="<?= $product->name ?>"/>
+                            <?php endif; ?>
+                        </div>
                     <br>
                     <h2><a href="<?= $uri ?>"><?= $product->name ?></a></h2>
                     <h4 class="price-field"><?= $product->price ?></h4>

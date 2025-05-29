@@ -15,14 +15,16 @@ class Category
 
     public ?int $parentCategoryId;
 
-    public ?Category $parentCategory = null;
+    private ?Category $parentCategory = null;
 
     /**
      * @var array<int, Category>|null
      */
-    public ?array $childCategories = null;
+    private ?array $childCategories = null;
 
     /**
+     * Gibt alle untergeordneten Kategorien zurück
+     *
      * @return array|Category[]
      */
     public function getChildCategories(): array
@@ -34,6 +36,11 @@ class Category
         return $this->childCategories;
     }
 
+    /**
+     * Gibt die übergeordnete Kategorie (falls vorhanden) zurück
+     *
+     * @return Category|null
+     */
     public function getParentCategory(): ?Category
     {
         if (null === $this->parentCategoryId) {

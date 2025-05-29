@@ -2,6 +2,9 @@
 
 namespace Vestis\Controller;
 
+/**
+ * Bereich für deinen Einkauf
+ */
 class YourPurchaseController
 {
     public function order(): void

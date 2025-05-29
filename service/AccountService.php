@@ -9,6 +9,13 @@ use Vestis\Exception\LogicException;
 
 class AccountService
 {
+    /**
+     * Setzt das Passwort auf einen neuen Wert.
+     *
+     * @param string $password
+     * @param Account $account
+     * @return void
+     */
     public static function resetPassword(string $password, Account $account): void
     {
         AccountRepository::updatePassword($password, $account->username);
@@ -54,6 +61,12 @@ class AccountService
         return AccountRepository::updatePassword($newPassword, $newUsername);
     }
 
+    /**
+     * Löscht einen Benutzer-Account
+     *
+     * @param Account $account
+     * @return void
+     */
     public static function deleteAccount(Account $account): void
     {
         AccountRepository::deleteById($account->id);

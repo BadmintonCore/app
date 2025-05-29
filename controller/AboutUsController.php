@@ -2,6 +2,9 @@
 
 namespace Vestis\Controller;
 
+/**
+ * Controller für die "About us"-Ansichten
+ */
 class AboutUsController
 {
     public function about(): void

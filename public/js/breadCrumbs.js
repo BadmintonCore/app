@@ -4,6 +4,7 @@ const translation = {
     categories: 'Kategorien',
     clothes: 'Kleidung',
     bags: 'Taschen',
+    admin: 'Admin Bereich',
     accessories: 'Accessoires',
     "about-us": 'Über uns',
     "customer-service": 'Kundenservice',
@@ -13,6 +14,10 @@ const translation = {
     "user-area": 'Nutzer',
     auth: "Anmeldung",
     "your-purchase": 'Dein Einkauf',
+    colors: "Farben",
+    sizes: "Größen",
+    productTypes: "Produkt Typen",
+    images: "Bilder"
 }
 
 
@@ -70,7 +75,13 @@ function generateBreadcrumbList() {
     for (let i = 1; i < parts.length; i++) {
         const part = parts[i];
         const translated = translation[part]; // decodeURIComponent für Sonderzeichen
-        path += part + "/"; // Pfad aktualisieren
+
+        if (i === 1) {
+            path += part; // Pfad aktualisieren
+        } else {
+            path += "/" + part; // Pfad aktualisieren
+        }
+
         if (i === parts.length - 1) {
             breadcrumbs.push({ name: h1Text, url: null }); // Seitenname von aktueller Seite ohne URL
         } else {
