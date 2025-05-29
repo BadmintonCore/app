@@ -16,6 +16,7 @@
                     <a href="/admin/colors">Farben</a>
                     <a href="/admin/sizes">Größen</a>
                     <a href="/admin/productTypes">Produkt Typen</a>
+                    <a href="/admin/images">Bilder</a>
                 </ul>
             </li>
         </ul>

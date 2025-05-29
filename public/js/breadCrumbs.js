@@ -16,7 +16,8 @@ const translation = {
     "your-purchase": 'Dein Einkauf',
     colors: "Farben",
     sizes: "Größen",
-    productTypes: "Produkt Typen"
+    productTypes: "Produkt Typen",
+    images: "Bilder"
 }
 
 

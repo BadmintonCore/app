@@ -43,6 +43,11 @@ class ValidationService
         $target = [];
         foreach (self::$paramTypes as $name => $type) {
             $target[$name] = self::$method === "POST" ? ($_POST[$name] ?? null) : ($_GET[$name] ?? null);
+
+            if ($type === ValidationType::ImageFile) {
+                $target[$name] = $_FILES[$name] ?? null;
+            }
+
             if ($target[$name] !== null && $type === ValidationType::Boolean) {
                 $target[$name] = "on" === $target[$name];
             }
@@ -65,6 +70,11 @@ class ValidationService
     private static function validateField(string $fieldName, ValidationRule $rule, string $method): void
     {
         $fieldValue = $method === "POST" ? $_POST[$fieldName] ?? null : $_GET[$fieldName] ?? null;
+
+        if ($rule->type === ValidationType::ImageFile) {
+            $fieldValue = $_FILES[$fieldName] ?? null;
+        }
+
         if ($fieldValue === null) {
             if (!$rule->nullable) {
                 throw new ValidationException(sprintf("Field %s is required.", $fieldName));
@@ -113,6 +123,18 @@ class ValidationService
             case ValidationType::Boolean:
                 if (!is_bool($fieldValue) && $fieldValue !== "on") {
                     throw new ValidationException(sprintf("Field %s must be a boolean.", $fieldName));
+                }
+                break;
+            case ValidationType::ImageFile:
+                if ($fieldValue['error'] !== UPLOAD_ERR_OK) {
+                    throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
+                }
+                $imageInfo = getimagesize($fieldValue['tmp_name']);
+                if ($imageInfo === false) {
+                    throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
+                }
+                if (!str_starts_with($imageInfo['mime'], "image/")) {
+                    throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
                 }
                 break;
             default:

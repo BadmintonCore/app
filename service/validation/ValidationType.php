@@ -14,4 +14,5 @@ enum ValidationType
     case Email;
     case Boolean;
     case Json;
+    case ImageFile;
 }

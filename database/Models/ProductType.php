@@ -18,8 +18,6 @@ class ProductType
 
     public float $price;
 
-    public string $imgPath;
-
     public string $description;
 
     public string $collection;

@@ -22,6 +22,7 @@
         <a href="/admin/colors" class="btn">Farben.</a>
         <a href="/admin/sizes" class="btn">Größen.</a>
         <a href="/admin/productTypes" class="btn">Produkt Typen.</a>
+        <a href="/admin/images" class="btn">Bilder.</a>
     </div>
 
 
