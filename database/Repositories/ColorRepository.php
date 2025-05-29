@@ -8,7 +8,6 @@ use Vestis\Database\Models\ProductType;
 
 class ColorRepository
 {
-
     public static function findById(int $id): ?Color
     {
         return QueryAbstraction::fetchOneAs(Color::class, "SELECT * FROM color WHERE id = :id", ['id' => $id]);

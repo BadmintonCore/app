@@ -6,7 +6,6 @@ use Vestis\Database\Models\Category;
 
 class CategoryRepository
 {
-
     /**
      * @return array<int, Category>
      */

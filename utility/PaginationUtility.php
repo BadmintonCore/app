@@ -4,7 +4,6 @@ namespace Vestis\Utility;
 
 class PaginationUtility
 {
-
     public static function getCurrentPage(): int
     {
         $page = intval($_GET['page'] ?? 1);
@@ -14,7 +13,8 @@ class PaginationUtility
         return $page;
     }
 
-    public static function generatePagination(int $total, int $perPage, int $currentPage, bool $useFormSubmit = false): void {
+    public static function generatePagination(int $total, int $perPage, int $currentPage, bool $useFormSubmit = false): void
+    {
         $pages = ceil($total / $perPage);
         $pathname = PathUtility::getPathname();
 

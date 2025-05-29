@@ -7,7 +7,6 @@ use Vestis\Service\AuthService;
 
 class AdminDashboardController
 {
-
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);

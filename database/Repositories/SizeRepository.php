@@ -8,7 +8,6 @@ use Vestis\Database\Models\Size;
 
 class SizeRepository
 {
-
     public static function findById(int $id): ?Size
     {
         return QueryAbstraction::fetchOneAs(Size::class, "SELECT * FROM size WHERE id = :id", ['id' => $id]);

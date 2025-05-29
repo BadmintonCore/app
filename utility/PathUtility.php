@@ -4,7 +4,6 @@ namespace Vestis\Utility;
 
 class PathUtility
 {
-
     public static function getPathname(): string
     {
         /** @var string $requestUri */

@@ -8,7 +8,6 @@ use Vestis\Database\Models\ProductType;
 
 class ProductTypeRepository
 {
-
     /**
      * @param int $page
      * @return PaginationDto<ProductType>

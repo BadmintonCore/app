@@ -13,7 +13,6 @@ use Vestis\Utility\PaginationUtility;
 
 class AdminImagesController
 {
-
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);

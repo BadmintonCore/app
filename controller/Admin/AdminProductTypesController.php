@@ -17,7 +17,6 @@ use Vestis\Utility\PaginationUtility;
 
 class AdminProductTypesController
 {
-
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);

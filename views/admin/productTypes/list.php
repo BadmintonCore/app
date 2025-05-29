@@ -39,7 +39,7 @@ use Vestis\Utility\PaginationUtility;
             </tr>
         </thead>
         <tbody>
-            <?php foreach($productTypes->results as $productType): ?>
+            <?php foreach ($productTypes->results as $productType): ?>
             <tr>
                 <td><?= $productType->id ?></td>
                 <td><?= $productType->name ?></td>
@@ -55,7 +55,7 @@ use Vestis\Utility\PaginationUtility;
 
     <?php
         PaginationUtility::generatePagination($productTypes->count, 10, $page);
-    ?>
+?>
 
 </main>
 

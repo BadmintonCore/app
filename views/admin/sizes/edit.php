@@ -37,7 +37,7 @@ use Vestis\Database\Models\Size;
     </form>
     <?php endif; ?>
 
-    <?php if(isset($errorMessage) && $size === null) : ?>
+    <?php if (isset($errorMessage) && $size === null) : ?>
     <h1 class="error-message"><?= $errorMessage ?></h1>
     <?php endif; ?>
 

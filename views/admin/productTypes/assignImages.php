@@ -30,7 +30,7 @@ use Vestis\Utility\PaginationUtility;
     <h1>Zugewiesene Bilder</h1>
 
     <form class="full-size" method="post" id="paginatedForm">
-        <?php if(isset($errorMessage)): ?>
+        <?php if (isset($errorMessage)): ?>
         <h2 class="error-message"><?= $errorMessage ?></h2>
         <?php endif; ?>
         <table class="mt-4">
@@ -42,7 +42,7 @@ use Vestis\Utility\PaginationUtility;
             </tr>
             </thead>
             <tbody>
-            <?php foreach($images->results as $image): ?>
+            <?php foreach ($images->results as $image): ?>
                 <tr>
                     <td><?= $image->name ?></td>
                     <td><?= $image->id ?></td>
@@ -57,7 +57,7 @@ use Vestis\Utility\PaginationUtility;
         <div class="auto-size">
             <?php
             PaginationUtility::generatePagination($images->count, 10, $page, true);
-            ?>
+?>
         </div>
 
     </form>

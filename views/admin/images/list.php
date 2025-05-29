@@ -37,7 +37,7 @@ use Vestis\Utility\PaginationUtility;
             </tr>
         </thead>
         <tbody>
-            <?php foreach($images->results as $image): ?>
+            <?php foreach ($images->results as $image): ?>
             <tr>
                 <td><?= $image->id ?></td>
                 <td><?= $image->name ?></td>
@@ -49,7 +49,7 @@ use Vestis\Utility\PaginationUtility;
 
     <?php
         PaginationUtility::generatePagination($images->count, 10, $page);
-    ?>
+?>
 
 </main>
 

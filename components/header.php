@@ -103,7 +103,7 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
                             <?php foreach ($parentCategory->getChildCategories() as $childCategory): ?>
                             <?php
                             $uri = sprintf('/categories?categoryId=%s&%s=%s', $childCategory->id, BreadcrumbsUtility::FIELD_NAME, BreadcrumbsUtility::generateCategoryBreadcrumbsBase64($childCategory));
-                            ?>
+                                ?>
                             <li><a href="<?= $uri ?>"><?= $childCategory->name ?></a>
                                 <?php endforeach; ?>
                         </ul>

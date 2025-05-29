@@ -12,7 +12,6 @@ use Vestis\Service\ValidationService;
 
 class AdminCategoriesController
 {
-
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -26,7 +25,7 @@ class AdminCategoriesController
         $categoryId = intval($_GET['id']);
         $category = CategoryRepository::findById($categoryId);
         if ($category === null) {
-             $errorMessage = 'Kategorie nicht gefunden!';
+            $errorMessage = 'Kategorie nicht gefunden!';
         }
 
         $optionalParentCategories = CategoryRepository::findAllWithNoParentNotSelf($categoryId);

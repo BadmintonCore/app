@@ -21,7 +21,7 @@ use Vestis\Database\Models\ProductType;
         <!--Breadcrumbs-->
         <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-        <?php if (count($product->getImages()) >0) : ?>
+        <?php if (count($product->getImages()) > 0) : ?>
         <img src="<?= $product->getImages()[0]->path ?>" alt="<?= $product->getImages()[0]->name ?>" />
         <?php endif; ?>
         <div class="info">
@@ -111,8 +111,8 @@ use Vestis\Database\Models\ProductType;
                 <?php
                     $extraFields = json_decode($product->extraFields, true);
 
-                    if ($extraFields !== null) :
-                ?>
+        if ($extraFields !== null) :
+            ?>
                     <?php foreach (array_keys($extraFields) as $field): ?>
                     <tr>
                         <td><?= $field ?></td>

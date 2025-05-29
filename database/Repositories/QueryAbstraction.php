@@ -48,7 +48,7 @@ class QueryAbstraction
         $countQuery = sprintf("SELECT COUNT(*) AS count %s", substr($query, $fromIndex));
         ['count' => $count] = self::fetchOneAs(null, $countQuery, $params);
 
-        $resultsQuery = sprintf('%s LIMIT %s OFFSET %s',  $query, $perPage, ($page - 1) * $perPage);
+        $resultsQuery = sprintf('%s LIMIT %s OFFSET %s', $query, $perPage, ($page - 1) * $perPage);
         $results = QueryAbstraction::fetchManyAs($className, $resultsQuery, $params);
 
         return new PaginationDto($count, $results);

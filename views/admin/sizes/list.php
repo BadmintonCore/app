@@ -35,7 +35,7 @@ use Vestis\Database\Models\Size;
             </tr>
         </thead>
         <tbody>
-            <?php foreach($sizes as $size): ?>
+            <?php foreach ($sizes as $size): ?>
             <tr>
                 <td><?= $size->id ?></td>
                 <td><?= $size->size ?></td>

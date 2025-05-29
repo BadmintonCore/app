@@ -12,7 +12,6 @@ use Vestis\Service\ValidationService;
 
 class AdminColorsController
 {
-
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);

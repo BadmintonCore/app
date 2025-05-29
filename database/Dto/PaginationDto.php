@@ -9,7 +9,6 @@ namespace Vestis\Database\Dto;
  */
 class PaginationDto
 {
-
     public int $count;
 
     /**
@@ -21,7 +20,8 @@ class PaginationDto
      * @param int $count
      * @param array<int, T> $results
      */
-    public function __construct(int $count, array $results) {
+    public function __construct(int $count, array $results)
+    {
         $this->count = $count;
         $this->results = $results;
     }

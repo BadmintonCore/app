@@ -36,7 +36,7 @@ use Vestis\Database\Models\Color;
             </tr>
         </thead>
         <tbody>
-            <?php foreach($colors as $color): ?>
+            <?php foreach ($colors as $color): ?>
             <tr>
                 <td><?= $color->id ?></td>
                 <td><?= $color->name ?></td>
