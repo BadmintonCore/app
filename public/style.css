@@ -724,8 +724,18 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     box-shadow: 3px 3px 3px var(--form-box-shadow-color);
 }
 
-.card img {
+.card .img-placeholder {
     height: 250px;
+}
+
+.card img {
+    max-height: 250px;
+    width: auto;
+    object-fit: fill;
+}
+
+.card.product-card {
+    overflow: hidden;
 }
 
 .card * {
@@ -1073,6 +1083,11 @@ nav:has(.breadcrumbs) {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.stack.align-center {
+    align-items: center;
+    width: 100%;
 }
 
 .button-row { /*Reihe für Buttons*/

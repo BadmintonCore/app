@@ -89,6 +89,39 @@ use Vestis\Database\Models\ProductType;
                 </div>
             </form>
         </div>
+        <div class="stack align-center">
+            <h2>Weitere Angaben</h2>
+            <table>
+                <tr>
+                    <td>Material</td>
+                    <td><?= $product->material ?></td>
+                </tr>
+                <tr>
+                    <td>Kollektion</td>
+                    <td><?= $product->collection ?></td>
+                </tr>
+                <tr>
+                    <td>Waschanweisungen</td>
+                    <td><?= $product->careInstructions ?></td>
+                </tr>
+                <tr>
+                    <td>Herkunft</td>
+                    <td><?= $product->origin ?></td>
+                </tr>
+                <?php
+                    $extraFields = json_decode($product->extraFields, true);
+
+                    if ($extraFields !== null) :
+                ?>
+                    <?php foreach (array_keys($extraFields) as $field): ?>
+                    <tr>
+                        <td><?= $field ?></td>
+                        <td><?= $extraFields[$field] ?> </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </table>
+        </div>
     </div>
     <?php else : ?>
     <h1><?= $errorMessage ?></h1>

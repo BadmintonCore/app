@@ -88,6 +88,22 @@ class ProductTypeRepository
         QueryAbstraction::execute("UPDATE productType SET name = :name, categoryId = :categoryId, material = :material, price = :price, description = :description, collection = :collection, careInstructions = :careInstructions, origin = :origin, extraFields = :extraFields WHERE id = :id", $params);
     }
 
+    public static function create(array $formData): ProductType
+    {
+        $params = [
+            'name' => $formData['name'],
+            'categoryId' => $formData['categoryId'],
+            'material' => $formData['material'],
+            'price' => $formData['price'],
+            'description' => $formData['description'],
+            'collection' => $formData['collection'],
+            'careInstructions' => $formData['careInstructions'],
+            'origin' => $formData['origin'],
+            'extraFields' => $formData['extraFields'] ?? '{}',
+        ];
+        return QueryAbstraction::executeReturning(ProductType::class, "INSERT INTO productType (name, material, price, description, collection, careInstructions, origin, categoryId, extraFields) VALUES (:name, :material, :price, :description, :collection, :careInstructions, :origin, :categoryId, :extraFields)", $params);
+    }
+
     /**
      * @param int $id
      * @param array<int, int> $sizeIds

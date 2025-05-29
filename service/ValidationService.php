@@ -60,6 +60,10 @@ class ValidationService
             if ($type === ValidationType::Float && is_string($target[$name])) {
                 $target[$name] = floatval($target[$name]);
             }
+
+            if ($type === ValidationType::Json && is_string($target[$name]) && trim($target[$name]) === '') {
+                $target[$name] = '{}';
+            }
         }
         return $target;
     }
@@ -97,6 +101,9 @@ class ValidationService
             case ValidationType::Json:
                 if (!is_string($fieldValue)) {
                     throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));
+                }
+                if (trim($fieldValue) === '') {
+                    $fieldValue = '{}';
                 }
                 if (json_decode($fieldValue) === null) {
                     throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));

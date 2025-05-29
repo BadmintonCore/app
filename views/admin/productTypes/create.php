@@ -5,7 +5,6 @@ use Vestis\Database\Models\Color;
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\Size;
 
-/** @var ProductType|null $productType */
 /** @var Category[] $optionalCategories */
 /** @var Size[] $optionalSizes */
 /** @var Color[] $optionalColors */
@@ -28,22 +27,20 @@ use Vestis\Database\Models\Size;
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
-    <?php if ($productType !== null) : ?>
-    <h1><?= $productType->name ?></h1>
+    <h1>Produkt Typ erstellen</h1>
     <form method="post" class="form-box">
         <?php if (isset($errorMessage)): ?>
             <div class="error-message"><?= $errorMessage ?></div>
         <?php endif; ?>
-        <a href="/admin/productTypes/assignImages?id=<?= $productType->id ?>" class="btn btn-sm">Bilder zuweisen</a>
         <div class="form-input">
             <label for="name">Name</label>
-            <input name="name" value="<?= $productType->name ?>" id="name" required />
+            <input name="name" id="name" required />
         </div>
         <div class="form-input">
             <label for="categoryId">Kategorie</label>
             <select name="categoryId" id="categoryId" required>
                 <?php foreach ($optionalCategories as $category): ?>
-                    <option value="<?= $category->id ?>" <?= ($category->id == $productType->categoryId) ? "selected" : "" ?>>
+                    <option value="<?= $category->id ?>">
                         <?= $category->name ?>
                     </option>
                 <?php endforeach; ?>
@@ -51,39 +48,37 @@ use Vestis\Database\Models\Size;
         </div>
         <div class="form-input">
             <label for="material">Material</label>
-            <input name="material" value="<?= $productType->material ?>" id="material" required />
+            <input name="material" id="material" required />
         </div>
         <div class="form-input">
             <label for="price">Preis</label>
-            <input name="price" value="<?= $productType->price ?>" id="price" required type="number" />
+            <input name="price" id="price" required type="number" />
         </div>
         <div class="form-input">
             <label for="description">Beschreibung</label>
-            <input name="description" value="<?= $productType->description ?>" id="description" required />
+            <input name="description" id="description" required />
         </div>
         <div class="form-input">
             <label for="collection">Collection</label>
-            <input name="collection" value="<?= $productType->collection ?>" id="collection" required />
+            <input name="collection" id="collection" required />
         </div>
         <div class="form-input">
             <label for="careInstructions">Waschanweisungen</label>
-            <input name="careInstructions" value="<?= $productType->careInstructions ?>" id="careInstructions" required />
+            <input name="careInstructions" id="careInstructions" required />
         </div>
         <div class="form-input">
             <label for="origin">Herkunft</label>
-            <input name="origin" value="<?= $productType->origin ?>" id="origin" required />
+            <input name="origin" id="origin" required />
         </div>
         <div class="form-input">
             <label for="extraFields">Zusätzliche Angaben</label>
-            <textarea name="extraFields" id="extraFields">
-                <?= $productType->extraFields ?>
-            </textarea>
+            <textarea name="extraFields" id="extraFields"></textarea>
         </div>
         <div class="form-input">
             <label for="sizes">Größen</label>
             <select name="sizes[]" id="sizes" required multiple>
                 <?php foreach ($optionalSizes as $size): ?>
-                    <option value="<?= $size->id ?>" <?= (in_array($size->id, $productType->getSizeIds(), true)) ? "selected" : "" ?>>
+                    <option value="<?= $size->id ?>">
                         <?= $size->size ?>
                     </option>
                 <?php endforeach; ?>
@@ -93,7 +88,7 @@ use Vestis\Database\Models\Size;
             <label for="sizes">Farben</label>
             <select name="colors[]" id="sizes" required multiple>
                 <?php foreach ($optionalColors as $color): ?>
-                    <option value="<?= $color->id ?>" <?= (in_array($color->id, $productType->getColorIds(), true)) ? "selected" : "" ?>>
+                    <option value="<?= $color->id ?>">
                         <?= $color->name ?>
                     </option>
                 <?php endforeach; ?>
@@ -103,11 +98,6 @@ use Vestis\Database\Models\Size;
             Speichern.
         </button>
     </form>
-    <?php endif; ?>
-
-    <?php if (isset($errorMessage) && $productType === null): ?>
-        <h1 class="error-message"><?= $errorMessage ?></h1>
-    <?php endif; ?>
 </main>
 
 <!--Footer der Website-->
