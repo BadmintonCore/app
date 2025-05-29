@@ -38,7 +38,11 @@ class AuthController
                 AuthService::loginUser($username, $password);
 
                 // Redirect to landing page after successful login
-                header("Location: /");
+                if (AuthService::isAdmin()) {
+                    header("Location: /admin");
+                } else {
+                    header("Location: /");
+                }
                 return;
             } catch (ValidationException|AuthException|DatabaseException $e) {
                 // Sets all exception errors. Those are then displayed in the frontend

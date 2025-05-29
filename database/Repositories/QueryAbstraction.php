@@ -2,6 +2,7 @@
 
 namespace Vestis\Database\Repositories;
 
+use Vestis\Database\Dto\PaginationDto;
 use Vestis\Exception\DatabaseException;
 
 /**
@@ -11,19 +12,56 @@ use Vestis\Exception\DatabaseException;
 class QueryAbstraction
 {
     /**
-     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
+     * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
      * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
-     * @return array<T> The result array
+     * @return ($className is null ? array<int, array<string, int|bool|string|null|array<int, int|bool|string|null>>> : array<T>) The result array
      * @throws DatabaseException on database or reflection error
      *
      * @template T of object
      */
-    public static function fetchManyAs(string $className, string $query, array $params = []): array
+    public static function fetchManyAs(?string $className, string $query, array $params = []): array
     {
         $statement = QueryAbstraction::prepareAndExecuteStatement($query, $params);
         $results =  $statement->fetchAll(\PDO::FETCH_ASSOC);
+        if ($className === null) {
+            return $results;
+        }
         return array_map(fn (array $item) => self::convertAssocToClass($className, $item), $results);
+    }
+
+    /**
+     * Paginates a SQL query by using LIMIT and OFFSET dynamically. The result is then returned as DTO.
+     *
+     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
+     * @param string $query The custom SQL query
+     * @param int $page The page that should be selected via pagination
+     * @param int $perPage The amount of entries per page
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
+     * @return PaginationDto<T> The pagination result
+     *
+     * @template T of object
+     */
+    public static function fetchManyAsPaginated(string $className, string $query, int $page, int $perPage, array $params = []): PaginationDto
+    {
+        $fromIndex = strpos($query, ' FROM');
+        if ($fromIndex === false) {
+            throw new DatabaseException("Your SQL query is invalid", 0);
+        }
+        $countQuery = sprintf("SELECT COUNT(*) AS count %s", substr($query, $fromIndex));
+        $countResult = self::fetchOneAs(null, $countQuery, $params);
+
+        if ($countResult === null) {
+            throw new DatabaseException("Cannot fetch count for pagination query", 0);
+        }
+
+        /** @var int $count */
+        ['count' => $count] = $countResult;
+
+        $resultsQuery = sprintf('%s LIMIT %s OFFSET %s', $query, $perPage, ($page - 1) * $perPage);
+        $results = QueryAbstraction::fetchManyAs($className, $resultsQuery, $params);
+
+        return new PaginationDto($count, $results);
     }
 
     /**
@@ -56,7 +94,7 @@ class QueryAbstraction
      * Executes an SQL statement
      *
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params The parameters that are required
      * @return void
      * @throws DatabaseException on database error
      */
@@ -70,7 +108,7 @@ class QueryAbstraction
      *
      * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
+     * @param array<string, int|bool|string|null|float|array<int, int|bool|string|null|float>> $params The parameters that are required
      * @return T|null The result as the requested class
      * @throws DatabaseException on database error
      *
@@ -92,7 +130,7 @@ class QueryAbstraction
      * Prepares and executes the statement
      *
      * @param string $query The sql statement with params
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The params
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params The params
      * @return \PDOStatement The executed statement
      * @throws DatabaseException On database error
      */
@@ -142,7 +180,7 @@ class QueryAbstraction
         try {
             $statement->execute();
         } catch (\PDOException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), is_int($e->getCode()) ? $e->getCode() : -1, $e);
         }
         return $statement;
     }

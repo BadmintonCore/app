@@ -2,6 +2,7 @@
 
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Utility\PathUtility;
 
 /**
  * Central kernel for handling requests
@@ -19,9 +20,11 @@ class Kernel
     {
         /** @var array<string, array<int, string>> $routes */
         $routes = require __DIR__.'/routes.php';
-        /** @var string $requestUri */
-        $requestUri = $_SERVER['REQUEST_URI'] ?? "/";
-        $pathname = explode("?", $requestUri)[0];
+        $pathname = PathUtility::getPathname();
+
+        if (strlen($pathname) > 1 && str_ends_with($pathname, "/")) {
+            $pathname = substr($pathname, 0, strlen($pathname) - 1);
+        }
         if (!array_key_exists($pathname, $routes)) {
             require_once __DIR__.'/views/404.php';
             return;

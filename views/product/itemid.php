@@ -21,9 +21,9 @@ use Vestis\Database\Models\ProductType;
         <!--Breadcrumbs-->
         <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-        <img src="/img/tshirt-beige.webp"
-             alt="product image"
-        />
+        <?php if (count($product->getImages()) > 0) : ?>
+        <img src="<?= $product->getImages()[0]->path ?>" alt="<?= $product->getImages()[0]->name ?>" />
+        <?php endif; ?>
         <div class="info">
             <h1 id="nameText"><?= $product->name ?></h1>
             <h5><?= $product->description ?></h5>
@@ -88,6 +88,38 @@ use Vestis\Database\Models\ProductType;
                     <button class="btn secondary" id="addToCartButton">Zum Warenkorb hinzufügen</button>
                 </div>
             </form>
+        </div>
+        <div class="stack align-center">
+            <h2>Weitere Angaben</h2>
+            <table>
+                <tr>
+                    <td>Material</td>
+                    <td><?= $product->material ?></td>
+                </tr>
+                <tr>
+                    <td>Kollektion</td>
+                    <td><?= $product->collection ?></td>
+                </tr>
+                <tr>
+                    <td>Waschanweisungen</td>
+                    <td><?= $product->careInstructions ?></td>
+                </tr>
+                <tr>
+                    <td>Herkunft</td>
+                    <td><?= $product->origin ?></td>
+                </tr>
+                <?php
+                    /** @var array<string, int|float|string> $extraFields */
+                    $extraFields = json_decode($product->extraFields, true);
+
+        ?>
+                    <?php foreach (array_keys($extraFields) as $field): ?>
+                    <tr>
+                        <td><?= $field ?></td>
+                        <td><?= $extraFields[$field] ?> </td>
+                    </tr>
+                    <?php endforeach; ?>
+            </table>
         </div>
     </div>
     <?php else : ?>

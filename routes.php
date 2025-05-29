@@ -1,6 +1,12 @@
 <?php
 
 use Vestis\Controller\AboutUsController;
+use Vestis\Controller\Admin\AdminCategoriesController;
+use Vestis\Controller\Admin\AdminColorsController;
+use Vestis\Controller\Admin\AdminDashboardController;
+use Vestis\Controller\Admin\AdminImagesController;
+use Vestis\Controller\Admin\AdminProductTypesController;
+use Vestis\Controller\Admin\AdminSizesController;
 use Vestis\Controller\AuthController;
 use Vestis\Controller\CategoriesController;
 use Vestis\Controller\CustomerServiceController;
@@ -39,4 +45,21 @@ return [
     '/your-purchase/shipment' => [YourPurchaseController::class, 'shipment'],
     '/your-purchase/vouchers' => [YourPurchaseController::class, 'vouchers'],
     '/newsletter/subscribe' => [NewsletterController::class, 'subscribe'],
+    '/admin' => [AdminDashboardController::class, 'index'],
+    '/admin/categories' => [AdminCategoriesController::class, 'index'],
+    '/admin/categories/edit' => [AdminCategoriesController::class, 'edit'],
+    '/admin/categories/create' => [AdminCategoriesController::class, 'create'],
+    '/admin/colors' => [AdminColorsController::class, 'index'],
+    '/admin/colors/edit' => [AdminColorsController::class, 'edit'],
+    '/admin/colors/create' => [AdminColorsController::class, 'create'],
+    '/admin/sizes' => [AdminSizesController::class, 'index'],
+    '/admin/sizes/edit' => [AdminSizesController::class, 'edit'],
+    '/admin/sizes/create' => [AdminSizesController::class, 'create'],
+    '/admin/productTypes' => [AdminProductTypesController::class, 'index'],
+    '/admin/productTypes/edit' => [AdminProductTypesController::class, 'edit'],
+    '/admin/productTypes/create' => [AdminProductTypesController::class, 'create'],
+    '/admin/productTypes/assignImages' => [AdminProductTypesController::class, 'assignImages'],
+    '/admin/images' => [AdminImagesController::class, 'index'],
+    '/admin/images/create' => [AdminImagesController::class, 'create'],
+    '/admin/images/view' => [AdminImagesController::class, 'view'],
 ];

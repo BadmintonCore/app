@@ -3,3 +3,4 @@ vendor
 public/php.ini
 php_errors.log
 .php-cs-fixer.cache
+public/uploads
