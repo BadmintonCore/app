@@ -1,10 +1,14 @@
 <?php
 
 use Vestis\Database\Models\Category;
+use Vestis\Database\Models\Color;
 use Vestis\Database\Models\ProductType;
+use Vestis\Database\Models\Size;
 
 /** @var ProductType|null $productType */
 /** @var Category[] $optionalCategories */
+/** @var Size[] $optionalSizes */
+/** @var Color[] $optionalColors */
 ?>
 
 <!--Author: Lennart Moog-->
@@ -73,6 +77,26 @@ use Vestis\Database\Models\ProductType;
             <textarea name="extraFields" id="extraFields" required>
                 <?= $productType->extraFields ?>
             </textarea>
+        </div>
+        <div class="form-input">
+            <label for="sizes">Größen</label>
+            <select name="sizes[]" id="sizes" required multiple>
+                <?php foreach ($optionalSizes as $size): ?>
+                    <option value="<?= $size->id ?>" <?= (in_array($size->id, $productType->getSizeIds(), true)) ? "selected" : "" ?>>
+                        <?= $size->size ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="form-input">
+            <label for="sizes">Farben</label>
+            <select name="colors[]" id="sizes" required multiple>
+                <?php foreach ($optionalColors as $color): ?>
+                    <option value="<?= $color->id ?>" <?= (in_array($color->id, $productType->getColorIds(), true)) ? "selected" : "" ?>>
+                        <?= $color->name ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <button class="btn" type="submit">
             Speichern.

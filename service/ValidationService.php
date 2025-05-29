@@ -90,9 +90,15 @@ class ValidationService
                 }
                 break;
             case ValidationType::Integer:
-                    if (!(is_string($fieldValue) && intval($fieldValue) !== 0) && !is_int($fieldValue)) {
-                        throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
-                    }
+                self::validateInteger($fieldValue, $fieldName);
+                break;
+            case ValidationType::IntegerArray:
+                if (!is_array($fieldValue)) {
+                    throw new ValidationException(sprintf("Field %s must be an array.", $fieldName));
+                }
+                foreach ($fieldValue as $value) {
+                    self::validateInteger($value, $fieldName);
+                }
                 break;
             case ValidationType::Float:
                 if (!(is_string($fieldValue) && floatval($fieldValue) !== 0.0) && !is_float($fieldValue)) {
@@ -113,6 +119,17 @@ class ValidationService
                 throw new ValidationException(sprintf("Field %s must have a valid validation rule.", $fieldName));
         }
 
+    }
+
+
+    /**
+     * @throws ValidationException
+     */
+    private static function validateInteger(mixed $fieldValue, string $fieldName): void
+    {
+        if (!(is_string($fieldValue) && intval($fieldValue) !== 0) && !is_int($fieldValue)) {
+            throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
+        }
     }
 
 }

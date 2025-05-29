@@ -32,6 +32,10 @@ class ProductType
 
     private ?Category $category = null;
 
+    private ?array $sizeIds = null;
+
+    private ?array $colorIds = null;
+
     /**
      * @return array<int, Color>
      */
@@ -46,6 +50,36 @@ class ProductType
     public function getSizes(): array
     {
         return SizeRepository::findByProductType($this);
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    public function getSizeIds(): array
+    {
+        if ($this->sizeIds !== null) {
+            return $this->sizeIds;
+        }
+        $this->sizeIds =  array_map(
+            fn (Size $size) => $size->id,
+            SizeRepository::findByProductType($this)
+        );
+        return $this->sizeIds;
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    public function getColorIds(): array
+    {
+        if ($this->colorIds !== null) {
+            return $this->colorIds;
+        }
+        $this->colorIds =  array_map(
+            fn (Color $color) => $color->id,
+            ColorRepository::findByProductType($this)
+        );
+        return $this->colorIds;
     }
 
     public function getCategory(): Category

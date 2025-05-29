@@ -12,18 +12,21 @@ use Vestis\Exception\DatabaseException;
 class QueryAbstraction
 {
     /**
-     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
+     * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
      * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
-     * @return array<T> The result array
+     * @return ($className is null ? array<int, array<string, int|bool|string|null|array<int, int|bool|string|null>>> : array<T>) The result array
      * @throws DatabaseException on database or reflection error
      *
      * @template T of object
      */
-    public static function fetchManyAs(string $className, string $query, array $params = []): array
+    public static function fetchManyAs(?string $className, string $query, array $params = []): array
     {
         $statement = QueryAbstraction::prepareAndExecuteStatement($query, $params);
         $results =  $statement->fetchAll(\PDO::FETCH_ASSOC);
+        if ($className === null) {
+            return $results;
+        }
         return array_map(fn (array $item) => self::convertAssocToClass($className, $item), $results);
     }
 

@@ -88,4 +88,46 @@ class ProductTypeRepository
         QueryAbstraction::execute("UPDATE productType SET name = :name, categoryId = :categoryId, material = :material, price = :price, description = :description, collection = :collection, careInstructions = :careInstructions, origin = :origin, extraFields = :extraFields WHERE id = :id", $params);
     }
 
+    /**
+     * @param int $id
+     * @param array<int, int> $sizeIds
+     * @return void
+     */
+    public static function updateSizeMapping(int $id, array $sizeIds): void
+    {
+        $existingSizes = QueryAbstraction::fetchManyAs(null, "SELECT sizeId FROM allowedSize WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        $existingSizeIds = array_column($existingSizes, 'sizeId');
+
+        $sizesToRemove = array_diff($existingSizeIds, $sizeIds);
+        foreach ($sizesToRemove as $sizeId) {
+            QueryAbstraction::execute("DELETE FROM allowedSize WHERE productTypeId = :productTypeId AND sizeId = :sizeId", ['productTypeId' => $id, 'sizeId' => $sizeId]);
+        }
+
+        $sizesToAdd = array_diff($sizeIds, $existingSizeIds);
+        foreach ($sizesToAdd as $sizeId) {
+            QueryAbstraction::execute("INSERT INTO allowedSize (productTypeId, sizeId) VALUES (:productTypeId, :sizeId)", ['productTypeId' => $id, 'sizeId' => $sizeId]);
+        }
+    }
+
+    /**
+     * @param int $id
+     * @param array<int, int> $colorIds
+     * @return void
+     */
+    public static function updateColorMapping(int $id, array $colorIds): void
+    {
+        $existingColors = QueryAbstraction::fetchManyAs(null, "SELECT colorId FROM allowedColor WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        $existingColorIds = array_column($existingColors, 'colorId');
+
+        $colorsToRemove = array_diff($existingColorIds, $colorIds);
+        foreach ($colorsToRemove as $colorId) {
+            QueryAbstraction::execute("DELETE FROM allowedColor WHERE productTypeId = :productTypeId AND colorId = :colorId", ['productTypeId' => $id, 'colorId' => $colorId]);
+        }
+
+        $colorsToAdd = array_diff($colorIds, $existingColorIds);
+        foreach ($colorsToAdd as $colorId) {
+            QueryAbstraction::execute("INSERT INTO allowedColor (productTypeId, colorId) VALUES (:productTypeId, :colorId)", ['productTypeId' => $id, 'colorId' => $colorId]);
+        }
+    }
+
 }

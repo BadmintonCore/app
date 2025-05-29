@@ -9,6 +9,7 @@ enum ValidationType
 {
     case String;
     case Integer;
+    case IntegerArray;
     case Float;
     case Email;
     case Boolean;
