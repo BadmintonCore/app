@@ -4,6 +4,7 @@ namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Database\Repositories\ColorRepository;
+use Vestis\Database\Repositories\ImageRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
 class ProductType
@@ -34,6 +35,8 @@ class ProductType
 
     private ?array $colorIds = null;
 
+    private ?array $imageIds = null;
+
     /**
      * @return array<int, Color>
      */
@@ -48,6 +51,11 @@ class ProductType
     public function getSizes(): array
     {
         return SizeRepository::findByProductType($this);
+    }
+
+    public function getImages(): array
+    {
+        return ImageRepository::findByProductType($this);
     }
 
     /**
@@ -78,6 +86,21 @@ class ProductType
             ColorRepository::findByProductType($this)
         );
         return $this->colorIds;
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    public function getImageIds(): array
+    {
+        if ($this->imageIds !== null) {
+            return $this->imageIds;
+        }
+        $this->imageIds =  array_map(
+            fn (Image $image) => $image->id,
+            ImageRepository::findByProductType($this)
+        );
+        return $this->imageIds;
     }
 
     public function getCategory(): Category

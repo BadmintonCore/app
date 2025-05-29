@@ -130,4 +130,25 @@ class ProductTypeRepository
         }
     }
 
+    /**
+     * @param int $id
+     * @param array<int, int> $imageIds
+     * @return void
+     */
+    public static function updateImageMapping(int $id, array $imageIds): void
+    {
+        $existingImages = QueryAbstraction::fetchManyAs(null, "SELECT imageId FROM productImage WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        $existingImageIds = array_column($existingImages, 'imageId');
+
+        $imagesToRemove = array_diff($existingImageIds, $imageIds);
+        foreach ($imagesToRemove as $imageId) {
+            QueryAbstraction::execute("DELETE FROM productImage WHERE productTypeId = :productTypeId AND imageId = :imageId", ['productTypeId' => $id, 'imageId' => $imageId]);
+        }
+
+        $imagesToAdd = array_diff($imageIds, $existingImageIds);
+        foreach ($imagesToAdd as $imageId) {
+            QueryAbstraction::execute("INSERT INTO productImage (productTypeId, imageId) VALUES (:productTypeId, :imageId)", ['productTypeId' => $id, 'imageId' => $imageId]);
+        }
+    }
+
 }

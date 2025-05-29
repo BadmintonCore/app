@@ -5,6 +5,7 @@ namespace Vestis\Controller\Admin;
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Database\Repositories\ColorRepository;
+use Vestis\Database\Repositories\ImageRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;
 use Vestis\Exception\ValidationException;
@@ -36,7 +37,7 @@ class AdminProductTypesController
         $optionalColors = ColorRepository::findAll();
 
         if ($productType === null) {
-            $errorMessage = 'Farbe nicht gefunden!';
+            $errorMessage = 'Produkt nicht gefunden!';
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -95,6 +96,69 @@ class AdminProductTypesController
         }
 
         require_once __DIR__.'/../../views/admin/productTypes/edit.php';
+    }
+
+    public function assignImages(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+        $productTypeId = intval($_GET['id']);
+        $productType = ProductTypeRepository::findById($productTypeId);
+        $page = PaginationUtility::getCurrentPage();
+
+        if ($productType === null) {
+            $errorMessage = 'Produkt nicht gefunden!';
+        }
+
+        $persistentAssignedImageIds = $productType?->getImageIds() ?? [];
+
+        $assignedImageIds = array_merge($persistentAssignedImageIds, $this->getPreSelectedImageIds());
+        $images = ImageRepository::findPaginated($page);
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            try {
+                if (isset($_POST['submitButton'])) {
+                    $validationRules = [
+                        'assigned' => new ValidationRule(ValidationType::IntegerArray, true),
+                    ];
+                    ValidationService::validateForm($validationRules);
+                    $formData = ValidationService::getFormData();
+                    $formData['assigned'] = $formData['assigned'] ?? [];
+                    $newAssignedImageIds = array_unique(array_merge($formData['assigned'], $this->getPreSelectedImageIds()));
+                    ProductTypeRepository::updateImageMapping($productType->id, $newAssignedImageIds);
+                    header('Location: /admin/productTypes');
+                    return;
+                } else {
+                    $validationRules = [
+                        'pagination' => new ValidationRule(ValidationType::Integer),
+                        'assigned' => new ValidationRule(ValidationType::IntegerArray, true),
+                    ];
+                    ValidationService::validateForm($validationRules);
+                    $formData = ValidationService::getFormData();
+                    if (isset($formData['assigned'])) {
+                        $newPreSelectedSelection = array_merge($formData['assigned'], $this->getPreSelectedImageIds());
+                        $uniqueSelection = array_unique($newPreSelectedSelection);
+                        $_GET['preSelected'] = implode(',', $uniqueSelection);
+                    }
+                    header('Location: /admin/productTypes/assignImages?'. PaginationUtility::generateSearchLink($formData['pagination']));
+                    return;
+                }
+            } catch (ValidationException $e) {
+                $errorMessage = $e->getMessage();
+            }
+        }
+
+        require_once __DIR__.'/../../views/admin/productTypes/assignImages.php';
+    }
+
+    private function getPreSelectedImageIds(): array
+    {
+        $preSelectedImageIds = [];
+        if (isset($_GET['preSelected'])) {
+            $idsAsString = explode(',', $_GET['preSelected']);
+            $convertedToInt = array_map('intval', $idsAsString);
+            $preSelectedImageIds = array_filter($convertedToInt, fn (int $i) => $i !== 0);
+        }
+        return $preSelectedImageIds;
     }
 
 }

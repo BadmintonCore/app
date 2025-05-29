@@ -57,6 +57,7 @@ return [
     '/admin/sizes/create' => [AdminSizesController::class, 'create'],
     '/admin/productTypes' => [AdminProductTypesController::class, 'index'],
     '/admin/productTypes/edit' => [AdminProductTypesController::class, 'edit'],
+    '/admin/productTypes/assignImages' => [AdminProductTypesController::class, 'assignImages'],
     '/admin/images' => [AdminImagesController::class, 'index'],
     '/admin/images/create' => [AdminImagesController::class, 'create'],
     '/admin/images/view' => [AdminImagesController::class, 'view'],

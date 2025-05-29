@@ -54,6 +54,9 @@ class ValidationService
             if ($type === ValidationType::Integer && is_string($target[$name])) {
                 $target[$name] = intval($target[$name]);
             }
+            if ($type === ValidationType::IntegerArray && is_array($target[$name])) {
+                $target[$name] = array_map('intval', $target[$name]);
+            }
             if ($type === ValidationType::Float && is_string($target[$name])) {
                 $target[$name] = floatval($target[$name]);
             }

@@ -454,6 +454,16 @@ footer {
     padding: 8px;
 }
 
+.pagination button.page-link {
+    background: inherit;
+}
+
+.pagination button.page-link:hover {
+    animation-name: link-hover;
+    animation-duration: .7s;
+    animation-fill-mode: forwards;
+}
+
 .pagination .page-link.active {
     background: var(--text-color);
     color: var(--primary-background-color);
@@ -1049,6 +1059,14 @@ nav:has(.breadcrumbs) {
 
 .mt-4 {
     margin-top: 16px;
+}
+
+.full-size * {
+    width: 100%;
+}
+
+.auto-size * {
+    width: auto;
 }
 
 .stack { /*Stapel mit Gap dazwischen (e.g. Abstandshalter für Warenkorb) */

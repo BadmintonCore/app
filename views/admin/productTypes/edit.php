@@ -34,6 +34,7 @@ use Vestis\Database\Models\Size;
         <?php if (isset($errorMessage)): ?>
             <div class="error-message"><?= $errorMessage ?></div>
         <?php endif; ?>
+        <a href="/admin/productTypes/assignImages?id=<?= $productType->id ?>" class="btn btn-sm">Bilder zuweisen</a>
         <div class="form-input">
             <label for="name">Name</label>
             <input name="name" value="<?= $productType->name ?>" id="name" required />
