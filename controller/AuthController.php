@@ -25,6 +25,7 @@ class AuthController
             $validationRules = [
                 'username' => new ValidationRule(ValidationType::String),
                 'password' => new ValidationRule(ValidationType::String),
+                'rememberMe' => new ValidationRule(ValidationType::Boolean, true),
             ];
             try {
                 // Validate form
@@ -32,10 +33,15 @@ class AuthController
 
                 /** @var string $username */
                 /** @var string $password */
-                ['username' => $username, 'password' => $password] = ValidationService::getFormData();
+                /** @var bool $rememberMe */
+                ['username' => $username, 'password' => $password, 'rememberMe' => $rememberMe] = ValidationService::getFormData();
+
+                if($rememberMe === null){
+                    $rememberMe = false;
+                }
 
                 // Login the user with the given credentials in $_POST
-                AuthService::loginUser($username, $password);
+                AuthService::loginUser($username, $password, $rememberMe);
 
                 // Redirect to landing page after successful login
                 header("Location: /");
@@ -84,7 +90,7 @@ class AuthController
                 /** @var bool $newsletter */
                 $newsletter = $formData['newsletter'];
 
-                if ($newsletter === true) {
+                if ($newsletter) {
                     NewsletterService::subscribe($account->email);
                 }
 

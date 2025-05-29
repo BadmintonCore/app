@@ -19,9 +19,14 @@ class AuthService
     public static ?Account $currentAccount = null;
 
     /**
-     * The duration of the account session in seconds
+     * The duration of the account session in seconds (1 hour)
      */
     private const SESSION_DURATION = 3600;
+
+    /**
+     * The duration of the account session in seconds (400 days)
+     */
+    private const SESSION_DURATION_LONG = 400 * 86400;
 
     /**
      * Creates a new JWT and sets the required cookie as response header
@@ -40,6 +45,30 @@ class AuthService
 
         setcookie("session", $jwt, [
             'expires' => time() + self::SESSION_DURATION, // sets the cookie expiry date
+            'path' => '/', // The cookie is sent with every request on the page
+            'secure' => false, // Request is also sent via http. Not only https
+            'httponly' => true, // Cookie cannot be modified from JavaScript. It only exists in HTTP
+            'samesite' => 'Strict' // The cookie is only allowed on the same origin
+        ]);
+    }
+
+    /**
+     * Creates a new JWT and sets the required cookie as response header
+     *
+     * @param Account $account The account that should be referenced in the session JWT
+     * @return void
+     */
+    public static function createUserAccountSessionWithLongDuration(Account $account): void
+    {
+        $payload = [
+            'accountId' => $account->id,
+            'expiresAt' => time() + self::SESSION_DURATION_LONG, // the time at which the session expires
+        ];
+
+        $jwt = JWTService::generateJWT($payload);
+
+        setcookie("session", $jwt, [
+            'expires' => time() + self::SESSION_DURATION_LONG, // sets the cookie expiry date
             'path' => '/', // The cookie is sent with every request on the page
             'secure' => false, // Request is also sent via http. Not only https
             'httponly' => true, // Cookie cannot be modified from JavaScript. It only exists in HTTP
@@ -68,10 +97,11 @@ class AuthService
      *
      * @param string $username The username entered by the user
      * @param string $password The password entered by the user
+     * @param bool $rememberMe
      * @return void
      * @throws AuthException The exception in case the user prompted the wrong credentials
      */
-    public static function loginUser(string $username, string $password): void
+    public static function loginUser(string $username, string $password, bool $rememberMe): void
     {
         $account = AccountRepository::findByUsername($username);
         if (null === $account) {
@@ -82,7 +112,11 @@ class AuthService
         if (!password_verify($password, $account->password)) {
             throw new AuthException("wrong password");
         }
-        self::createUserAccountSession($account);
+        if($rememberMe){
+            self::createUserAccountSessionWithLongDuration($account);
+        } else {
+            self::createUserAccountSession($account);
+        }
     }
 
     /**
