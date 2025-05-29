@@ -10,7 +10,6 @@ use Vestis\Service\CacheService;
  */
 class SystemController
 {
-
     /**
      * Gibt die Exchange Rates als JSON zurück.
      *

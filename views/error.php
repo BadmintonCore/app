@@ -1,5 +1,5 @@
 <?php
-    /** @var string $errorMessage */
+/** @var string $errorMessage */
 ?>
 
 <!DOCTYPE html>

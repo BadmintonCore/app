@@ -9,7 +9,6 @@ use Vestis\Exception\LogicException;
  */
 class CacheService
 {
-
     /**
      * Der Pfad in dem die Cache-Dateien gespeichert werden
      */
@@ -62,7 +61,7 @@ class CacheService
      * Lädt den internen JSON inhalt einer Cache-Datei. Gibt null zurück, wenn eine Datei nicht existiert
      *
      * @param string $key Der Cache-Key, dessen Datei geladen werden soll
-     * @return array|null
+     * @return array<string, mixed>|null
      */
     private static function getCacheContent(string $key): ?array
     {
