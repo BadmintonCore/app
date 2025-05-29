@@ -10,8 +10,16 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
+/**
+ * Controller für die Kategorien im Admin-Panel
+ */
 class AdminCategoriesController
 {
+    /**
+     * Listenansicht aller Kategorien.
+     *
+     * @return void
+     */
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -19,19 +27,29 @@ class AdminCategoriesController
         require_once __DIR__.'/../../views/admin/categories/list.php';
     }
 
+    /**
+     * Bearbeiten einer Kategorie
+     *
+     * @return void
+     */
     public function edit(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
+
         $errorMessage = null;
-        /** @phpstan-ignore-next-line secure */
+
         $categoryId = intval($_GET['id']);
+
         $category = CategoryRepository::findById($categoryId);
+
+        // Existiert die Kategorie nicht, wird die Fehlermeldung im View angezeigt
         if ($category === null) {
             $errorMessage = 'Kategorie nicht gefunden!';
             require_once __DIR__.'/../../views/admin/categories/edit.php';
             return;
         }
 
+        // Kategorien, die zur Auswahl als übergeordnete Kategorie stehen
         $optionalParentCategories = CategoryRepository::findAllWithNoParentNotSelf($categoryId);
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -39,11 +57,13 @@ class AdminCategoriesController
                 'name' => new ValidationRule(ValidationType::String),
                 'parentCategoryId' => new ValidationRule(ValidationType::Integer),
             ];
+
             try {
                 ValidationService::validateForm($validationRules);
-                /** @var string $name */
-                /** @var int $parentCategoryId */
+
                 ['name' => $name, 'parentCategoryId' => $parentCategoryId] = ValidationService::getFormData();
+
+                // Setzen des neuen Namen
                 $category->name = $name;
 
                 // "Keine" wurde ausgewählt. Hat demnach den Wert -1
@@ -56,6 +76,7 @@ class AdminCategoriesController
                 }
 
                 CategoryRepository::update($category);
+
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
             }
@@ -64,37 +85,48 @@ class AdminCategoriesController
         require_once __DIR__.'/../../views/admin/categories/edit.php';
     }
 
+    /**
+     * Erstellen einer neuen Kategorie
+     *
+     * @return void
+     */
     public function create(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
-        if ($_SERVER['REQUEST_METHOD'] === "GET") {
-            require_once __DIR__.'/../../views/admin/categories/create.php';
-        } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
+        // Kategorien, die zur Auswahl als übergeordnete Kategorie stehen
+        $optionalParentCategories = CategoryRepository::findAllWithNoParent();
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $validationRules = [
                 'name' => new ValidationRule(ValidationType::String),
                 'parentCategoryId' => new ValidationRule(ValidationType::Integer),
             ];
+
             try {
                 ValidationService::validateForm($validationRules);
-                /** @var string $name */
-                /** @var int $parentCategoryId */
+
                 ['name' => $name, 'parentCategoryId' => $parentCategoryId] = ValidationService::getFormData();
+
+
                 // -1 soll hier an der Stelle null sein
                 $parentCategoryId = $parentCategoryId === -1 ? null : $parentCategoryId;
 
+                // Prüfen, ob die angegebene Kategorie existiert
                 if ($parentCategoryId !== null && CategoryRepository::findById($parentCategoryId) === null) {
                     throw new ValidationException('Übergeordnete Kategorie nicht gefunden!');
                 }
 
                 $category = CategoryRepository::create($name, $parentCategoryId);
+
                 header('Location: /admin/categories');
                 return;
 
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
-                require_once __DIR__.'/../../views/admin/categories/create.php';
             }
         }
+
+        require_once __DIR__.'/../../views/admin/categories/create.php';
     }
 
 }

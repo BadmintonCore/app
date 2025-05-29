@@ -8,8 +8,16 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
+/**
+ * Controller für den Newsletter
+ */
 class NewsletterController
 {
+    /**
+     * POST-Endpoint für das Newsletter
+     *
+     * @return void
+     */
     public function subscribe(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {

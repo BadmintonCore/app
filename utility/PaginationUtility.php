@@ -4,6 +4,11 @@ namespace Vestis\Utility;
 
 class PaginationUtility
 {
+    /**
+     * Gibt die aktuell aufgerufene Seite anhand des GET-Paremeters zurück.
+     *
+     * @return int
+     */
     public static function getCurrentPage(): int
     {
         /** @var bool|float|int|string|null $pageParam */
@@ -15,6 +20,15 @@ class PaginationUtility
         return $page;
     }
 
+    /**
+     * Generiert die Pagination als HTML
+     *
+     * @param int $total Die Gesamtanzahl an Einträgen im System
+     * @param int $perPage Die Anzahl an Einträgen pro Seite
+     * @param int $currentPage Die aktuell ausgewählte Seite
+     * @param bool $useFormSubmit Soll ein anchor-Tag oder ein Form-Submit genutzt werden? (Standard: Anchor-Tag)
+     * @return void
+     */
     public static function generatePagination(int $total, int $perPage, int $currentPage, bool $useFormSubmit = false): void
     {
         $pages = ceil($total / $perPage);
@@ -40,6 +54,12 @@ class PaginationUtility
         echo '</div>';
     }
 
+    /**
+     * Generiert den Query/Search-Link für den Anchor-Tag.
+     *
+     * @param int $page
+     * @return string
+     */
     public static function generateSearchLink(int $page): string
     {
         $params = $_GET;

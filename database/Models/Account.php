@@ -2,6 +2,9 @@
 
 namespace Vestis\Database\Models;
 
+/**
+ * Das Model für einen Account in der DB
+ */
 class Account
 {
     public int $id;
@@ -17,6 +20,4 @@ class Account
     public string $email;
 
     public string $password;
-
-    public bool $newsletter;
 }

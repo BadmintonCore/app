@@ -5,6 +5,9 @@ namespace Vestis\Database\Repositories;
 use Vestis\Database\Models\Feedback;
 use Vestis\Exception\DatabaseException;
 
+/**
+ * Repository für @see Feedback
+ */
 class FeedbackRepository
 {
     /**

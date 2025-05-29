@@ -4,6 +4,11 @@ namespace Vestis\Utility;
 
 class PathUtility
 {
+    /**
+     * Gibt den aktuellen Pfad zurück.
+     *
+     * @return string
+     */
     public static function getPathname(): string
     {
         /** @var string $requestUri */

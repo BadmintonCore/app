@@ -10,8 +10,16 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
+/**
+ * Controller für Kundendienste
+ */
 class CustomerServiceController
 {
+    /**
+     * Ansicht für das Kontaktformular
+     *
+     * @return void
+     */
     public function contact(): void
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -26,15 +34,10 @@ class CustomerServiceController
 
                 // Validate form
                 ValidationService::validateForm($validationRules);
-
-                /** @var string $name */
-                /** @var int $evaluation */
-                /** @var string $email */
-                /** @var string $message */
-                ['name' => $name, 'evaluation' => $evaluation, 'email' => $email, 'message' => $message] = ValidationService::getFormData();
+                $formData = ValidationService::getFormData();
 
                 //Erstellt ein neues Feedback
-                FeedbackRepository::createFeedback($name, $evaluation, $email, $message);
+                FeedbackRepository::createFeedback($formData['name'], $formData['evaluation'], $formData['email'], $formData['message']);
 
                 $feedbackMessage = "Vielen Dank für dein Feedback!";
             } catch (ValidationException|DatabaseException $e) {

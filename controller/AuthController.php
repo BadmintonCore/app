@@ -17,8 +17,16 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
+/**
+ * Controller für Authentication
+ */
 class AuthController
 {
+    /**
+     * Ansicht für die Anmeldung
+     *
+     * @return void
+     */
     public function login(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -30,8 +38,6 @@ class AuthController
                 // Validate form
                 ValidationService::validateForm($validationRules);
 
-                /** @var string $username */
-                /** @var string $password */
                 ['username' => $username, 'password' => $password] = ValidationService::getFormData();
 
                 // Login the user with the given credentials in $_POST
@@ -53,12 +59,22 @@ class AuthController
         require_once __DIR__ . '/../views/auth/login.php';
     }
 
+    /**
+     * Ansicht zum Abmelden
+     *
+     * @return void
+     */
     public function logout(): void
     {
         AuthService::destroyCurrentSession();
         require_once __DIR__ . "/../views/auth/logout.php";
     }
 
+    /**
+     * Ansicht zum Registrieren
+     *
+     * @return void
+     */
     public function register(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -76,7 +92,6 @@ class AuthController
 
                 $formData = ValidationService::getFormData();
 
-                /** @phpstan-ignore-next-line all selected parameters are checked before for type safety in form validation */
                 $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password']);
 
                 if (null === $account) {
@@ -85,10 +100,7 @@ class AuthController
                     return;
                 }
 
-                /** @var bool $newsletter */
-                $newsletter = $formData['newsletter'];
-
-                if ($newsletter === true) {
+                if ($formData['newsletter'] === true) {
                     NewsletterService::subscribe($account->email);
                 }
 
@@ -114,6 +126,8 @@ class AuthController
     }
 
     /**
+     * Ansicht zum Zurücksetzen des Passwort
+     *
      * @throws \Exception
      */
     public function resetPassword(): void
@@ -126,7 +140,6 @@ class AuthController
                 // Validate form
                 ValidationService::validateForm($validationRules);
 
-                /** @var string $mail */
                 ['mail' => $mail] = ValidationService::getFormData();
 
                 $findByEmail = AccountRepository::findByEmail($mail);
@@ -147,6 +160,8 @@ class AuthController
     }
 
     /**
+     * Ansicht um die Account-Löschung zu bestätigen
+     *
      * @throws ValidationException
      */
     public function deleteConfirmation(): void
@@ -174,6 +189,7 @@ class AuthController
 
             //Zurück zur Startseite
             header("Location: /");
+            return;
         }
         require_once __DIR__ . '/../views/auth/deleteConfirmation.php';
     }

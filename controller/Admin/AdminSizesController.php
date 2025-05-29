@@ -11,8 +11,16 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
+/**
+ * Controller für Größen im Admin-Panel
+ */
 class AdminSizesController
 {
+    /**
+     * Listenansicht für Größen
+     *
+     * @return void
+     */
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -20,13 +28,19 @@ class AdminSizesController
         require_once __DIR__.'/../../views/admin/sizes/list.php';
     }
 
+    /**
+     * Ansicht zum Bearbeiten einer Größe
+     *
+     * @return void
+     */
     public function edit(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
         $errorMessage = null;
-        /** @phpstan-ignore-next-line secure */
+
         $colorId = intval($_GET['id']);
         $size = SizeRepository::findById($colorId);
+
         if ($size === null) {
             $errorMessage = 'Größe nicht gefunden!';
             require_once __DIR__.'/../../views/admin/sizes/edit.php';
@@ -40,15 +54,16 @@ class AdminSizesController
             try {
                 ValidationService::validateForm($validationRules);
 
-                /** @var string $name */
                 ['size' => $name] = ValidationService::getFormData();
 
                 if (strlen($name) > 3) {
                     throw new ValidationException("Die Größe darf nicht länger als 3 Buchstaben sein");
                 }
+
                 $size->size = $name;
 
                 SizeRepository::update($size);
+
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
             }
@@ -57,6 +72,11 @@ class AdminSizesController
         require_once __DIR__.'/../../views/admin/sizes/edit.php';
     }
 
+    /**
+     * Ansicht zum Erstellen einer Größe
+     *
+     * @return void
+     */
     public function create(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -71,7 +91,6 @@ class AdminSizesController
             try {
                 ValidationService::validateForm($validationRules);
 
-                /** @var string $name */
                 ['size' => $name] = ValidationService::getFormData();
 
                 if (strlen($name) > 3) {

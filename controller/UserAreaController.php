@@ -14,6 +14,9 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
+/**
+ * Controller für den Kundenbereich
+ */
 class UserAreaController
 {
     public function shoppingCart(): void
@@ -35,14 +38,10 @@ class UserAreaController
             try {
                 // Validate form
                 ValidationService::validateForm($validationRules);
-
-                /** @var string $username */
-                /** @var string $email */
-                /** @var string $password */
-                ['username' => $username, 'email' => $email, 'password' => $password] = ValidationService::getFormData();
+                $formData = ValidationService::getFormData();
 
                 // Updated die eingegebenen Daten eines Benutzers
-                AccountService::updateUserdata($username, $email, $password);
+                AccountService::updateUserdata($formData['username'], $formData['email'], $formData['password']);
 
                 //Den neuen Nutzer setzen
                 AuthService::setCurrentUserAccountSessionFromCookie();

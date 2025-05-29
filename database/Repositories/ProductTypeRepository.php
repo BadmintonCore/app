@@ -6,10 +6,15 @@ use Vestis\Database\Dto\PaginationDto;
 use Vestis\Database\Models\Category;
 use Vestis\Database\Models\ProductType;
 
+/**
+ * Repository für @see ProductType
+ */
 class ProductTypeRepository
 {
     /**
-     * @param int $page
+     * Findet ProduktTypen paginiert
+     *
+     * @param int $page Die Seite, die geladen werden soll
      * @return PaginationDto<ProductType>
      */
     public static function findPaginated(int $page): PaginationDto
@@ -18,6 +23,8 @@ class ProductTypeRepository
     }
 
     /**
+     * Findet Produkte anhand von Parametern.
+     *
      * @param Category $category The category that should be used to fetch product types
      * @param int $maxPrice The maximum allowed price
      * @param array<int, int> $allowedColorIds
@@ -56,20 +63,35 @@ class ProductTypeRepository
         );
     }
 
+    /**
+     * Findet ein Produkt anhand seiner ID
+     *
+     * @param int $id
+     * @return ProductType|null
+     */
     public static function findById(int $id): ?ProductType
     {
         return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT DISTINCT * FROM productType WHERE id = :id", ["id" => $id]);
     }
 
     /**
+     * Findet den minimal und maximal Preis der Produkte einer Kategorie.
+     *
      * @param Category $category
-     * @return array<string, int|bool|string|null|array<int, int|bool|string|null>>|null
+     * @return array<string, int|null>
      */
-    public static function findMinAndMaxPricesByCategory(Category $category): ?array
+    public static function findMinAndMaxPricesByCategory(Category $category): array
     {
+        /** @phpstan-ignore-next-line  */
         return QueryAbstraction::fetchOneAs(null, "SELECT DISTINCT MIN(price) as min, MAX(price) as max FROM productType WHERE categoryId = :catId", ["catId" => $category->id]);
     }
 
+    /**
+     * Aktualisiert ein Produkt-Typen
+     *
+     * @param ProductType $productType
+     * @return void
+     */
     public static function update(ProductType $productType): void
     {
         $params = [

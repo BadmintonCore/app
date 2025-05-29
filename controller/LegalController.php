@@ -2,6 +2,9 @@
 
 namespace Vestis\Controller;
 
+/**
+ * Controller für Rechtliches
+ */
 class LegalController
 {
     public function gtc(): void
