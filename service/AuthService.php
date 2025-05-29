@@ -21,7 +21,12 @@ class AuthService
     /**
      * The duration of the account session in seconds (1 hour)
      */
-    private const SESSION_DURATION = 3600;
+    private const int SESSION_DURATION = 3600;
+
+    /**
+     * The duration of the long account session in seconds (7 days)
+     */
+    private const int LONG_SESSION_DURATION = 3600 * 24 * 7;
 
 
     /**
@@ -85,7 +90,7 @@ class AuthService
             throw new AuthException("wrong password");
         }
         if ($rememberMe) {
-            self::createUserAccountSession($account, 368 * 86400); //365 Tage in Sekunden
+            self::createUserAccountSession($account, self::LONG_SESSION_DURATION);
         } else {
             self::createUserAccountSession($account, self::SESSION_DURATION);
         }

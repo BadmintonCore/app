@@ -39,13 +39,10 @@ class AuthController
                 // Validate form
                 ValidationService::validateForm($validationRules);
 
-                /** @var string $username */
-                /** @var string $password */
-                /** @var bool $rememberMe */
-                ['username' => $username, 'password' => $password, 'rememberMe' => $rememberMe] = ValidationService::getFormData();
+                $formData = ValidationService::getFormData();
 
                 // Login the user with the given credentials in $_POST
-                AuthService::loginUser($username, $password, $rememberMe);
+                AuthService::loginUser($formData['username'], $formData['password'], $formData['rememberMe']);
 
                 // Redirect to landing page after successful login
                 if (AuthService::isAdmin()) {

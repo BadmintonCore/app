@@ -45,23 +45,35 @@ class ValidationService
         foreach (self::$paramTypes as $name => $type) {
             $target[$name] = self::$method === "POST" ? ($_POST[$name] ?? null) : ($_GET[$name] ?? null);
 
+            // Sets the file type from the $_FILES variable
             if ($type === ValidationType::ImageFile) {
                 $target[$name] = $_FILES[$name] ?? null;
             }
 
-            if ($target[$name] !== null && $type === ValidationType::Boolean) {
-                $target[$name] = "on" === $target[$name];
+            // Converts "on" string or null to actual boolean if validation type is boolean
+            if ($type === ValidationType::Boolean) {
+                $target[$name] = match ($target[$name] !== null) {
+                    true => "on" === $target[$name],
+                    false => false
+                };
             }
-            if ($type === ValidationType::Integer && is_string($target[$name])) {
+
+            // Converts a possible string to an integer if the validation type is integer
+            if ($type === ValidationType::Integer && (is_string($target[$name]))) {
                 $target[$name] = intval($target[$name]);
             }
+
+            // Converts every value of an integer array to an actual integer array if the validation type is integer array
             if ($type === ValidationType::IntegerArray && is_array($target[$name])) {
                 $target[$name] = array_map(fn (mixed $value) => (is_string($value) || is_int($value)) ? intval($value) : 0, $target[$name]);
             }
+
+            // Converts a string to a float if the validation type is float
             if ($type === ValidationType::Float && is_string($target[$name])) {
                 $target[$name] = floatval($target[$name]);
             }
 
+            // Sets the default value for an empty json if the validation type is JSON
             if ($type === ValidationType::Json && is_string($target[$name]) && trim($target[$name]) === '') {
                 $target[$name] = '{}';
             }
@@ -102,6 +114,7 @@ class ValidationService
                     throw new ValidationException(sprintf("Field %s should not be longer than 255 chars", $fieldName));
                 }
                 break;
+
             case ValidationType::Json:
                 if (!is_string($fieldValue)) {
                     throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));
@@ -113,9 +126,11 @@ class ValidationService
                     throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));
                 }
                 break;
+
             case ValidationType::Integer:
                 self::validateInteger($fieldValue, $fieldName);
                 break;
+
             case ValidationType::IntegerArray:
                 if (!is_array($fieldValue)) {
                     throw new ValidationException(sprintf("Field %s must be an array.", $fieldName));
@@ -124,23 +139,26 @@ class ValidationService
                     self::validateInteger($value, $fieldName);
                 }
                 break;
+
             case ValidationType::Float:
                 if (!(is_string($fieldValue) && floatval($fieldValue) !== 0.0) && !is_float($fieldValue)) {
                     throw new ValidationException(sprintf("Field %s must be an float.", $fieldName));
                 }
                 break;
+
             case ValidationType::Email:
                 if (false === filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {
                     throw new ValidationException(sprintf("Field %s must be a valid email address.", $fieldName));
                 }
                 break;
+
             case ValidationType::Boolean:
                 if (!is_bool($fieldValue) && $fieldValue !== "on") {
                     throw new ValidationException(sprintf("Field %s must be a boolean.", $fieldName));
                 }
                 break;
+
             case ValidationType::ImageFile:
-                /** @var array<string, string|int> $fieldValue */
                 if ($fieldValue['error'] !== UPLOAD_ERR_OK) {
                     throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
                 }
@@ -149,7 +167,6 @@ class ValidationService
                     throw new ValidationException("The name of the file needs to be a string");
                 }
 
-                /** @var false|array<string, string> $imageInfo */
                 $imageInfo = getimagesize($fieldValue['tmp_name']);
                 if ($imageInfo === false) {
                     throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
@@ -158,6 +175,7 @@ class ValidationService
                     throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
                 }
                 break;
+
             default:
                 throw new ValidationException(sprintf("Field %s must have a valid validation rule.", $fieldName));
         }
