@@ -15,7 +15,7 @@ class ProductTypeRepository
      */
     public static function findPaginated(int $page): PaginationDto
     {
-        return QueryAbstraction::fetchManyAsPaginated(ProductType::class, "SELECT * FROM productType", $page, 25);
+        return QueryAbstraction::fetchManyAsPaginated(ProductType::class, "SELECT * FROM productType", $page, 10);
     }
 
     /**
@@ -69,6 +69,23 @@ class ProductTypeRepository
     public static function findMinAndMaxPricesByCategory(Category $category): ?array
     {
         return QueryAbstraction::fetchOneAs(null, "SELECT DISTINCT MIN(price) as min, MAX(price) as max FROM productType WHERE categoryId = :catId", ["catId" => $category->id]);
+    }
+
+    public static function update(ProductType $productType): void
+    {
+        $params = [
+            'id' => $productType->id,
+            'name' => $productType->name,
+            'categoryId' => $productType->categoryId,
+            'material' => $productType->material,
+            'price' => $productType->price,
+            'description' => $productType->description,
+            'collection' => $productType->collection,
+            'careInstructions' => $productType->careInstructions,
+            'origin' => $productType->origin,
+            'extraFields' => $productType->extraFields,
+        ];
+        QueryAbstraction::execute("UPDATE productType SET name = :name, categoryId = :categoryId, material = :material, price = :price, description = :description, collection = :collection, careInstructions = :careInstructions, origin = :origin, extraFields = :extraFields WHERE id = :id", $params);
     }
 
 }

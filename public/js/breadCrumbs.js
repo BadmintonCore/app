@@ -15,7 +15,8 @@ const translation = {
     auth: "Anmeldung",
     "your-purchase": 'Dein Einkauf',
     colors: "Farben",
-    sizes: "Größen"
+    sizes: "Größen",
+    productTypes: "Produkt Typen"
 }
 
 

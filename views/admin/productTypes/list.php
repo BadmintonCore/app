@@ -12,7 +12,7 @@ use Vestis\Utility\PaginationUtility;
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>vestis. - Kategorien</title>
+    <title>vestis. - Produkt Typen</title>
     <?php include(__DIR__."/../../../components/head.php"); ?>
 </head>
 <body>
@@ -54,7 +54,7 @@ use Vestis\Utility\PaginationUtility;
     </table>
 
     <?php
-        PaginationUtility::generatePagination($productTypes->count, 25, $page);
+        PaginationUtility::generatePagination($productTypes->count, 10, $page);
     ?>
 
 </main>

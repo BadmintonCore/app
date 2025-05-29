@@ -26,6 +26,16 @@ class CategoryRepository
     }
 
     /**
+     * Gets all categories that do have a parent category
+     *
+     * @return array<int, Category>
+     */
+    public static function findAllWithParent(): array
+    {
+        return QueryAbstraction::fetchManyAs(Category::class, "SELECT * FROM category WHERE parentCategoryId IS NOT NULL");
+    }
+
+    /**
      * Gets all categories that do not have a parent category and are not the given ID
      *
      * @param int $id

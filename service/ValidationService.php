@@ -49,6 +49,9 @@ class ValidationService
             if ($type === ValidationType::Integer && is_string($target[$name])) {
                 $target[$name] = intval($target[$name]);
             }
+            if ($type === ValidationType::Float && is_string($target[$name])) {
+                $target[$name] = floatval($target[$name]);
+            }
         }
         return $target;
     }
@@ -78,10 +81,23 @@ class ValidationService
                     throw new ValidationException(sprintf("Field %s should not be longer than 255 chars", $fieldName));
                 }
                 break;
+            case ValidationType::Json:
+                if (!is_string($fieldValue)) {
+                    throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));
+                }
+                if (json_decode($fieldValue) === null) {
+                    throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));
+                }
+                break;
             case ValidationType::Integer:
                     if (!(is_string($fieldValue) && intval($fieldValue) !== 0) && !is_int($fieldValue)) {
                         throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
                     }
+                break;
+            case ValidationType::Float:
+                if (!(is_string($fieldValue) && floatval($fieldValue) !== 0.0) && !is_float($fieldValue)) {
+                    throw new ValidationException(sprintf("Field %s must be an float.", $fieldName));
+                }
                 break;
             case ValidationType::Email:
                 if (false === filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {

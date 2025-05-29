@@ -55,4 +55,5 @@ return [
     '/admin/sizes/edit' => [AdminSizesController::class, 'edit'],
     '/admin/sizes/create' => [AdminSizesController::class, 'create'],
     '/admin/productTypes' => [AdminProductTypesController::class, 'index'],
+    '/admin/productTypes/edit' => [AdminProductTypesController::class, 'edit'],
 ];
