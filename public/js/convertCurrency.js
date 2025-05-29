@@ -45,7 +45,7 @@ function convertCurrency(price) {
  * @returns {Promise<void>}
  */
 async function getCurrencyRates() {
-    const resp = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD,CHF');
+    const resp = await fetch('/system/exchangeRates');
     if (resp.ok) {
         const jsonData = await resp.json();
         jsonData.rates.KBP = (1/7);
