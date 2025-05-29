@@ -21,9 +21,9 @@ use Vestis\Database\Models\ProductType;
         <!--Breadcrumbs-->
         <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-        <img src="/img/tshirt-beige.webp"
-             alt="product image"
-        />
+        <?php if (count($product->getImages()) >0) : ?>
+        <img src="<?= $product->getImages()[0]->path ?>" alt="<?= $product->getImages()[0]->name ?>" />
+        <?php endif; ?>
         <div class="info">
             <h1 id="nameText"><?= $product->name ?></h1>
             <h5><?= $product->description ?></h5>

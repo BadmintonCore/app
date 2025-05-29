@@ -53,6 +53,9 @@ class ProductType
         return SizeRepository::findByProductType($this);
     }
 
+    /**
+     * @return array<int, Image>
+     */
     public function getImages(): array
     {
         return ImageRepository::findByProductType($this);
