@@ -23,10 +23,6 @@ class AuthService
      */
     private const SESSION_DURATION = 3600;
 
-    /**
-     * The duration of the account session in seconds (400 days)
-     */
-    private const SESSION_DURATION_LONG = 400 * 86400;
 
     /**
      * Creates a new JWT and sets the required cookie as response header
@@ -34,41 +30,17 @@ class AuthService
      * @param Account $account The account that should be referenced in the session JWT
      * @return void
      */
-    public static function createUserAccountSession(Account $account): void
+    public static function createUserAccountSession(Account $account, int $sessionDuration): void
     {
         $payload = [
             'accountId' => $account->id,
-            'expiresAt' => time() + self::SESSION_DURATION, // the time at which the session expires
+            'expiresAt' => time() + $sessionDuration, // the time at which the session expires
         ];
 
         $jwt = JWTService::generateJWT($payload);
 
         setcookie("session", $jwt, [
-            'expires' => time() + self::SESSION_DURATION, // sets the cookie expiry date
-            'path' => '/', // The cookie is sent with every request on the page
-            'secure' => false, // Request is also sent via http. Not only https
-            'httponly' => true, // Cookie cannot be modified from JavaScript. It only exists in HTTP
-            'samesite' => 'Strict' // The cookie is only allowed on the same origin
-        ]);
-    }
-
-    /**
-     * Creates a new JWT and sets the required cookie as response header
-     *
-     * @param Account $account The account that should be referenced in the session JWT
-     * @return void
-     */
-    public static function createUserAccountSessionWithLongDuration(Account $account): void
-    {
-        $payload = [
-            'accountId' => $account->id,
-            'expiresAt' => time() + self::SESSION_DURATION_LONG, // the time at which the session expires
-        ];
-
-        $jwt = JWTService::generateJWT($payload);
-
-        setcookie("session", $jwt, [
-            'expires' => time() + self::SESSION_DURATION_LONG, // sets the cookie expiry date
+            'expires' => time() + $sessionDuration, // sets the cookie expiry date
             'path' => '/', // The cookie is sent with every request on the page
             'secure' => false, // Request is also sent via http. Not only https
             'httponly' => true, // Cookie cannot be modified from JavaScript. It only exists in HTTP
@@ -113,9 +85,9 @@ class AuthService
             throw new AuthException("wrong password");
         }
         if ($rememberMe) {
-            self::createUserAccountSessionWithLongDuration($account);
+            self::createUserAccountSession($account, 368 * 86400); //365 Tage in Sekunden
         } else {
-            self::createUserAccountSession($account);
+            self::createUserAccountSession($account, self::SESSION_DURATION);
         }
     }
 

@@ -43,7 +43,7 @@ class ValidationService
         $target = [];
         foreach (self::$paramTypes as $name => $type) {
             $target[$name] = self::$method === "POST" ? ($_POST[$name] ?? null) : ($_GET[$name] ?? null);
-            if ($target[$name] !== null && $type === ValidationType::Boolean) {
+            if ($type === ValidationType::Boolean) {
                 $target[$name] = "on" === $target[$name];
             }
         }
