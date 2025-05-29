@@ -33,15 +33,16 @@ class AuthController
             $validationRules = [
                 'username' => new ValidationRule(ValidationType::String),
                 'password' => new ValidationRule(ValidationType::String),
+                'rememberMe' => new ValidationRule(ValidationType::Boolean, true),
             ];
             try {
                 // Validate form
                 ValidationService::validateForm($validationRules);
 
-                ['username' => $username, 'password' => $password] = ValidationService::getFormData();
+                $formData = ValidationService::getFormData();
 
                 // Login the user with the given credentials in $_POST
-                AuthService::loginUser($username, $password);
+                AuthService::loginUser($formData['username'], $formData['password'], $formData['rememberMe']);
 
                 // Redirect to landing page after successful login
                 if (AuthService::isAdmin()) {
@@ -106,7 +107,7 @@ class AuthController
 
                 // Sends confirmation mail and creates user session cookie
                 EmailService::sendRegistrationConfirmation($account);
-                AuthService::createUserAccountSession($account);
+                AuthService::createUserAccountSession($account, 3600); //Eine Stunde in Sekunden
 
                 // Redirects to landing page
                 header("Location: /");
