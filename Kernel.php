@@ -33,8 +33,26 @@ class Kernel
         [$controllerClass, $method] = $routes[$pathname];
         /** @phpstan-ignore-next-line */
         $controller = new $controllerClass();
-        /** @phpstan-ignore-next-line */
-        $controller->$method();
+
+        try {
+
+            // Verhindert explizit die Ausgabe des Output Buffers.
+            ob_start();
+
+            /** @phpstan-ignore-next-line */
+            $controller->$method();
+        } catch (Throwable $exception) {
+
+            // Löscht den bisherigen Buffer Inhalt
+            ob_end_clean();
+
+
+            $errorMessage = $exception->getMessage();
+            require_once __DIR__.'/views/error.php';
+        }
+
+        // Gibt den ganzen Buffer aufeinmal frei und sendet ihn zum Client
+        ob_flush();
 
     }
 
