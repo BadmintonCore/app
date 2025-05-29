@@ -31,7 +31,7 @@ class ImageRepository
         return QueryAbstraction::fetchManyAs(Image::class, "SELECT i.* FROM image i JOIN productImage pi ON pi.imageId = i.id WHERE pi.productTypeId = :productId", ["productId" => $productType->id]);
     }
 
-    public static function create(string $name, string $path): Image
+    public static function create(string $name, string $path): ?Image
     {
         return QueryAbstraction::executeReturning(Image::class, "INSERT INTO image (name, path) VALUES (:name, :path)", ['name' => $name, 'path' => $path]);
     }

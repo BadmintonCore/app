@@ -42,7 +42,7 @@ use Vestis\Database\Models\Category;
                 <td><?= $category->name ?></td>
                 <td>
                     <?php if ($category->getParentCategory() !== null) : ?>
-                        <a href="/admin/categories/edit?id=<?= $category->getParentCategory()->id ?>"><?= $category->getParentCategory()?->name ?></a>
+                        <a href="/admin/categories/edit?id=<?= $category->getParentCategory()->id ?>"><?= $category->getParentCategory()->name ?></a>
                     <?php endif; ?>
                 </td>
                 <td><a class="btn btn-sm" href="/admin/categories/edit?id=<?= $category->id ?>">Edit.</a></td>

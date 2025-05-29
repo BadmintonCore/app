@@ -40,12 +40,12 @@ class ColorRepository
         return QueryAbstraction::fetchManyAs(Color::class, "SELECT DISTINCT c.* FROM color c JOIN allowedColor ac ON ac.colorId = c.id JOIN productType pt ON pt.id = ac.productTypeId WHERE pt.categoryId = :catId", ["catId" => $category->id]);
     }
 
-    public static function create(string $name, string $hex): Color
+    public static function create(string $name, string $hex): ?Color
     {
         return QueryAbstraction::executeReturning(Color::class, "INSERT INTO color (name, hex) VALUES (:name, :hex)", ["name" => $name, "hex" => $hex]);
     }
 
-    public static function update(Color $color)
+    public static function update(Color $color): void
     {
         QueryAbstraction::execute("UPDATE color SET name = :name, hex = :hex WHERE id = :id", ["name" => $color->name, "id" => $color->id, "hex" => $color->hex]);
     }

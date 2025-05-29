@@ -109,17 +109,16 @@ use Vestis\Database\Models\ProductType;
                     <td><?= $product->origin ?></td>
                 </tr>
                 <?php
+                    /** @var array<string, int|float|string> $extraFields */
                     $extraFields = json_decode($product->extraFields, true);
 
-        if ($extraFields !== null) :
-            ?>
+        ?>
                     <?php foreach (array_keys($extraFields) as $field): ?>
                     <tr>
                         <td><?= $field ?></td>
                         <td><?= $extraFields[$field] ?> </td>
                     </tr>
                     <?php endforeach; ?>
-                <?php endif; ?>
             </table>
         </div>
     </div>

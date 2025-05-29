@@ -55,7 +55,7 @@ class ValidationService
                 $target[$name] = intval($target[$name]);
             }
             if ($type === ValidationType::IntegerArray && is_array($target[$name])) {
-                $target[$name] = array_map('intval', $target[$name]);
+                $target[$name] = array_map(fn (mixed $value) => (is_string($value) || is_int($value)) ? intval($value) : 0, $target[$name]);
             }
             if ($type === ValidationType::Float && is_string($target[$name])) {
                 $target[$name] = floatval($target[$name]);
@@ -136,9 +136,16 @@ class ValidationService
                 }
                 break;
             case ValidationType::ImageFile:
+                /** @var array<string, string|int> $fieldValue */
                 if ($fieldValue['error'] !== UPLOAD_ERR_OK) {
                     throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
                 }
+
+                if (!is_string($fieldValue['tmp_name'])) {
+                    throw new ValidationException("The name of the file needs to be a string");
+                }
+
+                /** @var false|array<string, string> $imageInfo */
                 $imageInfo = getimagesize($fieldValue['tmp_name']);
                 if ($imageInfo === false) {
                     throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));

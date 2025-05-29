@@ -6,7 +6,9 @@ class PaginationUtility
 {
     public static function getCurrentPage(): int
     {
-        $page = intval($_GET['page'] ?? 1);
+        /** @var bool|float|int|string|null $pageParam */
+        $pageParam = $_GET['page'] ?? 1;
+        $page = intval($pageParam);
         if ($page < 1) {
             $page = 1;
         }
@@ -21,7 +23,7 @@ class PaginationUtility
 
         echo '<div class="pagination">';
         for ($i = 1; $i <= $pages; $i++) {
-            if ($i == $currentPage) {
+            if ($i === $currentPage) {
                 if ($useFormSubmit) {
                     echo '<button class="page-link active" type="submit" name="pagination" value="' . $i .'">'.$i.'</button>';
                 } else {

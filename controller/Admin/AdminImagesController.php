@@ -34,14 +34,22 @@ class AdminImagesController
             try {
                 ValidationService::validateForm($validationRules);
 
+                /** @var array<string, string|int|array<string, int|string>> $formData */
                 $formData = ValidationService::getFormData();
 
+                if (!is_array($formData['image'])) {
+                    throw new ValidationException("Provided image must be an array");
+                }
+
+                /** @var string $originalName */
                 $originalName = $formData['image']['name'];
+                /** @var string $tmpFile */
                 $tmpFile = $formData['image']['tmp_name'];
                 $uniqueName = uniqid('img_', true) . '.' . pathinfo($originalName, PATHINFO_EXTENSION);
                 $destination = __DIR__ . '/../../public/uploads/' . $uniqueName;
                 move_uploaded_file($tmpFile, $destination);
 
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 ImageRepository::create($formData['name'], '/uploads/' . $uniqueName);
                 header('Location: /admin/images');
                 return;
@@ -57,6 +65,7 @@ class AdminImagesController
     public function view(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
+        /** @phpstan-ignore-next-line secure */
         $imageId = intval($_GET['id']);
         $image = ImageRepository::findById($imageId);
         if ($image === null) {

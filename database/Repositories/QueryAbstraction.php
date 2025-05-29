@@ -45,8 +45,18 @@ class QueryAbstraction
     public static function fetchManyAsPaginated(string $className, string $query, int $page, int $perPage, array $params = []): PaginationDto
     {
         $fromIndex = strpos($query, ' FROM');
+        if ($fromIndex === false) {
+            throw new DatabaseException("Your SQL query is invalid", 0);
+        }
         $countQuery = sprintf("SELECT COUNT(*) AS count %s", substr($query, $fromIndex));
-        ['count' => $count] = self::fetchOneAs(null, $countQuery, $params);
+        $countResult = self::fetchOneAs(null, $countQuery, $params);
+
+        if ($countResult === null) {
+            throw new DatabaseException("Cannot fetch count for pagination query", 0);
+        }
+
+        /** @var int $count */
+        ['count' => $count] = $countResult;
 
         $resultsQuery = sprintf('%s LIMIT %s OFFSET %s', $query, $perPage, ($page - 1) * $perPage);
         $results = QueryAbstraction::fetchManyAs($className, $resultsQuery, $params);
@@ -84,7 +94,7 @@ class QueryAbstraction
      * Executes an SQL statement
      *
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params The parameters that are required
      * @return void
      * @throws DatabaseException on database error
      */
@@ -98,7 +108,7 @@ class QueryAbstraction
      *
      * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The parameters that are required
+     * @param array<string, int|bool|string|null|float|array<int, int|bool|string|null|float>> $params The parameters that are required
      * @return T|null The result as the requested class
      * @throws DatabaseException on database error
      *
@@ -120,7 +130,7 @@ class QueryAbstraction
      * Prepares and executes the statement
      *
      * @param string $query The sql statement with params
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params The params
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params The params
      * @return \PDOStatement The executed statement
      * @throws DatabaseException On database error
      */

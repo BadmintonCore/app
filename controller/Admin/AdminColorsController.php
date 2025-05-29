@@ -22,10 +22,14 @@ class AdminColorsController
     public function edit(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
+        $errorMessage = null;
+        /** @phpstan-ignore-next-line secure */
         $colorId = intval($_GET['id']);
         $color = ColorRepository::findById($colorId);
         if ($color === null) {
             $errorMessage = 'Farbe nicht gefunden!';
+            require_once __DIR__.'/../../views/admin/colors/edit.php';
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -36,6 +40,7 @@ class AdminColorsController
             try {
                 ValidationService::validateForm($validationRules);
                 /** @var string $name */
+                /** @var string $hex */
                 ['name' => $name, 'hex' => $hex] = ValidationService::getFormData();
 
                 if (strlen($hex) !== 7) {

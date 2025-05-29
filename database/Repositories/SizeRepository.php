@@ -40,12 +40,12 @@ class SizeRepository
         return QueryAbstraction::fetchManyAs(Size::class, "SELECT DISTINCT s.* FROM size s JOIN allowedSize ac ON ac.sizeId = s.id JOIN productType pt ON pt.id = ac.productTypeId WHERE pt.categoryId = :catId", ["catId" => $category->id]);
     }
 
-    public static function create(string $size): Size
+    public static function create(string $size): ?Size
     {
         return QueryAbstraction::executeReturning(Size::class, "INSERT INTO size (size) VALUES (:name)", ["name" => $size]);
     }
 
-    public static function update(Size $size)
+    public static function update(Size $size): void
     {
         QueryAbstraction::execute("UPDATE size SET size = :name WHERE id = :id", ["name" => $size->size, "id" => $size->id]);
     }

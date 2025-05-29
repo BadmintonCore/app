@@ -3,6 +3,7 @@
 use Vestis\Database\Models\Color;
 
 /** @var Color|null $color */
+/** @var string|null $errorMessage */
 ?>
 
 <!--Author: Lennart Moog-->

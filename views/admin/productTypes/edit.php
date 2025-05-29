@@ -9,6 +9,7 @@ use Vestis\Database\Models\Size;
 /** @var Category[] $optionalCategories */
 /** @var Size[] $optionalSizes */
 /** @var Color[] $optionalColors */
+/** @var string|null $errorMessage */
 ?>
 
 <!--Author: Lennart Moog-->
@@ -43,7 +44,7 @@ use Vestis\Database\Models\Size;
             <label for="categoryId">Kategorie</label>
             <select name="categoryId" id="categoryId" required>
                 <?php foreach ($optionalCategories as $category): ?>
-                    <option value="<?= $category->id ?>" <?= ($category->id == $productType->categoryId) ? "selected" : "" ?>>
+                    <option value="<?= $category->id ?>" <?= ($category->id === $productType->categoryId) ? "selected" : "" ?>>
                         <?= $category->name ?>
                     </option>
                 <?php endforeach; ?>
@@ -105,7 +106,7 @@ use Vestis\Database\Models\Size;
     </form>
     <?php endif; ?>
 
-    <?php if (isset($errorMessage) && $productType === null): ?>
+    <?php if ($errorMessage !== null && $productType === null): ?>
         <h1 class="error-message"><?= $errorMessage ?></h1>
     <?php endif; ?>
 </main>

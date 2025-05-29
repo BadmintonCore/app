@@ -4,6 +4,7 @@ use Vestis\Database\Models\Category;
 
 /** @var Category|null $category */
 /** @var Category[] $optionalParentCategories */
+/** @var string|null $errorMessage */
 ?>
 
 <!--Author: Lennart Moog-->
@@ -38,7 +39,7 @@ use Vestis\Database\Models\Category;
             <select name="parentCategoryId" id="parentCategoryId" required>
                 <option value="-1"> -- Keine --</option>
                 <?php foreach ($optionalParentCategories as $parentCategory): ?>
-                    <option value="<?= $parentCategory->id ?>" <?= ($parentCategory->id == $category->parentCategoryId) ? "selected" : "" ?>>
+                    <option value="<?= $parentCategory->id ?>" <?= ($parentCategory->id === $category->parentCategoryId) ? "selected" : "" ?>>
                         <?= $parentCategory->name ?>
                     </option>
                 <?php endforeach; ?>

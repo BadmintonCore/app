@@ -23,10 +23,14 @@ class AdminSizesController
     public function edit(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
+        $errorMessage = null;
+        /** @phpstan-ignore-next-line secure */
         $colorId = intval($_GET['id']);
         $size = SizeRepository::findById($colorId);
         if ($size === null) {
             $errorMessage = 'Größe nicht gefunden!';
+            require_once __DIR__.'/../../views/admin/sizes/edit.php';
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {

@@ -29,6 +29,8 @@ class AdminProductTypesController
     public function edit(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
+        $errorMessage = null;
+        /** @phpstan-ignore-next-line secure */
         $productTypeId = intval($_GET['id']);
         $productType = ProductTypeRepository::findById($productTypeId);
         $optionalCategories = CategoryRepository::findAllWithParent();
@@ -37,6 +39,8 @@ class AdminProductTypesController
 
         if ($productType === null) {
             $errorMessage = 'Produkt nicht gefunden!';
+            require_once __DIR__.'/../../views/admin/productTypes/edit.php';
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -59,33 +63,59 @@ class AdminProductTypesController
 
                 $formData = ValidationService::getFormData();
 
+                /** @phpstan-ignore-next-line */
                 if (CategoryRepository::findById($formData['categoryId']) === null) {
                     throw new ValidationException("Kategorie nicht gefunden!");
                 }
+                /** @var int  $size */
+                /** @phpstan-ignore-next-line */
                 foreach ($formData['sizes'] as $size) {
                     if (SizeRepository::findById($size) === null) {
                         throw new ValidationException("Größe nicht gefunden!");
                     }
                 }
+
+                /** @var int  $color */
+                /** @phpstan-ignore-next-line */
                 foreach ($formData['colors'] as $color) {
                     if (ColorRepository::findById($color) === null) {
                         throw new ValidationException("Farbe nicht gefunden!");
                     }
                 }
 
-
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->name = $formData['name'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->categoryId = $formData['categoryId'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->material = $formData['material'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->price = $formData['price'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->description = $formData['description'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->collection = $formData['collection'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->careInstructions = $formData['careInstructions'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->origin = $formData['origin'];
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType->extraFields = $formData['extraFields'];
+
                 ProductTypeRepository::update($productType);
 
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 ProductTypeRepository::updateSizeMapping($productType->id, $formData['sizes']);
+
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 ProductTypeRepository::updateColorMapping($productType->id, $formData['colors']);
 
 
@@ -124,24 +154,33 @@ class AdminProductTypesController
 
                 $formData = ValidationService::getFormData();
 
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 if (CategoryRepository::findById($formData['categoryId']) === null) {
                     throw new ValidationException("Kategorie nicht gefunden!");
                 }
+
+                /** @var int $size */
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 foreach ($formData['sizes'] as $size) {
                     if (SizeRepository::findById($size) === null) {
                         throw new ValidationException("Größe nicht gefunden!");
                     }
                 }
+
+                /** @var int $color */
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 foreach ($formData['colors'] as $color) {
                     if (ColorRepository::findById($color) === null) {
                         throw new ValidationException("Farbe nicht gefunden!");
                     }
                 }
 
-
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 $productType = ProductTypeRepository::create($formData);
 
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 ProductTypeRepository::updateSizeMapping($productType->id, $formData['sizes']);
+                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 ProductTypeRepository::updateColorMapping($productType->id, $formData['colors']);
 
                 header('Location: /admin/productTypes');
@@ -158,15 +197,19 @@ class AdminProductTypesController
     public function assignImages(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
+        /** @phpstan-ignore-next-line secure */
         $productTypeId = intval($_GET['id']);
         $productType = ProductTypeRepository::findById($productTypeId);
         $page = PaginationUtility::getCurrentPage();
+        $assignedImageIds = [];
 
         if ($productType === null) {
             $errorMessage = 'Produkt nicht gefunden!';
+            require_once __DIR__.'/../../views/admin/productTypes/assignImages.php';
+            return;
         }
 
-        $persistentAssignedImageIds = $productType?->getImageIds() ?? [];
+        $persistentAssignedImageIds = $productType->getImageIds();
 
         $assignedImageIds = array_merge($persistentAssignedImageIds, $this->getPreSelectedImageIds());
         $images = ImageRepository::findPaginated($page);
@@ -180,6 +223,10 @@ class AdminProductTypesController
                     ValidationService::validateForm($validationRules);
                     $formData = ValidationService::getFormData();
                     $formData['assigned'] = $formData['assigned'] ?? [];
+                    if (!is_array($formData['assigned'])) {
+                        throw new ValidationException("The assigned images must be an array!");
+                    }
+                    /** @var array<int, int> $newAssignedImageIds */
                     $newAssignedImageIds = array_unique(array_merge($formData['assigned'], $this->getPreSelectedImageIds()));
                     ProductTypeRepository::updateImageMapping($productType->id, $newAssignedImageIds);
                     header('Location: /admin/productTypes');
@@ -191,11 +238,13 @@ class AdminProductTypesController
                     ];
                     ValidationService::validateForm($validationRules);
                     $formData = ValidationService::getFormData();
-                    if (isset($formData['assigned'])) {
+                    if (isset($formData['assigned']) && is_array($formData['assigned'])) {
                         $newPreSelectedSelection = array_merge($formData['assigned'], $this->getPreSelectedImageIds());
                         $uniqueSelection = array_unique($newPreSelectedSelection);
                         $_GET['preSelected'] = implode(',', $uniqueSelection);
                     }
+
+                    /** @phpstan-ignore-next-line Wurde bereits validiert */
                     header('Location: /admin/productTypes/assignImages?'. PaginationUtility::generateSearchLink($formData['pagination']));
                     return;
                 }
@@ -207,12 +256,15 @@ class AdminProductTypesController
         require_once __DIR__.'/../../views/admin/productTypes/assignImages.php';
     }
 
+    /**
+     * @return array<int, int>
+     */
     private function getPreSelectedImageIds(): array
     {
         $preSelectedImageIds = [];
-        if (isset($_GET['preSelected'])) {
+        if (isset($_GET['preSelected']) && is_string($_GET['preSelected'])) {
             $idsAsString = explode(',', $_GET['preSelected']);
-            $convertedToInt = array_map('intval', $idsAsString);
+            $convertedToInt = array_map(fn (string $id) => intval($id), $idsAsString);
             $preSelectedImageIds = array_filter($convertedToInt, fn (int $i) => $i !== 0);
         }
         return $preSelectedImageIds;

@@ -31,11 +31,25 @@ class ProductType
 
     private ?Category $category = null;
 
+    /**
+     * @var array<int, int>|null
+     */
     private ?array $sizeIds = null;
 
+    /**
+     * @var array<int, int>|null
+     */
     private ?array $colorIds = null;
 
+    /**
+     * @var array<int, int>|null
+     */
     private ?array $imageIds = null;
+
+    /**
+     * @var array<int, Image>|null
+     */
+    private ?array $images = null;
 
     /**
      * @return array<int, Color>
@@ -58,7 +72,11 @@ class ProductType
      */
     public function getImages(): array
     {
-        return ImageRepository::findByProductType($this);
+        if ($this->images !== null) {
+            return $this->images;
+        }
+        $this->images = ImageRepository::findByProductType($this);
+        return $this->images;
     }
 
     /**
@@ -112,6 +130,8 @@ class ProductType
             return $this->category;
         }
         $this->category =  CategoryRepository::findById($this->categoryId);
+
+        /** @phpstan-ignore-next-line Die Kategorie ist immer !== null  */
         return $this->category;
     }
 }

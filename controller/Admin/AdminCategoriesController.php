@@ -22,10 +22,14 @@ class AdminCategoriesController
     public function edit(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
+        $errorMessage = null;
+        /** @phpstan-ignore-next-line secure */
         $categoryId = intval($_GET['id']);
         $category = CategoryRepository::findById($categoryId);
         if ($category === null) {
             $errorMessage = 'Kategorie nicht gefunden!';
+            require_once __DIR__.'/../../views/admin/categories/edit.php';
+            return;
         }
 
         $optionalParentCategories = CategoryRepository::findAllWithNoParentNotSelf($categoryId);
@@ -38,6 +42,7 @@ class AdminCategoriesController
             try {
                 ValidationService::validateForm($validationRules);
                 /** @var string $name */
+                /** @var int $parentCategoryId */
                 ['name' => $name, 'parentCategoryId' => $parentCategoryId] = ValidationService::getFormData();
                 $category->name = $name;
 

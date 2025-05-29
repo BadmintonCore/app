@@ -87,7 +87,11 @@ class ProductTypeRepository
         QueryAbstraction::execute("UPDATE productType SET name = :name, categoryId = :categoryId, material = :material, price = :price, description = :description, collection = :collection, careInstructions = :careInstructions, origin = :origin, extraFields = :extraFields WHERE id = :id", $params);
     }
 
-    public static function create(array $formData): ProductType
+    /**
+     * @param array<string, int|bool|string|float|null> $formData
+     * @return ProductType
+     */
+    public static function create(array $formData): ?ProductType
     {
         $params = [
             'name' => $formData['name'],
@@ -110,7 +114,9 @@ class ProductTypeRepository
      */
     public static function updateSizeMapping(int $id, array $sizeIds): void
     {
+
         $existingSizes = QueryAbstraction::fetchManyAs(null, "SELECT sizeId FROM allowedSize WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        /** @var array<int, int> $existingSizeIds */
         $existingSizeIds = array_column($existingSizes, 'sizeId');
 
         $sizesToRemove = array_diff($existingSizeIds, $sizeIds);
@@ -132,6 +138,7 @@ class ProductTypeRepository
     public static function updateColorMapping(int $id, array $colorIds): void
     {
         $existingColors = QueryAbstraction::fetchManyAs(null, "SELECT colorId FROM allowedColor WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        /** @var array<int, int> $existingColorIds */
         $existingColorIds = array_column($existingColors, 'colorId');
 
         $colorsToRemove = array_diff($existingColorIds, $colorIds);
@@ -153,6 +160,7 @@ class ProductTypeRepository
     public static function updateImageMapping(int $id, array $imageIds): void
     {
         $existingImages = QueryAbstraction::fetchManyAs(null, "SELECT imageId FROM productImage WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        /** @var array<int, int> $existingImageIds */
         $existingImageIds = array_column($existingImages, 'imageId');
 
         $imagesToRemove = array_diff($existingImageIds, $imageIds);
