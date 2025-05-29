@@ -2,6 +2,9 @@
 
 namespace Vestis\Controller;
 
+/**
+ * Controller für die Startseite
+ */
 class HomeController
 {
     public function index(): void

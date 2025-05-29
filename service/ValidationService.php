@@ -21,6 +21,7 @@ class ValidationService
      * Validates the current form submission
      *
      * @param array<string, ValidationRule> $params All validation rules
+     * @param string $method
      * @return void
      * @throws ValidationException Thrown if a field is invalid
      */
@@ -69,8 +70,11 @@ class ValidationService
     }
 
     /**
+     * Validates a field whether the contained value is valid or not
+     *
      * @param string $fieldName The name of the field in the request
      * @param ValidationRule $rule The rule that is used for form validation
+     * @param string $method
      * @return void
      * @throws ValidationException Thrown if a field is invalid
      */
@@ -162,6 +166,8 @@ class ValidationService
 
 
     /**
+     * Validates an integer value
+     *
      * @throws ValidationException
      */
     private static function validateInteger(mixed $fieldValue, string $fieldName): void

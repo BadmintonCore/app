@@ -12,6 +12,8 @@ use Vestis\Exception\DatabaseException;
 class QueryAbstraction
 {
     /**
+     * Fetches many entries based on an SQL query
+     *
      * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
      * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
@@ -65,6 +67,8 @@ class QueryAbstraction
     }
 
     /**
+     * Fetches specifically one entry based on an SQL query
+     *
      * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
      * @param string $query The custom SQL query
      * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query

@@ -11,24 +11,25 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
+/**
+ * Controller für Kategorien
+ */
 class CategoriesController
 {
+    /**
+     * Ansicht zum Anzeigen aller Produkte einer Kategorie
+     *
+     * @return void
+     */
     public function index(): void
     {
         $products = [];
         $errorMessage = null;
         $category = null;
 
-        if ($_GET["categoryId"] === null || $_GET["categoryId"] === "") {
-            $errorMessage = "Invalide Kategorie ID";
-            require_once __DIR__.'/../views/categories/categoryList.php';
-            return;
-        }
-        /** @var string|null $categoryIdString */
-        $categoryIdString = $_GET["categoryId"];
-        $categoryId = intval($categoryIdString);
+        $categoryId = intval($_GET["categoryId"]);
         if ($categoryId === 0) {
-            $errorMessage = "Kategorie nicht gefunden";
+            $errorMessage = "Invalide Kategorie ID";
             require_once __DIR__.'/../views/categories/categoryList.php';
             return;
         }
@@ -45,13 +46,13 @@ class CategoriesController
         }
 
 
-
+        // Farben und Größen für Produkte
         $colors = ColorRepository::findByCategory($category);
         $sizes = SizeRepository::findByCategory($category);
         $minMaxPricesResult = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
 
         // Wenn kein Minimalpreis existert, dann existert auch kein Maximalpreis
-        if ($minMaxPricesResult === null || $minMaxPricesResult['min'] === null) {
+        if ($minMaxPricesResult['min'] === null) {
             $errorMessage = "Minimal und Maximal-Preise konnten nicht geladen werden. Möglicherweise existieren keine Produkte zu dieser Kategorie";
             require_once __DIR__.'/../views/categories/categoryList.php';
             return;
@@ -63,17 +64,15 @@ class CategoriesController
         // Es findet also schon eine Validierung statt
         $validationRules = [
             'price' => new ValidationRule(ValidationType::Integer, true),
-            'search' => new ValidationRule(ValidationType::String, true),
+            'search' => new ValidationRule(ValidationType::String, true)
         ];
         try {
 
             ValidationService::validateForm($validationRules, "GET");
-            /** @var int|null $maxAllowedPrice */
-            /** @var string|null $search */
+
             ['price' => $maxAllowedPrice, 'search' => $search] = ValidationService::getFormData();
 
-            /** @var int $maxAllowedPrice */
-            $maxAllowedPrice = $maxAllowedPrice ?? $maxPrice ?? 0;
+            $maxAllowedPrice = $maxAllowedPrice ?? $maxPrice;
             $allowedColors = $this->getFilteredColorIds();
             $allowedSizes = $this->getFilteredSizeIds();
 
@@ -87,6 +86,8 @@ class CategoriesController
 
 
     /**
+     * Holt die Filter-Farben aus den GET-Parametern
+     *
      * @return array<int, int>
      */
     private function getFilteredColorIds(): array
@@ -103,6 +104,8 @@ class CategoriesController
     }
 
     /**
+     * Holt die Filter-Größen aus den GET-Parametern
+     *
      * @return array<int, int>
      */
     private function getFilteredSizeIds(): array

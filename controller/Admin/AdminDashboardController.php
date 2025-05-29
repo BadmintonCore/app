@@ -5,6 +5,9 @@ namespace Vestis\Controller\Admin;
 use Vestis\Database\Models\AccountType;
 use Vestis\Service\AuthService;
 
+/**
+ * Controller für das Dashboard
+ */
 class AdminDashboardController
 {
     public function index(): void

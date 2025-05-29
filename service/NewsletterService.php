@@ -10,6 +10,12 @@ use Vestis\Database\Repositories\NewsletterRepository;
  */
 class NewsletterService
 {
+    /**
+     * Abboniert ein Newsletter
+     *
+     * @param string $email
+     * @return void
+     */
     public static function subscribe(string $email): void
     {
         $newsletterEntry = NewsletterRepository::search($email);
@@ -19,6 +25,12 @@ class NewsletterService
         }
     }
 
+    /**
+     * Deabboniert ein Newsletter
+     *
+     * @param string $email
+     * @return void
+     */
     public static function unsubscribe(string $email): void
     {
         $newsletterEntry = NewsletterRepository::search($email);

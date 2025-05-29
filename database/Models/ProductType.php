@@ -7,6 +7,9 @@ use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ImageRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
+/**
+ * Das Modell für einen Produkttyp in der DB
+ */
 class ProductType
 {
     public int $id;
@@ -52,6 +55,8 @@ class ProductType
     private ?array $images = null;
 
     /**
+     * Gibt alle Farben, die für einen Produkttyp existieren zurück
+     *
      * @return array<int, Color>
      */
     public function getColors(): array
@@ -60,6 +65,8 @@ class ProductType
     }
 
     /**
+     * Gibt alle Größen, die für einen Produkttyp existieren zurück
+     *
      * @return array<int, Size>
      */
     public function getSizes(): array
@@ -68,6 +75,8 @@ class ProductType
     }
 
     /**
+     * Gibt alle Bilder, die für einen Produkttyp existieren zurück
+     *
      * @return array<int, Image>
      */
     public function getImages(): array
@@ -80,6 +89,8 @@ class ProductType
     }
 
     /**
+     * Gibt alle Größen-IDs, die für einen Produkttyp existieren zurück
+     *
      * @return array<int, int>
      */
     public function getSizeIds(): array
@@ -95,6 +106,8 @@ class ProductType
     }
 
     /**
+     * Gibt alle Farb-IDs, die für einen Produkttyp existieren zurück
+     *
      * @return array<int, int>
      */
     public function getColorIds(): array
@@ -110,6 +123,8 @@ class ProductType
     }
 
     /**
+     * Gibt alle Bild-IDs, die für einen Produkttyp existieren zurück
+     *
      * @return array<int, int>
      */
     public function getImageIds(): array
@@ -124,6 +139,11 @@ class ProductType
         return $this->imageIds;
     }
 
+    /**
+     * Gibt die Kategorie eines Produkttyps zurück
+     *
+     * @return Category
+     */
     public function getCategory(): Category
     {
         if ($this->category !== null) {

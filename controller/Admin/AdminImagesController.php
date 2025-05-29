@@ -11,8 +11,16 @@ use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 use Vestis\Utility\PaginationUtility;
 
+/**
+ * Controller für die Admin-Panel-Bilder Ansichten
+ */
 class AdminImagesController
 {
+    /**
+     * Listet alle Bilder auf mit einer Pagination
+     *
+     * @return void
+     */
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -22,6 +30,11 @@ class AdminImagesController
         require_once __DIR__.'/../../views/admin/images/list.php';
     }
 
+    /**
+     * Ansicht zum Erstellen eines Bildes
+     *
+     * @return void
+     */
     public function create(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -34,23 +47,23 @@ class AdminImagesController
             try {
                 ValidationService::validateForm($validationRules);
 
-                /** @var array<string, string|int|array<string, int|string>> $formData */
                 $formData = ValidationService::getFormData();
 
-                if (!is_array($formData['image'])) {
-                    throw new ValidationException("Provided image must be an array");
-                }
-
-                /** @var string $originalName */
                 $originalName = $formData['image']['name'];
-                /** @var string $tmpFile */
+
                 $tmpFile = $formData['image']['tmp_name'];
+
+                // Der Name unter dem die Datei zukünftig gespeichert wird
                 $uniqueName = uniqid('img_', true) . '.' . pathinfo($originalName, PATHINFO_EXTENSION);
+
+                // Der Speicherort der Datei
                 $destination = __DIR__ . '/../../public/uploads/' . $uniqueName;
+
+                // Vom Temp-Order in den uploads ordner
                 move_uploaded_file($tmpFile, $destination);
 
-                /** @phpstan-ignore-next-line Wurde bereits validiert */
                 ImageRepository::create($formData['name'], '/uploads/' . $uniqueName);
+
                 header('Location: /admin/images');
                 return;
 
@@ -62,12 +75,18 @@ class AdminImagesController
         require_once __DIR__.'/../../views/admin/images/create.php';
     }
 
+    /**
+     * Ansicht um ein Bild anzuzeigen
+     *
+     * @return void
+     */
     public function view(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
-        /** @phpstan-ignore-next-line secure */
+
         $imageId = intval($_GET['id']);
         $image = ImageRepository::findById($imageId);
+
         if ($image === null) {
             $errorMessage = 'Bild nicht gefunden!';
         }

@@ -6,6 +6,9 @@ use Vestis\Database\Models\Account;
 use Vestis\Database\Models\AccountType;
 use Vestis\Exception\DatabaseException;
 
+/**
+ * Repository für @see Account
+ */
 class AccountRepository
 {
     /**
@@ -132,6 +135,12 @@ class AccountRepository
         return QueryAbstraction::fetchOneAs(Account::class, "SELECT * FROM account WHERE email = :email", ["email" => $email]);
     }
 
+    /**
+     * Löscht einen Account
+     *
+     * @param int $id die ID des Account, der gelöscht werden soll
+     * @return void
+     */
     public static function deleteById(int $id): void
     {
         QueryAbstraction::execute("DELETE FROM account WHERE id = :id", ["id" => $id]);
