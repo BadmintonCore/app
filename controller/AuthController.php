@@ -36,9 +36,8 @@ class AuthController
                 /** @var bool $rememberMe */
                 ['username' => $username, 'password' => $password, 'rememberMe' => $rememberMe] = ValidationService::getFormData();
 
-                if($rememberMe === null){
-                    $rememberMe = false;
-                }
+                /**@phpstan-ignore-next-line Alle Parameter wurden bereits gecheckt.*/
+                $rememberMe = $rememberMe ?? false;
 
                 // Login the user with the given credentials in $_POST
                 AuthService::loginUser($username, $password, $rememberMe);

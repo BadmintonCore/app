@@ -112,7 +112,7 @@ class AuthService
         if (!password_verify($password, $account->password)) {
             throw new AuthException("wrong password");
         }
-        if($rememberMe){
+        if ($rememberMe) {
             self::createUserAccountSessionWithLongDuration($account);
         } else {
             self::createUserAccountSession($account);
