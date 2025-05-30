@@ -65,7 +65,7 @@ class ShoppingCartItemDto
         }
         $this->color =  ColorRepository::findById($this->colorId);
 
-        /** @phpstan-ignore-next-line Die Größe ist immer !== null  */
+        /** @phpstan-ignore-next-line Die Farbe ist immer !== null  */
         return $this->color;
     }
 }

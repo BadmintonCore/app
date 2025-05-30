@@ -41,6 +41,7 @@ class ProductController
             return;
         }
 
+        //Verarbeitung des "Zum Warenkorb"-Buttons
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $validationRules = [
                 'size' => new ValidationRule(ValidationType::Integer),
@@ -50,15 +51,22 @@ class ProductController
 
             try {
 
-                $account = AuthService::$currentAccount;
-
                 // Validate form
                 ValidationService::validateForm($validationRules);
 
                 $formData = ValidationService::getFormData();
 
+                $account = AuthService::$currentAccount;
+
                 if ($account !== null) {
-                    ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
+
+                    //Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
+                    $pieces = ShoppingCartRepository::getAmountOfProducts($itemId, $formData["size"], $formData["color"]);
+
+                    //Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
+                    if ($pieces >= $formData["quantity"]) {
+                        ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
+                    }
                 }
 
             } catch (ValidationException $e) {
