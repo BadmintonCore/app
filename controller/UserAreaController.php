@@ -3,6 +3,7 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\Account;
+use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Exception\AuthException;
 use Vestis\Exception\LogicException;
 use Vestis\Service\AccountService;
@@ -10,6 +11,7 @@ use Vestis\Database\Models\AccountType;
 use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -19,10 +21,21 @@ use Vestis\Service\ValidationService;
  */
 class UserAreaController
 {
+
+    /**
+     * @throws ValidationException
+     */
     public function shoppingCart(): void
     {
         AuthService::checkAccess(AccountType::Customer);
+        AuthService::setCurrentUserAccountSessionFromCookie();
+
+        $account = AuthService::$currentAccount;
+
+        $groupedProducts = ShoppingCartRepository::getAllProducts($account);
+
         require_once __DIR__ . '/../views/user-area/shoppingCart.php';
+
     }
 
     //Author: Lasse Hoffmann
@@ -46,6 +59,7 @@ class UserAreaController
                 //Den neuen Nutzer setzen
                 AuthService::setCurrentUserAccountSessionFromCookie();
 
+
             } catch (ValidationException|AuthException|LogicException|DatabaseException $e) {
                 // Setzt alle exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
@@ -57,6 +71,25 @@ class UserAreaController
     public function wishlist(): void
     {
         require_once __DIR__ . '/../views/user-area/wishlist.php';
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function removeShoppingCartItem(){
+        AuthService::checkAccess(AccountType::Customer);
+        $validationRules = [
+            'productTypeId' => new ValidationRule(ValidationType::Integer),
+            'sizeId' => new ValidationRule(ValidationType::Integer),
+            'colorId' => new ValidationRule(ValidationType::Integer),
+        ];
+            // Validate form
+            ValidationService::validateForm($validationRules, "GET");
+            $formData = ValidationService::getFormData();
+
+            ShoppingCartRepository::remove(AuthService::$currentAccount, $formData['productTypeId'], $formData['sizeId'], $formData['colorId']);
+
+        header("location: /user-area/shoppingCart");
     }
 
 }

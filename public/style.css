@@ -266,6 +266,23 @@ header ul li:hover ul {
     color: var(--text-color);
 }
 
+.cart-container {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 /* ================================================
                    Main-Content
 ===================================================*/

@@ -4,6 +4,7 @@ namespace Vestis\Controller;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\AccountRepository;
+use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Exception\AuthException;
 use Vestis\Exception\DatabaseException;
 use Vestis\Exception\DatabaseExceptionReason;
@@ -13,6 +14,7 @@ use Vestis\Service\AccountService;
 use Vestis\Service\AuthService;
 use Vestis\Service\EmailService;
 use Vestis\Service\NewsletterService;
+use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -94,6 +96,9 @@ class AuthController
                 $formData = ValidationService::getFormData();
 
                 $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password']);
+
+                //Erstellt den zugehörigen Warenkorb für einen Nutzer
+                ShoppingCartRepository::create($account->id);
 
                 if (null === $account) {
                     $validationError = "Cannot create an account";
