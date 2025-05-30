@@ -57,7 +57,9 @@ class ProductController
 
                 $formData = ValidationService::getFormData();
 
-                ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
+                if ($account !== null) {
+                    ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
+                }
 
             } catch (ValidationException $e) {
                 // Setzt alle exceptions, die dann im frontend angezeigt werden

@@ -34,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            <?php if (!empty($groupedProducts)): ?>
+            <?php if (count($groupedProducts) >= 1): ?>
                 <?php foreach ($groupedProducts as $product): ?>
                     <tr>
                         <td><?= $product->getProductType()->name ?></td>
@@ -60,16 +60,16 @@
 
         $price = 0;
 
-        foreach ($groupedProducts as $product):
+    foreach ($groupedProducts as $product):
 
-            $price += $product->getProductType()->price * $product->count;
+        $price += $product->getProductType()->price * $product->count;
 
-        endforeach;
+    endforeach;
 
-        echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / (1.19), 2, ',', '.') . "</span></h4>";
-        echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '.') . "</span></h4>";
+    echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / (1.19), 2, ',', '.') . "</span></h4>";
+    echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '.') . "</span></h4>";
 
-        ?>
+    ?>
         <button type="submit" class="btn" id="payButton">Zur Kasse</button>
     </div>
 </main>

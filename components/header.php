@@ -27,7 +27,7 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
                             <?php foreach ($parentCategory->getChildCategories() as $childCategory): ?>
                             <?php
                             $uri = sprintf('/categories?categoryId=%s&%s=%s', $childCategory->id, BreadcrumbsUtility::FIELD_NAME, BreadcrumbsUtility::generateCategoryBreadcrumbsBase64($childCategory));
-                            ?>
+                                ?>
                             <li><a href="<?= $uri ?>"><?= $childCategory->name ?></a>
                                 <?php endforeach; ?>
                         </ul>
@@ -62,9 +62,15 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
                     </svg>
                 </a>
                 <?php
-                $quantityItems = ShoppingCartRepository::getCountOfItems(AuthService::$currentAccount);
+                $account = AuthService::$currentAccount ?? null;
+            $quantityItems = null;
+            $hiddenAttr = "";
+
+            if ($account !== null) {
+                $quantityItems = ShoppingCartRepository::getCountOfItems($account);
                 $hiddenAttr = $quantityItems === 0 ? "hidden='hidden'" : "";
-                ?>
+            }
+            ?>
                 <span class="cart-badge" <?= $hiddenAttr ?>>
                 <?= $quantityItems === 0 ? '' : $quantityItems ?>
                 </span>
@@ -113,8 +119,8 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
                         <ul>
                             <?php foreach ($parentCategory->getChildCategories() as $childCategory): ?>
                             <?php
-                            $uri = sprintf('/categories?categoryId=%s&%s=%s', $childCategory->id, BreadcrumbsUtility::FIELD_NAME, BreadcrumbsUtility::generateCategoryBreadcrumbsBase64($childCategory));
-                            ?>
+                        $uri = sprintf('/categories?categoryId=%s&%s=%s', $childCategory->id, BreadcrumbsUtility::FIELD_NAME, BreadcrumbsUtility::generateCategoryBreadcrumbsBase64($childCategory));
+                                ?>
                             <li><a href="<?= $uri ?>"><?= $childCategory->name ?></a>
                                 <?php endforeach; ?>
                         </ul>

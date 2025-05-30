@@ -97,14 +97,14 @@ class AuthController
 
                 $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password']);
 
-                //Erstellt den zugehörigen Warenkorb für einen Nutzer
-                ShoppingCartRepository::create($account->id);
-
                 if (null === $account) {
                     $validationError = "Cannot create an account";
                     require_once __DIR__ . '/../views/auth/registration.php';
                     return;
                 }
+
+                //Erstellt den zugehörigen Warenkorb für einen Nutzer
+                ShoppingCartRepository::create($account->id);
 
                 if ($formData['newsletter'] === true) {
                     NewsletterService::subscribe($account->email);

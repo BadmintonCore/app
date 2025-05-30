@@ -15,14 +15,14 @@ use Vestis\Database\Models\ShoppingCart;
  */
 class ShoppingCartRepository
 {
-    public static function create($accId): void
+    public static function create(int $accountId): void
     {
 
         $params = [
-            'accId' => $accId,
+            'accountId' => $accountId,
         ];
 
-        QueryAbstraction::execute("INSERT INTO shoppingCart (accId) VALUES (:accId)", $params);
+        QueryAbstraction::execute("INSERT INTO shoppingCart (accId) VALUES (:accountId)", $params);
     }
 
     public static function add(Account $account, int $itemId, int $size, int $color, int $quantity): void
@@ -60,14 +60,15 @@ class ShoppingCartRepository
         QueryAbstraction::execute("UPDATE product SET shoppingCartId = NULL WHERE productTypeId = :itemId AND shoppingCartId = :accountId  AND colorId = :color AND sizeId = :size AND boughtAt IS NULL", $params);
     }
 
+    /** @return ShoppingCartItemDto[] */
     public static function getAllProducts(Account $account): array
     {
         return QueryAbstraction::fetchManyAs(ShoppingCartItemDto::class, "SELECT product.*, COUNT(productTypeId) AS count FROM product WHERE shoppingCartId = :accountId AND boughtAt IS NULL GROUP BY productTypeId, colorId, sizeId", ["accountId" => $account->id]);
     }
 
-    public static function getCountOfItems(Account $account): int {
-        $row = QueryAbstraction::fetchOneAs(null,
-            "SELECT COUNT(*) AS count FROM (SELECT 1 FROM product WHERE shoppingCartId = :accountId AND boughtAt IS NULL GROUP BY productTypeId, colorId, sizeId) AS sub", ["accountId" => $account->id]);
+    public static function getCountOfItems(Account $account): int
+    {
+        $row = QueryAbstraction::fetchOneAs(null, "SELECT COUNT(*) AS count FROM product WHERE shoppingCartId = :accountId AND boughtAt IS NULL", ["accountId" => $account->id]);
 
         return (int)($row['count'] ?? 0);
     }

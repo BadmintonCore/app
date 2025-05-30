@@ -36,7 +36,8 @@ class ShoppingCartItemDto
 
     private ?Color $color = null;
 
-    public function getProductType(): ProductType{
+    public function getProductType(): ProductType
+    {
         if ($this->productType !== null) {
             return $this->productType;
         }
@@ -46,7 +47,8 @@ class ShoppingCartItemDto
         return $this->productType;
     }
 
-    public function getSize(): Size{
+    public function getSize(): Size
+    {
         if ($this->size !== null) {
             return $this->size;
         }
@@ -56,7 +58,8 @@ class ShoppingCartItemDto
         return $this->size;
     }
 
-    public function getColor(): Color{
+    public function getColor(): Color
+    {
         if ($this->color !== null) {
             return $this->color;
         }

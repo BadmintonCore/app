@@ -21,7 +21,6 @@ use Vestis\Service\ValidationService;
  */
 class UserAreaController
 {
-
     /**
      * @throws ValidationException
      */
@@ -32,7 +31,9 @@ class UserAreaController
 
         $account = AuthService::$currentAccount;
 
-        $groupedProducts = ShoppingCartRepository::getAllProducts($account);
+        if ($account !== null) {
+            $groupedProducts = ShoppingCartRepository::getAllProducts($account);
+        }
 
         require_once __DIR__ . '/../views/user-area/shoppingCart.php';
 
@@ -76,18 +77,23 @@ class UserAreaController
     /**
      * @throws ValidationException
      */
-    public function removeShoppingCartItem(){
+    public function removeShoppingCartItem(): void
+    {
         AuthService::checkAccess(AccountType::Customer);
         $validationRules = [
             'productTypeId' => new ValidationRule(ValidationType::Integer),
             'sizeId' => new ValidationRule(ValidationType::Integer),
             'colorId' => new ValidationRule(ValidationType::Integer),
         ];
-            // Validate form
-            ValidationService::validateForm($validationRules, "GET");
-            $formData = ValidationService::getFormData();
+        // Validate form
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
 
-            ShoppingCartRepository::remove(AuthService::$currentAccount, $formData['productTypeId'], $formData['sizeId'], $formData['colorId']);
+        $account = AuthService::$currentAccount;
+
+        if ($account !== null) {
+            ShoppingCartRepository::remove($account, $formData['productTypeId'], $formData['sizeId'], $formData['colorId']);
+        }
 
         header("location: /user-area/shoppingCart");
     }
