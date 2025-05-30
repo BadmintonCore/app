@@ -22,7 +22,17 @@ use Vestis\Database\Models\ProductType;
         <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
         <?php if (count($product->getImages()) > 0) : ?>
-        <img src="<?= $product->getImages()[0]->path ?>" alt="<?= $product->getImages()[0]->name ?>" />
+            <div class="carousel">
+                <div class="carousel-track">
+                    <?php foreach ($product->getImages() as $image) : ?>
+                    <img src="<?= $image->path ?>" alt="<?= $image->name ?>" class="carousel-image" />
+                    <?php endforeach; ?>
+                </div>
+                <div class="button-row">
+                    <button class="prev">&#10094;</button>
+                    <button class="next">&#10095;</button>
+                </div>
+            </div>
         <?php endif; ?>
         <div class="info">
             <h1 id="nameText"><?= $product->name ?></h1>
