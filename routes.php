@@ -13,6 +13,7 @@ use Vestis\Controller\CustomerServiceController;
 use Vestis\Controller\HomeController;
 use Vestis\Controller\LegalController;
 use Vestis\Controller\ProductController;
+use Vestis\Controller\SystemController;
 use Vestis\Controller\UserAreaController;
 use Vestis\Controller\YourPurchaseController;
 use Vestis\Controller\NewsletterController;
@@ -63,4 +64,5 @@ return [
     '/admin/images' => [AdminImagesController::class, 'index'],
     '/admin/images/create' => [AdminImagesController::class, 'create'],
     '/admin/images/view' => [AdminImagesController::class, 'view'],
+    '/system/exchangeRates' => [SystemController::class, 'getExchangeRates'],
 ];

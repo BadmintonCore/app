@@ -21,15 +21,24 @@ use Vestis\Database\Models\ProductType;
             <!--Breadcrumbs-->
             <?php include(__DIR__ . "/../../components/breadcrumbs.php"); ?>
 
-            <?php if (count($product->getImages()) > 0) : ?>
-                <img src="<?= $product->getImages()[0]->path ?>" alt="<?= $product->getImages()[0]->name ?>"/>
-            <?php endif; ?>
-
-            <div class="info">
-                <h1 id="nameText"><?= $product->name ?></h1>
-                <h5><?= $product->description ?></h5>
-                <h2 class="price-field" id="priceText"><?= $product->price ?><small class="fee-field">&nbsp;inkl.
-                        19% MwSt.</small></h2>
+        <?php if (count($product->getImages()) > 0) : ?>
+            <div class="carousel">
+                <div class="carousel-track">
+                    <?php foreach ($product->getImages() as $image) : ?>
+                    <img src="<?= $image->path ?>" alt="<?= $image->name ?>" class="carousel-image" />
+                    <?php endforeach; ?>
+                </div>
+                <div class="button-row">
+                    <button class="prev">&#10094;</button>
+                    <button class="next">&#10095;</button>
+                </div>
+            </div>
+        <?php endif; ?>
+        <div class="info">
+            <h1 id="nameText"><?= $product->name ?></h1>
+            <h5><?= $product->description ?></h5>
+            <h2 class="price-field" id="priceText"><?= $product->price ?><small class="fee-field">&nbsp;inkl.
+                    19% MwSt.</small></h2>
 
                 <!-- Form für die Wishlist/Warenkorb/Order -->
                 <form class="flex-align-left" id="itemIdForm" method="post">

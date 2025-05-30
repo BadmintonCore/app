@@ -1,16 +1,24 @@
 const sidebarToggler = document.getElementById("sidebarDrawerToggler");
 const sidebarDrawer = document.getElementById("sidebarDrawer");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
-const sidebarClose = document.getElementById("sidebarClose")
+const sidebarClose = document.getElementById("sidebarClose");
 
-sidebarToggler.addEventListener("click", () => {
-    sidebarDrawer.classList.toggle("open");
+function openSidebar() {
+    sidebarDrawer.classList.remove("closed");
+    sidebarDrawer.classList.add("open");
     sidebarOverlay.classList.toggle("open");
-});
+}
+
+function closeSidebar() {
+    sidebarDrawer.classList.remove("open");
+    sidebarDrawer.classList.add("closed");
+    sidebarOverlay.classList.toggle("open");
+}
+
+sidebarToggler.addEventListener("click", () => openSidebar());
 
 sidebarClose.addEventListener("click", () => {
-    sidebarDrawer.classList.toggle("open");
-    sidebarOverlay.classList.toggle("open");
+    closeSidebar();
 });
 
 document.addEventListener("click", (e) => {
@@ -20,7 +28,6 @@ document.addEventListener("click", (e) => {
        && !(sidebarDrawer.contains(e.target) || sidebarDrawer === e.target)
        && !(sidebarToggler.contains(e.target) || sidebarToggler === e.target)
    ) {
-       sidebarDrawer.classList.remove("open");
-       sidebarOverlay.classList.remove("open");
+       closeSidebar();
    }
 });
