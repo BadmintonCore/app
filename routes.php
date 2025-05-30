@@ -5,6 +5,7 @@ use Vestis\Controller\Admin\AdminCategoriesController;
 use Vestis\Controller\Admin\AdminColorsController;
 use Vestis\Controller\Admin\AdminDashboardController;
 use Vestis\Controller\Admin\AdminImagesController;
+use Vestis\Controller\Admin\AdminProductController;
 use Vestis\Controller\Admin\AdminProductTypesController;
 use Vestis\Controller\Admin\AdminSizesController;
 use Vestis\Controller\AuthController;
@@ -60,6 +61,7 @@ return [
     '/admin/productTypes/edit' => [AdminProductTypesController::class, 'edit'],
     '/admin/productTypes/create' => [AdminProductTypesController::class, 'create'],
     '/admin/productTypes/assignImages' => [AdminProductTypesController::class, 'assignImages'],
+    '/admin/productTypes/instances' => [AdminProductController::class, 'index'],
     '/admin/images' => [AdminImagesController::class, 'index'],
     '/admin/images/create' => [AdminImagesController::class, 'create'],
     '/admin/images/view' => [AdminImagesController::class, 'view'],

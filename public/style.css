@@ -1153,6 +1153,11 @@ nav:has(.breadcrumbs) {
     align-self: flex-start;
 }
 
+.button-row.justify-center {
+    justify-content: center;
+    width: 100%;
+}
+
 /*Setzt den Style für die beiden Buttons "Login" und "Warenkorb" im Header*/
 .button-row-center {
     position: relative;
