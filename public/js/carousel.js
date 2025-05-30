@@ -10,7 +10,7 @@ function updateCarousel() {
     track.style.transform = `translateX(${offset}px)`;
 }
 
-if (prevButton && nextButton) {
+if (prevButton && nextButton && track) {
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + images.length) % images.length;
