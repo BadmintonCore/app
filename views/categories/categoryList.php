@@ -154,6 +154,7 @@ use Vestis\Utility\BreadcrumbsUtility;
 </script>
 
 <?php include(__DIR__."/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/cookieCheck.php"); ?>
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>

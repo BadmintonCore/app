@@ -7,6 +7,7 @@
     <title>vestis. - Einloggen</title>
     <!--Reference to authValidation.js-->
     <script src="/js/authValidation.js" defer></script>
+    <!--Reference to cookieCheck.js-->
 </head>
 <body>
 

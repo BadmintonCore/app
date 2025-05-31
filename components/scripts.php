@@ -6,3 +6,4 @@
 <script src="/js/breadCrumbs.js" defer></script>
 <script src="/js/toggleBreadCrumbs.js" defer></script>
 <script src="/js/carousel.js" defer></script>
+<script src="/js/cookieCheck.js" defer></script>
