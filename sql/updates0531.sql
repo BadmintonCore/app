@@ -5,4 +5,8 @@ CREATE TABLE orders (
     status VARCHAR(255) NOT NULL
 );
 
-ALTER TABLE product ADD COLUMN orderId INTEGER REFERENCES orders(id);
+CREATE TABLE orderProduct (
+    orderId INTEGER REFERENCES orders(id),
+    productId INTEGER REFERENCES product(id),
+    PRIMARY KEY (orderId, productId)
+);

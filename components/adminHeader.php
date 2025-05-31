@@ -19,6 +19,12 @@
                     <a href="/admin/images">Bilder</a>
                 </ul>
             </li>
+            <li>
+                Bewegungsdaten
+                <ul>
+                    <a href="/admin/orders">Aufträge</a>
+                </ul>
+            </li>
         </ul>
     </nav>
     <a class="logo-link" href="/">

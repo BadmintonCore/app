@@ -27,7 +27,7 @@ class ProductRepository
 
     public static function findForOrder(int $orderId): array
     {
-        return QueryAbstraction::fetchManyAs(Product::class, "SELECT * FROM product WHERE orderId = :orderId", ["orderId" => $orderId]);
+        return QueryAbstraction::fetchManyAs(Product::class, "SELECT * FROM product JOIN orderProduct op ON product.id = op.productId WHERE op.orderId = :orderId", ["orderId" => $orderId]);
     }
 
     public static function create(int $productTypeId, int $colorId, int $sizeId, int $quantity): void
@@ -66,13 +66,14 @@ class ProductRepository
     public static function assignToOrder(int $accountId, int $orderId, array $products): void
     {
         foreach ($products as $product) {
-            $params = [
-                "accId" => $accountId,
-                "orderId" => $orderId,
-                "productTypeId" => $product->productTypeId,
-                "boughtPrice" => $product->getProductType()->price,
-            ];
-        QueryAbstraction::execute("UPDATE product SET orderId = :orderId, boughtAt = NOW(), accId = :accId, shoppingCartId = NULL,  boughtPrice = :boughtPrice WHERE productTypeId = :productTypeId AND shoppingCartId = :accId AND orderId IS NULL", $params);
+            $productsToUpdate = QueryAbstraction::fetchManyAs(Product::class, "SELECT * FROM product WHERE productTypeId = :productTypeId AND shoppingCartId = :accId AND accId IS NULL", ["productTypeId" => $product->productTypeId, "accId" => $accountId]);
+
+            $productIds = array_map(fn (Product $product) => $product->id, $productsToUpdate);
+
+            QueryAbstraction::execute("UPDATE product SET boughtAt = NOW(), accId = :accId, shoppingCartId = NULL,  boughtPrice = :boughtPrice WHERE id IN :productIds", ["accId" => $accountId, "boughtPrice" => $product->getProductType()->price, "productIds" => $productIds]);
+            foreach ($productIds as $productId) {
+                QueryAbstraction::execute("INSERT INTO orderProduct (orderId, productId) VALUES (:orderId, :productId)", ["orderId" => $orderId, "productId" => $productId]);
+            }
         }
     }
 }

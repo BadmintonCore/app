@@ -5,6 +5,7 @@ use Vestis\Controller\Admin\AdminCategoriesController;
 use Vestis\Controller\Admin\AdminColorsController;
 use Vestis\Controller\Admin\AdminDashboardController;
 use Vestis\Controller\Admin\AdminImagesController;
+use Vestis\Controller\Admin\AdminOrderController;
 use Vestis\Controller\Admin\AdminProductController;
 use Vestis\Controller\Admin\AdminProductTypesController;
 use Vestis\Controller\Admin\AdminSizesController;
@@ -68,5 +69,6 @@ return [
     '/admin/images' => [AdminImagesController::class, 'index'],
     '/admin/images/create' => [AdminImagesController::class, 'create'],
     '/admin/images/view' => [AdminImagesController::class, 'view'],
+    '/admin/orders' => [AdminOrderController::class, 'index'],
     '/system/exchangeRates' => [SystemController::class, 'getExchangeRates'],
 ];
