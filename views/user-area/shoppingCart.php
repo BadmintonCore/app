@@ -69,16 +69,14 @@
     echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / (1.19), 2, ',', '.') . "</span></h4>";
     echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '.') . "</span></h4>";
 
+    if (count($groupedProducts) > 0):
     ?>
-        <button type="submit" class="btn" id="payButton">Zur Kasse</button>
+        <a href="/user-area/shoppingCart/purchase" class="btn" id="payButton">Bestellen</a>
+        <?php endif; ?>
     </div>
 </main>
 <?php include(__DIR__ . "/../../components/footer.php"); ?>
 <?php include(__DIR__ . "/../../components/scripts.php"); ?>
-<script src="/js/shoppingCart.js"></script>
-<script>
-    renderShoppingCart();
-</script>
 </body>
 </html>
 <!-- Author: Mathis Burger -->

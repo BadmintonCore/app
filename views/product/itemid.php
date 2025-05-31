@@ -104,7 +104,7 @@ use Vestis\Database\Models\ProductType;
                         </button>
 
                         <div class="button-row">
-                            <button type="submit" class="btn" name="buy_direct" id="orderButton">
+                            <button type="submit" class="btn" id="orderButton" name="buyDirect">
                                 Direkt bestellen
                             </button>
                             <button type="submit" class="btn secondary" id="addToCartButton">

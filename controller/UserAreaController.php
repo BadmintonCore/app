@@ -98,4 +98,16 @@ class UserAreaController
         header("location: /user-area/shoppingCart");
     }
 
+    public function purchase(): void
+    {
+        AuthService::checkAccess(AccountType::Customer);
+        $quantityItemsCount = ShoppingCartRepository::getCountOfItems(AuthService::$currentAccount);
+        if ($quantityItemsCount === 0) {
+            throw new LogicException("Dein Warenkorb ist leer");
+        }
+
+        throw new LogicException("Logik ist noch nicht implementiert");
+
+    }
+
 }

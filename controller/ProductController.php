@@ -69,6 +69,12 @@ class ProductController
                     }
                 }
 
+                // Wenn der direkt bestellen Button gedrückt wurde
+                if (isset($_POST['buyDirect'])) {
+                    header('Location: /user-area/shoppingCart');
+                    return;
+                }
+
             } catch (ValidationException $e) {
                 // Setzt alle exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
