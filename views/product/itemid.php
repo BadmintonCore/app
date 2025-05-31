@@ -138,7 +138,7 @@ use Vestis\Database\Models\ProductType;
                     /** @var array<string, int|float|string> $extraFields */
                     $extraFields = json_decode($product->extraFields, true);
 
-        ?>
+?>
                     <?php foreach (array_keys($extraFields) as $field): ?>
                         <tr>
                             <td><?= $field ?></td>
