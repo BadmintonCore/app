@@ -40,6 +40,7 @@ return [
     '/legal/privacypolicy' => [LegalController::class, 'privacy'],
     '/legal/revocation' => [LegalController::class, 'revocation'],
     '/user-area/shoppingCart' => [UserAreaController::class, 'shoppingCart'],
+    '/user-area/shoppingCart/delete' => [UserAreaController::class, 'removeShoppingCartItem'],
     '/user-area/user' => [UserAreaController::class, 'user'],
     '/user-area/wishlist' => [UserAreaController::class, 'wishlist'],
     '/your-purchase/order' => [YourPurchaseController::class, 'order'],
