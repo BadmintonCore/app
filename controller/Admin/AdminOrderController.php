@@ -3,7 +3,9 @@
 namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
+use Vestis\Database\Models\OrderStatus;
 use Vestis\Database\Repositories\OrderRepository;
+use Vestis\Exception\LogicException;
 use Vestis\Service\AuthService;
 use Vestis\Utility\PaginationUtility;
 
@@ -14,10 +16,22 @@ class AdminOrderController
     {
         AuthService::checkAccess(AccountType::Administrator);
 
-        $page = PaginationUtility::getCurrentPage();
-        $orders = OrderRepository::findPaginated($page, 25);
+        if (!isset($_GET['status'])) {
+            header('Location: /admin/orders?status=' . OrderStatus::PaymentPending->value);
+            return;
+        }
 
-        require_once __DIR__ . '/../../views/admin/orders/list.php';
+        $status = OrderStatus::tryFrom($_GET['status']);
+        if (null === $status) {
+            throw new LogicException("Der Status ist nicht zulässig.");
+        }
+
+
+
+        $page = PaginationUtility::getCurrentPage();
+        $orders = OrderRepository::findPaginatedWithStatus($status, $page, 25);
+
+        require_once __DIR__ . '/../../views/shared/orders.php';
     }
 
 }

@@ -7,22 +7,31 @@ use Vestis\Database\Repositories\OrderRepository;
 use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Exception\AuthException;
+use Vestis\Exception\EmailException;
 use Vestis\Exception\LogicException;
 use Vestis\Service\AccountService;
 use Vestis\Database\Models\AccountType;
 use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\EmailService;
 use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
+use Vestis\Utility\PaginationUtility;
 
 /**
  * Controller für den Kundenbereich
  */
 class UserAreaController
 {
+
+    public function index(): void
+    {
+        header('Location: /user-area/user');
+    }
+
     /**
      * @throws ValidationException
      */
@@ -100,6 +109,10 @@ class UserAreaController
         header("location: /user-area/shoppingCart");
     }
 
+    /**
+     * @throws EmailException
+     * @throws LogicException
+     */
     public function purchase(): void
     {
         AuthService::checkAccess(AccountType::Customer);
@@ -111,8 +124,9 @@ class UserAreaController
         $order = OrderRepository::create(AuthService::$currentAccount, 'Zahlung ausstehend');
         $shoppingCartItems = ShoppingCartRepository::getAllProducts(AuthService::$currentAccount);
         ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
+        EmailService::sendOrderConfirmation($order);
 
-        //header("location: /user-area/orders");
+        header("location: /user-area/orders");
     }
 
 }

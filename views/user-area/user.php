@@ -26,6 +26,8 @@ use Vestis\Service\AuthService;
 
     <form class="form-box" id="userForm" method="post">
 
+        <a href="/user-area/orders" class="btn btn-sm">Aufträge.</a>
+
         <h1>Benutzerbereich</h1>
         <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
 

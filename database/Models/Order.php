@@ -17,9 +17,25 @@ class Order
 
     private ?Account $account = null;
 
+    private ?array $products = null;
+
+    /**
+     * @return array<int, Product>
+     */
     public function getProducts(): array
     {
-        return ProductRepository::findForOrder($this->id);
+        if ($this->products !== null) {
+            return $this->products;
+        }
+        $this->products = ProductRepository::findForOrder($this->id);
+        return $this->products;
+    }
+
+    public function getOrderSum(): float
+    {
+        return array_reduce($this->getProducts(), function (float $sum, Product $product): float {
+            return $sum + ($product->boughtPrice ?? 0);
+        }, 0.0);
     }
 
     public function getAccount(): Account

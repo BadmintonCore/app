@@ -21,7 +21,7 @@ class Product
 
     public ?string $boughtAt = null;
 
-    public ?int $boughtPrice = null;
+    public ?float $boughtPrice = null;
 
     public ?int $orderId = null;
 

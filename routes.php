@@ -14,6 +14,7 @@ use Vestis\Controller\CategoriesController;
 use Vestis\Controller\CustomerServiceController;
 use Vestis\Controller\HomeController;
 use Vestis\Controller\LegalController;
+use Vestis\Controller\OrderController;
 use Vestis\Controller\ProductController;
 use Vestis\Controller\SystemController;
 use Vestis\Controller\UserAreaController;
@@ -40,11 +41,15 @@ return [
     '/legal/impress' => [LegalController::class, 'impress'],
     '/legal/privacypolicy' => [LegalController::class, 'privacy'],
     '/legal/revocation' => [LegalController::class, 'revocation'],
+    '/user-area' => [UserAreaController::class, 'index'],
     '/user-area/shoppingCart' => [UserAreaController::class, 'shoppingCart'],
     '/user-area/shoppingCart/purchase' => [UserAreaController::class, 'purchase'],
     '/user-area/shoppingCart/delete' => [UserAreaController::class, 'removeShoppingCartItem'],
     '/user-area/user' => [UserAreaController::class, 'user'],
     '/user-area/wishlist' => [UserAreaController::class, 'wishlist'],
+    '/user-area/orders' => [OrderController::class, 'orders'],
+    '/user-area/orders/view' => [OrderController::class, 'orderDetails'],
+    '/user-area/orders/cancel' => [OrderController::class, 'cancelOrder'],
     '/your-purchase/order' => [YourPurchaseController::class, 'order'],
     '/your-purchase/paymentmethods' => [YourPurchaseController::class, 'paymentMethods'],
     '/your-purchase/shipment' => [YourPurchaseController::class, 'shipment'],

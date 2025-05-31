@@ -5,8 +5,8 @@ namespace Vestis\Database\Models;
 enum OrderStatus: string
 {
     case PaymentPending = 'Zahlung ausstehend';
-    case Denied = 'Auftrag abgelehnt';
     case InProgress = 'In Bearbeitung';
-    case Canceled = 'Abgelehnt';
+    case Canceled = 'Auftrag storniert';
+    case Denied = 'Auftrag abgelehnt';
     case Shipped = 'Versandt';
 }

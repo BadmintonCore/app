@@ -18,7 +18,8 @@ const translation = {
     sizes: "Größen",
     productTypes: "Produkt Typen",
     images: "Bilder",
-    instances: "Instanzen"
+    instances: "Instanzen",
+    orders: "Aufträge"
 };
 
 const disabled = {

@@ -1141,8 +1141,16 @@ nav:has(.breadcrumbs) {
                         Layout
 ===================================================*/
 
+.mt-2 {
+    margin-top: 8px !important;
+}
+
 .mt-4 {
     margin-top: 16px;
+}
+
+.m-0 {
+    margin: 0;
 }
 
 .full-size * {
