@@ -27,7 +27,7 @@ use Vestis\Utility\PaginationUtility;
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
 
-    <h1>Produkt Typen</h1>
+    <h1>Produkte</h1>
     <a href="/admin/productTypes/instances/create?id=<?= $productTypeId ?>" class="btn btn-sm">Erstellen</a>
     <table class="mt-4">
         <thead>

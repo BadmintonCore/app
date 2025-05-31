@@ -17,7 +17,12 @@ const translation = {
     colors: "Farben",
     sizes: "Größen",
     productTypes: "Produkt Typen",
-    images: "Bilder"
+    images: "Bilder",
+    instances: "Instanzen"
+};
+
+const disabled = {
+    instances: true
 }
 
 
@@ -85,7 +90,7 @@ function generateBreadcrumbList() {
         if (i === parts.length - 1) {
             breadcrumbs.push({ name: h1Text, url: null }); // Seitenname von aktueller Seite ohne URL
         } else {
-            breadcrumbs.push({ name: translated, url: path }); // Übersetzte Breadcrumbs mit URL
+            breadcrumbs.push({ name: translated, url: disabled[part] ? null :  path }); // Übersetzte Breadcrumbs mit URL
         }
     }
 
