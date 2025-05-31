@@ -1,0 +1,8 @@
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    accountId INTEGER NOT NULL REFERENCES account(id),
+    timestamp DATETIME NOT NULL,
+    status VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE product ADD COLUMN orderId INTEGER REFERENCES orders(id);

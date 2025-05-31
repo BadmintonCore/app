@@ -23,6 +23,8 @@ class Product
 
     public ?int $boughtPrice = null;
 
+    public ?int $orderId = null;
+
     private ?Size $size = null;
 
     private ?Color $color = null;

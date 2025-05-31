@@ -3,6 +3,8 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\Account;
+use Vestis\Database\Repositories\OrderRepository;
+use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Exception\AuthException;
 use Vestis\Exception\LogicException;
@@ -106,8 +108,11 @@ class UserAreaController
             throw new LogicException("Dein Warenkorb ist leer");
         }
 
-        throw new LogicException("Logik ist noch nicht implementiert");
+        $order = OrderRepository::create(AuthService::$currentAccount, 'Zahlung ausstehend');
+        $shoppingCartItems = ShoppingCartRepository::getAllProducts(AuthService::$currentAccount);
+        ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
 
+        //header("location: /user-area/orders");
     }
 
 }

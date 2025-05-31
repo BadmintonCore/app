@@ -3,6 +3,7 @@
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Dto\PaginationDto;
+use Vestis\Database\Dto\ShoppingCartItemDto;
 use Vestis\Database\Models\Product;
 
 /**
@@ -22,6 +23,11 @@ class ProductRepository
     public static function findForTypePaginated(int $productTypeId, int $page, int $perPage): PaginationDto
     {
         return QueryAbstraction::fetchManyAsPaginated(Product::class, "SELECT * FROM product WHERE productTypeId = :productTypeId ORDER BY id DESC", $page, $perPage, ["productTypeId" => $productTypeId]);
+    }
+
+    public static function findForOrder(int $orderId): array
+    {
+        return QueryAbstraction::fetchManyAs(Product::class, "SELECT * FROM product WHERE orderId = :orderId", ["orderId" => $orderId]);
     }
 
     public static function create(int $productTypeId, int $colorId, int $sizeId, int $quantity): void
@@ -48,6 +54,25 @@ class ProductRepository
 
             $query = "INSERT INTO product (productTypeId, colorId, sizeId) VALUES " . implode(', ', $placeholders);
             QueryAbstraction::execute($query, $params);
+        }
+    }
+
+    /**
+     * @param int $accountId
+     * @param int $orderId
+     * @param array<int, ShoppingCartItemDto> $products
+     * @return void
+     */
+    public static function assignToOrder(int $accountId, int $orderId, array $products): void
+    {
+        foreach ($products as $product) {
+            $params = [
+                "accId" => $accountId,
+                "orderId" => $orderId,
+                "productTypeId" => $product->productTypeId,
+                "boughtPrice" => $product->getProductType()->price,
+            ];
+        QueryAbstraction::execute("UPDATE product SET orderId = :orderId, boughtAt = NOW(), accId = :accId, shoppingCartId = NULL,  boughtPrice = :boughtPrice WHERE productTypeId = :productTypeId AND shoppingCartId = :accId AND orderId IS NULL", $params);
         }
     }
 }
