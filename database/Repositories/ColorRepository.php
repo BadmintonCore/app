@@ -74,9 +74,21 @@ class ColorRepository
      * @param Color $color
      * @return void
      */
+
     public static function update(Color $color): void
     {
         QueryAbstraction::execute("UPDATE color SET name = :name, hex = :hex WHERE id = :id", ["name" => $color->name, "id" => $color->id, "hex" => $color->hex]);
+    }
+
+    /**
+     * Löscht eine vorhandene Farbe
+     *
+     * @param int $colorId Die ID der Farbe
+     * @return void
+     */
+    public static function delete(int $colorId): void
+    {
+        QueryAbstraction::execute("DELETE FROM color WHERE id = :id", ["id" => $colorId]);
     }
 
 }

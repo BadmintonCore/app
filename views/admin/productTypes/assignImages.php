@@ -67,7 +67,7 @@ use Vestis\Utility\PaginationUtility;
 </main>
 
 <!--Footer der Website-->
-<?php include(__DIR__."/../../../components/footer.php"); ?>
+<?php include(__DIR__."/../../../components/adminFooter.php"); ?>
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>

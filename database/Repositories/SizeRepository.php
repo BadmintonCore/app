@@ -77,4 +77,15 @@ class SizeRepository
         QueryAbstraction::execute("UPDATE size SET size = :name WHERE id = :id", ["name" => $size->size, "id" => $size->id]);
     }
 
+    /**
+     * Löscht eine vorhandene Größe
+     *
+     * @param int $sizeId Die ID der Größe
+     * @return void
+     */
+    public static function delete(int $sizeId): void
+    {
+        QueryAbstraction::execute("DELETE FROM size WHERE id = :id", ['id' => $sizeId]);
+    }
+
 }

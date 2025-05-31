@@ -4,7 +4,9 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ColorRepository;
+use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\SizeRepository;
+use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -25,6 +27,7 @@ class AdminSizesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $sizes = SizeRepository::findAll();
+        $errorMessage = $_GET["errorMessage"];
         require_once __DIR__.'/../../views/admin/sizes/list.php';
     }
 
@@ -105,6 +108,52 @@ class AdminSizesController
                 $errorMessage = $e->getMessage();
                 require_once __DIR__.'/../../views/admin/categories/create.php';
             }
+        }
+    }
+
+    /**
+     * Löschen einer Größe
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        try {
+            ValidationService::validateForm($validationRules, "GET");
+
+            $formData = ValidationService::getFormData();
+
+            $usedSizes = ProductRepository::getSizes();
+
+            $usedSize = false;
+
+            for ($i = 0; $i < count($usedSizes); $i++) {
+                if ($usedSizes[$i]->sizeId === $formData["id"]) {
+                    $usedSize = true;
+                    break;
+                }
+            }
+
+            if (!$usedSize) {
+                SizeRepository::delete($formData['id']);
+            } else {
+                $errorMessage = "Es gibt noch Produkte mit dieser Größe.";
+            }
+
+        } catch (ValidationException|DatabaseException $e) {
+            $errorMessage = $e->getMessage();
+        }
+
+        if (isset($errorMessage)) {
+            header('Location: /admin/sizes?errorMessage=Fehler: ' . $errorMessage);
+        } else {
+            header('Location: /admin/sizes');
         }
     }
 

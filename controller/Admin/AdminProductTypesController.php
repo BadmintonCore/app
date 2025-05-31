@@ -7,8 +7,10 @@ use Vestis\Database\Models\ProductType;
 use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ImageRepository;
+use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;
+use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -30,8 +32,8 @@ class AdminProductTypesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $page = PaginationUtility::getCurrentPage();
-
         $productTypes = ProductTypeRepository::findPaginated($page);
+        $errorMessage = $_GET["errorMessage"];
         require_once __DIR__.'/../../views/admin/productTypes/list.php';
     }
 
@@ -298,6 +300,52 @@ class AdminProductTypesController
             $preSelectedImageIds = array_filter($convertedToInt, fn (int $i) => $i !== 0);
         }
         return $preSelectedImageIds;
+    }
+
+    /**
+     * Löschen eines Produkttypen
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        try {
+            ValidationService::validateForm($validationRules, "GET");
+
+            $formData = ValidationService::getFormData();
+
+            $usedProducts = ProductRepository::getIds();
+
+            $usedProduct = false;
+
+            for ($i = 0; $i < count($usedProducts); $i++) {
+                if ($usedProducts[$i]->productTypeId === $formData["id"]) {
+                    $usedProduct = true;
+                    break;
+                }
+            }
+
+            if (!$usedProduct) {
+                ProductTypeRepository::delete($formData['id']);
+            } else {
+                $errorMessage = "Es gibt noch Produkte mit dieser Produktkategorie.";
+            }
+
+        } catch (ValidationException|DatabaseException $e) {
+            $errorMessage = $e->getMessage();
+        }
+
+        if (isset($errorMessage)) {
+            header('Location: /admin/productTypes?errorMessage=Fehler: ' . $errorMessage);
+        } else {
+            header('Location: /admin/productTypes');
+        }
     }
 
 }
