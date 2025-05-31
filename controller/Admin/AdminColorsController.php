@@ -4,6 +4,10 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ColorRepository;
+use Vestis\Database\Repositories\ImageRepository;
+use Vestis\Database\Repositories\ProductRepository;
+use Vestis\Database\Repositories\ProductTypeRepository;
+use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -24,7 +28,8 @@ class AdminColorsController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $colors = ColorRepository::findAll();
-        require_once __DIR__.'/../../views/admin/colors/list.php';
+        $errorMessage = $_GET["errorMessage"];
+        require_once __DIR__ . '/../../views/admin/colors/list.php';
     }
 
     /**
@@ -47,7 +52,7 @@ class AdminColorsController
         // Existiert die angefragte Farbe nicht, so wird die Fehlermeldung im View angezeigt
         if ($color === null) {
             $errorMessage = 'Farbe nicht gefunden!';
-            require_once __DIR__.'/../../views/admin/colors/edit.php';
+            require_once __DIR__ . '/../../views/admin/colors/edit.php';
             return;
         }
 
@@ -75,7 +80,7 @@ class AdminColorsController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/colors/edit.php';
+        require_once __DIR__ . '/../../views/admin/colors/edit.php';
     }
 
     /**
@@ -112,11 +117,57 @@ class AdminColorsController
 
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
-                require_once __DIR__.'/../../views/admin/categories/create.php';
+                require_once __DIR__ . '/../../views/admin/categories/create.php';
             }
         }
 
-        require_once __DIR__.'/../../views/admin/colors/create.php';
+        require_once __DIR__ . '/../../views/admin/colors/create.php';
+    }
+
+    /**
+     * Löschen einer Farbe
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        try {
+            ValidationService::validateForm($validationRules, "GET");
+
+            $formData = ValidationService::getFormData();
+
+            $usedColors = ProductRepository::getColors();
+
+            $usedColor = false;
+
+            for ($i = 0; $i < count($usedColors); $i++) {
+                if ($usedColors[$i]->colorId === $formData["id"]) {
+                    $usedColor = true;
+                    break;
+                }
+            }
+
+            if (!$usedColor) {
+                ColorRepository::delete($formData['id']);
+            } else {
+                $errorMessage = "Es gibt noch Produkte mit dieser Farbe.";
+            }
+
+        } catch (ValidationException|DatabaseException $e) {
+            $errorMessage = $e->getMessage();
+        }
+
+        if (isset($errorMessage)) {
+            header('Location: /admin/colors?errorMessage=Fehler: ' . $errorMessage);
+        } else {
+            header('Location: /admin/colors');
+        }
     }
 
 }

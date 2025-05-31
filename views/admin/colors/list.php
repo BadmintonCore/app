@@ -24,6 +24,11 @@ use Vestis\Database\Models\Color;
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
     <h1>Farben</h1>
+
+    <?php if (isset($errorMessage)) : ?>
+        <h4 class="error-message"><?= $errorMessage ?></h4>
+    <?php endif; ?>
+
     <a href="/admin/colors/create" class="btn btn-sm">Erstellen</a>
 
     <table class="mt-4">
@@ -32,7 +37,8 @@ use Vestis\Database\Models\Color;
                 <th>ID</th>
                 <th>Name</th>
                 <th>Hex</th>
-                <th>Aktionen</th>
+                <th>Ändern</th>
+                <th>Löschen</th>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +52,8 @@ use Vestis\Database\Models\Color;
                        <div class="color-circle" style="background: #<?= $color->hex ?>"></div>
                    </div>
                 </td>
-                <td><a class="btn btn-sm" href="/admin/colors/edit?id=<?= $color->id ?>">Edit.</a></td>
+                <td><a class="btn btn-sm" href="/admin/colors/edit?id=<?= $color->id ?>">Ändern.</a></td>
+                <td><a class="btn btn-sm danger" href="/admin/colors/delete?id=<?= $color->id ?>">Löschen.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -55,7 +62,7 @@ use Vestis\Database\Models\Color;
 </main>
 
 <!--Footer der Website-->
-<?php include(__DIR__."/../../../components/footer.php"); ?>
+<?php include(__DIR__."/../../../components/adminFooter.php"); ?>
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>

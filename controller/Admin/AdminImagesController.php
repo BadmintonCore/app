@@ -4,6 +4,7 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ImageRepository;
+use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -25,9 +26,9 @@ class AdminImagesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $page = PaginationUtility::getCurrentPage();
-
         $images = ImageRepository::findPaginated($page);
-        require_once __DIR__.'/../../views/admin/images/list.php';
+        $errorMessage = $_GET["errorMessage"];
+        require_once __DIR__ . '/../../views/admin/images/list.php';
     }
 
     /**
@@ -72,7 +73,7 @@ class AdminImagesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/images/create.php';
+        require_once __DIR__ . '/../../views/admin/images/create.php';
     }
 
     /**
@@ -90,6 +91,37 @@ class AdminImagesController
         if ($image === null) {
             $errorMessage = 'Bild nicht gefunden!';
         }
-        require_once __DIR__.'/../../views/admin/images/view.php';
+        require_once __DIR__ . '/../../views/admin/images/view.php';
+    }
+
+    /**
+     * Löschen eines Bildes
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        try {
+            ValidationService::validateForm($validationRules, "GET");
+
+            $formData = ValidationService::getFormData();
+
+            ImageRepository::delete($formData['id']);
+
+        } catch (ValidationException | DatabaseException $e) {
+            $errorMessage = $e->getMessage();
+        }
+
+        if (isset($errorMessage)) {
+            header('Location: /admin/images?errorMessage=Fehler: ' . $errorMessage);
+        } else {
+            header('Location: /admin/images');
+        }
     }
 }

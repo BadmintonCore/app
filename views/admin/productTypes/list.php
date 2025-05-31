@@ -27,6 +27,11 @@ use Vestis\Utility\PaginationUtility;
 
 
     <h1>Produkt Typen</h1>
+
+    <?php if (isset($errorMessage)): ?>
+        <div class="error-message"><?= $errorMessage ?></div>
+    <?php endif; ?>
+
     <a href="/admin/productTypes/create" class="btn btn-sm">Erstellen</a>
     <table class="mt-4">
         <thead>
@@ -35,7 +40,8 @@ use Vestis\Utility\PaginationUtility;
                 <th>Name</th>
                 <th>Kategorie</th>
                 <th>Preis</th>
-                <th>Aktionen</th>
+                <th>Ändern</th>
+                <th>Löschen</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +53,8 @@ use Vestis\Utility\PaginationUtility;
                     <a href="/admin/categories/edit?id=<?= $productType->getCategory()->id ?>"><?= $productType->getCategory()->name ?></a>
                 </td>
                 <td class="price-field"><?= $productType->price ?>€</td>
-                <td><a class="btn btn-sm" href="/admin/productTypes/edit?id=<?= $productType->id ?>">Edit.</a></td>
+                <td><a class="btn btn-sm" href="/admin/productTypes/edit?id=<?= $productType->id ?>">Ändern.</a></td>
+                <td><a class="btn btn-sm danger" href="/admin/productTypes/delete?id=<?= $productType->id ?>">Löschen.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -60,7 +67,7 @@ use Vestis\Utility\PaginationUtility;
 </main>
 
 <!--Footer der Website-->
-<?php include(__DIR__."/../../../components/footer.php"); ?>
+<?php include(__DIR__."/../../../components/adminFooter.php"); ?>
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>

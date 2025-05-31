@@ -63,6 +63,28 @@ class CategoryRepository
     }
 
     /**
+     * Überprüft, ob eine Kategorie eine Eltern-Kategorie hat.
+     *
+     * @param int $categoryId
+     * @return bool
+     */
+    public static function hasParent(int $categoryId): bool
+    {
+        return QueryAbstraction::fetchOneAs(Category::class, "SELECT id FROM category WHERE parentCategoryId IS NOT NULL AND id = :id", ['id' => $categoryId]) !== null;
+    }
+
+    /**
+     * Überprüft, ob eine Kategorie Kinder-Kategorien hat.
+     *
+     * @param int $categoryId
+     * @return bool
+     */
+    public static function hasChild(int $categoryId): bool
+    {
+        return QueryAbstraction::fetchOneAs(Category::class, "SELECT id FROM category WHERE parentCategoryId = :id", ['id' => $categoryId]) !== null;
+    }
+
+    /**
      * Finds many by parent category id
      *
      * @param int $id The parent category ID
@@ -94,6 +116,17 @@ class CategoryRepository
     public static function update(Category $category): void
     {
         QueryAbstraction::execute("UPDATE category SET name = :name, parentCategoryId = :parentId WHERE id = :id", ['name' => $category->name, 'id' => $category->id, 'parentId' => $category->parentCategoryId]);
+    }
+
+    /**
+     * Löscht eine Kategorie.
+     *
+     * @param int $categoryId
+     * @return void
+     */
+    public static function delete(int $categoryId): void
+    {
+        QueryAbstraction::execute("DELETE FROM category WHERE id = :id", ['id' => $categoryId]);
     }
 
 }

@@ -4,6 +4,9 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\CategoryRepository;
+use Vestis\Database\Repositories\ProductRepository;
+use Vestis\Database\Repositories\ProductTypeRepository;
+use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -24,6 +27,7 @@ class AdminCategoriesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $categories = CategoryRepository::findAll();
+        $errorMessage = $_GET["errorMessage"];
         require_once __DIR__.'/../../views/admin/categories/list.php';
     }
 
@@ -127,6 +131,61 @@ class AdminCategoriesController
         }
 
         require_once __DIR__.'/../../views/admin/categories/create.php';
+    }
+
+    /**
+     * Löschen einer Kategorie
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        try {
+            ValidationService::validateForm($validationRules, "GET");
+
+            $formData = ValidationService::getFormData();
+
+            if (CategoryRepository::hasParent($formData["id"])) {
+
+                $usedCategories = ProductTypeRepository::getCategories();
+
+                $usedCategory = false;
+
+                for ($i = 0; $i < count($usedCategories); $i++) {
+                    if ($usedCategories[$i]->categoryId === $formData["id"]) {
+                        $usedCategory = true;
+                        break;
+                    }
+                }
+
+                if (!$usedCategory) {
+                    CategoryRepository::delete($formData['id']);
+                } else {
+                    $errorMessage = "Es gibt noch Produkte mit dieser Produktkategorie.";
+                }
+            } else {
+                if (CategoryRepository::hasChild($formData["id"])) {
+                    $errorMessage = "Es gibt noch Kategorien, die diese Oberkategorie nutzen.";
+                } else {
+                    CategoryRepository::delete($formData['id']);
+                }
+            }
+
+        } catch (ValidationException|DatabaseException $e) {
+            $errorMessage = $e->getMessage();
+        }
+
+        if (isset($errorMessage)) {
+            header('Location: /admin/categories?errorMessage=Fehler: ' . $errorMessage);
+        } else {
+            header('Location: /admin/categories');
+        }
     }
 
 }
