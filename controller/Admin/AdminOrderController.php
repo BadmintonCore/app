@@ -6,7 +6,11 @@ use Vestis\Database\Models\AccountType;
 use Vestis\Database\Models\OrderStatus;
 use Vestis\Database\Repositories\OrderRepository;
 use Vestis\Exception\LogicException;
+use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\validation\ValidationRule;
+use Vestis\Service\validation\ValidationType;
+use Vestis\Service\ValidationService;
 use Vestis\Utility\PaginationUtility;
 
 class AdminOrderController
@@ -26,12 +30,33 @@ class AdminOrderController
             throw new LogicException("Der Status ist nicht zulässig.");
         }
 
-
-
         $page = PaginationUtility::getCurrentPage();
         $orders = OrderRepository::findPaginatedWithStatus($status, $page, 25);
 
         require_once __DIR__ . '/../../views/shared/orders.php';
+    }
+
+    /**
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
+    public function details(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer)
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+
+        $order = OrderRepository::findById($formData['id']);
+        if (null === $order) {
+            throw new LogicException("Der Bestellung wurde nicht gefunden.");
+        }
+
+        require_once __DIR__ . '/../../views/shared/orderView.php';
     }
 
 }

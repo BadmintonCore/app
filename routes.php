@@ -75,5 +75,6 @@ return [
     '/admin/images/create' => [AdminImagesController::class, 'create'],
     '/admin/images/view' => [AdminImagesController::class, 'view'],
     '/admin/orders' => [AdminOrderController::class, 'index'],
+    '/admin/orders/view' => [AdminOrderController::class, 'details'],
     '/system/exchangeRates' => [SystemController::class, 'getExchangeRates'],
 ];

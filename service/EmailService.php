@@ -59,7 +59,9 @@ class EmailService
 
         EMAIL,
             $order->getAccount()->firstname,
-            $order->getAccount()->surname
+            $order->getAccount()->surname,
+            $order->id,
+            $order->getOrderSum()
         );
         if (false === mail($order->getAccount()->email, $subject, $message, self::Headers)) {
             throw new EmailException("Cannot send order confirmation email");
@@ -81,10 +83,11 @@ class EmailService
 
         EMAIL,
             $order->getAccount()->firstname,
-            $order->getAccount()->surname
+            $order->getAccount()->surname,
+            $order->id
         );
         if (false === mail($order->getAccount()->email, $subject, $message, self::Headers)) {
-            throw new EmailException("Cannot send order confirmation email");
+            throw new EmailException("Cannot send cancel confirmation email");
         }
     }
 
