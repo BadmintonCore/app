@@ -1,4 +1,5 @@
 <?php
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/
 
 namespace Vestis\Controller\Admin;
 
@@ -111,9 +112,10 @@ class AdminImagesController
 
         $formData = ValidationService::getFormData();
 
-        //Löschen des Eintrags aus der Datenbank.
+        // Löschen des Eintrags aus der Datenbank
         ImageRepository::delete($formData['id']);
 
         header('Location: /admin/images');
     }
 }
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/

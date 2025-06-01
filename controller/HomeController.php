@@ -1,4 +1,5 @@
 <?php
+/*Autor(en): */
 
 namespace Vestis\Controller;
 
@@ -7,9 +8,15 @@ namespace Vestis\Controller;
  */
 class HomeController
 {
+    /**
+     * Ansicht für die Startseite
+     *
+     * @return void
+     */
     public function index(): void
     {
         require_once __DIR__.'/../views/index.php';
     }
 
 }
+/*Autor(en): */

@@ -1,8 +1,8 @@
-/*Author: Lasse Hoffmann, Mathis Burger*/
+/*Autor(en): Lasse Hoffmann, Mathis Burger*/
 
 const currencyDropdown = document.getElementById('currency');
 
-// Die zuletzt ausgewähle Währung (wird benötigt für Rückrechnung auf EUR)
+// Die zuletzt ausgewählte Währung (wird benötigt für Rückrechnung auf EUR)
 let lastCurrency = "EUR";
 
 // Die aktuell ausgewählte Währung
@@ -11,7 +11,7 @@ let currentCurrency = currencyDropdown.value;
 // Die aktuellen Forex-Kurse
 let currencyRates = {};
 
-// Mapping object for all currency symbols (ISO 4217)
+// Mapping-Objekt für alle Währungssymbole (ISO 4217)
 const currencySymbolMap = {
     EUR: '€',
     USD: '$',
@@ -20,18 +20,18 @@ const currencySymbolMap = {
 }
 
 /**
- * Converts a specific price to the current currency.
- * NOTE: First it is converted back to EUR and then to the new currency
+ * Konvertiert einen bestimmten Preis in die aktuell ausgewählte Währung.
+ * HINWEIS: Zuerst wird der Preis zurück in EUR umgerechnet und dann in die neue Währung umgerechnet.
  *
- * @param price The price that should be converted
- * @returns {number} The new price in new currency
+ * @param price Der zu konvertierende Preis
+ * @returns {number} Der neue Preis in der neuen Währung
  */
 function convertCurrency(price) {
     if (currentCurrency === "EUR" && lastCurrency === "EUR") {
         return price;
     }
 
-    // If no value present, the default value is 1 for EUR
+    // Wenn kein Wert vorhanden ist, wird der Standardwert 1 für EUR verwendet
     const priceInEur = price / (currencyRates[lastCurrency] ?? 1);
     if (currentCurrency === "EUR") {
         return priceInEur;
@@ -40,7 +40,7 @@ function convertCurrency(price) {
 }
 
 /**
- * Calls the forex exchange API to get current currency exchange rates and sets currencyRates variable.
+ * Ruft die Forex-API auf, um aktuelle Wechselkurse zu erhalten, und setzt die Variable currencyRates.
  *
  * @returns {Promise<void>}
  */
@@ -54,7 +54,7 @@ async function getCurrencyRates() {
 }
 
 /**
- * Updates all prices in the current document (All elements that have "price-field" class)
+ * Aktualisiert alle Preise im aktuellen Dokument (alle Elemente mit der Klasse "price-field")
  */
 function updatePrices() {
     let orderButton = document.getElementById("orderButton")
@@ -66,10 +66,10 @@ function updatePrices() {
         const priceString = priceField.childNodes[0].nodeValue;
         let kebapConvert = false;
         if (lastCurrency === "KBP"){
-            //Preis wird aus dem HTML-Attribut gelesen und entspricht dem Euro-Wert
+            // Preis wird aus dem HTML-Attribut gelesen und entspricht dem Euro-Wert
             price = parseFloat(priceField.dataset.priceEur.valueOf());
             lastCurrency = "EUR"
-            //Damit die lastCurrency nach einem Durchlauf wieder auf KBP gesetzt werden kann
+            // Damit lastCurrency nach einem Durchlauf wieder auf KBP gesetzt werden kann
             kebapConvert = true;
         } else {
             price = parseFloat(priceString.replace(',', '.'));
@@ -81,7 +81,7 @@ function updatePrices() {
         }
 
         if(kebapConvert){
-            //Setzt die lastCurrency wieder auf Kebap für den nächsten Durchlauf
+            // Setzt lastCurrency wieder auf Kebap für den nächsten Durchlauf
             lastCurrency = "KBP";
         }
     }
@@ -116,7 +116,7 @@ function updatePrices() {
     }
 }
 
-// Updates prices and sets new currency in localStorage as well as lastCurrency and currentCurrency
+// Aktualisiert die Preise und speichert die neue Währung in localStorage sowie in lastCurrency und currentCurrency
 currencyDropdown.addEventListener('change', (e) => {
     lastCurrency = currentCurrency;
     currentCurrency = e.target.value;
@@ -124,7 +124,8 @@ currencyDropdown.addEventListener('change', (e) => {
     updatePrices();
 });
 
-// Initial loading of forex exchange rates and initial currency if stored in localStorage. Also updates prices in current document on initial load
+// Initiales Laden der Wechselkurse und der gespeicherten Währung aus dem localStorage (falls vorhanden).
+// Aktualisiert außerdem beim Laden der Seite alle Preise im Dokument.
 document.addEventListener("DOMContentLoaded", () => {
     const storedCurrency = localStorage.getItem("currency") ?? "EUR";
     currencyDropdown.value = storedCurrency;
@@ -140,4 +141,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-/*Author: Lasse Hoffmann, Mathis Burger*/
+/*Autor(en): Lasse Hoffmann, Mathis Burger*/

@@ -1,4 +1,5 @@
 <?php
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/
 
 namespace Vestis\Controller\Admin;
 
@@ -63,7 +64,7 @@ class AdminColorsController
 
                 ['name' => $name, 'hex' => $hex] = ValidationService::getFormData();
 
-                // Die Hex Farben aus dem Formular sind genau 7 Zeichen lang
+                // Die Hex-Farben aus dem Formular sind genau 7 Zeichen lang
                 if (strlen($hex) !== 7) {
                     throw new ValidationException("Invalid color");
                 }
@@ -100,7 +101,7 @@ class AdminColorsController
 
                 ['name' => $name, 'hex' => $hex] = ValidationService::getFormData();
 
-                // Hex farben sind immer 7 Zeichen lang (mit #)
+                // Hex-Farben sind immer 7 Zeichen lang (mit #)
                 if (strlen($hex) !== 7) {
                     throw new ValidationException("Invalid color");
                 }
@@ -139,17 +140,18 @@ class AdminColorsController
 
         $formData = ValidationService::getFormData();
 
-        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        // Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
         $deletionValidation = DeletionValidationService::validateColorDeletion($formData['id']);
 
         if ($deletionValidation !== null) {
             throw new LogicException($deletionValidation);
         }
 
-        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        // Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
         ColorRepository::delete($formData['id']);
 
         header('Location: /admin/colors');
     }
 
 }
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/

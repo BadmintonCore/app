@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * Das Modell für eine Farbe in der DB
+ * Das Modell für eine Farbe in der Datenbank
  */
 class Color
 {

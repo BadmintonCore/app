@@ -5,7 +5,7 @@ namespace Vestis\Database\Models;
 use Vestis\Database\Repositories\CategoryRepository;
 
 /**
- * The category model that represents the data of the category database table
+ * Das Model für eine Kategorie in der Datenbank
  */
 class Category
 {

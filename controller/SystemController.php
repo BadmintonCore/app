@@ -1,4 +1,5 @@
 <?php
+/*Autor(en): */
 
 namespace Vestis\Controller;
 
@@ -6,15 +7,15 @@ use Vestis\Exception\LogicException;
 use Vestis\Service\CacheService;
 
 /**
- * Controller für systemnative Funktionen, die keiner anderen Domäne zugeordnet werden können.
+ * Controller für system-native Funktionen, die keiner anderen Domäne zugeordnet werden können
  */
 class SystemController
 {
     /**
-     * Gibt die Exchange Rates als JSON zurück.
+     * Gibt die Exchange Rates als JSON zurück
      *
-     * @return void
      * @throws LogicException
+     * @return void
      */
     public function getExchangeRates(): void
     {
@@ -31,3 +32,4 @@ class SystemController
     }
 
 }
+/*Autor(en): */

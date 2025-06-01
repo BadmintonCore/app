@@ -1,5 +1,4 @@
-<!--Author: Lasse Hoffmann-->
-
+<!--Autor(en): Lasse Hoffmann*/-->
 <?php
 
 use Vestis\Service\AuthService;
@@ -228,4 +227,4 @@ use Vestis\Service\AuthService;
         <p>Copyright &#169; 2025 vestis.</p>
     </div>
 </footer>
-<!--Author: Lasse Hoffmann-->
+<!--Autor(en): Lasse Hoffmann-->

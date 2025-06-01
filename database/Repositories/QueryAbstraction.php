@@ -6,19 +6,19 @@ use Vestis\Database\Dto\PaginationDto;
 use Vestis\Exception\DatabaseException;
 
 /**
- * Abstraction layer on top of the database. It allows to simplify building native SQL queries and maps the
- * results to the model class that is referenced.
+ * Abstraktionsschicht für die Datenbank.
+ * Sie vereinfacht die Erstellung nativer SQL-Abfragen und bildet die Ergebnisse auf die referenzierte Modellklasse ab.
  */
 class QueryAbstraction
 {
     /**
-     * Fetches many entries based on an SQL query
+     * Holt mehrere Einträge basierend auf einer SQL-Abfrage
      *
-     * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
-     * @param string $query The custom SQL query
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
-     * @return ($className is null ? array<int, array<string, int|bool|string|null|array<int, int|bool|string|null>>> : array<T>) The result array
-     * @throws DatabaseException on database or reflection error
+     * @param class-string<T>|null $className Der Name der Klasse, in die das Ergebnis der SQL-Abfrage gemappt werden soll
+     * @param string $query Die benutzerdefinierte SQL-Abfrage
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params Alle Parameter der SQL-Abfrage
+     * @return ($className is null ? array<int, array<string, int|bool|string|null|array<int, int|bool|string|null>>> : array<T>) Das Ergebnisarray
+     * @throws DatabaseException bei Datenbank- oder Reflektionsfehlern
      *
      * @template T of object
      */
@@ -33,14 +33,14 @@ class QueryAbstraction
     }
 
     /**
-     * Paginates a SQL query by using LIMIT and OFFSET dynamically. The result is then returned as DTO.
+     * Paginierung einer SQL-Abfrage durch dynamische Nutzung von LIMIT und OFFSET. Das Ergebnis wird dann als DTO zurückgegeben.
      *
-     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
-     * @param string $query The custom SQL query
-     * @param int $page The page that should be selected via pagination
-     * @param int $perPage The amount of entries per page
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
-     * @return PaginationDto<T> The pagination result
+     * @param class-string<T> $className Der Name der Klasse, in die das Ergebnis der SQL-Abfrage gemappt werden soll
+     * @param string $query Die benutzerdefinierte SQL-Abfrage
+     * @param int $page Die Seite, die über die Paginierung ausgewählt werden soll
+     * @param int $perPage Die Anzahl der Einträge pro Seite
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params Alle Parameter der SQL-Abfrage
+     * @return PaginationDto<T> Das paginierte Ergebnis
      *
      * @template T of object
      */
@@ -48,13 +48,13 @@ class QueryAbstraction
     {
         $fromIndex = strpos($query, ' FROM');
         if ($fromIndex === false) {
-            throw new DatabaseException("Your SQL query is invalid", 0);
+            throw new DatabaseException("Deine SQL-Abfrage ist ungültig", 0);
         }
         $countQuery = sprintf("SELECT COUNT(*) AS count %s", substr($query, $fromIndex));
         $countResult = self::fetchOneAs(null, $countQuery, $params);
 
         if ($countResult === null) {
-            throw new DatabaseException("Cannot fetch count for pagination query", 0);
+            throw new DatabaseException("Anzahl für Paginierungsabfrage kann nicht ermittelt werden", 0);
         }
 
         /** @var int $count */
@@ -67,13 +67,13 @@ class QueryAbstraction
     }
 
     /**
-     * Fetches specifically one entry based on an SQL query
+     * Holt genau einen Eintrag basierend auf einer SQL-Abfrage
      *
-     * @param class-string<T>|null $className The name of the class that should be the fetch result of the SQL query
-     * @param string $query The custom SQL query
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params All parameters of the SQL query
-     * @return ($className is null ?  array<string, int|bool|string|null|array<int, int|bool|string|null>>|null : T|null) The result as the requested class
-     * @throws DatabaseException on database or reflection error
+     * @param class-string<T>|null $className Der Name der Klasse, in die das Ergebnis der SQL-Abfrage gemappt werden soll
+     * @param string $query Die benutzerdefinierte SQL-Abfrage
+     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params Alle Parameter der SQL-Abfrage
+     * @return ($className is null ?  array<string, int|bool|string|null|array<int, int|bool|string|null>>|null : T|null) Das Ergebnis als angegebene Klasse
+     * @throws DatabaseException bei Datenbank- oder Reflektionsfehlern
      *
      * @template T of object
      */
@@ -95,12 +95,12 @@ class QueryAbstraction
     }
 
     /**
-     * Executes an SQL statement
+     * Führt ein SQL-Statement aus
      *
-     * @param string $query The SQL statement that should be executed
-     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params The parameters that are required
+     * @param string $query Das SQL-Statement, das ausgeführt werden soll
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params Die benötigten Parameter
      * @return void
-     * @throws DatabaseException on database error
+     * @throws DatabaseException bei Datenbankfehlern
      */
     public static function execute(string $query, array $params = []): void
     {
@@ -108,13 +108,13 @@ class QueryAbstraction
     }
 
     /**
-     * Executes an SQL statement and returns the response.
+     * Führt ein SQL-Statement aus und gibt die Antwort zurück.
      *
-     * @param class-string<T> $className The name of the class that should be the fetch result of the SQL query
-     * @param string $query The SQL statement that should be executed
-     * @param array<string, int|bool|string|null|float|array<int, int|bool|string|null|float>> $params The parameters that are required
-     * @return T|null The result as the requested class
-     * @throws DatabaseException on database error
+     * @param class-string<T> $className Der Name der Klasse, in die das Ergebnis gemappt werden soll
+     * @param string $query Das SQL-Statement, das ausgeführt werden soll
+     * @param array<string, int|bool|string|null|float|array<int, int|bool|string|null|float>> $params Die benötigten Parameter
+     * @return T|null Das Ergebnis als angegebene Klasse
+     * @throws DatabaseException bei Datenbankfehlern
      *
      * @template T of object
      */
@@ -131,19 +131,19 @@ class QueryAbstraction
     }
 
     /**
-     * Prepares and executes the statement
+     * Bereitet das Statement vor und führt es aus
      *
-     * @param string $query The sql statement with params
-     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params The params
-     * @return \PDOStatement The executed statement
-     * @throws DatabaseException On database error
+     * @param string $query Das SQL-Statement mit Parametern
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params Die Parameter
+     * @return \PDOStatement Das ausgeführte Statement
+     * @throws DatabaseException bei Datenbankfehlern
      */
     private static function prepareAndExecuteStatement(string $query, array $params = []): \PDOStatement
     {
         /** @var ?\PDO $connection */
         $connection = $GLOBALS['dbConnection'];
         if ($connection === null) {
-            throw new \RuntimeException("You need to initialize a database connection in order to execute queries.");
+            throw new \RuntimeException("Du musst eine Datenbankverbindung initialisieren, um Abfragen auszuführen.");
         }
 
         $normalizedParams = [];
@@ -158,7 +158,7 @@ class QueryAbstraction
                     $normalizedParams[$key] = null;
                 } else {
 
-                    // Ersetzt den einen Parameter durch beliebig viele Parameter, um das Array in der SQL query darzustellen
+                    // Ersetzt den einen Parameter durch beliebig viele Parameter, um das Array in der SQL-Abfrage darzustellen
 
                     foreach ($value as $i => $subValue) {
                         $newParams["{$key}_$i"] = $subValue;
@@ -169,7 +169,7 @@ class QueryAbstraction
                 }
 
             } else {
-                // Ist es kein Array, kann der Paramerer normal verwendet werden
+                // Ist es kein Array, kann der Parameter normal verwendet werden
                 $normalizedParams[$key] = $value;
             }
         }
@@ -189,27 +189,26 @@ class QueryAbstraction
         return $statement;
     }
 
-
     /**
-     * Converts an associative array to a class instance by using reflection
-     * NOTE: We only need to do this, because PDO does not support writing data into enums
+     * Konvertiert ein assoziatives Array in eine Klasseninstanz mittels Reflection
+     * HINWEIS: Dies ist notwendig, da PDO keine Daten in Enums schreiben kann
      *
-     * @param class-string<T> $className The name of the target class
-     * @param array<string, int|bool|string|null> $assoc The associative array
-     * @return T The returned value
-     * @throws DatabaseException Errors that might occur on invalid enum values
+     * @param class-string<T> $className Der Name der Zielklasse
+     * @param array<string, int|bool|string|null> $assoc Das assoziative Array
+     * @return T Der zurückgegebene Wert
+     * @throws DatabaseException Fehler, die bei ungültigen Enum-Werten auftreten können
      *
      * @template T of object
      */
     private static function convertAssocToClass(string $className, array $assoc): mixed
     {
-        // Checks if the target class even exists
+        // Prüft, ob die Zielklasse existiert
         if (!class_exists($className)) {
-            throw new DatabaseException("Class $className does not exist", 404, null);
+            throw new DatabaseException("Klasse $className existiert nicht", 404, null);
         }
 
-        // creates a reflection class object and actual instance of the desired class
-        // More info about reflection: https://www.php.net/manual/en/intro.reflection.php
+        // Erstellt ein ReflectionClass-Objekt und eine Instanz der gewünschten Klasse
+        // Mehr Informationen zu Reflection: https://www.php.net/manual/de/intro.reflection.php
         $reflectionClass = new \ReflectionClass($className);
         try {
             $instance = $reflectionClass->newInstance();
@@ -219,26 +218,26 @@ class QueryAbstraction
 
         foreach ($assoc as $key => $value) {
 
-            // Checks if the class that is loaded by reflection has the key of the current value in associative array
+            // Prüft, ob die durch Reflection geladene Klasse die Eigenschaft mit dem Namen des aktuellen Array-Schlüssels hat
             if ($reflectionClass->hasProperty($key)) {
 
                 $property = $reflectionClass->getProperty($key);
 
-                // Gets the data type of the property
+                // Holt den Datentyp der Eigenschaft
                 $type = $property->getType();
 
-                // Checks whether the data type is an enum. Enums need some extra handling
+                // Prüft, ob der Typ ein Enum ist. Enums benötigen eine spezielle Behandlung
                 /** @var int|string|null $value */
                 if ($value !== null && $type instanceof \ReflectionNamedType && is_a($type->getName(), \BackedEnum::class, true)) {
                     try {
-                        // Try to instance the enum instance from the primitive data value
+                        // Versucht, eine Instanz des Enums aus dem primitiven Datentyp zu erzeugen
                         $value = $type->getName()::from($value);
                     } catch (\RuntimeException $e) {
-                        throw new DatabaseException(sprintf("Value cannot be validated as proper value associated with %s type", $type->getName()), $e->getCode(), $e);
+                        throw new DatabaseException(sprintf("Wert kann nicht als gültiger Wert des %s-Typs validiert werden", $type->getName()), $e->getCode(), $e);
                     }
                 }
 
-                // Set the property in the actual instance class
+                // Setzt die Eigenschaft in der tatsächlichen Klasseninstanz
                 $property->setValue($instance, $value);
             }
         }

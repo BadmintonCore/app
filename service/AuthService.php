@@ -82,12 +82,12 @@ class AuthService
     {
         $account = AccountRepository::findByUsername($username);
         if (null === $account) {
-            throw new AuthException("user does not exist");
+            throw new AuthException("Der Benutzername existiert nicht");
         }
 
         // Checks whether the password hashes are equal
         if (!password_verify($password, $account->password)) {
-            throw new AuthException("wrong password");
+            throw new AuthException("Falsches Passwort");
         }
         if ($rememberMe) {
             self::createUserAccountSession($account, self::LONG_SESSION_DURATION);

@@ -1,4 +1,5 @@
 <?php
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/
 
 namespace Vestis\Controller\Admin;
 
@@ -17,3 +18,4 @@ class AdminDashboardController
     }
 
 }
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/

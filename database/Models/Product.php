@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * Das Produkt-Modell, das die Daten der Produkt-Datenbanktabelle darstellt
+ * Das Model für ein Produkt in der Datenbank
  */
 class Product
 {

@@ -43,11 +43,11 @@
         <!--Container der Klasse "form-input"-->
         <div class="form-input">
             <label for="username">
-                <b>Benutzername/E-Mail</b>
+                <b>Benutzername</b>
             </label>
 
             <!--Input für den Benutzernamen-->
-            <input type="text" id="username" placeholder="Benutzername oder E-Mail eingeben" name="username" required>
+            <input type="text" id="username" placeholder="Benutzername eingeben" name="username" required>
         </div>
 
         <!--Container der Klasse "form-input"-->

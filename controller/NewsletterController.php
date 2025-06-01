@@ -1,4 +1,5 @@
 <?php
+/*Autor(en): */
 
 namespace Vestis\Controller;
 
@@ -14,7 +15,7 @@ use Vestis\Service\ValidationService;
 class NewsletterController
 {
     /**
-     * POST-Endpoint für das Newsletter
+     * POST-Endpoint für den Newsletter
      *
      * @return void
      */
@@ -27,7 +28,7 @@ class NewsletterController
 
             try {
 
-                // Validate form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
 
                 /** @var string $mail */
@@ -36,7 +37,7 @@ class NewsletterController
                 NewsletterService::subscribe($mail);
 
             } catch (\Exception|DatabaseException $e) {
-                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
         }
@@ -44,3 +45,4 @@ class NewsletterController
     }
 
 }
+/*Autor(en): */

@@ -1,9 +1,9 @@
 <?php
+/*Autor(en): */
 
 namespace Vestis\Controller;
 
 use Vestis\Database\Repositories\FeedbackRepository;
-use Vestis\Exception\AuthException;
 use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\validation\ValidationRule;
@@ -32,29 +32,40 @@ class CustomerServiceController
             ];
             try {
 
-                // Validate form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
                 $formData = ValidationService::getFormData();
 
-                //Erstellt ein neues Feedback
+                // Erstellt ein neues Feedback
                 FeedbackRepository::createFeedback($formData['name'], $formData['evaluation'], $formData['email'], $formData['message']);
 
                 $feedbackMessage = "Vielen Dank für dein Feedback!";
             } catch (ValidationException|DatabaseException $e) {
-                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
         }
         require_once __DIR__ . "/../views/customer-service/contact.php";
     }
 
+    /**
+     * Ansicht für die FAQ-Seite
+     *
+     * @return void
+     */
     public function faq(): void
     {
         require_once __DIR__ . "/../views/customer-service/faq.php";
     }
 
+    /**
+     * Ansicht für die Rückgabe-Seite
+     *
+     * @return void
+     */
     public function returns(): void
     {
         require_once __DIR__ . "/../views/customer-service/returns.php";
     }
 }
+/*Autor(en): */

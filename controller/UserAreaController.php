@@ -1,8 +1,8 @@
 <?php
+/*Autor(en): */
 
 namespace Vestis\Controller;
 
-use Vestis\Database\Models\Account;
 use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Exception\AuthException;
 use Vestis\Exception\LogicException;
@@ -11,7 +11,6 @@ use Vestis\Database\Models\AccountType;
 use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
-use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -21,25 +20,12 @@ use Vestis\Service\ValidationService;
  */
 class UserAreaController
 {
+
     /**
-     * @throws ValidationException
+     * Aktualisiert die Nutzerdaten eines Nutzers
+     *
+     * @return void
      */
-    public function shoppingCart(): void
-    {
-        AuthService::checkAccess(AccountType::Customer);
-        AuthService::setCurrentUserAccountSessionFromCookie();
-
-        $account = AuthService::$currentAccount;
-
-        if ($account !== null) {
-            $groupedProducts = ShoppingCartRepository::getAllProducts($account);
-        }
-
-        require_once __DIR__ . '/../views/user-area/shoppingCart.php';
-
-    }
-
-    //Author: Lasse Hoffmann
     public function user(): void
     {
         AuthService::checkAccess(AccountType::Customer);
@@ -69,13 +55,42 @@ class UserAreaController
         require_once __DIR__ . '/../views/user-area/user.php';
     }
 
+    /**
+     * Ansicht für die Wunschliste
+     *
+     * @return void
+     */
     public function wishlist(): void
     {
         require_once __DIR__ . '/../views/user-area/wishlist.php';
     }
 
     /**
+     * Ansicht für den Einkaufswagen
+     *
      * @throws ValidationException
+     * @return void
+     */
+    public function shoppingCart(): void
+    {
+        AuthService::checkAccess(AccountType::Customer);
+        AuthService::setCurrentUserAccountSessionFromCookie();
+
+        $account = AuthService::$currentAccount;
+
+        if ($account !== null) {
+            $groupedProducts = ShoppingCartRepository::getAllProducts($account);
+        }
+
+        require_once __DIR__ . '/../views/user-area/shoppingCart.php';
+
+    }
+
+    /**
+     * Entfernt eine Position aus dem Einkaufswagen
+     *
+     * @throws ValidationException
+     * @return void
      */
     public function removeShoppingCartItem(): void
     {
@@ -85,7 +100,7 @@ class UserAreaController
             'sizeId' => new ValidationRule(ValidationType::Integer),
             'colorId' => new ValidationRule(ValidationType::Integer),
         ];
-        // Validate form
+        // Formular validieren
         ValidationService::validateForm($validationRules, "GET");
         $formData = ValidationService::getFormData();
 
@@ -99,3 +114,4 @@ class UserAreaController
     }
 
 }
+/*Autor(en): */

@@ -1,3 +1,4 @@
+/*Autor(en): Mathis Burger*/
 const sidebarToggler = document.getElementById("sidebarDrawerToggler");
 const sidebarDrawer = document.getElementById("sidebarDrawer");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
@@ -31,3 +32,4 @@ document.addEventListener("click", (e) => {
        closeSidebar();
    }
 });
+/*Autor(en): Mathis Burger*/

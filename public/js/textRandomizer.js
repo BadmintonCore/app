@@ -1,4 +1,4 @@
-/*Author: Lasse Hoffmann*/
+/*Autor(en): Lasse Hoffmann*/
 
 const greetingTexts = [
     'Hallo,',
@@ -33,7 +33,7 @@ const greetingTexts = [
 ];
 
 /**
- * Generiert ein zufälligen Text aus dem Array "greetingTexts"
+ * Generiert einen zufälligen Text aus dem Array "greetingTexts"
  */
 function randomizeText() {
     const min = 0; //Intervall-Anfang, dieser Wert beginnt immer bei 0 - [0, x[
@@ -45,7 +45,7 @@ function randomizeText() {
 }
 
 /**
- * "Malt" ein zufällig generierten Text in das dafür vorgesehene Feld im Benutzerbereich
+ * "Malt" einen zufällig generierten Text in das dafür vorgesehene Feld im Benutzerbereich
  */
 function writeText() {
     const welcomeTextField = document.getElementById('welcomeTextField');
@@ -60,4 +60,4 @@ function writeText() {
 
 document.addEventListener("DOMContentLoaded", writeText);
 
-/*Author: Lasse Hoffmann*/
+/*Autor(en): Lasse Hoffmann*/

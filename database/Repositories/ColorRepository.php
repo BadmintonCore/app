@@ -12,7 +12,7 @@ use Vestis\Database\Models\ProductType;
 class ColorRepository
 {
     /**
-     * Findet eine Farbe abhand ihrer ID.
+     * Findet eine Farbe anhand ihrer ID
      *
      * @param int $id
      * @return Color|null
@@ -34,7 +34,7 @@ class ColorRepository
     }
 
     /**
-     * Findet Kategorien anhand ihres Produkt-Typen
+     * Findet Kategorien anhand ihres Produkttypen
      *
      * @param ProductType $productType
      * @return array<int, Color>
@@ -45,8 +45,8 @@ class ColorRepository
     }
 
     /**
-     * Findet Farben anhand einer Kategorie.
-     * NOTE: Dabei wird über den Produkttypen gejoined.
+     * Findet Farben anhand einer Kategorie
+     * HINWEIS: Dabei wird über den Produkttypen gejoined
      *
      * @param Category $category
      * @return array<int, Color>
@@ -57,7 +57,7 @@ class ColorRepository
     }
 
     /**
-     * Erstellt eine neue Farbe in der DB.
+     * Erstellt eine neue Farbe in der Datenbank
      *
      * @param string $name Der Name der Farbe
      * @param string $hex Der HEX-Wert der Farbe
@@ -69,7 +69,7 @@ class ColorRepository
     }
 
     /**
-     * Aktualisiert eine Farbe.
+     * Aktualisiert eine Farbe
      *
      * @param Color $color
      * @return void

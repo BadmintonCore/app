@@ -1,13 +1,12 @@
 <?php
+/*Autor(en): */
 
 namespace Vestis\Controller;
 
-use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
-use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -41,7 +40,7 @@ class ProductController
             return;
         }
 
-        //Verarbeitung des "Zum Warenkorb"-Buttons
+        // Verarbeitung des "Zum Warenkorb"-Buttons
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $validationRules = [
                 'size' => new ValidationRule(ValidationType::Integer),
@@ -51,7 +50,7 @@ class ProductController
 
             try {
 
-                // Validate form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
 
                 $formData = ValidationService::getFormData();
@@ -60,17 +59,17 @@ class ProductController
 
                 if ($account !== null) {
 
-                    //Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
+                    // Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
                     $pieces = ShoppingCartRepository::getAmountOfProducts($itemId, $formData["size"], $formData["color"]);
 
-                    //Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
+                    // Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
                     if ($pieces >= $formData["quantity"]) {
                         ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
                     }
                 }
 
             } catch (ValidationException $e) {
-                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
         }
@@ -80,3 +79,4 @@ class ProductController
 
 
 }
+/*Autor(en): */

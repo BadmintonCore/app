@@ -1,3 +1,4 @@
+/*Autor(en): Lasse Hoffmann*/
 const addToCartButton = document.getElementById('addToCartButton');
 const sizeRadios = document.querySelectorAll('input[name="size"]');
 const colorRadios = document.querySelectorAll('input[name="color"]');
@@ -28,3 +29,4 @@ addToCartButton.addEventListener("click", (e) => {
         alert("Bitte Farbe auswählen, bevor du etwas in den Warenkorb legst.");
     }
 });
+/*Autor(en): Lasse Hoffmann*/

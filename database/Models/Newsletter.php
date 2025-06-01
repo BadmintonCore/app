@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * Das Newsletter-Modell, das die Daten der Newsletter-Datenbanktabelle darstellt
+ * Das Model für einen Newsletter in der Datenbank
  */
 class Newsletter
 {

@@ -1,4 +1,5 @@
 <?php
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/
 
 namespace Vestis\Controller\Admin;
 
@@ -18,7 +19,7 @@ use Vestis\Service\ValidationService;
 class AdminCategoriesController
 {
     /**
-     * Listenansicht aller Kategorien.
+     * Listenansicht aller Kategorien
      *
      * @return void
      */
@@ -150,17 +151,18 @@ class AdminCategoriesController
 
         $formData = ValidationService::getFormData();
 
-        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        // Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
         $deletionValidation = DeletionValidationService::validateCategoryDeletion($formData['id']);
 
         if ($deletionValidation !== null) {
             throw new LogicException($deletionValidation);
         }
 
-        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        // Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
         CategoryRepository::delete($formData['id']);
 
         header('Location: /admin/categories');
     }
 
 }
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/

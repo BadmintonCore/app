@@ -25,11 +25,11 @@ class ProductTypeRepository
     /**
      * Findet Produkte anhand von Parametern.
      *
-     * @param Category $category The category that should be used to fetch product types
-     * @param int $maxPrice The maximum allowed price
-     * @param array<int, int> $allowedColorIds
-     * @param array<int, int> $allowedSizeIds
-     * @param string|null $search
+     * @param Category $category Die Kategorie, die genutzt werden soll, um einen Produkttyp zu finden
+     * @param int $maxPrice Der maximale Preis
+     * @param array<int, int> $allowedColorIds Die zugewiesenen Farben
+     * @param array<int, int> $allowedSizeIds Die zugewiesenen Größen
+     * @param string|null $search Ein Suchbegriff
      * @return array<int, ProductType>
      */
     public static function findByParams(Category $category, int $maxPrice, array $allowedColorIds, array $allowedSizeIds, ?string $search): array
@@ -64,9 +64,9 @@ class ProductTypeRepository
     }
 
     /**
-     * Findet ein Produkt anhand seiner ID
+     * Findet einen Produkttyp anhand seiner ID
      *
-     * @param int $id
+     * @param int $id Die Produkttyp-ID
      * @return ProductType|null
      */
     public static function findById(int $id): ?ProductType
@@ -75,9 +75,9 @@ class ProductTypeRepository
     }
 
     /**
-     * Findet den minimal und maximal Preis der Produkte einer Kategorie.
+     * Findet den minimal und maximal Preis der Produkttypen einer Kategorie
      *
-     * @param Category $category
+     * @param Category $category Die Kategorie
      * @return array<string, int|null>
      */
     public static function findMinAndMaxPricesByCategory(Category $category): array
@@ -87,7 +87,7 @@ class ProductTypeRepository
     }
 
     /**
-     * Aktualisiert ein Produkt-Typen
+     * Aktualisiert einen Produkttypen
      *
      * @param ProductType $productType
      * @return void
@@ -110,8 +110,10 @@ class ProductTypeRepository
     }
 
     /**
+     * Erstellt einen Produkttypen
+     *
      * @param array<string, int|bool|string|float|null> $formData
-     * @return ProductType
+     * @return ProductType|null
      */
     public static function create(array $formData): ?ProductType
     {
@@ -130,76 +132,82 @@ class ProductTypeRepository
     }
 
     /**
-     * @param int $id
-     * @param array<int, int> $sizeIds
+     * Aktualisiert die Größen-Zuordnung zu einem Produkttyp
+     *
+     * @param int $productTypeId Die Produkttyp-ID
+     * @param array<int, int> $sizeIds Die Größen-ID
      * @return void
      */
-    public static function updateSizeMapping(int $id, array $sizeIds): void
+    public static function updateSizeMapping(int $productTypeId, array $sizeIds): void
     {
 
-        $existingSizes = QueryAbstraction::fetchManyAs(null, "SELECT sizeId FROM allowedSize WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        $existingSizes = QueryAbstraction::fetchManyAs(null, "SELECT sizeId FROM allowedSize WHERE productTypeId = :productTypeId", ["productTypeId" => $productTypeId]);
         /** @var array<int, int> $existingSizeIds */
         $existingSizeIds = array_column($existingSizes, 'sizeId');
 
         $sizesToRemove = array_diff($existingSizeIds, $sizeIds);
         foreach ($sizesToRemove as $sizeId) {
-            QueryAbstraction::execute("DELETE FROM allowedSize WHERE productTypeId = :productTypeId AND sizeId = :sizeId", ['productTypeId' => $id, 'sizeId' => $sizeId]);
+            QueryAbstraction::execute("DELETE FROM allowedSize WHERE productTypeId = :productTypeId AND sizeId = :sizeId", ['productTypeId' => $productTypeId, 'sizeId' => $sizeId]);
         }
 
         $sizesToAdd = array_diff($sizeIds, $existingSizeIds);
         foreach ($sizesToAdd as $sizeId) {
-            QueryAbstraction::execute("INSERT INTO allowedSize (productTypeId, sizeId) VALUES (:productTypeId, :sizeId)", ['productTypeId' => $id, 'sizeId' => $sizeId]);
+            QueryAbstraction::execute("INSERT INTO allowedSize (productTypeId, sizeId) VALUES (:productTypeId, :sizeId)", ['productTypeId' => $productTypeId, 'sizeId' => $sizeId]);
         }
     }
 
     /**
-     * @param int $id
-     * @param array<int, int> $colorIds
+     * Aktualisiert die Farben-Zuordnung zu einem Produkttyp
+     *
+     * @param int $productTypeId Die Produkttyp-ID
+     * @param array<int, int> $colorIds Die Größen-ID
      * @return void
      */
-    public static function updateColorMapping(int $id, array $colorIds): void
+    public static function updateColorMapping(int $productTypeId, array $colorIds): void
     {
-        $existingColors = QueryAbstraction::fetchManyAs(null, "SELECT colorId FROM allowedColor WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        $existingColors = QueryAbstraction::fetchManyAs(null, "SELECT colorId FROM allowedColor WHERE productTypeId = :productTypeId", ["productTypeId" => $productTypeId]);
         /** @var array<int, int> $existingColorIds */
         $existingColorIds = array_column($existingColors, 'colorId');
 
         $colorsToRemove = array_diff($existingColorIds, $colorIds);
         foreach ($colorsToRemove as $colorId) {
-            QueryAbstraction::execute("DELETE FROM allowedColor WHERE productTypeId = :productTypeId AND colorId = :colorId", ['productTypeId' => $id, 'colorId' => $colorId]);
+            QueryAbstraction::execute("DELETE FROM allowedColor WHERE productTypeId = :productTypeId AND colorId = :colorId", ['productTypeId' => $productTypeId, 'colorId' => $colorId]);
         }
 
         $colorsToAdd = array_diff($colorIds, $existingColorIds);
         foreach ($colorsToAdd as $colorId) {
-            QueryAbstraction::execute("INSERT INTO allowedColor (productTypeId, colorId) VALUES (:productTypeId, :colorId)", ['productTypeId' => $id, 'colorId' => $colorId]);
+            QueryAbstraction::execute("INSERT INTO allowedColor (productTypeId, colorId) VALUES (:productTypeId, :colorId)", ['productTypeId' => $productTypeId, 'colorId' => $colorId]);
         }
     }
 
     /**
-     * @param int $id
-     * @param array<int, int> $imageIds
+     * Aktualisiert die Bilder-Zuordnung zu einem Produkttyp
+     *
+     * @param int $productTypeId Die Produkttyp-ID
+     * @param array<int, int> $imageIds Die Bild-ID
      * @return void
      */
-    public static function updateImageMapping(int $id, array $imageIds): void
+    public static function updateImageMapping(int $productTypeId, array $imageIds): void
     {
-        $existingImages = QueryAbstraction::fetchManyAs(null, "SELECT imageId FROM productImage WHERE productTypeId = :productTypeId", ["productTypeId" => $id]);
+        $existingImages = QueryAbstraction::fetchManyAs(null, "SELECT imageId FROM productImage WHERE productTypeId = :productTypeId", ["productTypeId" => $productTypeId]);
         /** @var array<int, int> $existingImageIds */
         $existingImageIds = array_column($existingImages, 'imageId');
 
         $imagesToRemove = array_diff($existingImageIds, $imageIds);
         foreach ($imagesToRemove as $imageId) {
-            QueryAbstraction::execute("DELETE FROM productImage WHERE productTypeId = :productTypeId AND imageId = :imageId", ['productTypeId' => $id, 'imageId' => $imageId]);
+            QueryAbstraction::execute("DELETE FROM productImage WHERE productTypeId = :productTypeId AND imageId = :imageId", ['productTypeId' => $productTypeId, 'imageId' => $imageId]);
         }
 
         $imagesToAdd = array_diff($imageIds, $existingImageIds);
         foreach ($imagesToAdd as $imageId) {
-            QueryAbstraction::execute("INSERT INTO productImage (productTypeId, imageId) VALUES (:productTypeId, :imageId)", ['productTypeId' => $id, 'imageId' => $imageId]);
+            QueryAbstraction::execute("INSERT INTO productImage (productTypeId, imageId) VALUES (:productTypeId, :imageId)", ['productTypeId' => $productTypeId, 'imageId' => $imageId]);
         }
     }
 
     /**
      * Löscht eine vorhandene Produktkategorie
      *
-     * @param int $productTypeId Die ID der Produktkategorie
+     * @param int $productTypeId Die Produkttyp-ID
      * @return void
      */
     public static function delete(int $productTypeId): void
@@ -210,7 +218,7 @@ class ProductTypeRepository
     /**
      * Überprüft, ob eine Kategorie bereits einem Produkttyp zugeordnet ist
      *
-     * @param int $categoryId Die ID der Kategorie
+     * @param int $categoryId Die Kategorie-ID
      * @return bool
      */
     public static function hasCategories(int $categoryId): bool

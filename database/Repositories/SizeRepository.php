@@ -34,7 +34,7 @@ class SizeRepository
     }
 
     /**
-     * Findet Größen anhand eines Produkt-Typen
+     * Findet Größen anhand eines Produkttypen
      *
      * @param ProductType $productType
      * @return array<int, Size>

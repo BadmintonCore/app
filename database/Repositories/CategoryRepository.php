@@ -20,7 +20,7 @@ class CategoryRepository
     }
 
     /**
-     * Gets all categories that do not have a parent category
+     * Gibt alle Kategorien zurück, die keine Eltern-Kategorie haben
      *
      * @return array<int, Category>
      */
@@ -30,7 +30,7 @@ class CategoryRepository
     }
 
     /**
-     * Gets all categories that do have a parent category
+     * Gibt alle Kategorien zurück, die eine Eltern-Kategorie haben
      *
      * @return array<int, Category>
      */
@@ -40,7 +40,7 @@ class CategoryRepository
     }
 
     /**
-     * Gets all categories that do not have a parent category and are not the given ID
+     * Gibt alle Kategorien zurück, die keine Eltern-Kategorie haben und nicht die übergebene Kategorie-ID selbst sind
      *
      * @param int $id
      *
@@ -52,10 +52,10 @@ class CategoryRepository
     }
 
     /**
-     * Gets a category by ID
+     * Gibt eine Kategorie anhand ihrer ID zurück
      *
-     * @param int $id the ID
-     * @return Category|null The category
+     * @param int $id Die Kategorie-ID
+     * @return Category|null Die Kategorie
      */
     public static function findById(int $id): ?Category
     {
@@ -63,9 +63,9 @@ class CategoryRepository
     }
 
     /**
-     * Überprüft, ob eine Kategorie eine Eltern-Kategorie hat.
+     * Überprüft, ob eine Kategorie eine Eltern-Kategorie hat
      *
-     * @param int $categoryId
+     * @param int $categoryId Die Kategorie-ID
      * @return bool
      */
     public static function hasParent(int $categoryId): bool
@@ -74,9 +74,9 @@ class CategoryRepository
     }
 
     /**
-     * Überprüft, ob eine Kategorie Kinder-Kategorien hat.
+     * Überprüft, ob eine Kategorie Kinder-Kategorien hat
      *
-     * @param int $categoryId
+     * @param int $categoryId Die Kategorie-ID
      * @return bool
      */
     public static function hasChildren(int $categoryId): bool
@@ -85,9 +85,9 @@ class CategoryRepository
     }
 
     /**
-     * Finds many by parent category id
+     * Findet Kategorien anhand einer Eltern-Kategorie
      *
-     * @param int $id The parent category ID
+     * @param int $id Die Eltern-Kategorie-ID
      * @return array<int, Category>
      */
     public static function findByParentId(int $id): array

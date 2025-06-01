@@ -3,7 +3,7 @@
 namespace Vestis\Exception;
 
 /**
- * This exception is thrown if something is wrong with email transport.
+ * Diese Ausnahme wird ausgelöst, wenn etwas mit dem E-Mail-Transport nicht stimmt.
  */
 class EmailException extends \Exception
 {

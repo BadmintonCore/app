@@ -4,10 +4,13 @@ namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Models\Product;
 
+/**
+ * Repository für @see Product
+ */
 class ProductRepository
 {
     /**
-     * Prüft, ob für ein Produkttyp ein Produkt existiert
+     * Prüft, ob für einen Produkttyp ein Produkt existiert
      *
      * @param int $productTypeId Die ID des Produkttyps
      * @return bool

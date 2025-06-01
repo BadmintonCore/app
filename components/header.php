@@ -1,5 +1,4 @@
-<!--Author: Mathis Burger, Lennart Moog, Lasse Hoffmann-->
-
+<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
 <?php
 
 use Vestis\Database\Repositories\CategoryRepository;
@@ -208,4 +207,4 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
         </select>
     </label>
 </header>
-<!--Author: Mathis Burger, Lennart Moog, Lasse Hoffmann-->
+<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
