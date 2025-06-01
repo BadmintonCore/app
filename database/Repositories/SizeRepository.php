@@ -88,4 +88,16 @@ class SizeRepository
         QueryAbstraction::execute("DELETE FROM size WHERE id = :id", ['id' => $sizeId]);
     }
 
+
+    /**
+     * Prüft, ob eine Größe bereits für Produkttypen verwendet wird
+     *
+     * @param int $sizeId Die ID der Größe
+     * @return bool
+     */
+    public static function isUsed(int $sizeId): bool
+    {
+        return QueryAbstraction::fetchOneAs(null, "SELECT sizeId FROM allowedSize WHERE sizeId = :sizeId", ["sizeId" => $sizeId]) !== null;
+    }
+
 }

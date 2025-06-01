@@ -2,6 +2,9 @@
 
 namespace Vestis\Database\Models;
 
+/**
+ * Das Produkt-Modell, das die Daten der Produkt-Datenbanktabelle darstellt
+ */
 class Product
 {
     public int $id;

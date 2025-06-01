@@ -208,12 +208,13 @@ class ProductTypeRepository
     }
 
     /**
-     * @param int $categoryId
+     * Überprüft, ob eine Kategorie bereits einem Produkttyp zugeordnet ist
+     *
+     * @param int $categoryId Die ID der Kategorie
      * @return bool
      */
     public static function hasCategories(int $categoryId): bool
     {
-        return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT COUNT(*) FROM productType WHERE categoryId = :categoryId", ["categoryId" => $categoryId]) !== null;
+        return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT * FROM productType WHERE categoryId = :categoryId", ["categoryId" => $categoryId]) !== null;
     }
-
 }

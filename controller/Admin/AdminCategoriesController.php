@@ -4,11 +4,10 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\CategoryRepository;
-use Vestis\Database\Repositories\ProductRepository;
-use Vestis\Database\Repositories\ProductTypeRepository;
-use Vestis\Exception\DatabaseException;
+use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\DeletionValidationService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -28,7 +27,7 @@ class AdminCategoriesController
         AuthService::checkAccess(AccountType::Administrator);
         $categories = CategoryRepository::findAll();
         $errorMessage = $_GET["errorMessage"];
-        require_once __DIR__.'/../../views/admin/categories/list.php';
+        require_once __DIR__ . '/../../views/admin/categories/list.php';
     }
 
     /**
@@ -49,7 +48,7 @@ class AdminCategoriesController
         // Existiert die Kategorie nicht, wird die Fehlermeldung im View angezeigt
         if ($category === null) {
             $errorMessage = 'Kategorie nicht gefunden!';
-            require_once __DIR__.'/../../views/admin/categories/edit.php';
+            require_once __DIR__ . '/../../views/admin/categories/edit.php';
             return;
         }
 
@@ -74,7 +73,7 @@ class AdminCategoriesController
                 if ($parentCategoryId === -1) {
                     $category->parentCategoryId = null;
                 }
-                // Überprüft ob gegebene Kategorie existiert und setzt die ID dieser als neue parentCategoryId
+                // Überprüft, ob gegebene Kategorie existiert und setzt die ID dieser als neue parentCategoryId
                 if ($parentCategoryId !== -1 && CategoryRepository::findById($parentCategoryId) !== null) {
                     $category->parentCategoryId = $parentCategoryId;
                 }
@@ -86,7 +85,7 @@ class AdminCategoriesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/categories/edit.php';
+        require_once __DIR__ . '/../../views/admin/categories/edit.php';
     }
 
     /**
@@ -130,13 +129,14 @@ class AdminCategoriesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/categories/create.php';
+        require_once __DIR__ . '/../../views/admin/categories/create.php';
     }
 
     /**
      * Löschen einer Kategorie
      *
      * @return void
+     * @throws ValidationException|LogicException
      */
     public function delete(): void
     {
@@ -146,35 +146,21 @@ class AdminCategoriesController
             'id' => new ValidationRule(ValidationType::Integer),
         ];
 
-        try {
-            ValidationService::validateForm($validationRules, "GET");
+        ValidationService::validateForm($validationRules, "GET");
 
-            $formData = ValidationService::getFormData();
+        $formData = ValidationService::getFormData();
 
-            if (CategoryRepository::hasParent($formData["id"])) {
+        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        $deletionValidation = DeletionValidationService::validateCategoryDeletion($formData['id']);
 
-                if (!ProductTypeRepository::hasCategories($formData["id"])) {
-                    CategoryRepository::delete($formData['id']);
-                } else {
-                    $errorMessage = "Es gibt noch Produkte mit dieser Produktkategorie.";
-                }
-            } else {
-                if (CategoryRepository::hasChild($formData["id"])) {
-                    $errorMessage = "Es gibt noch Kategorien, die diese Oberkategorie nutzen.";
-                } else {
-                    CategoryRepository::delete($formData['id']);
-                }
-            }
-
-        } catch (ValidationException|DatabaseException $e) {
-            $errorMessage = $e->getMessage();
+        if ($deletionValidation !== null) {
+            throw new LogicException($deletionValidation);
         }
 
-        if (isset($errorMessage)) {
-            header('Location: /admin/categories?errorMessage=Fehler: ' . $errorMessage);
-        } else {
-            header('Location: /admin/categories');
-        }
+        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        CategoryRepository::delete($formData['id']);
+
+        header('Location: /admin/categories');
     }
 
 }

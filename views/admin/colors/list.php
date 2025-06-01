@@ -1,6 +1,7 @@
 <?php
 
 use Vestis\Database\Models\Color;
+use Vestis\Service\DeletionValidationService;
 
 /** @var array<int, Color> $colors */
 
@@ -53,7 +54,7 @@ use Vestis\Database\Models\Color;
                     </div>
                 </td>
                 <td><a class="btn btn-sm" href="/admin/colors/edit?id=<?= $color->id ?>">Ändern.</a></td>
-                <?php $deletionValidation = \Vestis\Service\DeletionValidationService::validateColorDeletion($color->id)?>
+                <?php $deletionValidation = DeletionValidationService::validateColorDeletion($color->id)?>
                 <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
                         <?= $deletionValidation !== null ? "" :  sprintf("href='/admin/colors/delete?id=%s'", $color->id)?>
                     <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>

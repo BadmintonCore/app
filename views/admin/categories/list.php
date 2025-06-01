@@ -1,6 +1,7 @@
 <?php
 
 use Vestis\Database\Models\Category;
+use Vestis\Service\DeletionValidationService;
 
 /** @var array<int, Category> $categories */
 
@@ -52,7 +53,11 @@ use Vestis\Database\Models\Category;
                     <?php endif; ?>
                 </td>
                 <td><a class="btn btn-sm" href="/admin/categories/edit?id=<?= $category->id ?>">Edit.</a></td>
-                <td><a class="btn btn-sm danger" href="/admin/categories/delete?id=<?= $category->id ?>">Löschen.</a></td>
+                <?php $deletionValidation = DeletionValidationService::validateCategoryDeletion($category->id)?>
+                <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
+                        <?= $deletionValidation !== null ? "" :  sprintf("href='/admin/categories/delete?id=%s'", $category->id)?>
+                        <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>
+                        Löschen.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

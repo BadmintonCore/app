@@ -2,6 +2,7 @@
 
 use Vestis\Database\Dto\PaginationDto;
 use Vestis\Database\Models\ProductType;
+use Vestis\Service\DeletionValidationService;
 use Vestis\Utility\PaginationUtility;
 
 /** @var PaginationDto<ProductType> $productTypes */
@@ -54,7 +55,11 @@ use Vestis\Utility\PaginationUtility;
                 </td>
                 <td class="price-field"><?= $productType->price ?>€</td>
                 <td><a class="btn btn-sm" href="/admin/productTypes/edit?id=<?= $productType->id ?>">Ändern.</a></td>
-                <td><a class="btn btn-sm danger" href="/admin/productTypes/delete?id=<?= $productType->id ?>">Löschen.</a></td>
+                <?php $deletionValidation = DeletionValidationService::validateProductTypeDeletion($productType->id)?>
+                <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
+                        <?= $deletionValidation !== null ? "" :  sprintf("href='/admin/productTypes/delete?id=%s'", $productType->id)?>
+                        <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>
+                        Löschen.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

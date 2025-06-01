@@ -108,7 +108,7 @@ class CategoryRepository
     }
 
     /**
-     * Aktualisiert eine Kategorie.
+     * Aktualisiert eine Kategorie
      *
      * @param Category $category Die Kategorie, mit lokal geänderten Parametern
      * @return void
@@ -119,7 +119,7 @@ class CategoryRepository
     }
 
     /**
-     * Löscht eine Kategorie.
+     * Löscht eine Kategorie
      *
      * @param int $categoryId
      * @return void

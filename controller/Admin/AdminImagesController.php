@@ -4,7 +4,6 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ImageRepository;
-use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -98,6 +97,7 @@ class AdminImagesController
      * Löschen eines Bildes
      *
      * @return void
+     * @throws ValidationException
      */
     public function delete(): void
     {
@@ -107,21 +107,11 @@ class AdminImagesController
             'id' => new ValidationRule(ValidationType::Integer),
         ];
 
-        try {
-            ValidationService::validateForm($validationRules, "GET");
+        ValidationService::validateForm($validationRules, "GET");
 
-            $formData = ValidationService::getFormData();
+        $formData = ValidationService::getFormData();
 
-            ImageRepository::delete($formData['id']);
-
-        } catch (ValidationException | DatabaseException $e) {
-            $errorMessage = $e->getMessage();
-        }
-
-        if (isset($errorMessage)) {
-            header('Location: /admin/images?errorMessage=Fehler: ' . $errorMessage);
-        } else {
-            header('Location: /admin/images');
-        }
+        //Löschen des Eintrags aus der Datenbank.
+        ImageRepository::delete($formData['id']);
     }
 }

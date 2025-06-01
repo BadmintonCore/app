@@ -5,7 +5,6 @@ namespace Vestis\Controller\Admin;
 use Vestis\Exception\LogicException;
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ColorRepository;
-use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\DeletionValidationService;
@@ -140,12 +139,14 @@ class AdminColorsController
 
         $formData = ValidationService::getFormData();
 
+        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
         $deletionValidation = DeletionValidationService::validateColorDeletion($formData['id']);
 
         if ($deletionValidation !== null) {
             throw new LogicException($deletionValidation);
         }
 
+        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
         ColorRepository::delete($formData['id']);
 
         header('Location: /admin/colors');

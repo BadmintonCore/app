@@ -1,6 +1,7 @@
 <?php
 
 use Vestis\Database\Models\Size;
+use Vestis\Service\DeletionValidationService;
 
 /** @var array<int, Size> $sizes */
 
@@ -46,7 +47,11 @@ use Vestis\Database\Models\Size;
                 <td><?= $size->id ?></td>
                 <td><?= $size->size ?></td>
                 <td><a class="btn btn-sm" href="/admin/sizes/edit?id=<?= $size->id ?>">Ändern.</a></td>
-                <td><a class="btn btn-sm danger" href="/admin/sizes/delete?id=<?= $size->id ?>">Löschen.</a></td>
+                <?php $deletionValidation = DeletionValidationService::validateSizeDeletion($size->id)?>
+                <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
+                        <?= $deletionValidation !== null ? "" :  sprintf("href='/admin/sizes/delete?id=%s'", $size->id)?>
+                        <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>
+                        Löschen.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

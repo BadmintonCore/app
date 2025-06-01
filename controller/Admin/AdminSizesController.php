@@ -3,12 +3,11 @@
 namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
-use Vestis\Database\Repositories\ColorRepository;
-use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\SizeRepository;
-use Vestis\Exception\DatabaseException;
+use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\DeletionValidationService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -28,7 +27,7 @@ class AdminSizesController
         AuthService::checkAccess(AccountType::Administrator);
         $sizes = SizeRepository::findAll();
         $errorMessage = $_GET["errorMessage"];
-        require_once __DIR__.'/../../views/admin/sizes/list.php';
+        require_once __DIR__ . '/../../views/admin/sizes/list.php';
     }
 
     /**
@@ -46,7 +45,7 @@ class AdminSizesController
 
         if ($size === null) {
             $errorMessage = 'Größe nicht gefunden!';
-            require_once __DIR__.'/../../views/admin/sizes/edit.php';
+            require_once __DIR__ . '/../../views/admin/sizes/edit.php';
             return;
         }
 
@@ -72,7 +71,7 @@ class AdminSizesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/sizes/edit.php';
+        require_once __DIR__ . '/../../views/admin/sizes/edit.php';
     }
 
     /**
@@ -85,7 +84,7 @@ class AdminSizesController
         AuthService::checkAccess(AccountType::Administrator);
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
-            require_once __DIR__.'/../../views/admin/sizes/create.php';
+            require_once __DIR__ . '/../../views/admin/sizes/create.php';
         } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             $validationRules = [
@@ -106,7 +105,7 @@ class AdminSizesController
 
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
-                require_once __DIR__.'/../../views/admin/categories/create.php';
+                require_once __DIR__ . '/../../views/admin/sizes/create.php';
             }
         }
     }
@@ -115,6 +114,7 @@ class AdminSizesController
      * Löschen einer Größe
      *
      * @return void
+     * @throws ValidationException|LogicException
      */
     public function delete(): void
     {
@@ -124,26 +124,20 @@ class AdminSizesController
             'id' => new ValidationRule(ValidationType::Integer),
         ];
 
-        try {
-            ValidationService::validateForm($validationRules, "GET");
+        ValidationService::validateForm($validationRules, "GET");
 
-            $formData = ValidationService::getFormData();
+        $formData = ValidationService::getFormData();
 
-            if (!ProductRepository::hasSize($formData["id"])) {
-                SizeRepository::delete($formData['id']);
-            } else {
-                $errorMessage = "Es gibt noch Produkte mit dieser Größe.";
-            }
+        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        $deletionValidation = DeletionValidationService::validateSizeDeletion($formData['id']);
 
-        } catch (ValidationException|DatabaseException $e) {
-            $errorMessage = $e->getMessage();
+        if ($deletionValidation !== null) {
+            throw new LogicException($deletionValidation);
         }
 
-        if (isset($errorMessage)) {
-            header('Location: /admin/sizes?errorMessage=Fehler: ' . $errorMessage);
-        } else {
-            header('Location: /admin/sizes');
-        }
+        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        SizeRepository::delete($formData['id']);
+
+        header('Location: /admin/sizes');
     }
-
 }
