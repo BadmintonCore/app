@@ -52,7 +52,7 @@ use Vestis\Service\DeletionValidationService;
                         <a href="/admin/categories/edit?id=<?= $category->getParentCategory()->id ?>"><?= $category->getParentCategory()->name ?></a>
                     <?php endif; ?>
                 </td>
-                <td><a class="btn btn-sm" href="/admin/categories/edit?id=<?= $category->id ?>">Edit.</a></td>
+                <td><a class="btn btn-sm" href="/admin/categories/edit?id=<?= $category->id ?>">Ändern.</a></td>
                 <?php $deletionValidation = DeletionValidationService::validateCategoryDeletion($category->id)?>
                 <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
                         <?= $deletionValidation !== null ? "" : sprintf("href='/admin/categories/delete?id=%s'", $category->id)?>
