@@ -320,18 +320,7 @@ class AdminProductTypesController
 
             $formData = ValidationService::getFormData();
 
-            $usedProducts = ProductRepository::getIds();
-
-            $usedProduct = false;
-
-            for ($i = 0; $i < count($usedProducts); $i++) {
-                if ($usedProducts[$i]->productTypeId === $formData["id"]) {
-                    $usedProduct = true;
-                    break;
-                }
-            }
-
-            if (!$usedProduct) {
+            if (!ProductRepository::hasId($formData["id"])) {
                 ProductTypeRepository::delete($formData['id']);
             } else {
                 $errorMessage = "Es gibt noch Produkte mit dieser Produktkategorie.";

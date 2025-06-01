@@ -7,27 +7,18 @@ use Vestis\Database\Models\ProductType;
 
 class ProductRepository
 {
-    /**
-     * @return array<int, Product>
-     */
-    public static function getIds(): array
+    public static function hasId(int $productTypeId): bool
     {
-        return QueryAbstraction::fetchManyAs(Product::class, "SELECT productTypeId FROM product GROUP BY productTypeId");
+        return QueryAbstraction::fetchOneAs(Product::class, "SELECT productTypeId FROM product WHERE productTypeId = :productTypeId ", ["productTypeId" => $productTypeId]) !== null;
     }
 
-    /**
-     * @return array<int, Product>
-     */
-    public static function getSizes(): array
+    public static function hasSize(int $sizeId): bool
     {
-        return QueryAbstraction::fetchManyAs(Product::class, "SELECT sizeId FROM product GROUP BY sizeId");
+        return QueryAbstraction::fetchOneAs(null, "SELECT sizeId FROM allowedSize WHERE sizeId = :sizeId", ["sizeId" => $sizeId]) !== null;
     }
 
-    /**
-     * @return array<int, Product>
-     */
-    public static function getColors(): array
+    public static function hasColor(int $colorId):bool
     {
-        return QueryAbstraction::fetchManyAs(Product::class, "SELECT colorId FROM product GROUP BY colorId");
+        return QueryAbstraction::fetchOneAs(null, "SELECT colorId FROM allowedColor WHERE colorId = :colorId", ["colorId" => $colorId]) !== null;
     }
 }

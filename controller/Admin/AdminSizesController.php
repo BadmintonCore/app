@@ -129,18 +129,7 @@ class AdminSizesController
 
             $formData = ValidationService::getFormData();
 
-            $usedSizes = ProductRepository::getSizes();
-
-            $usedSize = false;
-
-            for ($i = 0; $i < count($usedSizes); $i++) {
-                if ($usedSizes[$i]->sizeId === $formData["id"]) {
-                    $usedSize = true;
-                    break;
-                }
-            }
-
-            if (!$usedSize) {
+            if (!ProductRepository::hasSize($formData["id"])) {
                 SizeRepository::delete($formData['id']);
             } else {
                 $errorMessage = "Es gibt noch Produkte mit dieser Größe.";

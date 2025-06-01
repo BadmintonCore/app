@@ -11,17 +11,17 @@ use Vestis\Database\Models\Color;
 <html lang="de">
 <head>
     <title>vestis. - Farben</title>
-    <?php include(__DIR__."/../../../components/head.php"); ?>
+    <?php include(__DIR__ . "/../../../components/head.php"); ?>
 </head>
 <body>
 <!--Inhalt der Seite-->
 
-<?php include(__DIR__."/../../../components/adminHeader.php"); ?>
+<?php include(__DIR__ . "/../../../components/adminHeader.php"); ?>
 
 <main>
 
     <!--Breadcrumbs-->
-    <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
+    <?php include(__DIR__ . "/../../../components/breadcrumbs.php"); ?>
 
     <h1>Farben</h1>
 
@@ -33,27 +33,31 @@ use Vestis\Database\Models\Color;
 
     <table class="mt-4">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Hex</th>
-                <th>Ändern</th>
-                <th>Löschen</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Hex</th>
+            <th>Ändern</th>
+            <th>Löschen</th>
+        </tr>
         </thead>
         <tbody>
-            <?php foreach ($colors as $color): ?>
+        <?php foreach ($colors as $color): ?>
             <tr>
                 <td><?= $color->id ?></td>
                 <td><?= $color->name ?></td>
                 <td>
-                   <div class="flex-row">
-                       #<?= $color->hex ?>
-                       <div class="color-circle" style="background: #<?= $color->hex ?>"></div>
-                   </div>
+                    <div class="flex-row">
+                        #<?= $color->hex ?>
+                        <div class="color-circle" style="background: #<?= $color->hex ?>"></div>
+                    </div>
                 </td>
                 <td><a class="btn btn-sm" href="/admin/colors/edit?id=<?= $color->id ?>">Ändern.</a></td>
-                <td><a class="btn btn-sm danger" href="/admin/colors/delete?id=<?= $color->id ?>">Löschen.</a></td>
+                <?php $deletionValidation = \Vestis\Service\DeletionValidationService::validateColorDeletion($color->id)?>
+                <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
+                        <?= $deletionValidation !== null ? "" :  sprintf("href='/admin/colors/delete?id=%s'", $color->id)?>
+                    <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>
+                    Löschen.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -62,8 +66,8 @@ use Vestis\Database\Models\Color;
 </main>
 
 <!--Footer der Website-->
-<?php include(__DIR__."/../../../components/adminFooter.php"); ?>
-<?php include(__DIR__."/../../../components/scripts.php"); ?>
+<?php include(__DIR__ . "/../../../components/adminFooter.php"); ?>
+<?php include(__DIR__ . "/../../../components/scripts.php"); ?>
 </body>
 </html>
 <!--Author: Lennart Moog -->

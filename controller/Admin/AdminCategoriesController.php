@@ -153,18 +153,7 @@ class AdminCategoriesController
 
             if (CategoryRepository::hasParent($formData["id"])) {
 
-                $usedCategories = ProductTypeRepository::getCategories();
-
-                $usedCategory = false;
-
-                for ($i = 0; $i < count($usedCategories); $i++) {
-                    if ($usedCategories[$i]->categoryId === $formData["id"]) {
-                        $usedCategory = true;
-                        break;
-                    }
-                }
-
-                if (!$usedCategory) {
+                if (!ProductTypeRepository::hasCategories($formData["id"])) {
                     CategoryRepository::delete($formData['id']);
                 } else {
                     $errorMessage = "Es gibt noch Produkte mit dieser Produktkategorie.";

@@ -596,6 +596,24 @@ a:hover {
     width: 100%;
 }
 
+/*deaktivierter Button*/
+.disabled {
+    pointer-events: auto;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/*Hover-Animation bei deaktivierten Button verhindern*/
+.disabled:hover {
+    animation: none ;
+}
+
+/*Hover-Animation bei deaktivierten Button verhindern*/
+.disabled:hover::before {
+    width: 0 ;
+    transition: none ;
+}
+
 /*kleiner Button (button-small)*/
 .btn.btn-sm {
     color: var(--primary-background-color);

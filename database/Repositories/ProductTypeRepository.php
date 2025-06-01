@@ -208,11 +208,12 @@ class ProductTypeRepository
     }
 
     /**
-     * @return array<int, ProductType>
+     * @param int $categoryId
+     * @return bool
      */
-    public static function getCategories(): array
+    public static function hasCategories(int $categoryId): bool
     {
-        return QueryAbstraction::fetchManyAs(ProductType::class, "SELECT categoryId FROM product JOIN productType ON product.productTypeId = productType.id GROUP BY categoryId");
+        return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT COUNT(*) FROM productType WHERE categoryId = :categoryId", ["categoryId" => $categoryId]) !== null;
     }
 
 }

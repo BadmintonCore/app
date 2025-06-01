@@ -1,10 +1,4 @@
 <!--Author: Lasse Hoffmann-->
-
-<?php
-
-use Vestis\Service\AuthService;
-
-?>
 <footer>
 
     <!--Container der Klasse "footer-copyright"-->
