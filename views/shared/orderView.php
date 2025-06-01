@@ -35,13 +35,13 @@ use Vestis\Service\AuthService;
             <a class="btn btn-sm" href="/user-area/orders/cancel?id=<?= $order->id ?>">Stornieren</a>
             <?php endif; ?>
             <?php if(AuthService::isAdmin() && in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress])): ?>
-                <a class="btn btn-sm" href="/user-area/orders/deny?id=<?= $order->id ?>">Ablehnen</a>
+                <a class="btn btn-sm" href="/admin/orders/deny?id=<?= $order->id ?>">Ablehnen</a>
             <?php endif; ?>
             <?php if(AuthService::isAdmin() && $order->status === OrderStatus::PaymentPending): ?>
-                <a class="btn btn-sm" href="/user-area/orders/confirmPayment?id=<?= $order->id ?>">Zahlung bestätigen</a>
+                <a class="btn btn-sm" href="/admin/orders/confirmPayment?id=<?= $order->id ?>">Zahlung bestätigen</a>
             <?php endif; ?>
             <?php if(AuthService::isAdmin() && $order->status === OrderStatus::InProgress): ?>
-                <a class="btn btn-sm" href="/user-area/orders/confirmShipment?id=<?= $order->id ?>">Versand bestätigen</a>
+                <a class="btn btn-sm" href="/admin/orders/confirmShipment?id=<?= $order->id ?>">Versand bestätigen</a>
             <?php endif; ?>
         </div>
 

@@ -126,7 +126,7 @@ class UserAreaController
         ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
         EmailService::sendOrderConfirmation($order);
 
-        header("location: /user-area/orders");
+        header("location: /user-area/orders/view?id={$order->id}");
     }
 
 }

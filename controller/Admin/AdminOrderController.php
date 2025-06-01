@@ -59,4 +59,82 @@ class AdminOrderController
         require_once __DIR__ . '/../../views/shared/orderView.php';
     }
 
+    /**
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
+    public function deny(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer)
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+
+        $order = OrderRepository::findById($formData['id']);
+
+        if (!in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress])) {
+            throw new LogicException("Der Auftrag kann nicht mehr abgelehnt werden.");
+        }
+
+        OrderRepository::updateStatus($order->id, OrderStatus::Denied);
+
+        header('Location: /admin/orders/view?id=' . $order->id);
+    }
+
+    /**
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
+    public function confirmPayment(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer)
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+
+        $order = OrderRepository::findById($formData['id']);
+
+        if ($order->status !== OrderStatus::PaymentPending) {
+            throw new LogicException("Die Zahlung des Auftrags kann nicht akzeptiert werden.");
+        }
+
+        OrderRepository::updateStatus($order->id, OrderStatus::InProgress);
+
+        header('Location: /admin/orders/view?id=' . $order->id);
+    }
+
+    /**
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
+    public function confirmShipment(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer)
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+
+        $order = OrderRepository::findById($formData['id']);
+
+        if ($order->status !== OrderStatus::InProgress) {
+            throw new LogicException("Der Versand des Auftrags kann nicht bestätigt werden.");
+        }
+
+        OrderRepository::updateStatus($order->id, OrderStatus::Shipped);
+
+        header('Location: /admin/orders/view?id=' . $order->id);
+    }
+
 }

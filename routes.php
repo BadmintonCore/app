@@ -76,5 +76,8 @@ return [
     '/admin/images/view' => [AdminImagesController::class, 'view'],
     '/admin/orders' => [AdminOrderController::class, 'index'],
     '/admin/orders/view' => [AdminOrderController::class, 'details'],
+    '/admin/orders/deny' => [AdminOrderController::class, 'deny'],
+    '/admin/orders/confirmPayment' => [AdminOrderController::class, 'confirmPayment'],
+    '/admin/orders/confirmShipment' => [AdminOrderController::class, 'confirmShipment'],
     '/system/exchangeRates' => [SystemController::class, 'getExchangeRates'],
 ];
