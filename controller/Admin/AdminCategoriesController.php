@@ -4,8 +4,10 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\CategoryRepository;
+use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\DeletionValidationService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -24,7 +26,8 @@ class AdminCategoriesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $categories = CategoryRepository::findAll();
-        require_once __DIR__.'/../../views/admin/categories/list.php';
+        $errorMessage = $_GET["errorMessage"];
+        require_once __DIR__ . '/../../views/admin/categories/list.php';
     }
 
     /**
@@ -45,7 +48,7 @@ class AdminCategoriesController
         // Existiert die Kategorie nicht, wird die Fehlermeldung im View angezeigt
         if ($category === null) {
             $errorMessage = 'Kategorie nicht gefunden!';
-            require_once __DIR__.'/../../views/admin/categories/edit.php';
+            require_once __DIR__ . '/../../views/admin/categories/edit.php';
             return;
         }
 
@@ -70,7 +73,7 @@ class AdminCategoriesController
                 if ($parentCategoryId === -1) {
                     $category->parentCategoryId = null;
                 }
-                // Überprüft ob gegebene Kategorie existiert und setzt die ID dieser als neue parentCategoryId
+                // Überprüft, ob gegebene Kategorie existiert und setzt die ID dieser als neue parentCategoryId
                 if ($parentCategoryId !== -1 && CategoryRepository::findById($parentCategoryId) !== null) {
                     $category->parentCategoryId = $parentCategoryId;
                 }
@@ -82,7 +85,7 @@ class AdminCategoriesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/categories/edit.php';
+        require_once __DIR__ . '/../../views/admin/categories/edit.php';
     }
 
     /**
@@ -126,7 +129,38 @@ class AdminCategoriesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/categories/create.php';
+        require_once __DIR__ . '/../../views/admin/categories/create.php';
+    }
+
+    /**
+     * Löschen einer Kategorie
+     *
+     * @return void
+     * @throws ValidationException|LogicException
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        ValidationService::validateForm($validationRules, "GET");
+
+        $formData = ValidationService::getFormData();
+
+        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        $deletionValidation = DeletionValidationService::validateCategoryDeletion($formData['id']);
+
+        if ($deletionValidation !== null) {
+            throw new LogicException($deletionValidation);
+        }
+
+        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        CategoryRepository::delete($formData['id']);
+
+        header('Location: /admin/categories');
     }
 
 }

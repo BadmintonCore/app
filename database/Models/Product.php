@@ -5,6 +5,9 @@ namespace Vestis\Database\Models;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
+/**
+ * Das Produkt-Modell, das die Daten der Produkt-Datenbanktabelle darstellt
+ */
 class Product
 {
     public int $id;

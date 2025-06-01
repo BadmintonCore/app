@@ -43,6 +43,7 @@
 </main>
 
 <?php include(__DIR__ . "/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/cookieCheck.php"); ?>
 <?php include(__DIR__ . "/../../components/scripts.php"); ?>
 </html>
 <!--Author: Lasse Hoffmann-->

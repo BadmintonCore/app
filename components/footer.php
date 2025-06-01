@@ -221,15 +221,6 @@ use Vestis\Service\AuthService;
                 </svg>
             </a>
         </div>
-
-        <div class="footer-payment">
-            <img src="/img/payment/visa.svg" alt="">
-            <img src="/img/payment/applepay.svg" alt="">
-            <img src="/img/payment/googlepay.svg" alt="">
-            <img src="/img/payment/paypal.svg" alt="">
-
-        </div>
-
     </div>
 
     <!--Container der Klasse "footer-copyright"-->

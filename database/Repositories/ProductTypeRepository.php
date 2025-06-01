@@ -196,4 +196,25 @@ class ProductTypeRepository
         }
     }
 
+    /**
+     * Löscht eine vorhandene Produktkategorie
+     *
+     * @param int $productTypeId Die ID der Produktkategorie
+     * @return void
+     */
+    public static function delete(int $productTypeId): void
+    {
+        QueryAbstraction::execute("DELETE FROM productType WHERE id = :id", ['id' => $productTypeId]);
+    }
+
+    /**
+     * Überprüft, ob eine Kategorie bereits einem Produkttyp zugeordnet ist
+     *
+     * @param int $categoryId Die ID der Kategorie
+     * @return bool
+     */
+    public static function hasCategories(int $categoryId): bool
+    {
+        return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT * FROM productType WHERE categoryId = :categoryId", ["categoryId" => $categoryId]) !== null;
+    }
 }

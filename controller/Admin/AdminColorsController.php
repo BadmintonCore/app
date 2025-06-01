@@ -2,10 +2,12 @@
 
 namespace Vestis\Controller\Admin;
 
+use Vestis\Exception\LogicException;
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\DeletionValidationService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -24,7 +26,7 @@ class AdminColorsController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $colors = ColorRepository::findAll();
-        require_once __DIR__.'/../../views/admin/colors/list.php';
+        require_once __DIR__ . '/../../views/admin/colors/list.php';
     }
 
     /**
@@ -47,7 +49,7 @@ class AdminColorsController
         // Existiert die angefragte Farbe nicht, so wird die Fehlermeldung im View angezeigt
         if ($color === null) {
             $errorMessage = 'Farbe nicht gefunden!';
-            require_once __DIR__.'/../../views/admin/colors/edit.php';
+            require_once __DIR__ . '/../../views/admin/colors/edit.php';
             return;
         }
 
@@ -75,7 +77,7 @@ class AdminColorsController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/colors/edit.php';
+        require_once __DIR__ . '/../../views/admin/colors/edit.php';
     }
 
     /**
@@ -112,11 +114,42 @@ class AdminColorsController
 
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
-                require_once __DIR__.'/../../views/admin/categories/create.php';
+                require_once __DIR__ . '/../../views/admin/categories/create.php';
             }
         }
 
-        require_once __DIR__.'/../../views/admin/colors/create.php';
+        require_once __DIR__ . '/../../views/admin/colors/create.php';
+    }
+
+    /**
+     * Löschen einer Farbe
+     *
+     * @return void
+     * @throws ValidationException|LogicException
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        ValidationService::validateForm($validationRules, "GET");
+
+        $formData = ValidationService::getFormData();
+
+        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        $deletionValidation = DeletionValidationService::validateColorDeletion($formData['id']);
+
+        if ($deletionValidation !== null) {
+            throw new LogicException($deletionValidation);
+        }
+
+        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        ColorRepository::delete($formData['id']);
+
+        header('Location: /admin/colors');
     }
 
 }

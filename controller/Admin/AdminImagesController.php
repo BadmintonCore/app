@@ -25,9 +25,9 @@ class AdminImagesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $page = PaginationUtility::getCurrentPage();
-
         $images = ImageRepository::findPaginated($page);
-        require_once __DIR__.'/../../views/admin/images/list.php';
+        $errorMessage = $_GET["errorMessage"];
+        require_once __DIR__ . '/../../views/admin/images/list.php';
     }
 
     /**
@@ -72,7 +72,7 @@ class AdminImagesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/images/create.php';
+        require_once __DIR__ . '/../../views/admin/images/create.php';
     }
 
     /**
@@ -90,6 +90,30 @@ class AdminImagesController
         if ($image === null) {
             $errorMessage = 'Bild nicht gefunden!';
         }
-        require_once __DIR__.'/../../views/admin/images/view.php';
+        require_once __DIR__ . '/../../views/admin/images/view.php';
+    }
+
+    /**
+     * Löschen eines Bildes
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        ValidationService::validateForm($validationRules, "GET");
+
+        $formData = ValidationService::getFormData();
+
+        //Löschen des Eintrags aus der Datenbank.
+        ImageRepository::delete($formData['id']);
+
+        header('Location: /admin/images');
     }
 }

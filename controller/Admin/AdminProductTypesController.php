@@ -9,8 +9,10 @@ use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ImageRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;
+use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
+use Vestis\Service\DeletionValidationService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -30,9 +32,9 @@ class AdminProductTypesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $page = PaginationUtility::getCurrentPage();
-
         $productTypes = ProductTypeRepository::findPaginated($page);
-        require_once __DIR__.'/../../views/admin/productTypes/list.php';
+        $errorMessage = $_GET["errorMessage"];
+        require_once __DIR__ . '/../../views/admin/productTypes/list.php';
     }
 
     /**
@@ -59,7 +61,7 @@ class AdminProductTypesController
 
         if ($productType === null) {
             $errorMessage = 'Produkt nicht gefunden!';
-            require_once __DIR__.'/../../views/admin/productTypes/edit.php';
+            require_once __DIR__ . '/../../views/admin/productTypes/edit.php';
             return;
         }
 
@@ -122,7 +124,7 @@ class AdminProductTypesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/productTypes/edit.php';
+        require_once __DIR__ . '/../../views/admin/productTypes/edit.php';
     }
 
     /**
@@ -191,7 +193,7 @@ class AdminProductTypesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/productTypes/create.php';
+        require_once __DIR__ . '/../../views/admin/productTypes/create.php';
     }
 
     /**
@@ -213,7 +215,7 @@ class AdminProductTypesController
 
         if ($productType === null) {
             $errorMessage = 'Produkt nicht gefunden!';
-            require_once __DIR__.'/../../views/admin/productTypes/assignImages.php';
+            require_once __DIR__ . '/../../views/admin/productTypes/assignImages.php';
             return;
         }
 
@@ -273,7 +275,7 @@ class AdminProductTypesController
                         $_GET['preSelected'] = implode(',', $uniqueSelection);
                     }
 
-                    header('Location: /admin/productTypes/assignImages?'. PaginationUtility::generateSearchLink($formData['pagination']));
+                    header('Location: /admin/productTypes/assignImages?' . PaginationUtility::generateSearchLink($formData['pagination']));
                     return;
                 }
             } catch (ValidationException $e) {
@@ -281,7 +283,7 @@ class AdminProductTypesController
             }
         }
 
-        require_once __DIR__.'/../../views/admin/productTypes/assignImages.php';
+        require_once __DIR__ . '/../../views/admin/productTypes/assignImages.php';
     }
 
     /**
@@ -298,6 +300,37 @@ class AdminProductTypesController
             $preSelectedImageIds = array_filter($convertedToInt, fn (int $i) => $i !== 0);
         }
         return $preSelectedImageIds;
+    }
+
+    /**
+     * Löschen eines Produkttypen
+     *
+     * @return void
+     * @throws ValidationException|LogicException
+     */
+    public function delete(): void
+    {
+        AuthService::checkAccess(AccountType::Administrator);
+
+        $validationRules = [
+            'id' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        ValidationService::validateForm($validationRules, "GET");
+
+        $formData = ValidationService::getFormData();
+
+        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        $deletionValidation = DeletionValidationService::validateProductTypeDeletion($formData['id']);
+
+        if ($deletionValidation !== null) {
+            throw new LogicException($deletionValidation);
+        }
+
+        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        ProductTypeRepository::delete($formData['id']);
+
+        header('Location: /admin/productTypes');
     }
 
 }

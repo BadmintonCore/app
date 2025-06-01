@@ -153,6 +153,7 @@ use Vestis\Database\Models\ProductType;
     <?php endif; ?>
 </main>
 <?php include(__DIR__ . "/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/cookieCheck.php"); ?>
 
 <!-- JavaScript für den quantity-container-->
 <script src="/js/quantityContainer.js"></script>
