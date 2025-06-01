@@ -79,7 +79,7 @@ class CategoryRepository
      * @param int $categoryId
      * @return bool
      */
-    public static function hasChild(int $categoryId): bool
+    public static function hasChildren(int $categoryId): bool
     {
         return QueryAbstraction::fetchOneAs(Category::class, "SELECT id FROM category WHERE parentCategoryId = :id", ['id' => $categoryId]) !== null;
     }

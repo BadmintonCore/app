@@ -72,15 +72,13 @@ class DeletionValidationService
         if (CategoryRepository::hasParent($category)) {
             if (!ProductTypeRepository::hasCategories($category)) {
                 return null;
-            } else {
-                return "Es gibt noch Produkte mit dieser Produktkategorie.";
             }
+            return "Es gibt noch Produkte mit dieser Produktkategorie.";
         } else {
-            if (CategoryRepository::hasChild($category)) {
+            if (CategoryRepository::hasChildren($category)) {
                 return "Es gibt noch Kategorien, die diese Oberkategorie nutzen.";
-            } else {
-                return null;
             }
+            return null;
         }
     }
 }
