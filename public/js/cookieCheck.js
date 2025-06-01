@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const warningBox = document.getElementById("cookie-warning");
         const footer = document.querySelector("footer");
         if (warningBox && footer) {
+            //Cookie-Warnung anzeigen und Footer ausblenden
             warningBox.style.display = "block";
             footer.style.display = "none";
         }
