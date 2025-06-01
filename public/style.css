@@ -1489,4 +1489,18 @@ nav:has(.breadcrumbs) {
     height: 25px;
 }
 
+#cookie-warning {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffdddd;
+    color: var(--text-color);
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #cc0000;
+    z-index: 1000;
+}
+
 /*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/

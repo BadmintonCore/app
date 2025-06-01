@@ -74,6 +74,7 @@
     </div>
 </main>
 <?php include(__DIR__ . "/../../components/footer.php"); ?>
+<?php include(__DIR__."/../../components/cookieCheck.php"); ?>
 <?php include(__DIR__ . "/../../components/scripts.php"); ?>
 <script src="/js/shoppingCart.js"></script>
 <script>
