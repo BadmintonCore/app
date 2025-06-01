@@ -3,10 +3,10 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\AccountType;
-use Vestis\Database\Models\Order;
 use Vestis\Database\Models\OrderStatus;
 use Vestis\Database\Repositories\OrderRepository;
 use Vestis\Exception\AuthException;
+use Vestis\Exception\EmailException;
 use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
@@ -16,9 +16,17 @@ use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 use Vestis\Utility\PaginationUtility;
 
+/**
+ * Controller für Aufträge
+ */
 class OrderController
 {
 
+    /**
+     * Listet alle Aufträge eines Nutzers auf
+     *
+     * @return void
+     */
     public function orders(): void
     {
         AuthService::checkAccess(AccountType::Customer);
@@ -30,6 +38,8 @@ class OrderController
     }
 
     /**
+     * Listet die Details eines Auftrages für den Kunden auf.
+     *
      * @return void
      * @throws AuthException
      * @throws ValidationException
@@ -54,11 +64,13 @@ class OrderController
     }
 
     /**
+     * Storniert einen Auftrag.
+     *
      * @return void
      * @throws AuthException
      * @throws LogicException
      * @throws ValidationException
-     * @throws \Vestis\Exception\EmailException
+     * @throws EmailException
      */
     public function cancelOrder(): void
     {

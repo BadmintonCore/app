@@ -2,6 +2,9 @@
 
 namespace Vestis\Database\Models;
 
+/**
+ * Der Status einer Bestellung / Auftrages
+ */
 enum OrderStatus: string
 {
     case PaymentPending = 'Zahlung ausstehend';

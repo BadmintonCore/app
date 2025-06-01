@@ -13,9 +13,18 @@ use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 use Vestis\Utility\PaginationUtility;
 
+/**
+ * Controller für Bestellungen / Aufträge im Admin Panel
+ */
 class AdminOrderController
 {
 
+    /**
+     * Listet alle Aufträge eines bestimmten Status auf.
+     *
+     * @return void
+     * @throws LogicException
+     */
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -37,6 +46,8 @@ class AdminOrderController
     }
 
     /**
+     * Zeigt die Details eines Auftrages
+     *
      * @return void
      * @throws LogicException
      * @throws ValidationException
@@ -60,6 +71,8 @@ class AdminOrderController
     }
 
     /**
+     * Lehnt einen Auftrag ab
+     *
      * @return void
      * @throws LogicException
      * @throws ValidationException
@@ -103,6 +116,8 @@ class AdminOrderController
     }
 
     /**
+     * Bestätigt den Zahlungseingang für einen Auftrag.
+     *
      * @return void
      * @throws LogicException
      * @throws ValidationException
@@ -129,6 +144,8 @@ class AdminOrderController
     }
 
     /**
+     * Bestätigt den Versand des Auftrages.
+     *
      * @return void
      * @throws LogicException
      * @throws ValidationException

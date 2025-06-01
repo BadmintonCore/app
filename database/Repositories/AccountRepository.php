@@ -159,6 +159,13 @@ class AccountRepository
         QueryAbstraction::execute("DELETE FROM account WHERE id = :id", ["id" => $id]);
     }
 
+    /**
+     * Setzt den Blockier-Status für einen Nutzer
+     *
+     * @param int $id Die ID des Nutzers
+     * @param bool $blocked Ob der Nutzer blockiert sein soll
+     * @return void
+     */
     public static function setBlocked(int $id, bool $blocked): void
     {
         QueryAbstraction::execute("UPDATE account SET isBlocked = :blocked WHERE id = :id", ["id" => $id, "blocked" => $blocked]);

@@ -50,16 +50,37 @@ class OrderRepository
         return QueryAbstraction::fetchManyAsPaginated(Order::class, "SELECT * FROM orders WHERE accountId = :accId ORDER BY id DESC", $page, $perPage, ["accId" => $account->id]);
     }
 
+    /**
+     * Erstellt einen neuen Auftrag
+     *
+     * @param Account $account Der Account, dem der Auftrag zugewiesen ist
+     * @param string $status Der Status des neuen Auftrages
+     * @return Order
+     */
     public static function create(Account $account, string $status): Order
     {
         return QueryAbstraction::executeReturning(Order::class, "INSERT INTO orders (accountId, timestamp, status) VALUES(:accountId, NOW(), :status)", ["accountId" => $account->id, "status" => $status]);
     }
 
+    /**
+     * Aktualisiert den Status einer Bestellung
+     *
+     * @param int $orderId Die ID der Bestellung
+     * @param OrderStatus $status Der neue Status
+     * @return void
+     */
     public static function updateStatus(int $orderId, OrderStatus $status): void
     {
         QueryAbstraction::execute("UPDATE orders SET status = :status WHERE id = :id", ["status" => $status->value, "id" => $orderId]);
     }
 
+    /**
+     * Setzt die denial-Nachricht im Falle einer Ablehnung.
+     *
+     * @param int $orderId Die ID des Auftrages
+     * @param string $message Die Nachricht
+     * @return void
+     */
     public static function setDenialMessage(int $orderId, string $message): void
     {
         QueryAbstraction::execute("UPDATE orders SET denialMessage = :message WHERE id = :id", ["message" => $message, "id" => $orderId]);

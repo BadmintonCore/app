@@ -36,11 +36,26 @@ class ProductRepository
         return QueryAbstraction::fetchManyAsPaginated(Product::class, "SELECT * FROM product WHERE productTypeId = :productTypeId ORDER BY id DESC", $page, $perPage, ["productTypeId" => $productTypeId]);
     }
 
+    /**
+     * Findet alle Produkte eines bestimmten Auftrages
+     *
+     * @param int $orderId Die ID des Auftrages
+     * @return array
+     */
     public static function findForOrder(int $orderId): array
     {
         return QueryAbstraction::fetchManyAs(Product::class, "SELECT * FROM product JOIN orderProduct op ON product.id = op.productId WHERE op.orderId = :orderId", ["orderId" => $orderId]);
     }
 
+    /**
+     * Erstellt mehrere Produkte
+     *
+     * @param int $productTypeId Die ID des Produkt-Typen
+     * @param int $colorId Die ID der Farbe
+     * @param int $sizeId Die ID der Größe
+     * @param int $quantity Die Anzahl an neuen Produkten
+     * @return void
+     */
     public static function create(int $productTypeId, int $colorId, int $sizeId, int $quantity): void
     {
         if ($quantity <= 0) {
@@ -69,9 +84,11 @@ class ProductRepository
     }
 
     /**
-     * @param int $accountId
-     * @param int $orderId
-     * @param array<int, ShoppingCartItemDto> $products
+     * Weist die Produkte des Warenkorbs einem Auftrag zu
+     *
+     * @param int $accountId Der Account, dem der Auftrag gehört
+     * @param int $orderId Die ID des Auftrags
+     * @param array<int, ShoppingCartItemDto> $products Die Produkte im Warenkorb
      * @return void
      */
     public static function assignToOrder(int $accountId, int $orderId, array $products): void

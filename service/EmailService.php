@@ -43,7 +43,13 @@ class EmailService
         }
     }
 
-
+    /**
+     * Sendet eine Auftragsbestätigung
+     *
+     * @param Order $order Die Bestellung
+     * @return void
+     * @throws EmailException
+     */
     public static function sendOrderConfirmation(Order $order): void
     {
         $subject = 'Auftrag erstellt';
@@ -68,6 +74,13 @@ class EmailService
         }
     }
 
+    /**
+     * Sendet eine Stornierungs-Bestätigung
+     *
+     * @param Order $order Die Bestellung
+     * @return void
+     * @throws EmailException
+     */
     public static function sendCancelConfirmation(Order $order): void
     {
         $subject = 'Auftrag storniert';

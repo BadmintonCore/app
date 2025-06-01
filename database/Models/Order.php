@@ -5,6 +5,9 @@ namespace Vestis\Database\Models;
 use Vestis\Database\Repositories\AccountRepository;
 use Vestis\Database\Repositories\ProductRepository;
 
+/**
+ * Das Auftrag-Modell in der DB
+ */
 class Order
 {
     public int $id;

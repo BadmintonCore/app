@@ -2,7 +2,6 @@
 
 namespace Vestis\Controller;
 
-use Vestis\Database\Models\Account;
 use Vestis\Database\Repositories\OrderRepository;
 use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
@@ -15,11 +14,9 @@ use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\EmailService;
-use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
-use Vestis\Utility\PaginationUtility;
 
 /**
  * Controller für den Kundenbereich
@@ -27,12 +24,19 @@ use Vestis\Utility\PaginationUtility;
 class UserAreaController
 {
 
+    /**
+     * Leitet automatisch zur /user Seite weiter
+     *
+     * @return void
+     */
     public function index(): void
     {
         header('Location: /user-area/user');
     }
 
     /**
+     * Listet den Warenkorb auf.
+     *
      * @throws ValidationException
      */
     public function shoppingCart(): void
@@ -50,7 +54,11 @@ class UserAreaController
 
     }
 
-    //Author: Lasse Hoffmann
+    /**
+     * Zeigt die Benutzer-Seite
+     *
+     * @return void
+     */
     public function user(): void
     {
         AuthService::checkAccess(AccountType::Customer);
@@ -80,12 +88,19 @@ class UserAreaController
         require_once __DIR__ . '/../views/user-area/user.php';
     }
 
+    /**
+     * Listet die Wunschliste auf
+     *
+     * @return void
+     */
     public function wishlist(): void
     {
         require_once __DIR__ . '/../views/user-area/wishlist.php';
     }
 
     /**
+     * Entfernt einen Eintrag aus dem Warenkorb
+     *
      * @throws ValidationException
      */
     public function removeShoppingCartItem(): void
@@ -110,6 +125,8 @@ class UserAreaController
     }
 
     /**
+     * Kauft alle Elemente aus dem Warenkorb und löst einen Auftrag aus.
+     *
      * @throws EmailException
      * @throws LogicException
      */

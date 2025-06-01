@@ -3,7 +3,6 @@
 namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
-use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Exception\ValidationException;
@@ -13,9 +12,18 @@ use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 use Vestis\Utility\PaginationUtility;
 
+/**
+ * Controller für Produkte im Admin-Panel
+ */
 class AdminProductController
 {
 
+    /**
+     * Listet alle Produkte eines bestimmten Produkttyoen paginiert auf.
+     *
+     * @return void
+     * @throws ValidationException
+     */
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -33,6 +41,8 @@ class AdminProductController
     }
 
     /**
+     * Erstellt mehrere Produkte
+     *
      * @return void
      * @throws ValidationException
      */

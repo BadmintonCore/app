@@ -5,15 +5,24 @@ namespace Vestis\Controller\Admin;
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\AccountRepository;
 use Vestis\Exception\LogicException;
+use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 use Vestis\Utility\PaginationUtility;
 
+/**
+ * Controller für Kunden im Admin-Panel
+ */
 class AdminCustomersController
 {
 
+    /**
+     * Paginierte Listenansicht der Kunden
+     *
+     * @return void
+     */
     public function index(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
@@ -24,6 +33,13 @@ class AdminCustomersController
         require_once __DIR__ . '/../../views/admin/customers/list.php';
     }
 
+    /**
+     * Blockiert / Entblockiert einen Nutzer (Verarbeitet die HTTP Request)
+     *
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
     public function toggleBlock(): void
     {
         AuthService::checkAccess(AccountType::Administrator);
