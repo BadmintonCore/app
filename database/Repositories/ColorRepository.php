@@ -97,7 +97,7 @@ class ColorRepository
      * @param int $colorId Die ID der Farbe
      * @return bool
      */
-    public static function isUsed(int $colorId):bool
+    public static function isUsed(int $colorId): bool
     {
         return QueryAbstraction::fetchOneAs(null, "SELECT colorId FROM allowedColor WHERE colorId = :colorId", ["colorId" => $colorId]) !== null;
     }

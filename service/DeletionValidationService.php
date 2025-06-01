@@ -13,7 +13,6 @@ use Vestis\Database\Repositories\SizeRepository;
  */
 class DeletionValidationService
 {
-
     /**
      * Prüft, ob eine Farbe gelöscht werden kann
      *
@@ -24,7 +23,7 @@ class DeletionValidationService
     {
         $isUsed = ColorRepository::isUsed($colorId);
 
-        if($isUsed){
+        if ($isUsed) {
             return "Diese Farbe ist noch einem Produkttyp zugeordnet und kann nicht gelöscht werden.";
         }
         return null;
@@ -40,7 +39,7 @@ class DeletionValidationService
     {
         $isUsed = SizeRepository::isUsed($sizeId);
 
-        if($isUsed){
+        if ($isUsed) {
             return "Diese Größe ist noch einem Produkttyp zugeordnet und kann nicht gelöscht werden.";
         }
         return null;
@@ -56,7 +55,7 @@ class DeletionValidationService
     {
         $isUsed = ProductRepository::isUsed($productType);
 
-        if($isUsed){
+        if ($isUsed) {
             return "Von diesem Produkttyp existieren Produkte, weshalb diese Kategorie nicht gelöscht werden kann.";
         }
         return null;

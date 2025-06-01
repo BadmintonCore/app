@@ -296,8 +296,8 @@ class AdminProductTypesController
         $preSelectedImageIds = [];
         if (isset($_GET['preSelected']) && is_string($_GET['preSelected'])) {
             $idsAsString = explode(',', $_GET['preSelected']);
-            $convertedToInt = array_map(fn(string $id) => intval($id), $idsAsString);
-            $preSelectedImageIds = array_filter($convertedToInt, fn(int $i) => $i !== 0);
+            $convertedToInt = array_map(fn (string $id) => intval($id), $idsAsString);
+            $preSelectedImageIds = array_filter($convertedToInt, fn (int $i) => $i !== 0);
         }
         return $preSelectedImageIds;
     }

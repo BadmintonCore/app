@@ -6,7 +6,6 @@ use Vestis\Database\Models\Product;
 
 class ProductRepository
 {
-
     /**
      * Prüft, ob für ein Produkttyp ein Produkt existiert
      *

@@ -49,7 +49,7 @@ use Vestis\Service\DeletionValidationService;
                 <td><a class="btn btn-sm" href="/admin/sizes/edit?id=<?= $size->id ?>">Ändern.</a></td>
                 <?php $deletionValidation = DeletionValidationService::validateSizeDeletion($size->id)?>
                 <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
-                        <?= $deletionValidation !== null ? "" :  sprintf("href='/admin/sizes/delete?id=%s'", $size->id)?>
+                        <?= $deletionValidation !== null ? "" : sprintf("href='/admin/sizes/delete?id=%s'", $size->id)?>
                         <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>
                         Löschen.</a></td>
             </tr>

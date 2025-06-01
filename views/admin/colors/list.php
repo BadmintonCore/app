@@ -56,7 +56,7 @@ use Vestis\Service\DeletionValidationService;
                 <td><a class="btn btn-sm" href="/admin/colors/edit?id=<?= $color->id ?>">Ändern.</a></td>
                 <?php $deletionValidation = DeletionValidationService::validateColorDeletion($color->id)?>
                 <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
-                        <?= $deletionValidation !== null ? "" :  sprintf("href='/admin/colors/delete?id=%s'", $color->id)?>
+                        <?= $deletionValidation !== null ? "" : sprintf("href='/admin/colors/delete?id=%s'", $color->id)?>
                     <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>
                     Löschen.</a></td>
             </tr>
