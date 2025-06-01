@@ -60,4 +60,9 @@ class OrderRepository
         QueryAbstraction::execute("UPDATE orders SET status = :status WHERE id = :id", ["status" => $status->value, "id" => $orderId]);
     }
 
+    public static function setDenialMessage(int $orderId, string $message): void
+    {
+        QueryAbstraction::execute("UPDATE orders SET denialMessage = :message WHERE id = :id", ["message" => $message, "id" => $orderId]);
+    }
+
 }

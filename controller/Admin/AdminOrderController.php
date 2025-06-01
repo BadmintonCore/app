@@ -76,13 +76,30 @@ class AdminOrderController
 
         $order = OrderRepository::findById($formData['id']);
 
-        if (!in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress])) {
-            throw new LogicException("Der Auftrag kann nicht mehr abgelehnt werden.");
+        if (null === $order) {
+            throw new LogicException("Die Bestellung wurde nicht gefunden.");
         }
 
-        OrderRepository::updateStatus($order->id, OrderStatus::Denied);
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if (!in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress])) {
+                throw new LogicException("Der Auftrag kann nicht mehr abgelehnt werden.");
+            }
 
-        header('Location: /admin/orders/view?id=' . $order->id);
+            $validationRules = [
+                'reason' => new ValidationRule(ValidationType::String)
+            ];
+            ValidationService::validateForm($validationRules, "POST");
+            $formData = ValidationService::getFormData();
+
+            OrderRepository::updateStatus($order->id, OrderStatus::Denied);
+            OrderRepository::setDenialMessage($order->id, $formData['reason']);
+
+            header('Location: /admin/orders/view?id=' . $order->id);
+            return;
+        }
+
+
+        require_once __DIR__ . '/../../views/admin/orders/deny.php';
     }
 
     /**

@@ -15,6 +15,8 @@ class Order
 
     public OrderStatus $status;
 
+    public ?string $denialMessage;
+
     private ?Account $account = null;
 
     private ?array $products = null;

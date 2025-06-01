@@ -27,8 +27,13 @@ use Vestis\Service\AuthService;
     <div class="form-box">
         <h1>Auftrag (ID: <?= $order->id ?>)</h1>
 
-        <h3 class="m-0 mt-2">Datum: <?= $order->timestamp->format('d.m.Y h:i:s') ?></h3>
-        <h3 class="m-0 mt-2">Status: <?= $order->status->value ?></h3>
+        <div class="stack align-start">
+            <h3 class="m-0">Datum: <?= $order->timestamp->format('d.m.Y h:i:s') ?></h3>
+            <h3 class="m-0">Status: <?= $order->status->value ?></h3>
+            <?php if($order->denialMessage !== null): ?>
+                <h3 class="m-0">Grund: <?= $order->denialMessage ?></h3>
+            <?php endif; ?>
+        </div>
 
         <div class="button-row justify-center mt-4">
             <?php if(AuthService::isCustomer() && !in_array($order->status, [OrderStatus::Canceled, OrderStatus::Denied, OrderStatus::Shipped])): ?>
