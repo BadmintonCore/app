@@ -22,6 +22,9 @@ class Order
 
     private ?Account $account = null;
 
+    /**
+     * @var array<int, Product>|null
+     */
     private ?array $products = null;
 
     /**

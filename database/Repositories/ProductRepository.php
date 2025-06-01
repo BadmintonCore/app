@@ -11,7 +11,6 @@ use Vestis\Database\Models\Product;
  */
 class ProductRepository
 {
-
     /**
      * Prüft, ob für ein Produkttyp ein Produkt existiert
      *
@@ -40,7 +39,7 @@ class ProductRepository
      * Findet alle Produkte eines bestimmten Auftrages
      *
      * @param int $orderId Die ID des Auftrages
-     * @return array
+     * @return array<int, Product>
      */
     public static function findForOrder(int $orderId): array
     {

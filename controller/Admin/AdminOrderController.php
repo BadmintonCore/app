@@ -18,7 +18,6 @@ use Vestis\Utility\PaginationUtility;
  */
 class AdminOrderController
 {
-
     /**
      * Listet alle Aufträge eines bestimmten Status auf.
      *
@@ -94,7 +93,7 @@ class AdminOrderController
         }
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            if (!in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress])) {
+            if (!in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress], true)) {
                 throw new LogicException("Der Auftrag kann nicht mehr abgelehnt werden.");
             }
 
@@ -134,6 +133,10 @@ class AdminOrderController
 
         $order = OrderRepository::findById($formData['id']);
 
+        if (null === $order) {
+            throw new LogicException("Die Bestellung wurde nicht gefunden.");
+        }
+
         if ($order->status !== OrderStatus::PaymentPending) {
             throw new LogicException("Die Zahlung des Auftrags kann nicht akzeptiert werden.");
         }
@@ -161,6 +164,10 @@ class AdminOrderController
         $formData = ValidationService::getFormData();
 
         $order = OrderRepository::findById($formData['id']);
+
+        if (null === $order) {
+            throw new LogicException("Die Bestellung wurde nicht gefunden.");
+        }
 
         if ($order->status !== OrderStatus::InProgress) {
             throw new LogicException("Der Versand des Auftrags kann nicht bestätigt werden.");

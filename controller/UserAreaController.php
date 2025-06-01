@@ -23,7 +23,6 @@ use Vestis\Service\ValidationService;
  */
 class UserAreaController
 {
-
     /**
      * Leitet automatisch zur /user Seite weiter
      *
@@ -134,7 +133,7 @@ class UserAreaController
     {
         AuthService::checkAccess(AccountType::Customer);
 
-        if (AuthService::$currentAccount->isBlocked) {
+        if (AuthService::$currentAccount === null || AuthService::$currentAccount->isBlocked) {
             throw new LogicException("Du bist blockiert. Du kannst nichts kaufen");
         }
 
@@ -144,6 +143,11 @@ class UserAreaController
         }
 
         $order = OrderRepository::create(AuthService::$currentAccount, 'Zahlung ausstehend');
+
+        if ($order === null) {
+            throw new LogicException("Die Bestellung wurde nicht erstellt");
+        }
+
         $shoppingCartItems = ShoppingCartRepository::getAllProducts(AuthService::$currentAccount);
         ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
         EmailService::sendOrderConfirmation($order);

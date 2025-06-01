@@ -155,13 +155,13 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
 
                     <?php
                     $account = AuthService::$currentAccount ?? null;
-                    $quantityItems = null;
+                $quantityItems = null;
 
-                    if ($account !== null) {
-                        $quantityItems = ShoppingCartRepository::getCountOfItems($account);
-                    }
+                if ($account !== null) {
+                    $quantityItems = ShoppingCartRepository::getCountOfItems($account);
+                }
 
-                    if ($quantityItems !== null && $quantityItems > 0) : ?>
+                if ($quantityItems !== null && $quantityItems > 0) : ?>
                         <span class="cart-badge">
                     <?= $quantityItems ?>
                     </span>

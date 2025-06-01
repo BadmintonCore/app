@@ -30,22 +30,22 @@ use Vestis\Service\AuthService;
         <div class="stack align-start">
             <h3 class="m-0">Datum: <?= $order->timestamp->format('d.m.Y h:i:s') ?></h3>
             <h3 class="m-0">Status: <?= $order->status->value ?></h3>
-            <?php if($order->denialMessage !== null): ?>
+            <?php if ($order->denialMessage !== null): ?>
                 <h3 class="m-0">Grund: <?= $order->denialMessage ?></h3>
             <?php endif; ?>
         </div>
 
         <div class="button-row justify-center mt-4">
-            <?php if(AuthService::isCustomer() && !in_array($order->status, [OrderStatus::Canceled, OrderStatus::Denied, OrderStatus::Shipped])): ?>
+            <?php if (AuthService::isCustomer() && !in_array($order->status, [OrderStatus::Canceled, OrderStatus::Denied, OrderStatus::Shipped], true)): ?>
             <a class="btn btn-sm" href="/user-area/orders/cancel?id=<?= $order->id ?>">Stornieren</a>
             <?php endif; ?>
-            <?php if(AuthService::isAdmin() && in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress])): ?>
+            <?php if (AuthService::isAdmin() && in_array($order->status, [OrderStatus::PaymentPending, OrderStatus::InProgress], true)): ?>
                 <a class="btn btn-sm" href="/admin/orders/deny?id=<?= $order->id ?>">Ablehnen</a>
             <?php endif; ?>
-            <?php if(AuthService::isAdmin() && $order->status === OrderStatus::PaymentPending): ?>
+            <?php if (AuthService::isAdmin() && $order->status === OrderStatus::PaymentPending): ?>
                 <a class="btn btn-sm" href="/admin/orders/confirmPayment?id=<?= $order->id ?>">Zahlung bestätigen</a>
             <?php endif; ?>
-            <?php if(AuthService::isAdmin() && $order->status === OrderStatus::InProgress): ?>
+            <?php if (AuthService::isAdmin() && $order->status === OrderStatus::InProgress): ?>
                 <a class="btn btn-sm" href="/admin/orders/confirmShipment?id=<?= $order->id ?>">Versand bestätigen</a>
             <?php endif; ?>
         </div>

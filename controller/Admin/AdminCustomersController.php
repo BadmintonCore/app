@@ -17,7 +17,6 @@ use Vestis\Utility\PaginationUtility;
  */
 class AdminCustomersController
 {
-
     /**
      * Paginierte Listenansicht der Kunden
      *

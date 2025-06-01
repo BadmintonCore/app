@@ -70,11 +70,11 @@
     echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / (1.19), 2, ',', '.') . "</span></h4>";
     echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '.') . "</span></h4>";
 
-    if (count($groupedProducts) > 0 && !AuthService::$currentAccount->isBlocked):
-    ?>
+    if (count($groupedProducts) > 0 && AuthService::$currentAccount !== null && !AuthService::$currentAccount->isBlocked):
+        ?>
         <a href="/user-area/shoppingCart/purchase" class="btn" id="payButton">Bestellen</a>
         <?php endif; ?>
-    <?php if (AuthService::$currentAccount->isBlocked): ?>
+    <?php if (AuthService::$currentAccount !== null && AuthService::$currentAccount->isBlocked): ?>
         <h4 class="error-message">Du bist blockiert und kannst daher keine Bestellungen mehr aufgeben.</h4>
     <?php endif; ?>
     </div>

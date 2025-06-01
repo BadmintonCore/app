@@ -43,7 +43,7 @@ use Vestis\Utility\PaginationUtility;
                 <td><?= $order->id ?></td>
                 <td><?= $order->getAccount()->username ?></td>
                 <td><?= $order->timestamp->format('d.m.Y h:i:s') ?></td>
-                <td><?= $order->status ?></td>
+                <td><?= $order->status->value ?></td>
                 <td>
                     <a href="/admin/orders/view?id=<?= $order->id ?>" class="btn btn-sm">View.</a>
                 </td>
@@ -54,7 +54,7 @@ use Vestis\Utility\PaginationUtility;
 
     <?php
     PaginationUtility::generatePagination($orders->count, 25, $page);
-    ?>
+?>
 
 </main>
 

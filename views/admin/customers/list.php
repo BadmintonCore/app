@@ -61,7 +61,7 @@ use Vestis\Database\Models\Account;
     </table>
     <?php
     \Vestis\Utility\PaginationUtility::generatePagination($customers->count, 25, $page);
-    ?>
+?>
 </main>
 
 <!--Footer der Website-->

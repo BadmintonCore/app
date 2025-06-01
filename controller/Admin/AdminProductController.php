@@ -17,7 +17,6 @@ use Vestis\Utility\PaginationUtility;
  */
 class AdminProductController
 {
-
     /**
      * Listet alle Produkte eines bestimmten Produkttyoen paginiert auf.
      *
@@ -56,6 +55,10 @@ class AdminProductController
             throw new ValidationException("Parameter für den Produkt-Typen fehlt.");
         }
         $productType = ProductTypeRepository::findById($productTypeId);
+
+        if ($productType === null) {
+            throw new ValidationException("Der Produkttyp ist nicht bekannt.");
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $validationRules = [

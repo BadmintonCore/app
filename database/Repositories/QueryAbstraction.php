@@ -238,7 +238,7 @@ class QueryAbstraction
                     }
                 }
 
-                if ($value !== null && $type->getName() === \DateTime::class) {
+                if ($type instanceof \ReflectionNamedType && $type->getName() === \DateTime::class && is_string($value)) {
                     $value =  \DateTime::createFromFormat('Y-m-d H:i:s', $value);
                 }
 

@@ -49,7 +49,7 @@ use Vestis\Utility\PaginationUtility;
         <thead>
         <tr>
             <th>ID</th>
-            <?php if(AuthService::isAdmin()): ?>
+            <?php if (AuthService::isAdmin()): ?>
             <th>Account</th>
             <?php endif; ?>
             <th>Zeitpunkt</th>
@@ -61,7 +61,7 @@ use Vestis\Utility\PaginationUtility;
         <?php foreach ($orders->results as $order): ?>
             <tr>
                 <td><?= $order->id ?></td>
-                <?php if(AuthService::isAdmin()): ?>
+                <?php if (AuthService::isAdmin()): ?>
                 <td><?= $order->getAccount()->username ?></td>
                 <?php endif; ?>
                 <td><?= $order->timestamp->format('d.m.Y h:i:s') ?></td>
@@ -80,17 +80,17 @@ use Vestis\Utility\PaginationUtility;
 
     <?php
     PaginationUtility::generatePagination($orders->count, 25, $page);
-    ?>
+?>
 
 </main>
 
 <!--Footer der Website-->
 <?php
-    if (AuthService::isAdmin()) {
-        include(__DIR__."/../../components/adminFooter.php");
-    } else {
-        include(__DIR__ . "/../../components/footer.php");
-    }
+if (AuthService::isAdmin()) {
+    include(__DIR__."/../../components/adminFooter.php");
+} else {
+    include(__DIR__ . "/../../components/footer.php");
+}
 ?>
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>

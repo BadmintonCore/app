@@ -21,15 +21,18 @@ use Vestis\Utility\PaginationUtility;
  */
 class OrderController
 {
-
     /**
      * Listet alle Aufträge eines Nutzers auf
      *
      * @return void
+     * @throws LogicException
      */
     public function orders(): void
     {
         AuthService::checkAccess(AccountType::Customer);
+        if (AuthService::$currentAccount === null) {
+            throw new LogicException("Du hast keinen Account");
+        }
         $page = PaginationUtility::getCurrentPage();
 
         $orders = OrderRepository::findPaginatedForUser(AuthService::$currentAccount, $page, 25);
@@ -56,7 +59,7 @@ class OrderController
 
         $order = OrderRepository::findById($formData["id"]);
 
-        if ($order === null || $order->accountId !== AuthService::$currentAccount->id) {
+        if ($order === null || AuthService::$currentAccount === null || $order->accountId !== AuthService::$currentAccount->id) {
             throw new AuthException("Du hast keinen Zugriff zu diesem Auftrag.");
         }
 
@@ -83,11 +86,11 @@ class OrderController
 
         $order = OrderRepository::findById($formData["id"]);
 
-        if ($order === null || $order->accountId !== AuthService::$currentAccount->id) {
+        if ($order === null || AuthService::$currentAccount === null || $order->accountId !== AuthService::$currentAccount->id) {
             throw new AuthException("Du hast keinen Zugriff zu diesem Auftrag.");
         }
 
-        if (in_array($order->status, [OrderStatus::Canceled, OrderStatus::Denied, OrderStatus::Shipped])) {
+        if (in_array($order->status, [OrderStatus::Canceled, OrderStatus::Denied, OrderStatus::Shipped], true)) {
             throw new LogicException("Der Auftrag kann nicht storniert werden.");
         }
         OrderRepository::updateStatus($order->id, OrderStatus::Canceled);

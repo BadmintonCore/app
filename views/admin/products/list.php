@@ -56,7 +56,7 @@ use Vestis\Utility\PaginationUtility;
 
     <?php
     PaginationUtility::generatePagination($products->count, 25, $page);
-    ?>
+?>
 
 </main>
 

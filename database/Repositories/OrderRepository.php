@@ -12,7 +12,6 @@ use Vestis\Database\Models\OrderStatus;
  */
 class OrderRepository
 {
-
     /**
      * Lädt einen Auftrag anhand der ID
      *
@@ -55,9 +54,9 @@ class OrderRepository
      *
      * @param Account $account Der Account, dem der Auftrag zugewiesen ist
      * @param string $status Der Status des neuen Auftrages
-     * @return Order
+     * @return Order|null
      */
-    public static function create(Account $account, string $status): Order
+    public static function create(Account $account, string $status): ?Order
     {
         return QueryAbstraction::executeReturning(Order::class, "INSERT INTO orders (accountId, timestamp, status) VALUES(:accountId, NOW(), :status)", ["accountId" => $account->id, "status" => $status]);
     }
