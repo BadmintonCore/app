@@ -56,4 +56,15 @@ class ImageRepository
         return QueryAbstraction::executeReturning(Image::class, "INSERT INTO image (name, path) VALUES (:name, :path)", ['name' => $name, 'path' => $path]);
     }
 
+    /**
+     * Löscht ein vorhandenes Bild
+     *
+     * @param int $imageId Die ID des Bildes
+     * @return void
+     */
+    public static function delete(int $imageId): void
+    {
+        QueryAbstraction::execute("DELETE FROM image WHERE id = :id", ['id' => $imageId]);
+    }
+
 }

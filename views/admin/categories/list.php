@@ -1,6 +1,7 @@
 <?php
 
 use Vestis\Database\Models\Category;
+use Vestis\Service\DeletionValidationService;
 
 /** @var array<int, Category> $categories */
 
@@ -25,6 +26,11 @@ use Vestis\Database\Models\Category;
 
 
     <h1>Kategorien</h1>
+
+    <?php if (isset($errorMessage)) : ?>
+        <h4 class="error-message"><?= $errorMessage ?></h4>
+    <?php endif; ?>
+
     <a href="/admin/categories/create" class="btn btn-sm">Erstellen</a>
     <table class="mt-4">
         <thead>
@@ -32,7 +38,8 @@ use Vestis\Database\Models\Category;
                 <th>ID</th>
                 <th>Name</th>
                 <th>Übergeordnete Kategorie</th>
-                <th>Aktionen</th>
+                <th>Ändern</th>
+                <th>Löschen</th>
             </tr>
         </thead>
         <tbody>
@@ -45,7 +52,12 @@ use Vestis\Database\Models\Category;
                         <a href="/admin/categories/edit?id=<?= $category->getParentCategory()->id ?>"><?= $category->getParentCategory()->name ?></a>
                     <?php endif; ?>
                 </td>
-                <td><a class="btn btn-sm" href="/admin/categories/edit?id=<?= $category->id ?>">Edit.</a></td>
+                <td><a class="btn btn-sm" href="/admin/categories/edit?id=<?= $category->id ?>">Ändern.</a></td>
+                <?php $deletionValidation = DeletionValidationService::validateCategoryDeletion($category->id)?>
+                <td><a class="btn btn-sm danger <?= $deletionValidation !== null ? 'disabled' : '' ?>"
+                        <?= $deletionValidation !== null ? "" : sprintf("href='/admin/categories/delete?id=%s'", $category->id)?>
+                        <?= $deletionValidation !== null ? sprintf('title="%s"', $deletionValidation) : '' ?>>
+                        Löschen.</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -54,7 +66,7 @@ use Vestis\Database\Models\Category;
 </main>
 
 <!--Footer der Website-->
-<?php include(__DIR__."/../../../components/footer.php"); ?>
+<?php include(__DIR__."/../../../components/adminFooter.php"); ?>
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>

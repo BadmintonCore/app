@@ -405,7 +405,7 @@ footer {
 .footer-bottom {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 90%;
     border-bottom: 1px solid var(--text-color);
 }
@@ -417,7 +417,7 @@ footer {
     align-items: center;
     gap: 20px;
     justify-content: center;
-    padding: 15px 0 15px 30px;
+    padding: 15px 0 15px 0;
 }
 
 .footer-social svg {
@@ -429,21 +429,6 @@ footer {
 /*setzt den Style für die Social-Media-Icons beim Mouse-Hover*/
 .footer-social a:hover {
     animation: none;
-}
-
-/*Setzt den Style für die Payment-Icons*/
-.footer-payment {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    justify-content: center;
-    padding: 15px 30px 15px 0;
-}
-
-.footer-payment img {
-    height: 32px;
-    width: 32px;
 }
 
 /*setzt den Style für den Copyright Absatz am Ende des Footers*/
@@ -609,6 +594,24 @@ a:hover {
 /*Pseudo-Element wird 100% breit, wenn Button gehovert*/
 .btn:hover::before {
     width: 100%;
+}
+
+/*deaktivierter Button*/
+.disabled {
+    pointer-events: auto;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/*Hover-Animation bei deaktivierten Button verhindern*/
+.disabled:hover {
+    animation: none ;
+}
+
+/*Hover-Animation bei deaktivierten Button verhindern*/
+.disabled:hover::before {
+    width: 0 ;
+    transition: none ;
 }
 
 /*kleiner Button (button-small)*/
