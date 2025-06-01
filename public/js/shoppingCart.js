@@ -2,7 +2,8 @@ const addToCartButton = document.getElementById('addToCartButton');
 const sizeRadios = document.querySelectorAll('input[name="size"]');
 const colorRadios = document.querySelectorAll('input[name="color"]');
 
-addToCartButton.addEventListener("click", (e) => {
+
+const submitListener = (e) => {
     let sizeSelected = null;
     sizeRadios.forEach((size) => {
         if (size.checked) {
@@ -27,4 +28,6 @@ addToCartButton.addEventListener("click", (e) => {
         e.preventDefault();
         alert("Bitte Farbe auswählen, bevor du etwas in den Warenkorb legst.");
     }
-});
+};
+
+addToCartButton.addEventListener("click", submitListener);
