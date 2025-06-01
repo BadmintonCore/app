@@ -2,6 +2,7 @@
 
 namespace Vestis\Database\Repositories;
 
+use Vestis\Database\Dto\PaginationDto;
 use Vestis\Database\Models\Account;
 use Vestis\Database\Models\AccountType;
 use Vestis\Exception\DatabaseException;
@@ -136,6 +137,18 @@ class AccountRepository
     }
 
     /**
+     * Lädt alle Kunden paginiert.
+     *
+     * @param int $page Die Seite, die geladen werden soll
+     * @param int $perPage Die Anzahl an Einträgen pro Seite
+     * @return PaginationDto<Account>
+     */
+    public static function findCustomersPaginated(int $page, int $perPage): PaginationDto
+    {
+        return QueryAbstraction::fetchManyAsPaginated(Account::class, "SELECT * FROM account WHERE type = 'C'", $page, $perPage);
+    }
+
+    /**
      * Löscht einen Account
      *
      * @param int $id die ID des Account, der gelöscht werden soll
@@ -144,5 +157,10 @@ class AccountRepository
     public static function deleteById(int $id): void
     {
         QueryAbstraction::execute("DELETE FROM account WHERE id = :id", ["id" => $id]);
+    }
+
+    public static function setBlocked(int $id, bool $blocked): void
+    {
+        QueryAbstraction::execute("UPDATE account SET isBlocked = :blocked WHERE id = :id", ["id" => $id, "blocked" => $blocked]);
     }
 }

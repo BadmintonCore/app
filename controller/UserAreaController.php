@@ -116,6 +116,11 @@ class UserAreaController
     public function purchase(): void
     {
         AuthService::checkAccess(AccountType::Customer);
+
+        if (AuthService::$currentAccount->isBlocked) {
+            throw new LogicException("Du bist blockiert. Du kannst nichts kaufen");
+        }
+
         $quantityItemsCount = ShoppingCartRepository::getCountOfItems(AuthService::$currentAccount);
         if ($quantityItemsCount === 0) {
             throw new LogicException("Dein Warenkorb ist leer");

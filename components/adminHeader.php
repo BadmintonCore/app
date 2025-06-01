@@ -12,17 +12,18 @@
             <li>
                 Stammdaten
                 <ul>
-                    <a href="/admin/categories">Kategorien</a>
-                    <a href="/admin/colors">Farben</a>
-                    <a href="/admin/sizes">Größen</a>
-                    <a href="/admin/productTypes">Produkttypen</a>
-                    <a href="/admin/images">Bilder</a>
+                    <li><a href="/admin/categories">Kategorien</a></li>
+                    <li><a href="/admin/colors">Farben</a></li>
+                    <li><a href="/admin/sizes">Größen</a></li>
+                    <li><a href="/admin/productTypes">Produkttypen</a></li>
+                    <li><a href="/admin/images">Bilder</a></li>
                 </ul>
             </li>
             <li>
                 Bewegungsdaten
                 <ul>
-                    <a href="/admin/orders">Aufträge</a>
+                    <li><a href="/admin/orders">Aufträge</a></li>
+                    <li><a href="/admin/customers">Kunden</a></li>
                 </ul>
             </li>
         </ul>

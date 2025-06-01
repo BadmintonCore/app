@@ -11,3 +11,5 @@ CREATE TABLE orderProduct (
                               productId INTEGER REFERENCES product(id),
                               PRIMARY KEY (orderId, productId)
 );
+
+ALTER TABLE account ADD COLUMN isBlocked BOOLEAN DEFAULT FALSE
