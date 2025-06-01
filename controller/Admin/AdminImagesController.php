@@ -113,5 +113,7 @@ class AdminImagesController
 
         //Löschen des Eintrags aus der Datenbank.
         ImageRepository::delete($formData['id']);
+
+        header('Location: /admin/images');
     }
 }
