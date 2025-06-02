@@ -9,6 +9,7 @@ use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Database\Repositories\SizeRepository;
+use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -69,6 +70,8 @@ class ProductController
                     // Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
                     if ($pieces >= $formData["quantity"]) {
                         ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
+                    } else {
+                        throw new LogicException("Es sind nicht mehr genug Produkte auf Lager");
                     }
                 }
 
