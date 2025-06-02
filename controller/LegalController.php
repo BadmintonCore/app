@@ -1,4 +1,5 @@
 <?php
+
 /*Autor(en): */
 
 namespace Vestis\Controller;
@@ -8,7 +9,6 @@ namespace Vestis\Controller;
  */
 class LegalController
 {
-
     /**
      * Ansicht für die AGBs
      *

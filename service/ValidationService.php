@@ -117,7 +117,7 @@ class ValidationService
 
             case ValidationType::Json:
                 if (!is_string($fieldValue)) {
-                    throw new ValidationException(sprintf("Der Feld %S muss JSON sein.", $fieldName));
+                    throw new ValidationException(sprintf("Der Feld %s muss JSON sein.", $fieldName));
                 }
                 if (trim($fieldValue) === '') {
                     $fieldValue = '{}';

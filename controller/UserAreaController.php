@@ -1,4 +1,5 @@
 <?php
+
 /*Autor(en): */
 
 namespace Vestis\Controller;
@@ -20,7 +21,6 @@ use Vestis\Service\ValidationService;
  */
 class UserAreaController
 {
-
     /**
      * Aktualisiert die Nutzerdaten eines Nutzers
      *
