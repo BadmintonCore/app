@@ -88,32 +88,32 @@ class ProductController
 
     public function checkStock(): void
     {
-            $validationRules = [
-                'itemId' => new ValidationRule(ValidationType::Integer),
-                'sizeId' => new ValidationRule(ValidationType::Integer),
-                'colorId' => new ValidationRule(ValidationType::Integer),
-            ];
-            ValidationService::validateForm($validationRules, "GET");
-            $formData = ValidationService::getFormData();
+        $validationRules = [
+            'itemId' => new ValidationRule(ValidationType::Integer),
+            'sizeId' => new ValidationRule(ValidationType::Integer),
+            'colorId' => new ValidationRule(ValidationType::Integer),
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
 
-            $productType = ProductTypeRepository::findById($formData["itemId"]);
-            if (null === $productType) {
-                throw new ValidationException("Produkttyp nicht gefunden");
-            }
+        $productType = ProductTypeRepository::findById($formData["itemId"]);
+        if (null === $productType) {
+            throw new ValidationException("Produkttyp nicht gefunden");
+        }
 
-            $color = ColorRepository::findById($formData["colorId"]);
-            if (null === $color) {
-                throw new ValidationException("Farbe nicht gefunden");
-            }
+        $color = ColorRepository::findById($formData["colorId"]);
+        if (null === $color) {
+            throw new ValidationException("Farbe nicht gefunden");
+        }
 
-            $size = SizeRepository::findById($formData["sizeId"]);
-            if (null === $size) {
-                throw new ValidationException("Größe nicht gefunden");
-            }
+        $size = SizeRepository::findById($formData["sizeId"]);
+        if (null === $size) {
+            throw new ValidationException("Größe nicht gefunden");
+        }
 
-            $leftQuantity = ProductRepository::getUnsoldQuantity($productType->id, $size->id, $color->id);
+        $leftQuantity = ProductRepository::getUnsoldQuantity($productType->id, $size->id, $color->id);
 
-            header('Content-type: application/json');
-            echo json_encode(['quantityLeft' => $leftQuantity]);
+        header('Content-type: application/json');
+        echo json_encode(['quantityLeft' => $leftQuantity]);
     }
 }
