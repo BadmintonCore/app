@@ -20,7 +20,7 @@ for (const container of containers) {
         const currentValue = parseInt(`${input.value}`, 10);
 
         // Der Anzahl-Input darf nicht größer als 9 sein
-        if (currentValue < 9) {
+        if (currentValue < input.max) {
             input.value = parseInt(`${input.value}`, 10) + 1;
         }
     });

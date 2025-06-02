@@ -5,6 +5,7 @@ const quantityContainer = document.querySelector(".quantity-container");
 const sizeRadios = document.querySelectorAll('input[name="size"]');
 const colorRadios = document.querySelectorAll('input[name="color"]');
 const quantityLabel = document.getElementById("quantityLabel");
+const amountInput = document.getElementById("amount");
 
 const getSelectedSizeAndColor = () => {
     let sizeSelected = null;
@@ -33,8 +34,8 @@ const checkStock = async () => {
     }
 
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("colorId", sizeSelected.value);
-    searchParams.set("sizeId", colorSelected.value);
+    searchParams.set("sizeId", sizeSelected.value);
+    searchParams.set("colorId", colorSelected.value);
 
     const resp = await fetch(`/categories/product/checkStock?${searchParams.toString()}`);
     const jsonResponse = await resp.json();
@@ -57,6 +58,11 @@ const checkStock = async () => {
         quantityDisplay.classList.add("error-message");
     } else {
         quantityDisplay.classList.remove("error-message");
+    }
+
+    amountInput.max = jsonResponse.quantityLeft;
+    if (amountInput.value > jsonResponse.quantityLeft) {
+        amountInput.value = 1;
     }
 };
 

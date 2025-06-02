@@ -106,14 +106,16 @@ use Vestis\Service\AuthService;
                             </svg>
                         </button>
 
-                        <div class="button-row">
-                            <button type="submit" class="btn" id="orderButton" name="buyDirect" style="display: none">
-                                Direkt bestellen
-                            </button>
-                            <button type="submit" class="btn secondary" id="addToCartButton" style="display: none">
-                                Zum Warenkorb hinzufügen
-                            </button>
-                        </div>
+                        <?php if (AuthService::isCustomer()) : ?>
+                            <div class="button-row">
+                                <button type="submit" class="btn" id="orderButton" name="buyDirect" style="display: none">
+                                    Direkt bestellen
+                                </button>
+                                <button type="submit" class="btn secondary" id="addToCartButton" style="display: none">
+                                    Zum Warenkorb hinzufügen
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </form>
             </div>
