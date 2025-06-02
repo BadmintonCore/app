@@ -123,7 +123,6 @@ class ProductRepository
 
         $statement = QueryAbstraction::fetchOneAs(null, "SELECT COUNT(DISTINCT id) AS count FROM product WHERE productTypeId = :itemId AND sizeId = :size AND colorId = :color AND shoppingCartId IS NULL AND boughtAt IS NULL", $params);
 
-        /**@var int */
-        return ($statement['count'] ?? 0);
+        return (int)($statement['count'] ?? 0);
     }
 }
