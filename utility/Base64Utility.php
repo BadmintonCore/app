@@ -7,25 +7,25 @@ use Vestis\Exception\ValidationException;
 class Base64Utility
 {
     /**
-     * Encodes string as base64, but the URL safe version
+     * Kodiert String als base64, aber die URL-sichere Version
      *
-     * @param string $data The input data
-     * @return string The encoded string
+     * @param string $data Die Eingabedaten
+     * @return string Die kodierte Zeichenfolge
      */
     public static function base64UrlEncode(string $data): string
     {
-        // rtrim removes all '=' characters at the end of the string in order to get the base54 url encoded string
-        // strtr replaces '+' by '-' and '/' by '_'. This is needed because '+' and '/' are characters with a specific meaning in a URI. Therefore, without replacing
-        // them in the string the base64 string would be not URI safe.
-        // We use strtr here over str_replace because it provides higher performance in the case of character by character replacements
+        // rtrim entfernt alle '='-Zeichen am Ende der Zeichenfolge, um die base54-URL-kodierte Zeichenfolge zu erhalten
+        // strtr ersetzt '+' durch '-' und '/' durch '_'. Dies ist erforderlich, weil „+“ und „/“ Zeichen mit einer bestimmten Bedeutung in einem URI sind. Ohne ihre Ersetzung
+        // in der Zeichenkette wäre die base64-Zeichenkette daher nicht URI-sicher.
+        // Wir verwenden hier strtr anstelle von str_replace, weil es bei zeichenweiser Ersetzung mehr Leistung bietet
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
     /**
-     * Decodes a base64 url encoded string to a normal string
+     * Dekodiert eine base64 url kodierte Zeichenkette in eine normale Zeichenkette
      *
-     * @param string $data The url encoded base64 string
-     * @return string The normal string
+     * @param string $data Der url kodierte base64 String
+     * @return string Der normale String
      * @throws ValidationException
      */
     public static function base64UrlDecode(string $data): string

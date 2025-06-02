@@ -40,7 +40,7 @@ class CacheService
     }
 
     /**
-     * Setzt ein Cache-Element.
+     * Setzt ein Cache-Element
      *
      * @param string $key Der Key des Cache-Elementes
      * @param mixed $value Der Wert, der gesetzt werden soll

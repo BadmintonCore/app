@@ -11,7 +11,7 @@ use Vestis\Service\AccountService;
 class PasswordGeneratorUtility
 {
     /**
-     * Generiert ein zufälliges Passwort und schreibt es in die Datenbank.
+     * Generiert ein zufälliges Passwort und schreibt es in die Datenbank
      *
      * @param Account $account Der Account, der ein neues Passwort benötigt
      * @return string

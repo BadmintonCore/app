@@ -9,52 +9,54 @@ use Vestis\Exception\AuthException;
 use Vestis\Exception\ValidationException;
 
 /**
- * Service that handles everything regarding user sessions
+ * Service, der sich um Benutzersitzungen kümmert
  */
 class AuthService
 {
     /**
-     * @var Account|null The account associated with the current session JWT cookie
+     * @var Account|null Der Account, das mit dem JWT-Cookie der aktuellen Sitzung verknüpft ist
      */
     public static ?Account $currentAccount = null;
 
     /**
-     * The duration of the account session in seconds (1 hour)
+     * Die Dauer der Account-Sitzung in Sekunden (1 Stunde)
      */
     private const int SESSION_DURATION = 3600;
 
     /**
-     * The duration of the long account session in seconds (7 days)
+     * Die Dauer der langen Kontositzung in Sekunden (7 Tage)
      */
     private const int LONG_SESSION_DURATION = 3600 * 24 * 7;
 
 
     /**
-     * Creates a new JWT and sets the required cookie as response header
+     * Erzeugt ein neues JWT und setzt das erforderliche Cookie als Antwort-Header
      *
-     * @param Account $account The account that should be referenced in the session JWT
+     * @param Account $account Der Account, auf dem im JWT der Sitzung verwiesen werden soll
+     * @param int $sessionDuration
      * @return void
+     * @throws ValidationException
      */
     public static function createUserAccountSession(Account $account, int $sessionDuration): void
     {
         $payload = [
             'accountId' => $account->id,
-            'expiresAt' => time() + $sessionDuration, // the time at which the session expires
+            'expiresAt' => time() + $sessionDuration, // die Zeit, bis die Sitzung abläuft
         ];
 
         $jwt = JWTService::generateJWT($payload);
 
         setcookie("session", $jwt, [
-            'expires' => time() + $sessionDuration, // sets the cookie expiry date
-            'path' => '/', // The cookie is sent with every request on the page
-            'secure' => false, // Request is also sent via http. Not only https
-            'httponly' => true, // Cookie cannot be modified from JavaScript. It only exists in HTTP
-            'samesite' => 'Strict' // The cookie is only allowed on the same origin
+            'expires' => time() + $sessionDuration, // setzt die Cookie-Ablaufzeit
+            'path' => '/', // Das Cookie wird bei jeder Anfrage (egal auf welcher Seite) gesendet
+            'secure' => false, // Die Anfrage wird auch über HTTP gesendet. Nicht nur HTTPS
+            'httponly' => true, // Cookies können nicht über JavaScript geändert werden. Es existiert nur in HTTP
+            'samesite' => 'Strict' // Das Cookie ist nur für denselben Ursprung zulässig
         ]);
     }
 
     /**
-     * Destroys the current user session
+     * Zerstört die aktuelle User-Session
      *
      * @return void
      */
@@ -70,13 +72,13 @@ class AuthService
     }
 
     /**
-     * Logs in the user. This means the credentials are checked. In case the login failed an exception is thrown.
+     * Meldet den Benutzer an. Das heißt, die Anmeldedaten werden überprüft. Falls die Anmeldung fehlgeschlagen ist, wird eine Exception geworfen.
      *
-     * @param string $username The username entered by the user
-     * @param string $password The password entered by the user
+     * @param string $username Der Benutzername
+     * @param string $password Das Passwort
      * @param bool $rememberMe
      * @return void
-     * @throws AuthException The exception in case the user prompted the wrong credentials
+     * @throws AuthException|ValidationException
      */
     public static function loginUser(string $username, string $password, bool $rememberMe): void
     {
@@ -85,7 +87,7 @@ class AuthService
             throw new AuthException("Der Benutzername existiert nicht");
         }
 
-        // Checks whether the password hashes are equal
+        // Checkt, ob die gehashten Passwörter übereinstimmen
         if (!password_verify($password, $account->password)) {
             throw new AuthException("Falsches Passwort");
         }
@@ -97,10 +99,10 @@ class AuthService
     }
 
     /**
-     * Checks whether the user is currently logged in and has the provided account type.
-     * If the user is not logged in or has another account type he is redirected to login page
+     * Prüft, ob der Benutzer derzeit angemeldet ist und den angegebenen Accounttyp hat.
+     * Wenn der Benutzer nicht angemeldet ist oder einen anderen Accounttyp hat, wird er zur Anmeldeseite weitergeleitet
      *
-     * @param AccountType $type The required account type
+     * @param AccountType $type Der Accounttyp
      * @return void
      */
     public static function checkAccess(AccountType $type): void
@@ -116,7 +118,7 @@ class AuthService
     }
 
     /**
-     * Checks whether the current user is a customer
+     * Prüft, ob der aktuelle Benutzer ein Kunde ist
      *
      * @return bool
      */
@@ -129,7 +131,7 @@ class AuthService
     }
 
     /**
-     * Checks whether the current user is an admin
+     * Prüft, ob der aktuelle Benutzer ein Admin ist
      *
      * @return bool
      */
@@ -142,10 +144,10 @@ class AuthService
     }
 
     /**
-     * Obtains the JWT from the session cookie and fetches the associated account which is then stored into static variable
+     * Ruft den JWT aus dem Sitzungscookie ab und holt den zugehörigen Account, der dann in einer statischen Variable gespeichert wird
      *
      * @return void
-     * @throws ValidationException Thrown on invalid JWT
+     * @throws ValidationException
      */
     public static function setCurrentUserAccountSessionFromCookie(): void
     {

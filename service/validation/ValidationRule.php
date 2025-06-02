@@ -3,7 +3,7 @@
 namespace Vestis\Service\validation;
 
 /**
- * Defines the structure of a rule that defines how a specific field should be validated
+ * Definiert die Struktur einer Regel, die festlegt, wie ein bestimmtes Feld überprüft werden soll
  */
 class ValidationRule
 {

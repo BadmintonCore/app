@@ -6,7 +6,7 @@ use Vestis\Database\Models\Category;
 use Vestis\Database\Models\ProductType;
 
 /**
- * Utility-Klasse zum generieren von Breadcrumbs Content für Seiten auf denen das nicht über die URL getan werden kann
+ * Utility-Klasse zum Generieren von Breadcrumbs Content für Seiten auf denen das nicht über die URL getan werden kann
  */
 class BreadcrumbsUtility
 {

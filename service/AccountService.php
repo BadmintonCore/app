@@ -10,7 +10,7 @@ use Vestis\Exception\LogicException;
 class AccountService
 {
     /**
-     * Setzt das Passwort auf einen neuen Wert.
+     * Setzt das Passwort auf einen neuen Wert
      *
      * @param string $password
      * @param Account $account
@@ -22,7 +22,7 @@ class AccountService
     }
 
     /**
-     * Aktualisiert die Benutzerdaten, die im User-Bereich eingegeben wurden.
+     * Aktualisiert die Benutzerdaten, die im User-Bereich eingegeben wurden
      *
      * @param string $newUsername Der neue Benutzername des Nutzers
      * @param string $newEmail Die neue E-Mail des Nutzers

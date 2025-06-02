@@ -9,11 +9,7 @@ use Vestis\Service\AuthService;
 <head>
     <?php include(__DIR__ . "/../../components/head.php"); ?>
     <title>vestis. - Benutzerbereich</title>
-
-    <!--Reference to authValidation.js-->
     <script src="/js/authValidation.js" defer></script>
-    <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
-    Alternative: Script am Ende vom body erst aufführen-->
 </head>
 
 <!--Header der Website-->

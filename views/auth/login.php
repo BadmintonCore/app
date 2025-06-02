@@ -5,7 +5,6 @@
 <head>
     <?php include(__DIR__."/../../components/head.php"); ?>
     <title>vestis. - Einloggen</title>
-    <!--Reference to authValidation.js-->
     <script src="/js/authValidation.js" defer></script>
 </head>
 <body>

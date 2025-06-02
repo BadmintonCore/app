@@ -3,7 +3,7 @@
 namespace Vestis\Service\validation;
 
 /**
- * All different possible data / synthetic types that can be used for validation
+ * Alle möglichen (Daten-)Typen, die für die Validierung verwendet werden können
  */
 enum ValidationType
 {
