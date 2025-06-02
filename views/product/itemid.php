@@ -2,6 +2,7 @@
 <?php
 
 use Vestis\Database\Models\ProductType;
+use Vestis\Service\AuthService;
 
 /** @var ProductType|null $product */
 /** @var string|null $errorMessage */
@@ -68,14 +69,16 @@ use Vestis\Database\Models\ProductType;
                         <?php endforeach; ?>
                     </div>
 
-                    <label for="amount"><strong>Anzahl</strong></label>
-                    <div class="quantity-container">
+                    <div id="quantityLeft"></div>
+
+                    <label for="amount" id="quantityLabel" style="display: none"><strong>Anzahl</strong></label>
+                    <div class="quantity-container" style="display: none">
                         <button class="quantity-btn" type="button">−</button>
                         <input type="number" id="amount" value="1" name="quantity" readonly>
                         <button class="quantity-btn" type="button">+</button>
                     </div>
 
-                    <?php if (\Vestis\Service\AuthService::$currentAccount === null): ?>
+                    <?php if (AuthService::$currentAccount === null): ?>
 
                         <div class="button-row">
                             <a href="/auth/login" class="btn" id="orderButton">
@@ -104,10 +107,10 @@ use Vestis\Database\Models\ProductType;
                         </button>
 
                         <div class="button-row">
-                            <button type="submit" class="btn" name="buy_direct" id="orderButton">
+                            <button type="submit" class="btn" id="orderButton" name="buyDirect" style="display: none">
                                 Direkt bestellen
                             </button>
-                            <button type="submit" class="btn secondary" id="addToCartButton">
+                            <button type="submit" class="btn secondary" id="addToCartButton" style="display: none">
                                 Zum Warenkorb hinzufügen
                             </button>
                         </div>

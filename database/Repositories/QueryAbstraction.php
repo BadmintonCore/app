@@ -237,6 +237,10 @@ class QueryAbstraction
                     }
                 }
 
+                if ($type instanceof \ReflectionNamedType && $type->getName() === \DateTime::class && is_string($value)) {
+                    $value =  \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+                }
+
                 // Setzt die Eigenschaft in der tatsächlichen Klasseninstanz
                 $property->setValue($instance, $value);
             }

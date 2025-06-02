@@ -3,6 +3,7 @@
 namespace Vestis\Service;
 
 use Vestis\Database\Models\Account;
+use Vestis\Database\Models\Order;
 use Vestis\Exception\EmailException;
 use Vestis\Utility\PasswordGeneratorUtility;
 
@@ -39,6 +40,67 @@ class EmailService
         );
         if (false === mail($account->email, $subject, $message, self::Headers)) {
             throw new EmailException("Kann Registrierungs-Mail nicht versenden.");
+        }
+    }
+
+    /**
+     * Sendet eine Auftragsbestätigung
+     *
+     * @param Order $order Die Bestellung
+     * @return void
+     * @throws EmailException
+     */
+    public static function sendOrderConfirmation(Order $order): void
+    {
+        $subject = 'Auftrag erstellt';
+        $message = sprintf(
+            <<<EMAIL
+            Hallo %s %s,
+            
+            du wir haben die Bestellung mit der ID: %s von dir erhalten.
+            Bitte überweisen sie uns %s € an unser Hauptkonto mit der IBAN DE32 1111 1111 1111 1111.
+            
+            Beste Grüße
+            Dein vestis-Team
+
+        EMAIL,
+            $order->getAccount()->firstname,
+            $order->getAccount()->surname,
+            $order->id,
+            $order->getOrderSum()
+        );
+        if (false === mail($order->getAccount()->email, $subject, $message, self::Headers)) {
+            throw new EmailException("Cannot send order confirmation email");
+        }
+    }
+
+    /**
+     * Sendet eine Stornierungs-Bestätigung
+     *
+     * @param Order $order Die Bestellung
+     * @return void
+     * @throws EmailException
+     */
+    public static function sendCancelConfirmation(Order $order): void
+    {
+        $subject = 'Auftrag storniert';
+        $message = sprintf(
+            <<<EMAIL
+            Hallo %s %s,
+            
+            du wir haben die Bestellung mit der ID: %s von dir storniert.
+            Du kriegst in den nächsten Tagen dein Geld zurück, solltest du welches gezahlt haben.
+            
+            Beste Grüße
+            Dein vestis-Team
+
+        EMAIL,
+            $order->getAccount()->firstname,
+            $order->getAccount()->surname,
+            $order->id
+        );
+        if (false === mail($order->getAccount()->email, $subject, $message, self::Headers)) {
+            throw new EmailException("Cannot send cancel confirmation email");
         }
     }
 

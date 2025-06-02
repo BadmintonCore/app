@@ -4,8 +4,11 @@
 
 namespace Vestis\Controller;
 
+use Vestis\Database\Repositories\ColorRepository;
+use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
+use Vestis\Database\Repositories\SizeRepository;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -61,12 +64,18 @@ class ProductController
                 if ($account !== null) {
 
                     // Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
-                    $pieces = ShoppingCartRepository::getAmountOfProducts($itemId, $formData["size"], $formData["color"]);
+                    $pieces = ProductRepository::getUnsoldQuantity($itemId, $formData["size"], $formData["color"]);
 
                     // Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
                     if ($pieces >= $formData["quantity"]) {
                         ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
                     }
+                }
+
+                // Wenn der direkt bestellen Button gedrückt wurde
+                if (isset($_POST['buyDirect'])) {
+                    header('Location: /user-area/shoppingCart');
+                    return;
                 }
 
             } catch (ValidationException $e) {
@@ -78,6 +87,41 @@ class ProductController
         require_once __DIR__ . '/../views/product/itemid.php';
     }
 
+    /**
+     * Prüft, ob das Produkt in der speizifischen Konfiguration noch auf Lager ist.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    public function checkStock(): void
+    {
+        $validationRules = [
+            'itemId' => new ValidationRule(ValidationType::Integer),
+            'sizeId' => new ValidationRule(ValidationType::Integer),
+            'colorId' => new ValidationRule(ValidationType::Integer),
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
 
+        $productType = ProductTypeRepository::findById($formData["itemId"]);
+        if (null === $productType) {
+            throw new ValidationException("Produkttyp nicht gefunden");
+        }
+
+        $color = ColorRepository::findById($formData["colorId"]);
+        if (null === $color) {
+            throw new ValidationException("Farbe nicht gefunden");
+        }
+
+        $size = SizeRepository::findById($formData["sizeId"]);
+        if (null === $size) {
+            throw new ValidationException("Größe nicht gefunden");
+        }
+
+        $leftQuantity = ProductRepository::getUnsoldQuantity($productType->id, $size->id, $color->id);
+
+        header('Content-type: application/json');
+        echo json_encode(['quantityLeft' => $leftQuantity]);
+    }
 }
 /*Autor(en): */

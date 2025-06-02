@@ -20,4 +20,6 @@ class Account
     public string $email;
 
     public string $password;
+
+    public bool $isBlocked;
 }

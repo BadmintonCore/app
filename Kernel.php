@@ -48,7 +48,13 @@ class Kernel
 
 
             $errorMessage = $exception->getMessage();
-            require_once __DIR__.'/views/error.php';
+            $acceptHeader = $_SERVER['HTTP_ACCEPT'] ?? null;
+            if (str_contains($acceptHeader, 'application/json')) {
+                header('Content-type: application/json');
+                echo json_encode(['errorMessage' => $errorMessage]);
+            } else {
+                require_once __DIR__.'/views/error.php';
+            }
         }
 
         // Gibt den ganzen Buffer aufeinmal frei und sendet ihn zum Client
