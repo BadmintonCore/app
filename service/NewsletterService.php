@@ -11,7 +11,7 @@ use Vestis\Database\Repositories\NewsletterRepository;
 class NewsletterService
 {
     /**
-     * Abboniert ein Newsletter
+     * Abonniert einen Newsletter
      *
      * @param string $email
      * @return void
@@ -26,7 +26,7 @@ class NewsletterService
     }
 
     /**
-     * Deabboniert ein Newsletter
+     * Deabonniert einen Newsletter
      *
      * @param string $email
      * @return void

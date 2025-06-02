@@ -3,7 +3,7 @@
 namespace Vestis\Database\Dto;
 
 /**
- * DTO (Domain Transfer Object) for pagination results
+ * DTO (Domain Transfer Object) für pagination Ergebnisse
  *
  * @template T of object
  */

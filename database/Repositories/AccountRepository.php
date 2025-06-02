@@ -13,16 +13,16 @@ use Vestis\Exception\DatabaseException;
 class AccountRepository
 {
     /**
-     * Creates a new account
+     * Erstellt einen neuen Account
      *
-     * @param AccountType $type The type of the account
-     * @param string $firstName First name of the account owner
-     * @param string $surname Surname of the owner
-     * @param string $username The username, that is used for login purposes
-     * @param string $email The email, that is used for login purposes
-     * @param string $password The password that is hashed later
-     * @return Account|null The created account
+     * @param AccountType $type Der Accounttyp
+     * @param string $firstName Vorname des Nutzers
+     * @param string $surname Nachname des Benutzers
+     * @param string $username Der Benutzername, der für die Anmeldung verwendet wird
+     * @param string $email Die E-Mail, die für die Anmeldung verwendet wird
+     * @param string $password Das Passwort, welches gehasht wird
      * @throws DatabaseException
+     * @return Account|null Der erstellte Account
      */
     public static function create(AccountType $type, string $firstName, string $surname, string $username, string $email, string $password): ?Account
     {
@@ -42,12 +42,12 @@ class AccountRepository
     }
 
     /**
-     * Updates a username of an account
+     * Aktualisiert den Benutzername eines Accounts
      *
-     * @param string $newUsername The new username, that is used for login purposes
-     * @param string $oldUsername The old username, that is used for login purposes
-     * @return Account|null The created account
+     * @param string $newUsername Der neue Benutzername, der für die Anmeldung verwendet wird
+     * @param string $oldUsername Der alte Benutzername, der für die Anmeldung verwendet worden ist
      * @throws DatabaseException
+     * @return Account|null Der erstellte Account
      */
     public static function updateUsername(string $newUsername, string $oldUsername): ?Account
     {
@@ -61,12 +61,12 @@ class AccountRepository
     }
 
     /**
-     * Updates an email of an account
+     * Aktualisiert die E-Mail des Accounts
      *
-     * @param string $newEmail The new email of an account
-     * @param string $oldEmail The old email of an account
-     * @return Account|null The created account
+     * @param string $newEmail Die neue E-Mail eines Accounts
+     * @param string $oldEmail Die alte E-Mail eines Accounts
      * @throws DatabaseException
+     * @return Account|null Der erstellte Account
      */
     public static function updateEmail(string $newEmail, string $oldEmail): ?Account
     {
@@ -80,11 +80,11 @@ class AccountRepository
     }
 
     /**
-     * Updates a password of an account
+     * Aktualisiert das Passwort des Accounts
      *
-     * @param string $newPassword The new password of an account
-     * @param string $username The username, that is used for login purposes
-     * @return Account|null The created account
+     * @param string $newPassword Das neue Passwort eines Accounts
+     * @param string $username Der Benutzername, der für die Anmeldung verwendet wird
+     * @return Account|null Der erstellte Account
      * @throws DatabaseException
      */
     public static function updatePassword(string $newPassword, string $username): ?Account
@@ -101,10 +101,10 @@ class AccountRepository
     }
 
     /**
-     * Finds an account by the username
+     * Findet einen Account anhand des Benutzernamens
      *
-     * @param string $username The username
-     * @return Account|null The fetched account or null
+     * @param string $username Der Benutzername
+     * @return Account|null Der gefundene Account oder null
      * @throws DatabaseException
      */
     public static function findByUsername(string $username): ?Account
@@ -113,10 +113,10 @@ class AccountRepository
     }
 
     /**
-     * Finds an account by the ID
+     * Findet einen Account anhand seiner ID
      *
-     * @param int $id The ID
-     * @return Account|null The fetched account or null
+     * @param int $id Die ID
+     * @return Account|null Der gefundene Account oder null
      * @throws DatabaseException
      */
     public static function findById(int $id): ?Account
@@ -125,10 +125,10 @@ class AccountRepository
     }
 
     /**
-     * Finds an account by the Email
+     * Findet einen Account anhand seiner E-Mail
      *
-     * @param string $email The Email
-     * @return Account|null The fetched account or null
+     * @param string $email Die E-Mail
+     * @return Account|null Der gefundene Account oder null
      * @throws DatabaseException
      */
     public static function findByEmail(string $email): ?Account
@@ -151,7 +151,7 @@ class AccountRepository
     /**
      * Löscht einen Account
      *
-     * @param int $id die ID des Account, der gelöscht werden soll
+     * @param int $id die ID des Accounts
      * @return void
      */
     public static function deleteById(int $id): void

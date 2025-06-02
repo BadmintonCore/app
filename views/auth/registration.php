@@ -5,11 +5,7 @@
 <head>
     <?php include(__DIR__."/../../components/head.php"); ?>
     <title>vestis. - Registrieren</title>
-
-    <!--Reference to authValidation.js-->
     <script src="../../public/js/authValidation.js" defer></script>
-    <!--Defer: JavaScript wird erst ausgeführt, wenn HTML-Seite fertig geparst ist
-    Alternative: Script am Ende vom body erst aufführen-->
 </head>
 <body>
 

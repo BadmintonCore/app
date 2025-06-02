@@ -1,3 +1,4 @@
+/*Autor(en): Lasse Hoffmann, Mathis Burger*/
 const addToCartButton = document.getElementById('addToCartButton');
 const orderButton = document.getElementById("orderButton");
 const quantityContainer = document.querySelector(".quantity-container");
@@ -84,3 +85,4 @@ const submitListener = (e) => {
 };
 
 addToCartButton.addEventListener("click", submitListener);
+/*Autor(en): Lasse Hoffmann, Mathis Burger*/

@@ -8,18 +8,18 @@ use Vestis\Exception\EmailException;
 use Vestis\Utility\PasswordGeneratorUtility;
 
 /**
- * Service that handles email sending
+ * Service, der sich um den E-Mail-Versand kümmert
  */
 class EmailService
 {
     private const string Headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
 
     /**
-     * Sends a registration confirmation email to the account owner.
+     * Sendet eine E-Mail zur Bestätigung der Registrierung an den Accountinhaber
      *
-     * @param Account $account The account that the mail should be sent to
+     * @param Account $account Der Account, an den die E-Mail gesendet werden soll
      * @return void
-     * @throws EmailException On error while sending email
+     * @throws EmailException Exception, die bei dem E-Mail-Versandt auftritt
      */
     public static function sendRegistrationConfirmation(Account $account): void
     {
@@ -39,7 +39,7 @@ class EmailService
             $account->surname
         );
         if (false === mail($account->email, $subject, $message, self::Headers)) {
-            throw new EmailException("Cannot send registration confirmation email");
+            throw new EmailException("Kann Registrierungs-Mail nicht versenden.");
         }
     }
 
@@ -109,7 +109,7 @@ class EmailService
      *
      * @param Account $account Der Account, an den die E-Mail versendet werden soll
      * @return void
-     * @throws EmailException Error, der bei dem E-Mail-Versandt auftritt
+     * @throws EmailException Exception, die bei dem E-Mail-Versandt auftritt
      */
     public static function sendNewPassword(Account $account): void
     {
@@ -130,7 +130,7 @@ class EmailService
             PasswordGeneratorUtility::generatePassword($account)
         );
         if (false === mail($account->email, $subject, $message, self::Headers)) {
-            throw new EmailException("Kann Passwort-E-Mail nicht versenden");
+            throw new EmailException("Kann Passwort-Mail nicht versenden.");
         }
     }
 

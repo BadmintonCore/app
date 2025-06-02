@@ -1,6 +1,4 @@
-/**
- * @author Lasse Hoffmann
- */
+/*Autor(en): Lasse Hoffmann*/
 
 const wishlistButtonEmpty = document.getElementById('addToWishlistButtonEmpty');
 const wishlistButtonFilled = document.getElementById('addToWishlistButtonFilled');
@@ -19,6 +17,7 @@ if (wishlistButtonFilled) {
     });
 }
 
+// Lädt den passenden Button-Zustand beim Seitenaufruf je nachdem, ob das Produkt auf der Wunschliste ist
 function loadWishlistButton() {
     const searchParams = new URLSearchParams(location.search);
     if (wishlistButtonEmpty && wishlistButtonFilled) {
@@ -32,21 +31,22 @@ function loadWishlistButton() {
     }
 }
 
+// Prüft, ob ein bestimmtes Produkt auf der Wunschliste ist
 function isWishlist(productId) {
     return getItemFromWishlist(productId) !== undefined;
 }
 
 /**
- * JSDoc type definition for shopping cart item.
+ * JSDoc-Typdefinition für ein Wunschlisten-Element.
  *
  * @typedef {Object} WishlistItem
- * @property {string} productName The name of the product
- * @property {number} productPrice The price of the product
- * @property {number} quantity The quantity of the product
+ * @property {string} productName Der Name des Produkts
+ * @property {number} productPrice Der Preis des Produkts
+ * @property {number} quantity Die Anzahl des Produkts
  */
 
 /**
- * Gets the shopping cart from browsers local storage.
+ * Holt die Wunschliste aus dem localStorage des Browsers.
  *
  * @returns {Record<string, WishlistItem>}
  */
@@ -55,13 +55,12 @@ function getWishlist() {
     return JSON.parse(rawWishlistContent);
 }
 
-
 /**
- * Gets an item from the current shopping cart stored in browsers local storage.
+ * Holt ein Produkt aus der Wunschliste im localStorage.
  *
- * @param {number} productId The ID of the product that should be loaded from the shopping cart
+ * @param {number} productId Die ID des Produkts, das geladen werden soll
  *
- * @returns {(WishlistItem|undefined)} Gets a product from the shopping cart. Undefined if the item does not exist.
+ * @returns {(WishlistItem|undefined)} Gibt ein Produkt der Wunschliste zurück oder undefined, wenn es nicht existiert
  */
 function getItemFromWishlist(productId) {
     const wishlist = getWishlist();
@@ -69,11 +68,11 @@ function getItemFromWishlist(productId) {
 }
 
 /**
- * Adds an item to the shopping cart.
+ * Fügt ein Produkt der Wunschliste hinzu.
  *
- * @param {number} productId The ID of the product
- * @param {string} productName The name of the product
- * @param {number} productPrice The price of a single product
+ * @param {number} productId Die ID des Produkts
+ * @param {string} productName Der Name des Produkts
+ * @param {number} productPrice Der Preis eines einzelnen Produkts
  */
 function addToWishlist(productId, productName, productPrice) {
     const wishlistItem = getItemFromWishlist(productId) ?? {productName, productPrice};
@@ -84,9 +83,9 @@ function addToWishlist(productId, productName, productPrice) {
 }
 
 /**
- * Removes a product from the shopping cart
+ * Entfernt ein Produkt aus der Wunschliste.
  *
- * @param {number} productId The ID of the product
+ * @param {number} productId Die ID des Produkts
  */
 function removeFromWishlist(productId) {
     const wishlist = getWishlist();
@@ -96,17 +95,17 @@ function removeFromWishlist(productId) {
 }
 
 /**
- * Calculates the total price with tax included.
+ * Berechnet den Gesamtpreis inklusive Mehrwertsteuer.
  *
- * @param {number} price The price without tax
- * @returns {number} The price with tax
+ * @param {number} price Der Preis ohne Mehrwertsteuer
+ * @returns {number} Der Preis inklusive Mehrwertsteuer
  */
 function getTotalPrice(price) {
     return price * 1.19;
 }
 
 /**
- * Renders the shopping cart into the table and calculates the final total prices.
+ * Rendert die Wunschliste in die Tabelle und berechnet die endgültigen Gesamtpreise.
  */
 function renderWishlist() {
     const tableBody = document.getElementById("WishlistTBody");
@@ -127,8 +126,8 @@ function renderWishlist() {
         // Neue Spalte für das Hinzufügedatum (nur Datum ohne Uhrzeit)
         const dateAddedTd = document.createElement("td");
         const dateAdded = new Date(wishlistItem.addedDate);
-        // Formatierung des Datums (nur DD.MM.YYYY)
-        dateAddedTd.textContent = `${("0" + dateAdded.getDate()).slice(-2)}.${("0" + (dateAdded.getMonth() + 1)).slice(-2)}.${dateAdded.getFullYear()}`;  // Nur das Datum anzeigen
+        // Formatierung des Datums (nur TT.MM.JJJJ)
+        dateAddedTd.textContent = `${("0" + dateAdded.getDate()).slice(-2)}.${("0" + (dateAdded.getMonth() + 1)).slice(-2)}.${dateAdded.getFullYear()}`;
         row.appendChild(dateAddedTd);
 
         const toShoppingCartTd = document.createElement("td");
@@ -153,3 +152,4 @@ function renderWishlist() {
 }
 
 loadWishlistButton();
+/*Autor(en): Lasse Hoffmann*/

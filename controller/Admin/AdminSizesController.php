@@ -1,5 +1,7 @@
 <?php
 
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+
 namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
@@ -128,16 +130,17 @@ class AdminSizesController
 
         $formData = ValidationService::getFormData();
 
-        //Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
+        // Überprüft, ob das Löschen der Kategorien gemäß der im DeletionValidationService beschriebenen Regeln möglich ist.
         $deletionValidation = DeletionValidationService::validateSizeDeletion($formData['id']);
 
         if ($deletionValidation !== null) {
             throw new LogicException($deletionValidation);
         }
 
-        //Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
+        // Löschen des Eintrags aus der Datenbank, wenn deletionValidation null ist.
         SizeRepository::delete($formData['id']);
 
         header('Location: /admin/sizes');
     }
 }
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/

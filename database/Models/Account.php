@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * Das Model für einen Account in der DB
+ * Das Model für einen Account in der Datenbank
  */
 class Account
 {

@@ -3,7 +3,7 @@
 namespace Vestis\Exception;
 
 /**
- * Exception used for auth purposes
+ * Exception für Authentifizierungszwecke
  */
 class AuthException extends \Exception
 {

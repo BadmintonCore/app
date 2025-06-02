@@ -8,7 +8,7 @@ use Vestis\Database\Repositories\ImageRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
 /**
- * Das Modell für einen Produkttyp in der DB
+ * Das Modell für einen Produkttyp in der Datenbank
  */
 class ProductType
 {

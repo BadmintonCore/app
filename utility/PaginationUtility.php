@@ -5,7 +5,7 @@ namespace Vestis\Utility;
 class PaginationUtility
 {
     /**
-     * Gibt die aktuell aufgerufene Seite anhand des GET-Paremeters zurück.
+     * Gibt die aktuell aufgerufene Seite anhand des GET-Paremeters zurück
      *
      * @return int
      */
@@ -55,7 +55,7 @@ class PaginationUtility
     }
 
     /**
-     * Generiert den Query/Search-Link für den Anchor-Tag.
+     * Generiert den Query/Search-Link für den Anchor-Tag
      *
      * @param int $page
      * @return string

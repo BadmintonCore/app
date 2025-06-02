@@ -18,7 +18,7 @@ class ShoppingCartRepository
     /**
      * Erstellt einen Einkaufswagen für einen Nutzer
      *
-     * @param int $accountId AccountID des Nutzers
+     * @param int $accountId Account-ID des Nutzers
      * @return void
      */
     public static function create(int $accountId): void
@@ -61,9 +61,9 @@ class ShoppingCartRepository
      * Entfernt einen Eintrag aus dem Einkaufswagen
      *
      * @param Account $account Account des Nutzers
-     * * @param int $itemId ItemID des zu entfernenden Items
-     * * @param int $size Größe des zu entfernenden Items
-     * * @param int $color Farbe des zu entfernenden Items
+     * @param int $itemId ItemID des zu entfernenden Items
+     * @param int $size Größe des zu entfernenden Items
+     * @param int $color Farbe des zu entfernenden Items
      * @return void
      */
     public static function remove(Account $account, int $itemId, int $size, int $color): void

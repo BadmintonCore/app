@@ -6,7 +6,7 @@ use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
 /**
- * Das Produkt-Modell, das die Daten der Produkt-Datenbanktabelle darstellt
+ * Das Model für ein Produkt in der Datenbank
  */
 class Product
 {

@@ -1,3 +1,4 @@
+<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
 <a class="back-btn" id="backButton">
     <!--Grafik von: https://getbootstrap.com/-->
     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -6,3 +7,4 @@
     </svg>
     <span>Zurück</span>
 </a>
+<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->

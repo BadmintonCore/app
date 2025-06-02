@@ -1,5 +1,7 @@
 <?php
 
+/*Autor(en): */
+
 namespace Vestis\Controller;
 
 use Vestis\Database\Repositories\OrderRepository;
@@ -88,7 +90,7 @@ class UserAreaController
     }
 
     /**
-     * Listet die Wunschliste auf
+     * Ansicht für die Wunschliste
      *
      * @return void
      */
@@ -110,7 +112,7 @@ class UserAreaController
             'sizeId' => new ValidationRule(ValidationType::Integer),
             'colorId' => new ValidationRule(ValidationType::Integer),
         ];
-        // Validate form
+        // Formular validieren
         ValidationService::validateForm($validationRules, "GET");
         $formData = ValidationService::getFormData();
 
@@ -156,3 +158,4 @@ class UserAreaController
     }
 
 }
+/*Autor(en): */

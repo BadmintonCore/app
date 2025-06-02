@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * Das Modell für ein Bild in der DB
+ * Das Modell für ein Bild in der Datenbank
  */
 class Image
 {

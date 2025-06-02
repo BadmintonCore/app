@@ -1,3 +1,4 @@
+/*Autor(en): Mathis Burger*/
 const track = document.querySelector('.carousel-track');
 const images = document.querySelectorAll('.carousel-image');
 const prevButton = document.querySelector('.prev');
@@ -22,3 +23,4 @@ if (prevButton && nextButton && track) {
         updateCarousel();
     });
 }
+/*Autor(en): Mathis Burger*/

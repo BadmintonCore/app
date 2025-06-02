@@ -9,7 +9,7 @@ use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
 /**
- * Dienst zum Verwalten der Löschen-Funktionalität im Admin-Panel.
+ * Dienst zum Verwalten der Löschen-Funktionalität im Admin-Panel
  */
 class DeletionValidationService
 {

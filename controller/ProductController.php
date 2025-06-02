@@ -1,5 +1,7 @@
 <?php
 
+/*Autor(en): */
+
 namespace Vestis\Controller;
 
 use Vestis\Database\Repositories\ColorRepository;
@@ -9,7 +11,6 @@ use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Database\Repositories\SizeRepository;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
-use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -43,7 +44,7 @@ class ProductController
             return;
         }
 
-        //Verarbeitung des "Zum Warenkorb"-Buttons
+        // Verarbeitung des "Zum Warenkorb"-Buttons
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $validationRules = [
                 'size' => new ValidationRule(ValidationType::Integer),
@@ -53,7 +54,7 @@ class ProductController
 
             try {
 
-                // Validate form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
 
                 $formData = ValidationService::getFormData();
@@ -62,10 +63,10 @@ class ProductController
 
                 if ($account !== null) {
 
-                    //Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
+                    // Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
                     $pieces = ProductRepository::getUnsoldQuantity($itemId, $formData["size"], $formData["color"]);
 
-                    //Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
+                    // Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
                     if ($pieces >= $formData["quantity"]) {
                         ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
                     }
@@ -78,7 +79,7 @@ class ProductController
                 }
 
             } catch (ValidationException $e) {
-                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
         }
@@ -86,6 +87,12 @@ class ProductController
         require_once __DIR__ . '/../views/product/itemid.php';
     }
 
+    /**
+     * Prüft, ob das Produkt in der speizifischen Konfiguration noch auf Lager ist.
+     *
+     * @return void
+     * @throws ValidationException
+     */
     public function checkStock(): void
     {
         $validationRules = [
@@ -117,3 +124,4 @@ class ProductController
         echo json_encode(['quantityLeft' => $leftQuantity]);
     }
 }
+/*Autor(en): */

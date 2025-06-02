@@ -1,5 +1,7 @@
 <?php
 
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+
 namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
@@ -19,12 +21,12 @@ use Vestis\Service\ValidationService;
 use Vestis\Utility\PaginationUtility;
 
 /**
- * Controller für alle Interaktionen in Bezug auf Produkt-Typen im Admin-Panel
+ * Controller für alle Interaktionen in Bezug auf Produkttypen im Admin-Panel
  */
 class AdminProductTypesController
 {
     /**
-     * Listet alle Produkt Typen paginiert auf.
+     * Listet alle Produkttypen paginiert auf
      *
      * @return void
      */
@@ -128,7 +130,7 @@ class AdminProductTypesController
     }
 
     /**
-     * Listenansicht zum Erstellen eines Produkt-Typen
+     * Listenansicht zum Erstellen eines Produkttypen
      *
      * @return void
      */
@@ -334,3 +336,4 @@ class AdminProductTypesController
     }
 
 }
+/*Autor(en): Mathis Burger, Lasse Hoffmann*/

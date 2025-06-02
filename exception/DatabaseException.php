@@ -3,17 +3,17 @@
 namespace Vestis\Exception;
 
 /**
- * Exception used in the context of database queries
+ * Ausnahme, die im Zusammenhang mit Datenbankabfragen verwendet wird
  */
 class DatabaseException extends \PDOException
 {
     /**
-     * @var DatabaseExceptionReason|null The reason that triggered the exception
+     * @var DatabaseExceptionReason|null Der Grund, der die Ausnahme ausgelöst hat
      */
     private ?DatabaseExceptionReason $reason = null;
 
     /**
-     * @var string|null The name of the column which caused the error
+     * @var string|null Der Name der Spalte, die den Fehler verursacht hat
      */
     private ?string $columnName = null;
 
@@ -21,15 +21,14 @@ class DatabaseException extends \PDOException
     {
         parent::__construct($message, $code, $previous);
 
-        // SQLSTATE[23000] is the error code for a constraint violation. By searching for "duplicate entry" we ensure it is a unique constraint
+        // SQLSTATE[23000] ist der Fehlercode für einen Constraint-Verstoß. Durch die Suche nach "duplicate entry" stellen wir sicher, dass es sich um einen Unique-Constraint handelt
         if ($code === 23000 && str_contains(strtolower($message), "duplicate entry")) {
             $this->reason = DatabaseExceptionReason::ViolatedUniqueConstraint;
-            // use 9 here, because needle is 8 chars long and we need strpos + needle-length + 1 as offset
+            // Verwende hier 9, da das Suchwort 8 Zeichen lang ist und wir strpos + Länge des Suchworts + 1 als Offset benötigen
             $pos = strrpos($message, "for key ");
             if ($pos !== false) {
                 $this->columnName = rtrim(substr($message, $pos + 9), "'");
             }
-
         }
     }
 

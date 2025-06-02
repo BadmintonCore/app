@@ -1,4 +1,4 @@
-/*Author: Lasse Hoffmann*/
+/*Autor(en): Lasse Hoffmann*/
 
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
@@ -61,7 +61,7 @@ function passwordsMatch(password, passwordConfirmation) {
 function handleField(inputElement, isValid) {
     if (!inputElement) return;
 
-    //Prüft, ob das gerade fokussierte Element auch das inputElement ist
+    // Prüft, ob das gerade fokussierte Element auch das inputElement ist
     const isActive = activeField === inputElement;
 
     if (isValid) {
@@ -130,13 +130,13 @@ if (registrationForm) {
     });
 }
 
-//Validierung bei Eingaben in Echtzeit (Aufruf der Validierungsfunktion)
+// Validierung bei Eingaben in Echtzeit (Aufruf der Validierungsfunktion)
 if (usernameInput) usernameInput.addEventListener("input", validateForm);
 if (passwordInput) passwordInput.addEventListener("input", validateForm);
 if (passwordConfirmationInput) passwordConfirmationInput.addEventListener("input", validateForm);
 
-//Reagiert auf focus-Events und setzt somit das gerade fokussierte Input-Feld
+// Reagiert auf focus-Events und setzt somit das gerade fokussierte Input-Feld
 if (usernameInput) usernameInput.addEventListener("focus", () => { activeField = usernameInput; });
 if (passwordInput) passwordInput.addEventListener("focus", () => { activeField = passwordInput; });
 
-/*Author: Lasse Hoffmann*/
+/*Autor(en): Lasse Hoffmann*/

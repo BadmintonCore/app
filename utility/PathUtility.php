@@ -5,7 +5,7 @@ namespace Vestis\Utility;
 class PathUtility
 {
     /**
-     * Gibt den aktuellen Pfad zurück.
+     * Gibt den aktuellen Pfad zurück
      *
      * @return string
      */

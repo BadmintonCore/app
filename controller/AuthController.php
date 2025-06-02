@@ -1,5 +1,7 @@
 <?php
 
+/*Autor(en): */
+
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\AccountType;
@@ -14,13 +16,12 @@ use Vestis\Service\AccountService;
 use Vestis\Service\AuthService;
 use Vestis\Service\EmailService;
 use Vestis\Service\NewsletterService;
-use Vestis\Service\ShoppingCartService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
 /**
- * Controller für Authentication
+ * Controller für die Authentifizierung
  */
 class AuthController
 {
@@ -38,15 +39,15 @@ class AuthController
                 'rememberMe' => new ValidationRule(ValidationType::Boolean, true),
             ];
             try {
-                // Validate form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
 
                 $formData = ValidationService::getFormData();
 
-                // Login the user with the given credentials in $_POST
+                // Benutzer mit den gegebenen Formular-Werten einloggen
                 AuthService::loginUser($formData['username'], $formData['password'], $formData['rememberMe']);
 
-                // Redirect to landing page after successful login
+                // Umleitung zur Startseite nach erfolgreichem Login
                 if (AuthService::isAdmin()) {
                     header("Location: /admin");
                 } else {
@@ -54,7 +55,7 @@ class AuthController
                 }
                 return;
             } catch (ValidationException|AuthException|DatabaseException $e) {
-                // Sets all exception errors. Those are then displayed in the frontend
+                // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
 
@@ -90,7 +91,7 @@ class AuthController
                 'newsletter' => new ValidationRule(ValidationType::Boolean, true),
             ];
             try {
-                // Validates the form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
 
                 $formData = ValidationService::getFormData();
@@ -98,23 +99,23 @@ class AuthController
                 $account = AccountRepository::create(AccountType::Customer, $formData['firstName'], $formData['surname'], $formData['username'], $formData['email'], $formData['password']);
 
                 if (null === $account) {
-                    $validationError = "Cannot create an account";
+                    $validationError = "Account konnte nicht erstellt werden";
                     require_once __DIR__ . '/../views/auth/registration.php';
                     return;
                 }
 
-                //Erstellt den zugehörigen Warenkorb für einen Nutzer
+                // Erstellt den zugehörigen Warenkorb für einen Nutzer
                 ShoppingCartRepository::create($account->id);
 
                 if ($formData['newsletter'] === true) {
                     NewsletterService::subscribe($account->email);
                 }
 
-                // Sends confirmation mail and creates user session cookie
+                // Sendet eine Bestätigungs-Mail und erstellt eine Session (Session-Cookie)
                 EmailService::sendRegistrationConfirmation($account);
                 AuthService::createUserAccountSession($account, 3600); //Eine Stunde in Sekunden
 
-                // Redirects to landing page
+                // Umleitung zur Startseite
                 header("Location: /");
                 die();
             } catch (ValidationException|EmailException $e) {
@@ -122,7 +123,7 @@ class AuthController
             } catch (DatabaseException $e) {
                 if ($e->getReason() === DatabaseExceptionReason::ViolatedUniqueConstraint) {
                     var_dump($e->getMessage());
-                    $validationError = sprintf("%s already exists.", $e->getColumnName());
+                    $validationError = sprintf("%s existiert bereits.", $e->getColumnName());
                 } else {
                     $validationError = $e->getMessage();
                 }
@@ -135,6 +136,7 @@ class AuthController
      * Ansicht zum Zurücksetzen des Passwort
      *
      * @throws \Exception
+     * @return void
      */
     public function resetPassword(): void
     {
@@ -143,14 +145,14 @@ class AuthController
                 'mail' => new ValidationRule(ValidationType::Email)
             ];
             try {
-                // Validate form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
 
                 ['mail' => $mail] = ValidationService::getFormData();
 
                 $findByEmail = AccountRepository::findByEmail($mail);
 
-                //Wenn die E-Mail nicht null ist (sie existiert)
+                // Wenn die E-Mail nicht null ist (sie existiert)
                 if (null !== $findByEmail) {
                     EmailService::sendNewPassword($findByEmail);
                 } else {
@@ -158,7 +160,7 @@ class AuthController
                 }
                 $successMessage = "Dein neues Passwort wurde erfolgreich an deine E-Mail gesendet.";
             } catch (\Exception|ValidationException|EmailException|DatabaseException $e) {
-                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
         }
@@ -169,34 +171,36 @@ class AuthController
      * Ansicht um die Account-Löschung zu bestätigen
      *
      * @throws ValidationException
+     * @return void
      */
     public function deleteConfirmation(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-            //Aktuellen Benutzeraccount aus den Cookies setzen
+            // Aktuellen Account aus den Cookies setzen
             AuthService::setCurrentUserAccountSessionFromCookie();
             $account = AuthService::$currentAccount;
 
             try {
 
-                //Account löschen
+                // Account löschen
                 if ($account !== null) {
                     AccountService::deleteAccount($account);
                 }
 
-                //Aktuelle Session auflösen
+                // Aktuelle Session auflösen
                 AuthService::destroyCurrentSession();
 
             } catch (\Exception|DatabaseException $e) {
-                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
 
-            //Zurück zur Startseite
+            // Zurück zur Startseite
             header("Location: /");
             return;
         }
         require_once __DIR__ . '/../views/auth/deleteConfirmation.php';
     }
 }
+/*Autor(en): */

@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * Das Feedback-Modell, das die Daten der Feedback-Datenbanktabelle darstellt
+ * Das Model für ein Feedback in der Datenbank
  */
 class Feedback
 {

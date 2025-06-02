@@ -1,5 +1,7 @@
 <?php
 
+/*Autor(en): */
+
 namespace Vestis\Controller;
 
 use Vestis\Database\Repositories\CategoryRepository;
@@ -51,7 +53,7 @@ class CategoriesController
         $sizes = SizeRepository::findByCategory($category);
         $minMaxPricesResult = ProductTypeRepository::findMinAndMaxPricesByCategory($category);
 
-        // Wenn kein Minimalpreis existert, dann existert auch kein Maximalpreis
+        // Wenn kein Minimalpreis existiert, dann existiert auch kein Maximalpreis
         if ($minMaxPricesResult['min'] === null) {
             $errorMessage = "Minimal und Maximal-Preise konnten nicht geladen werden. Möglicherweise existieren keine Produkte zu dieser Kategorie";
             require_once __DIR__.'/../views/categories/categoryList.php';
@@ -68,6 +70,7 @@ class CategoriesController
         ];
         try {
 
+            // Formular validieren
             ValidationService::validateForm($validationRules, "GET");
 
             ['price' => $maxAllowedPrice, 'search' => $search] = ValidationService::getFormData();
@@ -78,6 +81,7 @@ class CategoriesController
 
             $products = ProductTypeRepository::findByParams($category, $maxAllowedPrice, $allowedColors, $allowedSizes, $search);
         } catch (ValidationException $e) {
+            // Setzt alle Exceptions, die dann im frontend angezeigt werden
             $errorMessage = $e->getMessage();
         }
 
@@ -122,3 +126,4 @@ class CategoriesController
     }
 
 }
+/*Autor(en): */

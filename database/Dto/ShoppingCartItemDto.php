@@ -5,7 +5,6 @@ namespace Vestis\Database\Dto;
 use Vestis\Database\Models\Color;
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\Size;
-use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;

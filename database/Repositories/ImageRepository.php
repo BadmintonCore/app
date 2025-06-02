@@ -12,9 +12,9 @@ use Vestis\Database\Models\ProductType;
 class ImageRepository
 {
     /**
-     * Findet alle Bilder paginiert.
+     * Findet alle Bilder paginiert
      *
-     * @param int $page Die Seite, die geladen werden soll.
+     * @param int $page Die Seite, die geladen werden soll
      * @return PaginationDto<Image>
      */
     public static function findPaginated(int $page): PaginationDto

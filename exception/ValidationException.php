@@ -3,7 +3,7 @@
 namespace Vestis\Exception;
 
 /**
- * Exception that is thrown if any type of validation error occurs.
+ * Ausnahme, die ausgelöst wird, wenn ein Validierungsfehler auftritt
  */
 class ValidationException extends \Exception
 {

@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * Das Modell für eine Größe in der DB
+ * Das Modell für eine Größe in der Datenbank
  */
 class Size
 {

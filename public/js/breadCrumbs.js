@@ -1,4 +1,4 @@
-// @Author: Lennart Moog
+//Autor(en): Lennart Moog
 
 const translation = {
     categories: 'Kategorien',
@@ -98,4 +98,4 @@ function generateBreadcrumbList() {
     return breadcrumbs; // Rückgabe der Breadcrumbs
 }
 
-// @Author: Lennart Moog
+//Autor(en): Lennart Moog

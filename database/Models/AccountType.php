@@ -3,7 +3,7 @@
 namespace Vestis\Database\Models;
 
 /**
- * The type a user account can have {@see Account::$type}
+ * Der Typ, den ein Benutzeraccount haben kann {@see Account::$type}
  */
 enum AccountType: string
 {

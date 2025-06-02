@@ -7,7 +7,7 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 
 /**
- * Implements functionality to validate different things like forms.
+ * Implementiert Funktionalität zur Validierung verschiedener Dinge wie Formulare
  */
 class ValidationService
 {
@@ -18,12 +18,12 @@ class ValidationService
 
 
     /**
-     * Validates the current form submission
+     * Validiert die aktuelle Formularübermittlung
      *
-     * @param array<string, ValidationRule> $params All validation rules
+     * @param array<string, ValidationRule> $params Alle Validierungsregeln
      * @param string $method
      * @return void
-     * @throws ValidationException Thrown if a field is invalid
+     * @throws ValidationException Wird geworfen, wenn ein Feld invalide ist
      */
     public static function validateForm(array $params, string $method = "POST"): void
     {
@@ -35,7 +35,7 @@ class ValidationService
     }
 
     /**
-     * Gets the form data
+     * Ruft die Formulardaten ab
      *
      * @return array<string, mixed>
      */
@@ -45,12 +45,12 @@ class ValidationService
         foreach (self::$paramTypes as $name => $type) {
             $target[$name] = self::$method === "POST" ? ($_POST[$name] ?? null) : ($_GET[$name] ?? null);
 
-            // Sets the file type from the $_FILES variable
+            // Setzt den Dateityp aus der Variablen $_FILES
             if ($type === ValidationType::ImageFile) {
                 $target[$name] = $_FILES[$name] ?? null;
             }
 
-            // Converts "on" string or null to actual boolean if validation type is boolean
+            // Konvertiert die Zeichenkette „on“ oder null in einen booleschen Wert, wenn der Validierungstyp Boolean ist
             if ($type === ValidationType::Boolean) {
                 $target[$name] = match ($target[$name] !== null) {
                     true => "on" === $target[$name],
@@ -58,22 +58,22 @@ class ValidationService
                 };
             }
 
-            // Converts a possible string to an integer if the validation type is integer
+            // Konvertiert eine mögliche Zeichenkette in eine Ganzzahl, wenn der Validierungstyp Integer ist
             if ($type === ValidationType::Integer && (is_string($target[$name]))) {
                 $target[$name] = intval($target[$name]);
             }
 
-            // Converts every value of an integer array to an actual integer array if the validation type is integer array
+            // Konvertiert jeden Wert eines Integer-Arrays in ein aktuelles Integer-Array, wenn der Validierungstyp Integer-Array ist
             if ($type === ValidationType::IntegerArray && is_array($target[$name])) {
                 $target[$name] = array_map(fn (mixed $value) => (is_string($value) || is_int($value)) ? intval($value) : 0, $target[$name]);
             }
 
-            // Converts a string to a float if the validation type is float
+            // Konvertiert eine Zeichenkette in eine Fließkommazahl, wenn der Validierungstyp Float ist
             if ($type === ValidationType::Float && is_string($target[$name])) {
                 $target[$name] = floatval($target[$name]);
             }
 
-            // Sets the default value for an empty json if the validation type is JSON
+            // Legt den Standardwert für ein leeres json fest, wenn der Validierungstyp JSON ist
             if ($type === ValidationType::Json && is_string($target[$name]) && trim($target[$name]) === '') {
                 $target[$name] = '{}';
             }
@@ -82,13 +82,13 @@ class ValidationService
     }
 
     /**
-     * Validates a field whether the contained value is valid or not
+     * Überprüft ein Feld, ob der enthaltene Wert gültig ist oder nicht
      *
-     * @param string $fieldName The name of the field in the request
-     * @param ValidationRule $rule The rule that is used for form validation
-     * @param string $method
+     * @param string $fieldName Der Name des Feldes in der Anfrage
+     * @param ValidationRule $rule Die Regel, die für die Formularvalidierung verwendet wird
+     * @param string $method Die Methode, die das Formular verwendet
      * @return void
-     * @throws ValidationException Thrown if a field is invalid
+     * @throws ValidationException Wird geworfen, wenn ein Feld invalide ist
      */
     private static function validateField(string $fieldName, ValidationRule $rule, string $method): void
     {
@@ -100,7 +100,7 @@ class ValidationService
 
         if ($fieldValue === null) {
             if (!$rule->nullable) {
-                throw new ValidationException(sprintf("Field %s is required.", $fieldName));
+                throw new ValidationException(sprintf("Das Feld %s ist erforderlich.", $fieldName));
             }
             return;
         }
@@ -108,22 +108,22 @@ class ValidationService
         switch ($rule->type) {
             case ValidationType::String:
                 if (!is_string($fieldValue)) {
-                    throw new ValidationException(sprintf("Field %s must be a string.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss ein String sein.", $fieldName));
                 }
                 if (strlen($fieldValue) > 255) {
-                    throw new ValidationException(sprintf("Field %s should not be longer than 255 chars", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s sollte nicht länger als 255 Zeichen sein.", $fieldName));
                 }
                 break;
 
             case ValidationType::Json:
                 if (!is_string($fieldValue)) {
-                    throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));
+                    throw new ValidationException(sprintf("Der Feld %s muss JSON sein.", $fieldName));
                 }
                 if (trim($fieldValue) === '') {
                     $fieldValue = '{}';
                 }
                 if (json_decode($fieldValue) === null) {
-                    throw new ValidationException(sprintf("Field %s must be a JSON string.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss ein String sein.", $fieldName));
                 }
                 break;
 
@@ -133,7 +133,7 @@ class ValidationService
 
             case ValidationType::IntegerArray:
                 if (!is_array($fieldValue)) {
-                    throw new ValidationException(sprintf("Field %s must be an array.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss ein Array sein.", $fieldName));
                 }
                 foreach ($fieldValue as $value) {
                     self::validateInteger($value, $fieldName);
@@ -142,56 +142,56 @@ class ValidationService
 
             case ValidationType::Float:
                 if (!(is_string($fieldValue) && floatval($fieldValue) !== 0.0) && !is_float($fieldValue)) {
-                    throw new ValidationException(sprintf("Field %s must be an float.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss eine float sein.", $fieldName));
                 }
                 break;
 
             case ValidationType::Email:
                 if (false === filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {
-                    throw new ValidationException(sprintf("Field %s must be a valid email address.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss eine E-Mail sein.", $fieldName));
                 }
                 break;
 
             case ValidationType::Boolean:
                 if (!is_bool($fieldValue) && $fieldValue !== "on") {
-                    throw new ValidationException(sprintf("Field %s must be a boolean.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss ein boolean sein.", $fieldName));
                 }
                 break;
 
             case ValidationType::ImageFile:
                 if ($fieldValue['error'] !== UPLOAD_ERR_OK) {
-                    throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss eine valide Bilddatei sein.", $fieldName));
                 }
 
                 if (!is_string($fieldValue['tmp_name'])) {
-                    throw new ValidationException("The name of the file needs to be a string");
+                    throw new ValidationException("Der Name der Datei muss ein String sein");
                 }
 
                 $imageInfo = getimagesize($fieldValue['tmp_name']);
                 if ($imageInfo === false) {
-                    throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss eine valide Bilddatei sein.", $fieldName));
                 }
                 if (!str_starts_with($imageInfo['mime'], "image/")) {
-                    throw new ValidationException(sprintf("Field %s must be a valid image file.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss eine valide Bilddatei sein.", $fieldName));
                 }
                 break;
 
             default:
-                throw new ValidationException(sprintf("Field %s must have a valid validation rule.", $fieldName));
+                throw new ValidationException(sprintf("Das Feld %s muss eine gültige Validierungsregel haben.", $fieldName));
         }
 
     }
 
 
     /**
-     * Validates an integer value
+     * Validiert einen Integer-Wert
      *
      * @throws ValidationException
      */
     private static function validateInteger(mixed $fieldValue, string $fieldName): void
     {
         if (!(is_string($fieldValue) && intval($fieldValue) !== 0) && !is_int($fieldValue)) {
-            throw new ValidationException(sprintf("Field %s must be an int.", $fieldName));
+            throw new ValidationException(sprintf("Das Feld %s muss ein integer sein.", $fieldName));
         }
     }
 
