@@ -26,6 +26,7 @@ return [
     '/' => [HomeController::class, 'index'],
     '/categories' => [CategoriesController::class, 'index'],
     '/categories/product' => [ProductController::class, 'index'],
+    '/categories/product/checkStock' => [ProductController::class, 'checkStock'],
     '/about-us/about' => [AboutUsController::class, 'about'],
     '/about-us/jobs' => [AboutUsController::class, 'jobs'],
     '/about-us/press' => [AboutUsController::class, 'press'],

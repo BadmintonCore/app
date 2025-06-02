@@ -79,29 +79,6 @@ class ShoppingCartRepository
     }
 
     /**
-     * Ermittelt die Anzahl eines Produktes in der Datenbank (gleiche ItemIT, Farbe und Größe))
-     *
-     * @param int $itemId ItemID des Items
-     * @param int $size Größe des Items
-     * @param int $color Farbe des Items
-     * @return int Anzahl der verfügbaren Produkte
-     */
-    public static function getAmountOfProducts(int $itemId, int $size, int $color): int
-    {
-
-        $params = [
-            "itemId" => $itemId,
-            "size" => $size,
-            "color" => $color,
-        ];
-
-        $statement = QueryAbstraction::fetchOneAs(null, "SELECT COUNT(*) AS count FROM product WHERE productTypeId = :itemId AND sizeId = :size AND colorId = :color AND shoppingCartId IS NULL AND boughtAt IS NULL", $params);
-
-        /**@var int */
-        return (int) ($statement['count'] ?? 0);
-    }
-
-    /**
      * Gibt alle Produkte aus dem Einkaufswagen eines Nutzers zurück
      *
      * @param Account $account Account des Nutzers
