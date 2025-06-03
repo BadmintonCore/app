@@ -1,0 +1,10 @@
+ALTER TABLE shoppingCart ADD COLUMN cartNumber INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE shoppingCart ADD COLUMN isShared BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE shoppingCart ADD COLUMN name VARCHAR(255);
+ALTER TABLE product DROP FOREIGN KEY product_ibfk_4;
+ALTER TABLE product ADD COLUMN shoppingCartNumber INTEGER;
+SET foreign_key_checks = 0;
+ALTER TABLE shoppingCart DROP PRIMARY KEY;
+ALTER TABLE shoppingCart ADD PRIMARY KEY (accId, cartNumber);
+ALTER TABLE product ADD FOREIGN KEY fk_shoppingCart (accId, shoppingCartNumber) REFERENCES shoppingCart(accId, cartNumber);
+SET foreign_key_checks = 1;

@@ -48,7 +48,7 @@ use Vestis\Utility\PaginationUtility;
                 <td><?= $product->getColor()->name ?></td>
                 <td><?= $product->boughtAt !== null ? 'Verkauft' : 'Im Lager' ?></td>
                 <td><?= $product->boughtAt ?></td>
-                <td class="price-field"><?= $product->boughtPrice ?> €</td>
+                <td class="price-field"><?= $product->boughtPrice ?? $product->getProductType()->price ?>€</td>
             </tr>
         <?php endforeach; ?>
         </tbody>
