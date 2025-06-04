@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mitarbeiterbereich – Intranet</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Intranet – Personalbereich</h1>
+    <p>Willkommen im internen Mitarbeiterportal. Bitte loggen Sie sich ein.</p>
+
+    <label for="username">Benutzername:</label>
+    <input type="text" id="username" placeholder="z. B. max.mustermann">
+
+    <label for="password">Passwort:</label>
+    <input type="password" id="password" placeholder="●●●●●●●●">
+
+    <button onclick="login()">Einloggen</button>
+
+    <div class="warning" id="warning" style="display: none;">
+        Zugriff verweigert! Ihre Zugangsdaten sind vermutlich korrekt, aber das System hat heute keine Lust.
+    </div>
+
+    <div class="footer">
+        🔒 Internes Portal v1.0 – Zugriff nur für autorisierte Mitarbeiter
+    </div>
+</div>
+
+<script>
+    function login() {
+        document.getElementById('warning').style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('warning').style.display = 'none';
+        }, 3500);
+    }
+</script>
+</body>
+</html>
