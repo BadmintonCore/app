@@ -15,22 +15,56 @@ use Vestis\Database\Models\ShoppingCart;
  */
 class ShoppingCartRepository
 {
+
+    /**
+     * Lädt alle Warenkörbe eines Nutzers, die er direkt besitzt.
+     *
+     * @param Account $account Der Account des Nutzers
+     * @return array
+     */
+    public static function findUserOwnedShoppingCarts(Account $account): array
+    {
+        return QueryAbstraction::fetchManyAs(ShoppingCart::class, "SELECT * FROM shoppingCart WHERE accId = :accId", ['accId' => $account->id]);
+    }
+
+    /**
+     * Findet einen bestimmten Warenkorb
+     *
+     * @param int $accountId Die ID des Account
+     * @param int $cartNumber Der zweite Teil des Primärschlüssels
+     * @return ShoppingCart|null
+     */
+    public static function findShoppingCart(int $accountId, int $cartNumber): ?ShoppingCart
+    {
+        return QueryAbstraction::fetchOneAs(ShoppingCart::class, "SELECT * FROM shoppingCart WHERE accId = :accId AND cartNumber = :cartNumber", ['accId' => $accountId, 'cartNumber' => $cartNumber]);
+    }
+
+
     /**
      * Erstellt einen Einkaufswagen für einen Nutzer
      *
      * @param int $accountId Account-ID des Nutzers
-     * @param int $cartNumber Der zweite Teil des Schlüssels
+     * @param string|null $name Der Name des Einkaufswagens
+     * @param bool $isShared Ob der Einkaufswagen geteilt werden kann.
      * @return void
      */
-    public static function create(int $accountId, int $cartNumber = 0): void
+    public static function create(int $accountId, ?string $name = null, bool $isShared = false): void
     {
+
+        $row = QueryAbstraction::fetchOneAs(null, "SELECT MAX(cartNumber) as max FROM shoppingCart WHERE accId = :accId", ['accId' => $accountId]);
+        $cartNumber = 1;
+        if ($row !== null) {
+            $cartNumber = $row['max'] + 1;
+        }
 
         $params = [
             'accountId' => $accountId,
+            'name' => $name,
+            'isShared' => $isShared,
             'cartNumber' => $cartNumber,
         ];
 
-        QueryAbstraction::execute("INSERT INTO shoppingCart (accId, cartNumber) VALUES (:accountId, :cartNumber)", $params);
+        QueryAbstraction::execute("INSERT INTO shoppingCart (accId, cartNumber, name, isShared) VALUES (:accountId, :cartNumber, :name, :isShared)", $params);
     }
 
     /**
@@ -44,7 +78,7 @@ class ShoppingCartRepository
      * @param int $shoppingCartNumber Der zweite Teil des Primärschlüssels
      * @return void
      */
-    public static function add(Account $account, int $itemId, int $size, int $color, int $quantity, int $shoppingCartNumber = 0): void
+    public static function add(Account $account, int $itemId, int $size, int $color, int $quantity, int $shoppingCartNumber = 1): void
     {
 
         $params = [
@@ -71,7 +105,7 @@ class ShoppingCartRepository
      * @param int $cartNumber Zweite Teil des Warenkorb-Primärschlüssels
      * @return void
      */
-    public static function remove(Account $account, int $itemId, int $size, int $color, int $cartNumber = 0): void
+    public static function remove(Account $account, int $itemId, int $size, int $color, int $cartNumber = 1): void
     {
         $params = [
             "accountId" => $account->id,
@@ -87,13 +121,12 @@ class ShoppingCartRepository
     /**
      * Gibt alle Produkte aus dem Einkaufswagen eines Nutzers zurück
      *
-     * @param Account $account Account des Nutzers
-     * @param int $cartNumber Der zweite Teil des Primärschlüssels
+     * @param ShoppingCart $shoppingCart Der Einkaufswagen
      * @return ShoppingCartItemDto[] Array mit allen Items des Einkaufswagens
      */
-    public static function getAllProducts(Account $account, int $cartNumber = 0): array
+    public static function getAllProducts(ShoppingCart $shoppingCart): array
     {
-        return QueryAbstraction::fetchManyAs(ShoppingCartItemDto::class, "SELECT product.*, COUNT(productTypeId) AS count FROM product WHERE shoppingCartId = :accountId AND shoppingCartNumber = :cartNumber AND boughtAt IS NULL GROUP BY productTypeId, colorId, sizeId", ["accountId" => $account->id, "cartNumber" => $cartNumber]);
+        return QueryAbstraction::fetchManyAs(ShoppingCartItemDto::class, "SELECT product.*, COUNT(productTypeId) AS count FROM product WHERE shoppingCartId = :accountId AND shoppingCartNumber = :cartNumber AND boughtAt IS NULL GROUP BY productTypeId, colorId, sizeId", ["accountId" => $shoppingCart->accId, "cartNumber" => $shoppingCart->cartNumber]);
     }
 
     /**
@@ -103,11 +136,29 @@ class ShoppingCartRepository
      * @param int $cartNumber Der zweite Teil des Primärschlüssels
      * @return int Anzahl der Items in dem Einkaufswagen des Nutzers
      */
-    public static function getCountOfItems(Account $account, int $cartNumber = 0): int
+    public static function getCountOfItems(Account $account, int $cartNumber = 1): int
     {
         $row = QueryAbstraction::fetchOneAs(null, "SELECT COUNT(*) AS count FROM product WHERE shoppingCartId = :accountId AND shoppingCartNumber = :cartNumber AND boughtAt IS NULL", ["accountId" => $account->id, "cartNumber" => $cartNumber]);
 
         /**@var int */
         return (int) ($row['count'] ?? 0);
+    }
+
+    /**
+     * Prüft, ob ein bestimmter Nutzer Zugriff auf einen bestimmten Warenkorb hat.
+     *
+     * @param Account $account Der zugreifende Nutzer
+     * @param ShoppingCart $shoppingCart Der Warenkorb
+     * @return bool
+     */
+    public static function hasAccessTo(Account $account, ShoppingCart $shoppingCart): bool
+    {
+        $params = [
+            'userId' => $account->id,
+            'accId' => $shoppingCart->accId,
+            'cartNumber' => $shoppingCart->cartNumber,
+        ];
+        $row = QueryAbstraction::fetchOneAs(null, "SELECT * FROM shoppingCartMember WHERE userId = :userId AND accId = :accId AND cartNumber = :cartNumber", $params);
+        return $row !== null;
     }
 }

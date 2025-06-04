@@ -8,3 +8,11 @@ ALTER TABLE shoppingCart DROP PRIMARY KEY;
 ALTER TABLE shoppingCart ADD PRIMARY KEY (accId, cartNumber);
 ALTER TABLE product ADD FOREIGN KEY fk_shoppingCart (accId, shoppingCartNumber) REFERENCES shoppingCart(accId, cartNumber);
 SET foreign_key_checks = 1;
+
+CREATE TABLE shoppingCartMember (
+    userId INTEGER REFERENCES account(id),
+    accId INTEGER NOT NULL,
+    cartNumber INTEGER NOT NULL,
+    PRIMARY KEY (userId, accId, cartNumber),
+    FOREIGN KEY (accId, cartNumber) REFERENCES shoppingCart(accId, cartNumber)
+);

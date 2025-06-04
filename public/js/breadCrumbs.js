@@ -19,7 +19,8 @@ const translation = {
     productTypes: "Produkt Typen",
     images: "Bilder",
     instances: "Instanzen",
-    orders: "Aufträge"
+    orders: "Aufträge",
+    shoppingCarts: "Warenkörbe"
 };
 
 const disabled = {
