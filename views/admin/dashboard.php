@@ -15,6 +15,7 @@
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
+    <a href="/user-area/user" class="btn btn-sm">Benutzerbereich.</a>
     <h1>Dashboard</h1>
 
     <div class="stack">
