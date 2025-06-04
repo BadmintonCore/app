@@ -20,7 +20,8 @@ const translation = {
     images: "Bilder",
     instances: "Instanzen",
     orders: "Aufträge",
-    shoppingCarts: "Warenkörbe"
+    shoppingCarts: "Warenkörbe",
+    globalConfigs: "Konfigurationen"
 };
 
 const disabled = {

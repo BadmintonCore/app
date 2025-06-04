@@ -24,6 +24,7 @@
         <a href="/admin/sizes" class="btn">Größen.</a>
         <a href="/admin/productTypes" class="btn">Produkttypen.</a>
         <a href="/admin/images" class="btn">Bilder.</a>
+        <a href="/admin/globalConfigs" class="btn">Konfigurationen.</a>
     </div>
 
 

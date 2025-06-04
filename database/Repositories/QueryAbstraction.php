@@ -241,6 +241,21 @@ class QueryAbstraction
                     $value =  \DateTime::createFromFormat('Y-m-d H:i:s', $value);
                 }
 
+                if (is_string($value)) {
+                    /**
+                     * Entfernt unnötige Whitespaces, die ansonsten bei Textareas blöd angezeigt werden.
+                     * ^[] matcht am Anfang eines Strings
+                     * []$ matcht am Ende eines Strings
+                     * /u heißt, der String soll als UTF-8 behandelt werden
+                     *
+                     * [\s\p{Z}\x00-\x1F\x7F]:
+                     *      \s: Normale Whitespaces
+                     *      \p{Z}: Unicode-Whitespaces
+                     *      \x00-\x1F: Unsichtbare ASCII-Zeichen
+                     */
+                    $value = preg_replace('/^[\s\p{Z}\x00-\x1F]+|[\s\p{Z}\x00-\x1F\x7F]+$/u', '', $value);
+                }
+
                 // Setzt die Eigenschaft in der tatsächlichen Klasseninstanz
                 $property->setValue($instance, $value);
             }

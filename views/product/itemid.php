@@ -123,7 +123,7 @@ use Vestis\Service\AuthService;
                                 </button>
                             </div>
                         <?php endif; ?>
-                        <?php if(AuthService::isAdmin()) : ?>
+                        <?php if (AuthService::isAdmin()) : ?>
                         <div class="error-message">Du hast ein Administratoren-Konto. Du hast keinen Zugang zu Warenkörben.</div>
                         <?php endif; ?>
                     <?php endif; ?>

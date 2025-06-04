@@ -30,3 +30,6 @@ spl_autoload_register(function ($class) {
         }
     }
 });
+
+// Erstelle ein Alias für eine Klasse, im das Laden von Konfigurationen übersichtlicher zu machen
+class_alias('\\Vestis\\Database\\Repositories\\GlobalConfigRepository', '\\Vestis\\Database\\Repositories\\GCR');

@@ -5,6 +5,7 @@ use Vestis\Controller\Admin\AdminCategoriesController;
 use Vestis\Controller\Admin\AdminColorsController;
 use Vestis\Controller\Admin\AdminCustomersController;
 use Vestis\Controller\Admin\AdminDashboardController;
+use Vestis\Controller\Admin\AdminGlobalConfigController;
 use Vestis\Controller\Admin\AdminImagesController;
 use Vestis\Controller\Admin\AdminOrderController;
 use Vestis\Controller\Admin\AdminProductController;
@@ -96,5 +97,7 @@ return [
     '/admin/orders/confirmShipment' => [AdminOrderController::class, 'confirmShipment'],
     '/admin/customers' => [AdminCustomersController::class, 'index'],
     '/admin/customers/toggleBlock' => [AdminCustomersController::class, 'toggleBlock'],
+    '/admin/globalConfigs' => [AdminGlobalConfigController::class, 'allConfigs'],
+    '/admin/globalConfigs/edit' => [AdminGlobalConfigController::class, 'edit'],
     '/system/exchangeRates' => [SystemController::class, 'getExchangeRates'],
 ];

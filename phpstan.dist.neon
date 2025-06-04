@@ -4,6 +4,8 @@ includes:
 parameters:
 	level: 8
 	reportUnmatchedIgnoredErrors: false
+	ignoreErrors:
+	    - message: "#on an unknown class Vestis\\\\Database\\\\Repositories\\\\GCR#"
 	excludePaths:
 	    analyse:
 	        - %currentWorkingDirectory%/vendor
