@@ -8,6 +8,7 @@ const colorRadios = document.querySelectorAll('input[name="color"]');
 const quantityLabel = document.getElementById("quantityLabel");
 const amountInput = document.getElementById("amount");
 
+
 const getSelectedSizeAndColor = () => {
     let sizeSelected = null;
     sizeRadios.forEach((size) => {

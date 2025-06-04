@@ -19,3 +19,4 @@ CREATE TABLE shoppingCartMember (
     PRIMARY KEY (userId, accId, cartNumber),
     FOREIGN KEY (accId, cartNumber) REFERENCES shoppingCart(accId, cartNumber) ON DELETE CASCADE
 );
+ALTER TABLE shoppingCart ADD COLUMN inviteSecret VARCHAR(255) DEFAULT '123';

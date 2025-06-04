@@ -5,6 +5,7 @@ namespace Vestis\Database\Repositories;
 use Vestis\Database\Dto\ShoppingCartItemDto;
 use Vestis\Database\Models\Account;
 use Vestis\Database\Models\ShoppingCart;
+use Vestis\Utility\GeneratorUtility;
 
 /**
  * Repository für @see ShoppingCart
@@ -58,9 +59,10 @@ class ShoppingCartRepository
             'name' => $name,
             'isShared' => $isShared,
             'cartNumber' => $cartNumber,
+            'secret' => GeneratorUtility::generateSecret($accountId),
         ];
 
-        QueryAbstraction::execute("INSERT INTO shoppingCart (accId, cartNumber, name, isShared) VALUES (:accountId, :cartNumber, :name, :isShared)", $params);
+        QueryAbstraction::execute("INSERT INTO shoppingCart (accId, cartNumber, name, isShared, inviteSecret) VALUES (:accountId, :cartNumber, :name, :isShared, :secret)", $params);
     }
 
     /**

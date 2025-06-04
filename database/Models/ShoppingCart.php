@@ -20,6 +20,8 @@ class ShoppingCart
 
     public bool $isShared;
 
+    public string $inviteSecret;
+
     private ?Account $account = null;
 
     public function getAccount(): Account

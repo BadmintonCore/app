@@ -23,7 +23,18 @@
     <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
     <div class="stack">
         <h1>Warenkorb: <?= $shoppingCart->name ?? "Standard" ?></h1>
-        <a class="btn btn-sm" href="/user-area/shoppingCarts">Zu den Warenkörben</a>
+        <div class="button-row">
+            <a class="btn btn-sm" href="/user-area/shoppingCarts">Zu den Warenkörben</a>
+            <?php if($shoppingCart->isShared): ?>
+            <button
+                    class="btn btn-sm"
+                    id="inviteButton"
+                    accId="<?= $shoppingCart->accId ?>"
+                    cartNumber="<?= $shoppingCart->cartNumber ?>"
+                    inviteSecret="<?= $shoppingCart->inviteSecret ?>"
+            >Einladungslink kopieren.</button>
+            <?php endif; ?>
+        </div>
 
         <table>
             <thead>
