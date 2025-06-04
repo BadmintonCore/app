@@ -190,4 +190,21 @@ class ShoppingCartRepository
         ];
         QueryAbstraction::execute("INSERT INTO shoppingCartMember (userId, accId, cartNumber) VALUES (:userId, :accId, :cartNumber)", $params);
     }
+
+    /**
+     * Removes a member from a shopping cart.
+     *
+     * @param Account $account
+     * @param ShoppingCart $shoppingCart
+     * @return void
+     */
+    public static function removeMemberFromCart(Account $account, ShoppingCart $shoppingCart): void
+    {
+        $params = [
+            "userId" => $account->id,
+            "accId" => $shoppingCart->accId,
+            "cartNumber" => $shoppingCart->cartNumber,
+        ];
+        QueryAbstraction::execute("DELETE FROM shoppingCartMember WHERE userId = :userId AND accId = :accId AND cartNumber = :cartNumber", $params);
+    }
 }
