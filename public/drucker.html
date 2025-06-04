@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Drucker wird verbunden…</title>
+    <style>
+        body {
+            font-family: "Courier New", monospace;
+            background-color: #0f0f0f;
+            color: #00ff00;
+            padding: 2rem;
+            font-size: 1rem;
+        }
+
+        .console {
+            max-width: 600px;
+            margin: auto;
+            background-color: #111;
+            border: 1px solid #333;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #0f0;
+            white-space: pre-line;
+            min-height: 300px;
+        }
+
+        .blinking {
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: #00ffcc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="console" id="console">
+    Initialisiere Verbindung zum Drucker...
+</div>
+
+<a class="back" href="/">Zurück zum Shop</a>
+
+<script>
+    const messages = [
+        "Suche nach verfügbaren Druckern...",
+        "Drucker gefunden: HP_Laserjet_1998",
+        "Verbindung wird hergestellt...",
+        "Warte auf Rückmeldung...",
+        "Fehler: Verbindung fehlgeschlagen.",
+        "Versuche es erneut...",
+        "Suche nach alternativen Geräten...",
+        "Drucker gefunden: OfficeJet_XP4000",
+        "Verbindungsaufbau...",
+        "Fehler 404: Druckergeist nicht auffindbar.",
+        "Diagnose läuft...",
+        "Fehler 0xDEAD: Drucker hat sich selbst gelöscht.",
+        "Abbruch. Kaffee holen empfohlen."
+    ];
+
+    const consoleEl = document.getElementById('console');
+
+    let i = 1;
+    function printNextLine() {
+        if (i < messages.length) {
+            consoleEl.innerText += "\n" + messages[i];
+            i++;
+            setTimeout(printNextLine, 1500);
+        } else {
+            const cursor = document.createElement('span');
+            cursor.classList.add('blinking');
+            cursor.textContent = " ▌";
+            consoleEl.appendChild(cursor);
+        }
+    }
+
+    setTimeout(printNextLine, 1500);
+</script>
+</body>
+</html>
