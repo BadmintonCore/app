@@ -16,7 +16,6 @@ use Vestis\Utility\PaginationUtility;
  */
 class AdminGlobalConfigController
 {
-
     /**
      * Listet alle Konfigurationen paginiert auf
      *
