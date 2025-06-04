@@ -1,11 +1,13 @@
 /*Autor(en): Lasse Hoffmann, Mathis Burger*/
 const addToCartButton = document.getElementById('addToCartButton');
 const orderButton = document.getElementById("orderButton");
+const shoppingCartSelect = document.getElementById("shoppingCartSelect");
 const quantityContainer = document.querySelector(".quantity-container");
 const sizeRadios = document.querySelectorAll('input[name="size"]');
 const colorRadios = document.querySelectorAll('input[name="color"]');
 const quantityLabel = document.getElementById("quantityLabel");
 const amountInput = document.getElementById("amount");
+
 
 const getSelectedSizeAndColor = () => {
     let sizeSelected = null;
@@ -47,11 +49,13 @@ const checkStock = async () => {
         addToCartButton.style.display = "block";
         quantityContainer.style.display = "block";
         quantityLabel.style.display = "block";
+        shoppingCartSelect.style.display = "block";
     } else {
         orderButton.style.display = "none";
         addToCartButton.style.display = "none";
         quantityContainer.style.display = "none";
         quantityLabel.style.display = "none";
+        shoppingCartSelect.style.display = "none";
     }
 
     if (jsonResponse.quantityLeft < 5) {

@@ -36,26 +36,6 @@ class UserAreaController
     }
 
     /**
-     * Listet den Warenkorb auf.
-     *
-     * @throws ValidationException
-     */
-    public function shoppingCart(): void
-    {
-        AuthService::checkAccess(AccountType::Customer);
-        AuthService::setCurrentUserAccountSessionFromCookie();
-
-        $account = AuthService::$currentAccount;
-
-        if ($account !== null) {
-            $groupedProducts = ShoppingCartRepository::getAllProducts($account);
-        }
-
-        require_once __DIR__ . '/../views/user-area/shoppingCart.php';
-
-    }
-
-    /**
      * Zeigt die Benutzer-Seite
      *
      * @return void
@@ -97,64 +77,6 @@ class UserAreaController
     public function wishlist(): void
     {
         require_once __DIR__ . '/../views/user-area/wishlist.php';
-    }
-
-    /**
-     * Entfernt einen Eintrag aus dem Warenkorb
-     *
-     * @throws ValidationException
-     */
-    public function removeShoppingCartItem(): void
-    {
-        AuthService::checkAccess(AccountType::Customer);
-        $validationRules = [
-            'productTypeId' => new ValidationRule(ValidationType::Integer),
-            'sizeId' => new ValidationRule(ValidationType::Integer),
-            'colorId' => new ValidationRule(ValidationType::Integer),
-        ];
-        // Formular validieren
-        ValidationService::validateForm($validationRules, "GET");
-        $formData = ValidationService::getFormData();
-
-        $account = AuthService::$currentAccount;
-
-        if ($account !== null) {
-            ShoppingCartRepository::remove($account, $formData['productTypeId'], $formData['sizeId'], $formData['colorId']);
-        }
-
-        header("location: /user-area/shoppingCart");
-    }
-
-    /**
-     * Kauft alle Elemente aus dem Warenkorb und löst einen Auftrag aus.
-     *
-     * @throws EmailException
-     * @throws LogicException
-     */
-    public function purchase(): void
-    {
-        AuthService::checkAccess(AccountType::Customer);
-
-        if (AuthService::$currentAccount === null || AuthService::$currentAccount->isBlocked) {
-            throw new LogicException("Du bist blockiert. Du kannst nichts kaufen");
-        }
-
-        $quantityItemsCount = ShoppingCartRepository::getCountOfItems(AuthService::$currentAccount);
-        if ($quantityItemsCount === 0) {
-            throw new LogicException("Dein Warenkorb ist leer");
-        }
-
-        $order = OrderRepository::create(AuthService::$currentAccount, 'Zahlung ausstehend');
-
-        if ($order === null) {
-            throw new LogicException("Die Bestellung wurde nicht erstellt");
-        }
-
-        $shoppingCartItems = ShoppingCartRepository::getAllProducts(AuthService::$currentAccount);
-        ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
-        EmailService::sendOrderConfirmation($order);
-
-        header("location: /user-area/orders/view?id={$order->id}");
     }
 
 }

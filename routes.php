@@ -17,6 +17,7 @@ use Vestis\Controller\HomeController;
 use Vestis\Controller\LegalController;
 use Vestis\Controller\OrderController;
 use Vestis\Controller\ProductController;
+use Vestis\Controller\ShoppingCartController;
 use Vestis\Controller\SystemController;
 use Vestis\Controller\UserAreaController;
 use Vestis\Controller\YourPurchaseController;
@@ -44,9 +45,16 @@ return [
     '/legal/privacypolicy' => [LegalController::class, 'privacy'],
     '/legal/revocation' => [LegalController::class, 'revocation'],
     '/user-area' => [UserAreaController::class, 'index'],
-    '/user-area/shoppingCart' => [UserAreaController::class, 'shoppingCart'],
-    '/user-area/shoppingCart/purchase' => [UserAreaController::class, 'purchase'],
-    '/user-area/shoppingCart/delete' => [UserAreaController::class, 'removeShoppingCartItem'],
+    '/user-area/shoppingCart' => [ShoppingCartController::class, 'getShoppingCart'],
+    '/user-area/shoppingCart/purchase' => [ShoppingCartController::class, 'purchase'],
+    '/user-area/shoppingCart/delete' => [ShoppingCartController::class, 'removeShoppingCartItem'],
+    '/user-area/shoppingCarts' => [ShoppingCartController::class, 'shoppingCarts'],
+    '/user-area/shoppingCarts/create' => [ShoppingCartController::class, 'createShoppingCart'],
+    '/user-area/shoppingCarts/delete' => [ShoppingCartController::class, 'deleteShoppingCart'],
+    '/user-area/shoppingCarts/invite' => [ShoppingCartController::class, 'acceptInvite'],
+    '/user-area/shoppingCarts/leave' => [ShoppingCartController::class, 'leaveShoppingCart'],
+    '/user-area/shoppingCarts/members' => [ShoppingCartController::class, 'shoppingCartMembers'],
+    '/user-area/shoppingCarts/members/remove' => [ShoppingCartController::class, 'removeMemberFromCart'],
     '/user-area/user' => [UserAreaController::class, 'user'],
     '/user-area/wishlist' => [UserAreaController::class, 'wishlist'],
     '/user-area/orders' => [OrderController::class, 'orders'],

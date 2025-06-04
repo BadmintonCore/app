@@ -188,10 +188,16 @@ class ValidationService
      *
      * @throws ValidationException
      */
-    private static function validateInteger(mixed $fieldValue, string $fieldName): void
+    public static function validateInteger(mixed $fieldValue, string $fieldName): void
     {
-        if (!(is_string($fieldValue) && intval($fieldValue) !== 0) && !is_int($fieldValue)) {
-            throw new ValidationException(sprintf("Das Feld %s muss ein integer sein.", $fieldName));
+        if (is_string($fieldValue)) {
+            if (intval($fieldValue) === 0 && trim($fieldValue) !== "0") {
+                throw new ValidationException(sprintf("Das Feld %s muss ein integer sein.", $fieldName));
+            }
+        } else {
+            if (!is_int($fieldValue)) {
+                throw new ValidationException(sprintf("Das Feld %s muss ein integer sein.", $fieldName));
+            }
         }
     }
 

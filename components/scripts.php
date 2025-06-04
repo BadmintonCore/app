@@ -8,4 +8,5 @@
 <script src="/js/toggleBreadCrumbs.js" defer></script>
 <script src="/js/carousel.js" defer></script>
 <script src="/js/cookieCheck.js" defer></script>
+<script src="/js/invite.js" defer></script>
 <!--Autor: Mathis Burger, Lennart Moog, Lasse Hoffmann-->

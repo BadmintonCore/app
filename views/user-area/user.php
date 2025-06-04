@@ -22,7 +22,11 @@ use Vestis\Service\AuthService;
 
     <form class="form-box" id="userForm" method="post">
 
-        <a href="/user-area/orders" class="btn btn-sm">Aufträge.</a>
+        <div class="button-row justify-center">
+            <a href="/user-area/orders" class="btn btn-sm">Aufträge.</a>
+            <a href="/user-area/shoppingCarts" class="btn btn-sm">Warenkörbe.</a>
+
+        </div>
 
         <h1>Benutzerbereich</h1>
         <?php include(__DIR__ . "/../../components/back-btn.php"); ?>

@@ -4,6 +4,7 @@
 
 namespace Vestis\Controller;
 
+use Vestis\Database\Models\Account;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
@@ -25,6 +26,7 @@ class ProductController
      * Ansicht eines Produktes im Detail
      *
      * @return void
+     * @throws LogicException
      */
     public function index(): void
     {
@@ -36,6 +38,11 @@ class ProductController
             $errorMessage = "Invalider Parameter";
             require_once __DIR__ . '/../views/product/itemid.php';
             return;
+        }
+
+        $shoppingCarts = [];
+        if (AuthService::isCustomer() && AuthService::$currentAccount !== null) {
+            $shoppingCarts = ShoppingCartRepository::findUserShoppingCarts(AuthService::$currentAccount);
         }
 
         $product = ProductTypeRepository::findById($itemId);
@@ -51,6 +58,7 @@ class ProductController
                 'size' => new ValidationRule(ValidationType::Integer),
                 'color' => new ValidationRule(ValidationType::Integer),
                 'quantity' => new ValidationRule(ValidationType::Integer),
+                'shoppingCart' => new ValidationRule(ValidationType::String),
             ];
 
             try {
@@ -60,24 +68,39 @@ class ProductController
 
                 $formData = ValidationService::getFormData();
 
+                $shoppingCartFields = explode("-", $formData["shoppingCart"]);
+                if (count($shoppingCartFields) !== 2) {
+                    throw new ValidationException("Die Warenkorb-ID ist invalide");
+                }
+                ValidationService::validateInteger($shoppingCartFields[0], "shoppingCart");
+                ValidationService::validateInteger($shoppingCartFields[1], "shoppingCart");
+
+                $shoppingCart = ShoppingCartRepository::findShoppingCart(intval($shoppingCartFields[0]), intval($shoppingCartFields[1]));
+                if (null === $shoppingCart) {
+                    throw new LogicException("Warenkorb nicht gefunden");
+                }
+
+                /** @var Account $account */
                 $account = AuthService::$currentAccount;
 
-                if ($account !== null) {
+                if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
+                    throw new LogicException("Sie haben keinen Zugriff zu diesem Warenkorb");
+                }
 
-                    // Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
-                    $pieces = ProductRepository::getUnsoldQuantity($itemId, $formData["size"], $formData["color"]);
 
-                    // Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
-                    if ($pieces >= $formData["quantity"]) {
-                        ShoppingCartRepository::add($account, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
-                    } else {
-                        throw new LogicException("Es sind nicht mehr genug Produkte auf Lager");
-                    }
+                // Anzahl der Produkte mit der itemId, der Größe und der Farbe in der Datenbank suchen
+                $pieces = ProductRepository::getUnsoldQuantity($itemId, $formData["size"], $formData["color"]);
+
+                // Nur, wenn genug Produkte verfügbar sind, wird was in den Warenkorb hinzugefügt
+                if ($pieces >= $formData["quantity"]) {
+                    ShoppingCartRepository::add($shoppingCart, $itemId, $formData["size"], $formData["color"], $formData["quantity"]);
+                } else {
+                    throw new LogicException("Es sind nicht mehr genug Produkte auf Lager");
                 }
 
                 // Wenn der direkt bestellen Button gedrückt wurde
                 if (isset($_POST['buyDirect'])) {
-                    header('Location: /user-area/shoppingCart');
+                    header('Location: /user-area/shoppingCart?accId=' . $shoppingCart->accId . '&cartNumber=' . $shoppingCart->cartNumber);
                     return;
                 }
 

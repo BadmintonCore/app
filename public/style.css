@@ -927,7 +927,7 @@ input[type="range"]:focus {
                      Inputs
 ===================================================*/
 
-input, .form-box select {
+input, .form-box select, select.retro {
     padding: 10px;
     font-size: 14px;
     border-radius: 0;
@@ -937,6 +937,10 @@ input, .form-box select {
     box-sizing: border-box;
     background: inherit;
     color: var(--text-color);
+}
+
+select.width-auto {
+    width: auto;
 }
 
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {

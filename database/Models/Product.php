@@ -3,6 +3,7 @@
 namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\ColorRepository;
+use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
 /**
@@ -32,6 +33,8 @@ class Product
 
     private ?Color $color = null;
 
+    private ?ProductType $productType = null;
+
     public function getSize(): Size
     {
         if ($this->size !== null) {
@@ -52,5 +55,16 @@ class Product
 
         /** @phpstan-ignore-next-line Die Farbe ist immer !== null  */
         return $this->color;
+    }
+
+    public function getProductType(): ProductType
+    {
+        if ($this->productType !== null) {
+            return $this->productType;
+        }
+        $this->productType =  ProductTypeRepository::findById($this->productTypeId);
+
+        /** @phpstan-ignore-next-line Der Produkttyp ist immer !== null  */
+        return $this->productType;
     }
 }

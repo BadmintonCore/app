@@ -2,10 +2,12 @@
 <?php
 
 use Vestis\Database\Models\ProductType;
+use Vestis\Database\Models\ShoppingCart;
 use Vestis\Service\AuthService;
 
 /** @var ProductType|null $product */
 /** @var string|null $errorMessage */
+/** @var ShoppingCart[] $shoppingCarts */
 
 ?>
 <!DOCTYPE html>
@@ -108,6 +110,11 @@ use Vestis\Service\AuthService;
 
                         <?php if (AuthService::isCustomer()) : ?>
                             <div class="button-row">
+                                <select id="shoppingCartSelect" name="shoppingCart" class="retro width-auto" style="display: none">
+                                    <?php foreach ($shoppingCarts as $shoppingCart) : ?>
+                                        <option value="<?= $shoppingCart->accId ?>-<?= $shoppingCart->cartNumber ?>"><?= $shoppingCart->name ?? "Standard" ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                                 <button type="submit" class="btn" id="orderButton" name="buyDirect" style="display: none">
                                     Direkt bestellen
                                 </button>
