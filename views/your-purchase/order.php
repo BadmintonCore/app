@@ -22,7 +22,7 @@
 
     <!--Abschnitt mit mehreren Absätzen-->
     <section>
-        <p class="large-text">
+       <?= \Vestis\Database\Repositories\GCR::getValue('ORDER_CONTENT') ?>
 
     </section>
 

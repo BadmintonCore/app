@@ -22,7 +22,7 @@
 
     <!--Abschnitt mit mehreren Absätzen-->
     <section>
-
+        <?= \Vestis\Database\Repositories\GCR::getValue('RESPONSIBILITY_CONTENT') ?>
     </section>
 
 

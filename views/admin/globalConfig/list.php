@@ -40,7 +40,11 @@ use Vestis\Utility\PaginationUtility;
         <?php foreach ($configs->results as $config): ?>
             <tr>
                 <td><?= $config->attribute ?></td>
-                <td><?= $config->value ?></td>
+                <td>
+                    <div class="max-content">
+                        <?= trim($config->value) ?>
+                    </div>
+                </td>
                 <td>
                     <a class="btn btn-sm" href="/admin/globalConfigs/edit?attribute=<?= $config->attribute ?>">Bearbeiten.</a>
                 </td>
@@ -49,7 +53,7 @@ use Vestis\Utility\PaginationUtility;
         </tbody>
     </table>
 
-    <?php PaginationUtility::generatePagination($configs->count, 25, $page); ?>
+    <?php PaginationUtility::generatePagination($configs->count, 10, $page); ?>
 
 </main>
 

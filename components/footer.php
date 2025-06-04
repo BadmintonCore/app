@@ -10,11 +10,10 @@ use Vestis\Service\AuthService;
     <!--Container der Klasse "footer-newsletter"-->
     <div class="footer-newsletter">
         <h2>
-            Bleibe immer einen Stil voraus
+            <?= GCR::getValue('FOOTER_HEADING') ?>
         </h2>
         <p>
-            Melde dich für unseren Newsletter an und entdecke <br> exklusive Kollektionen und Angebote vor allen
-            anderen.
+            <?= GCR::getValue('FOOTER_SUBTITLE') ?>
         </p>
 
         <!--Formular der Klasse "form-row" und "form-newsletter"-->

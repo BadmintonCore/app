@@ -27,7 +27,7 @@ class AdminGlobalConfigController
         AuthService::checkAccess(AccountType::Administrator);
 
         $page = PaginationUtility::getCurrentPage();
-        $configs = GlobalConfigRepository::findAllPaginated($page, 25);
+        $configs = GlobalConfigRepository::findAllPaginated($page, 10);
         require_once __DIR__ . '/../../views/admin/globalConfig/list.php';
     }
 

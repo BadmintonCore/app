@@ -1027,6 +1027,14 @@ table tr:last-child td { /*jede Zelle der letzten Zeile hat unten keine Border*/
     border-bottom: none;
 }
 
+td .max-content {
+    display: block;
+    line-height: 1.2em;
+    max-height: 2.4em; /* 2 Zeilen */
+    overflow: hidden;
+    max-width: 600px;
+}
+
 /* ================================================
                     Formulare
 ===================================================*/
@@ -1055,6 +1063,10 @@ form {
     background-color: var(--card-background-color);
 }
 
+.form-box.wide {
+    width: 60vw;
+}
+
 .form-row {
     display: flex;
     flex-direction: row;
@@ -1075,6 +1087,7 @@ form {
 .form-input textarea {
     color: var(--text-color);
     background-color: var(--card-background-color);
+    white-space: normal;
 }
 
 /* Outline des Inputs färben, falls Benutzername/Passwort korrekt sind, aber nur beim focus (Wenn das Feld ausgewählt ist) */

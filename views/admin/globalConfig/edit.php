@@ -23,12 +23,10 @@ use Vestis\Database\Models\GlobalConfig;
     <?php include(__DIR__."/../../../components/breadcrumbs.php"); ?>
 
     <h1><?= $config->attribute ?></h1>
-    <form method="post" class="form-box">
+    <form method="post" class="form-box wide">
         <div class="form-input">
             <label for="value">Wert</label>
-            <textarea name="value" id="value" required>
-                <?= $config->value ?>
-            </textarea>
+            <textarea name="value" id="value" required><?= htmlspecialchars($config->value) ?></textarea>
         </div>
         <button class="btn" type="submit">
             Speichern.
