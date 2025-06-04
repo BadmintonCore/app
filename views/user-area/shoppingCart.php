@@ -21,6 +21,7 @@
     <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
     <div class="stack">
         <h1>Warenkorb</h1>
+        <a class="btn btn-sm" href="/user-area/shoppingCarts">Zu den Warenkörben</a>
 
         <table>
             <thead>

@@ -188,7 +188,7 @@ class ValidationService
      *
      * @throws ValidationException
      */
-    private static function validateInteger(mixed $fieldValue, string $fieldName): void
+    public static function validateInteger(mixed $fieldValue, string $fieldName): void
     {
         if (is_string($fieldValue)) {
             if (intval($fieldValue) === 0 && trim($fieldValue) !== "0") {

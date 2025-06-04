@@ -13,14 +13,14 @@ class ShoppingCartRepository
 {
 
     /**
-     * Lädt alle Warenkörbe eines Nutzers, die er direkt besitzt.
+     * Lädt alle Warenkörbe eines Nutzers
      *
      * @param Account $account Der Account des Nutzers
      * @return array
      */
-    public static function findUserOwnedShoppingCarts(Account $account): array
+    public static function findUserShoppingCarts(Account $account): array
     {
-        return QueryAbstraction::fetchManyAs(ShoppingCart::class, "SELECT * FROM shoppingCart WHERE accId = :accId", ['accId' => $account->id]);
+        return QueryAbstraction::fetchManyAs(ShoppingCart::class, "SELECT shoppingCart.* FROM shoppingCart LEFT JOIN shoppingCartMember ON shoppingCart.accId = shoppingCartMember.accId and shoppingCart.cartNumber = shoppingCartMember.cartNumber WHERE shoppingCart.accId = :accId OR shoppingCartMember.userId = :accId", ['accId' => $account->id]);
     }
 
     /**
@@ -66,7 +66,7 @@ class ShoppingCartRepository
     /**
      * Erstellt einen neuen Eintrag in den Einkaufswagen eines Nutzers
      *
-     * @param Account $account Account des Nutzers
+     * @param ShoppingCart $shoppingCart Der Warenkorb
      * @param int $itemId ItemID des zu hinzuzufügenden Items
      * @param int $size Größe des zu hinzuzufügenden Items
      * @param int $color Farbe des zu hinzuzufügenden Items
@@ -74,15 +74,15 @@ class ShoppingCartRepository
      * @param int $shoppingCartNumber Der zweite Teil des Primärschlüssels
      * @return void
      */
-    public static function add(Account $account, int $itemId, int $size, int $color, int $quantity, int $shoppingCartNumber = 1): void
+    public static function add(ShoppingCart $shoppingCart, int $itemId, int $size, int $color, int $quantity): void
     {
 
         $params = [
-            "accountId" => $account->id,
+            "accountId" => $shoppingCart->accId,
             "itemId" => $itemId,
             "size" => $size,
             "color" => $color,
-            "cartNumber" => $shoppingCartNumber,
+            "cartNumber" => $shoppingCart->cartNumber,
         ];
 
         for ($i = 0; $i < $quantity; $i++) {
@@ -149,6 +149,9 @@ class ShoppingCartRepository
      */
     public static function hasAccessTo(Account $account, ShoppingCart $shoppingCart): bool
     {
+        if ($account->id === $shoppingCart->accId) {
+            return true;
+        }
         $params = [
             'userId' => $account->id,
             'accId' => $shoppingCart->accId,

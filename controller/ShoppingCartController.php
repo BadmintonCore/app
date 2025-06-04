@@ -2,7 +2,6 @@
 
 namespace Vestis\Controller;
 
-use Vestis\Database\Models\Account;
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\OrderRepository;
 use Vestis\Database\Repositories\ProductRepository;
@@ -19,10 +18,15 @@ use Vestis\Service\ValidationService;
 class ShoppingCartController
 {
 
+    /**
+     * LIstet alle Warenkörbe auf.
+     *
+     * @return void
+     */
     public function shoppingCarts(): void
     {
         AuthService::checkAccess(AccountType::Customer);
-        $ownedShoppingCarts = ShoppingCartRepository::findUserOwnedShoppingCarts(AuthService::$currentAccount);
+        $ownedShoppingCarts = ShoppingCartRepository::findUserShoppingCarts(AuthService::$currentAccount);
         require_once __DIR__ . "/../views/user-area/shoppingCartList.php";
     }
 
@@ -50,8 +54,8 @@ class ShoppingCartController
             throw new ValidationException("Der Warenkorb existiert nicht");
         }
 
-        if (ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
-            throw new ValidationException("Der Warenkorb existiert nicht");
+        if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
+            throw new ValidationException("Sie haben keinen Zugriff zu diesem Warenkorb");
         }
 
         $groupedProducts = ShoppingCartRepository::getAllProducts($shoppingCart);
