@@ -26,7 +26,7 @@ use Vestis\Database\Models\GlobalConfig;
     <form method="post" class="form-box wide">
         <div class="form-input">
             <label for="value">Wert</label>
-            <textarea name="value" id="value" required><?= htmlspecialchars($config->value) ?></textarea>
+            <textarea name="value" id="value" required><?= $config->value ?></textarea>
         </div>
         <button class="btn" type="submit">
             Speichern.
