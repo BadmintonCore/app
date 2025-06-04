@@ -18,7 +18,6 @@ use Vestis\Service\ValidationService;
 
 class ShoppingCartController
 {
-
     /**
      * LIstet alle Warenkörbe auf.
      *

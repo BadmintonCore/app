@@ -12,7 +12,6 @@ use Vestis\Utility\GeneratorUtility;
  */
 class ShoppingCartRepository
 {
-
     /**
      * Lädt alle Warenkörbe eines Nutzers
      *

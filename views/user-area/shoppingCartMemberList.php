@@ -23,7 +23,7 @@ use Vestis\Database\Models\ShoppingCart;
     <div class="stack">
         <h1>Mitglieder von <?= $shoppingCart->name ?? "Standard" ?></h1>
         <div class="button-row">
-            <?php if($shoppingCart->isShared): ?>
+            <?php if ($shoppingCart->isShared): ?>
                 <button
                     class="btn btn-sm"
                     id="inviteButton"

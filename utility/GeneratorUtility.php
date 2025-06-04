@@ -6,7 +6,6 @@ use Random\RandomException;
 
 class GeneratorUtility
 {
-
     /**
      * Generates a secret
      *

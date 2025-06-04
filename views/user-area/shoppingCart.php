@@ -25,10 +25,10 @@
         <h1>Warenkorb: <?= $shoppingCart->name ?? "Standard" ?></h1>
         <div class="button-row">
             <a class="btn btn-sm" href="/user-area/shoppingCarts">Zu den Warenkörben.</a>
-            <?php if($shoppingCart->isShared && $shoppingCart->accId !== AuthService::$currentAccount->id): ?>
+            <?php if ($shoppingCart->isShared && $shoppingCart->accId !== AuthService::$currentAccount->id): ?>
             <a class="btn btn-sm danger" href="/user-area/shoppingCarts/leave?accId=<?= $shoppingCart->accId?>&cartNumber=<?= $shoppingCart->cartNumber ?>">Verlassen.</a>
             <?php endif; ?>
-            <?php if($shoppingCart->isShared && $shoppingCart->accId === AuthService::$currentAccount->id): ?>
+            <?php if ($shoppingCart->isShared && $shoppingCart->accId === AuthService::$currentAccount->id): ?>
                 <a class="btn btn-sm" href="/user-area/shoppingCarts/members?accId=<?= $shoppingCart->accId?>&cartNumber=<?= $shoppingCart->cartNumber ?>">Mitglieder.</a>
             <?php endif; ?>
         </div>
