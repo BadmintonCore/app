@@ -42,7 +42,7 @@ class UserAreaController
      */
     public function user(): void
     {
-        AuthService::checkAccess(AccountType::Customer);
+        AuthService::checkAccess();
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $validationRules = [
                 'username' => new ValidationRule(ValidationType::String),

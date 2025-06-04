@@ -102,16 +102,16 @@ class AuthService
      * Prüft, ob der Benutzer derzeit angemeldet ist und den angegebenen Accounttyp hat.
      * Wenn der Benutzer nicht angemeldet ist oder einen anderen Accounttyp hat, wird er zur Anmeldeseite weitergeleitet
      *
-     * @param AccountType $type Der Accounttyp
+     * @param AccountType|null $type Der Accounttyp
      * @return void
      */
-    public static function checkAccess(AccountType $type): void
+    public static function checkAccess(?AccountType $type = null): void
     {
         if (null === self::$currentAccount) {
             header("Location: /auth/login");
             die();
         }
-        if (self::$currentAccount->type !== $type) {
+        if ($type !== null && self::$currentAccount->type !== $type) {
             header("Location: /auth/login");
             die();
         }
