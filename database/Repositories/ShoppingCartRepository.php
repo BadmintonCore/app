@@ -2,12 +2,8 @@
 
 namespace Vestis\Database\Repositories;
 
-use Vestis\Database\Dto\PaginationDto;
 use Vestis\Database\Dto\ShoppingCartItemDto;
 use Vestis\Database\Models\Account;
-use Vestis\Database\Models\Category;
-use Vestis\Database\Models\Product;
-use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\ShoppingCart;
 
 /**
@@ -160,5 +156,17 @@ class ShoppingCartRepository
         ];
         $row = QueryAbstraction::fetchOneAs(null, "SELECT * FROM shoppingCartMember WHERE userId = :userId AND accId = :accId AND cartNumber = :cartNumber", $params);
         return $row !== null;
+    }
+
+    /**
+     * Löscht einen Warenkorb aus der Datenbank
+     *
+     * @param int $accId Die ID des Accounts
+     * @param int $cartNumber Die nutzerspezifische-ID des Warenkorbs
+     * @return void
+     */
+    public static function delete(int $accId, int $cartNumber): void
+    {
+        QueryAbstraction::execute("DELETE FROM shoppingCart WHERE accId = :accId AND cartNumber = :cartNumber", ["accId" => $accId, "cartNumber" => $cartNumber]);
     }
 }

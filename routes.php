@@ -48,6 +48,7 @@ return [
     '/user-area/shoppingCart' => [ShoppingCartController::class, 'getShoppingCart'],
     '/user-area/shoppingCarts' => [ShoppingCartController::class, 'shoppingCarts'],
     '/user-area/shoppingCarts/create' => [ShoppingCartController::class, 'createShoppingCart'],
+    '/user-area/shoppingCarts/delete' => [ShoppingCartController::class, 'deleteShoppingCart'],
     '/user-area/shoppingCart/purchase' => [ShoppingCartController::class, 'purchase'],
     '/user-area/shoppingCart/delete' => [ShoppingCartController::class, 'removeShoppingCartItem'],
     '/user-area/user' => [UserAreaController::class, 'user'],

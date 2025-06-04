@@ -42,7 +42,14 @@ use Vestis\Database\Models\ShoppingCart;
                         <td><?= $ownedShoppingCart->getAccount()->username ?></td>
                         <td><?= $ownedShoppingCart->name ?? "Standard" ?></td>
                         <td><?= $ownedShoppingCart->isShared ? "Ja" : "Nein" ?></td>
-                        <td><a href="/user-area/shoppingCart?accId=<?= $ownedShoppingCart->accId ?>&cartNumber=<?= $ownedShoppingCart->cartNumber ?>" class="btn btn-sm">Öffnen.</a></td>
+                        <td>
+                            <div class="button-row">
+                                <a href="/user-area/shoppingCart?accId=<?= $ownedShoppingCart->accId ?>&cartNumber=<?= $ownedShoppingCart->cartNumber ?>" class="btn btn-sm">Öffnen.</a>
+                                <?php if ($ownedShoppingCart->cartNumber !== 1): ?>
+                                    <a href="/user-area/shoppingCarts/delete?cartNumber=<?= $ownedShoppingCart->cartNumber ?>" class="btn btn-sm danger">Delete.</a>
+                                <?php endif; ?>
+                            </div>
+                        </td>
                     </tr>
             <?php endforeach; ?>
             </tbody>

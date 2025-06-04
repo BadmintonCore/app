@@ -144,4 +144,30 @@ class ShoppingCartController
         header("location: /user-area/orders/view?id={$order->id}");
     }
 
+    /**
+     * Löscht einen Warenkorb für einen Nutzer
+     *
+     * @return void
+     * @throws ValidationException
+     * @throws LogicException
+     */
+    public function deleteShoppingCart(): void
+    {
+        AuthService::checkAccess(AccountType::Customer);
+        $validationRules = [
+            'cartNumber' => new ValidationRule(ValidationType::Integer, false)
+        ];
+
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+
+        if ($formData["cartNumber"] === 1) {
+            throw new LogicException("Du kannst nicht den Standard-Warenkorb löschen");
+        }
+
+        $account = AuthService::$currentAccount;
+        ShoppingCartRepository::delete($account->id, $formData["cartNumber"]);
+        header("Location: /user-area/shoppingCarts");
+    }
+
 }
