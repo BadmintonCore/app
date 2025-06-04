@@ -1,6 +1,7 @@
 <!--Autor(en): Lasse Hoffmann*/-->
 <?php
 
+use Vestis\Database\Repositories\GCR;
 use Vestis\Service\AuthService;
 
 ?>
@@ -178,7 +179,7 @@ use Vestis\Service\AuthService;
         <div class="footer-social">
 
             <!--Instagram Link mit Vektor-Grafik-->
-            <a href="https://www.instagram.com/" target="_blank">
+            <a href="<?= GCR::getValue('FOOTER_INSTAGRAM_LINK') ?>" target="_blank">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -189,7 +190,7 @@ use Vestis\Service\AuthService;
             </a>
 
             <!--TikTok Link mit Vektor-Grafik-->
-            <a href="https://www.tiktok.com/explore" target="_blank">
+            <a href="<?= GCR::getValue('FOOTER_TIKTOK_LINK') ?>" target="_blank">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-tiktok"
@@ -199,7 +200,7 @@ use Vestis\Service\AuthService;
             </a>
 
             <!--X Link mit Vektor-Grafik-->
-            <a href="https://x.com/" target="_blank">
+            <a href="<?= GCR::getValue('FOOTER_X_LINK') ?>" target="_blank">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -210,7 +211,7 @@ use Vestis\Service\AuthService;
             </a>
 
             <!--Facebook Link mit Vektor-Grafik-->
-            <a href="https://www.facebook.com/" target="_blank">
+            <a href="<?= GCR::getValue('FOOTER_FACEBOOK_LINK') ?>" target="_blank">
 
                 <!--Grafik von: https://getbootstrap.com/-->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
