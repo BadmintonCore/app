@@ -4,6 +4,7 @@
 
 namespace Vestis\Controller;
 
+use Vestis\Database\Models\Account;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
@@ -40,7 +41,7 @@ class ProductController
         }
 
         $shoppingCarts = [];
-        if (AuthService::isCustomer()) {
+        if (AuthService::isCustomer() && AuthService::$currentAccount !== null) {
             $shoppingCarts = ShoppingCartRepository::findUserShoppingCarts(AuthService::$currentAccount);
         }
 
@@ -79,6 +80,7 @@ class ProductController
                     throw new LogicException("Warenkorb nicht gefunden");
                 }
 
+                /** @var Account $account */
                 $account = AuthService::$currentAccount;
 
                 if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {

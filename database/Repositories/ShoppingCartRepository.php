@@ -16,7 +16,7 @@ class ShoppingCartRepository
      * Lädt alle Warenkörbe eines Nutzers
      *
      * @param Account $account Der Account des Nutzers
-     * @return array
+     * @return array<int, ShoppingCart>
      */
     public static function findUserShoppingCarts(Account $account): array
     {
@@ -50,7 +50,7 @@ class ShoppingCartRepository
         $row = QueryAbstraction::fetchOneAs(null, "SELECT MAX(cartNumber) as max FROM shoppingCart WHERE accId = :accId", ['accId' => $accountId]);
         $cartNumber = 1;
         if ($row !== null) {
-            $cartNumber = $row['max'] + 1;
+            $cartNumber = ((int)$row['max']) + 1;
         }
 
         $params = [
@@ -72,7 +72,6 @@ class ShoppingCartRepository
      * @param int $size Größe des zu hinzuzufügenden Items
      * @param int $color Farbe des zu hinzuzufügenden Items
      * @param int $quantity Anzahl des zu hinzuzufügenden Items
-     * @param int $shoppingCartNumber Der zweite Teil des Primärschlüssels
      * @return void
      */
     public static function add(ShoppingCart $shoppingCart, int $itemId, int $size, int $color, int $quantity): void
@@ -99,7 +98,6 @@ class ShoppingCartRepository
      * @param int $itemId ItemID des zu entfernenden Items
      * @param int $size Größe des zu entfernenden Items
      * @param int $color Farbe des zu entfernenden Items
-     * @param int $cartNumber Zweite Teil des Warenkorb-Primärschlüssels
      * @return void
      */
     public static function remove(ShoppingCart $shoppingCart, int $itemId, int $size, int $color): void

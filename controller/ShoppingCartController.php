@@ -2,6 +2,7 @@
 
 namespace Vestis\Controller;
 
+use Vestis\Database\Models\Account;
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Models\ShoppingCart;
 use Vestis\Database\Repositories\OrderRepository;
@@ -26,7 +27,9 @@ class ShoppingCartController
     public function shoppingCarts(): void
     {
         AuthService::checkAccess(AccountType::Customer);
-        $ownedShoppingCarts = ShoppingCartRepository::findUserShoppingCarts(AuthService::$currentAccount);
+        /** @var Account $account */
+        $account = AuthService::$currentAccount;
+        $ownedShoppingCarts = ShoppingCartRepository::findUserShoppingCarts($account);
         require_once __DIR__ . "/../views/user-area/shoppingCartList.php";
     }
 
@@ -46,6 +49,7 @@ class ShoppingCartController
         ValidationService::validateForm($validationRules, "GET");
         $formData = ValidationService::getFormData();
 
+        /** @var Account $account */
         $account = AuthService::$currentAccount;
 
         $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"] ?? $account->id, $formData["cartNumber"] ?? ShoppingCart::DEFAULT_CART_NUMBER);
@@ -82,7 +86,10 @@ class ShoppingCartController
             ];
             ValidationService::validateForm($validationRules);
             $formData = ValidationService::getFormData();
-            ShoppingCartRepository::create(AuthService::$currentAccount->id, $formData["name"], $formData["isShared"]);
+
+            /** @var Account $account */
+            $account = AuthService::$currentAccount;
+            ShoppingCartRepository::create($account->id, $formData["name"], $formData["isShared"]);
             header("Location: /user-area/shoppingCarts");
             return;
         }
@@ -109,6 +116,7 @@ class ShoppingCartController
         ValidationService::validateForm($validationRules, "GET");
         $formData = ValidationService::getFormData();
 
+        /** @var Account $account */
         $account = AuthService::$currentAccount;
 
         $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"], $formData["cartNumber"]);
@@ -146,6 +154,7 @@ class ShoppingCartController
         ValidationService::validateForm($validationRules, "GET");
         $formData = ValidationService::getFormData();
 
+        /** @var Account $account */
         $account = AuthService::$currentAccount;
 
         $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"], $formData["cartNumber"]);
@@ -196,6 +205,7 @@ class ShoppingCartController
             throw new LogicException("Du kannst nicht den Standard-Warenkorb löschen");
         }
 
+        /** @var Account $account */
         $account = AuthService::$currentAccount;
         ShoppingCartRepository::delete($account->id, $formData["cartNumber"]);
         header("Location: /user-area/shoppingCarts");
@@ -230,15 +240,18 @@ class ShoppingCartController
             throw new LogicException("Falsches Invite Secret");
         }
 
-        if ($shoppingCart->accId === AuthService::$currentAccount->id) {
+        /** @var Account $account */
+        $account = AuthService::$currentAccount;
+
+        if ($shoppingCart->accId === $account->id) {
             throw new LogicException("Du bist der Besitzer des Warenkorbes");
         }
 
-        if (true === ShoppingCartRepository::hasAccessTo(AuthService::$currentAccount, $shoppingCart)) {
+        if (true === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
             throw new LogicException("Du bist bereits Mitglied in diesem Warenkorb");
         }
 
-        ShoppingCartRepository::addMemberToCart(AuthService::$currentAccount, $shoppingCart);
+        ShoppingCartRepository::addMemberToCart($account, $shoppingCart);
         header("Location: /user-area/shoppingCarts");
     }
 
@@ -264,14 +277,19 @@ class ShoppingCartController
         if ($shoppingCart === null) {
             throw new LogicException("Der Warenkorb existiert nicht");
         }
-        if (false === ShoppingCartRepository::hasAccessTo(AuthService::$currentAccount, $shoppingCart)) {
+
+        /** @var Account $account */
+        $account = AuthService::$currentAccount;
+
+        if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
             throw new LogicException("Du hast keinen Zugriff auf diesen Warenkorb");
         }
-        if ($shoppingCart->accId === AuthService::$currentAccount->id) {
+
+        if ($shoppingCart->accId === $account->id) {
             throw new LogicException("Du bist der Besitzer des Warenkorbes");
         }
 
-        ShoppingCartRepository::removeMemberFromCart(AuthService::$currentAccount, $shoppingCart);
+        ShoppingCartRepository::removeMemberFromCart($account, $shoppingCart);
         header("Location: /user-area/shoppingCarts");
     }
 
@@ -296,7 +314,7 @@ class ShoppingCartController
         if ($shoppingCart === null) {
             throw new LogicException("Der Warenkorb existiert nicht");
         }
-        if ($shoppingCart->accId !== AuthService::$currentAccount->id) {
+        if ($shoppingCart->accId !== AuthService::$currentAccount?->id) {
             throw new LogicException("Du hast keinen Zugriff auf die Mitgliederliste");
         }
 
@@ -318,7 +336,7 @@ class ShoppingCartController
         if ($shoppingCart === null) {
             throw new LogicException("Der Warenkorb existiert nicht");
         }
-        if ($shoppingCart->accId !== AuthService::$currentAccount->id) {
+        if ($shoppingCart->accId !== AuthService::$currentAccount?->id) {
             throw new LogicException("Du hast keinen Zugriff auf die Mitgliederliste");
         }
 
