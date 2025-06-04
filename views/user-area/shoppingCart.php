@@ -3,10 +3,12 @@
 <html lang="de">
 <head>
     <?php use Vestis\Database\Dto\ShoppingCartItemDto;
+    use Vestis\Database\Models\ShoppingCart;
     use Vestis\Database\Repositories\ShoppingCartRepository;
     use Vestis\Service\AuthService;
 
     /** @var ShoppingCartItemDto[] $groupedProducts */
+    /** @var ShoppingCart $shoppingCart */
 
     include(__DIR__ . "/../../components/head.php"); ?>
     <title>Vestis - Warenkorb</title>
@@ -20,7 +22,7 @@
 
     <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
     <div class="stack">
-        <h1>Warenkorb</h1>
+        <h1>Warenkorb: <?= $shoppingCart->name ?? "Standard" ?></h1>
         <a class="btn btn-sm" href="/user-area/shoppingCarts">Zu den Warenkörben</a>
 
         <table>
@@ -46,7 +48,7 @@
                         <td><?= "<span class='price-field'>" . number_format($product->getProductType()->price, 2, ',', '.') . "</span>"?></td>
                         <td><?= "<span class='price-field'>" . number_format($product->getProductType()->price * $product->count, 2, ',', '.') . "</span>"?></td>
                         <td>
-                            <a href="/user-area/shoppingCart/delete?productTypeId=<?= $product->productTypeId ?>&sizeId=<?= $product->sizeId ?>&colorId=<?= $product->colorId ?>"
+                            <a href="/user-area/shoppingCart/delete?productTypeId=<?= $product->productTypeId ?>&sizeId=<?= $product->sizeId ?>&colorId=<?= $product->colorId ?>&accId=<?= $shoppingCart->accId ?>&cartNumber=<?= $shoppingCart->cartNumber ?>"
                                class="btn danger">Entfernen</a>
                         </td>
                     </tr>
@@ -73,7 +75,7 @@
 
     if (count($groupedProducts) > 0 && AuthService::$currentAccount !== null && !AuthService::$currentAccount->isBlocked):
         ?>
-        <a href="/user-area/shoppingCart/purchase" class="btn" id="payButton">Bestellen</a>
+        <a href="/user-area/shoppingCart/purchase?accId=<?= $shoppingCart->accId ?>&cartNumber=<?= $shoppingCart->cartNumber ?>" class="btn" id="payButton">Bestellen</a>
         <?php endif; ?>
     <?php if (AuthService::$currentAccount !== null && AuthService::$currentAccount->isBlocked): ?>
         <h4 class="error-message">Du bist blockiert und kannst daher keine Bestellungen mehr aufgeben.</h4>

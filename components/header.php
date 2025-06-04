@@ -1,12 +1,23 @@
 <!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
 <?php
 
+use Vestis\Database\Models\ShoppingCart;
 use Vestis\Database\Repositories\CategoryRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Service\AuthService;
 use Vestis\Utility\BreadcrumbsUtility;
 
 $parentCategories = CategoryRepository::findAllWithNoParent();
+
+$account = AuthService::$currentAccount ?? null;
+$quantityItems = 0;
+
+if ($account !== null) {
+    $syntheticShoppingCart = new ShoppingCart();
+    $syntheticShoppingCart->accId = $account->id;
+    $syntheticShoppingCart->cartNumber = ShoppingCart::DEFAULT_CART_NUMBER;
+    $quantityItems = ShoppingCartRepository::getCountOfItems($syntheticShoppingCart);
+}
 
 ?>
 <header>
@@ -61,15 +72,7 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
                     </svg>
                 </a>
 
-                <?php
-                $account = AuthService::$currentAccount ?? null;
-            $quantityItems = null;
-
-            if ($account !== null) {
-                $quantityItems = ShoppingCartRepository::getCountOfItems($account);
-            }
-
-            if ($quantityItems !== null && $quantityItems > 0) : ?>
+                <?php if ($quantityItems > 0) : ?>
                     <span class="cart-badge">
                     <?= $quantityItems ?>
                     </span>
@@ -152,15 +155,7 @@ $parentCategories = CategoryRepository::findAllWithNoParent();
                         </svg>
                     </a>
 
-                    <?php
-                    $account = AuthService::$currentAccount ?? null;
-                $quantityItems = null;
-
-                if ($account !== null) {
-                    $quantityItems = ShoppingCartRepository::getCountOfItems($account);
-                }
-
-                if ($quantityItems !== null && $quantityItems > 0) : ?>
+                    <?php if ($quantityItems > 0) : ?>
                         <span class="cart-badge">
                     <?= $quantityItems ?>
                     </span>

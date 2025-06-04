@@ -9,6 +9,9 @@ use Vestis\Database\Repositories\AccountRepository;
  */
 class ShoppingCart
 {
+
+    public const int DEFAULT_CART_NUMBER = 1;
+
     public int $accId;
 
     public int $cartNumber;

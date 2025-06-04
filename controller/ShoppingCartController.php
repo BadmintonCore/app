@@ -3,6 +3,7 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\AccountType;
+use Vestis\Database\Models\ShoppingCart;
 use Vestis\Database\Repositories\OrderRepository;
 use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
@@ -48,7 +49,7 @@ class ShoppingCartController
 
         $account = AuthService::$currentAccount;
 
-        $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"] ?? $account->id, $formData["cartNumber"] ?? 1);
+        $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"] ?? $account->id, $formData["cartNumber"] ?? ShoppingCart::DEFAULT_CART_NUMBER);
 
         if ($shoppingCart === null) {
             throw new ValidationException("Der Warenkorb existiert nicht");
@@ -102,6 +103,8 @@ class ShoppingCartController
             'productTypeId' => new ValidationRule(ValidationType::Integer),
             'sizeId' => new ValidationRule(ValidationType::Integer),
             'colorId' => new ValidationRule(ValidationType::Integer),
+            'accId' => new ValidationRule(ValidationType::Integer),
+            'cartNumber' => new ValidationRule(ValidationType::Integer),
         ];
         // Formular validieren
         ValidationService::validateForm($validationRules, "GET");
@@ -109,11 +112,17 @@ class ShoppingCartController
 
         $account = AuthService::$currentAccount;
 
-        if ($account !== null) {
-            ShoppingCartRepository::remove($account, $formData['productTypeId'], $formData['sizeId'], $formData['colorId']);
+        $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"], $formData["cartNumber"]);
+        if ($shoppingCart === null) {
+            throw new ValidationException("Der Warenkorb existiert nicht");
         }
 
-        header("location: /user-area/shoppingCart");
+        if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
+            throw new LogicException("Du hast keinen Zugriff auf den Warenkorb");
+        }
+        ShoppingCartRepository::remove($shoppingCart, $formData['productTypeId'], $formData['sizeId'], $formData['colorId']);
+
+        header("location: /user-area/shoppingCart?accId=" . $formData["accId"] . "&cartNumber=" . $formData["cartNumber"]);
     }
 
     /**
@@ -130,7 +139,26 @@ class ShoppingCartController
             throw new LogicException("Du bist blockiert. Du kannst nichts kaufen");
         }
 
-        $quantityItemsCount = ShoppingCartRepository::getCountOfItems(AuthService::$currentAccount);
+        $validationRules = [
+            'accId' => new ValidationRule(ValidationType::Integer),
+            'cartNumber' => new ValidationRule(ValidationType::Integer),
+        ];
+        // Formular validieren
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+
+        $account = AuthService::$currentAccount;
+
+        $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"], $formData["cartNumber"]);
+        if ($shoppingCart === null) {
+            throw new ValidationException("Der Warenkorb existiert nicht");
+        }
+
+        if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
+            throw new LogicException("Du hast keinen Zugriff auf den Warenkorb");
+        }
+
+        $quantityItemsCount = ShoppingCartRepository::getCountOfItems($shoppingCart);
         if ($quantityItemsCount === 0) {
             throw new LogicException("Dein Warenkorb ist leer");
         }
@@ -141,7 +169,7 @@ class ShoppingCartController
             throw new LogicException("Die Bestellung wurde nicht erstellt");
         }
 
-        $shoppingCartItems = ShoppingCartRepository::getAllProducts(AuthService::$currentAccount);
+        $shoppingCartItems = ShoppingCartRepository::getAllProducts($shoppingCart);
         ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
         EmailService::sendOrderConfirmation($order);
 

@@ -94,21 +94,21 @@ class ShoppingCartRepository
     /**
      * Entfernt einen Eintrag aus dem Einkaufswagen
      *
-     * @param Account $account Account des Nutzers
+     * @param ShoppingCart $shoppingCart Account des Nutzers
      * @param int $itemId ItemID des zu entfernenden Items
      * @param int $size Größe des zu entfernenden Items
      * @param int $color Farbe des zu entfernenden Items
      * @param int $cartNumber Zweite Teil des Warenkorb-Primärschlüssels
      * @return void
      */
-    public static function remove(Account $account, int $itemId, int $size, int $color, int $cartNumber = 1): void
+    public static function remove(ShoppingCart $shoppingCart, int $itemId, int $size, int $color): void
     {
         $params = [
-            "accountId" => $account->id,
+            "accountId" => $shoppingCart->accId,
             "itemId" => $itemId,
             "size" => $size,
             "color" => $color,
-            "cartNumber" => $cartNumber,
+            "cartNumber" => $shoppingCart->cartNumber,
         ];
 
         QueryAbstraction::execute("UPDATE product SET shoppingCartId = NULL, shoppingCartNumber = NULL WHERE productTypeId = :itemId AND shoppingCartId = :accountId AND shoppingCartNumber = :cartNumber  AND colorId = :color AND sizeId = :size AND boughtAt IS NULL", $params);
@@ -128,13 +128,12 @@ class ShoppingCartRepository
     /**
      * Entfernt einen Eintrag aus dem Einkaufswagen
      *
-     * @param Account $account Account des Nutzers
-     * @param int $cartNumber Der zweite Teil des Primärschlüssels
+     * @param ShoppingCart $shoppingCart
      * @return int Anzahl der Items in dem Einkaufswagen des Nutzers
      */
-    public static function getCountOfItems(Account $account, int $cartNumber = 1): int
+    public static function getCountOfItems(ShoppingCart $shoppingCart): int
     {
-        $row = QueryAbstraction::fetchOneAs(null, "SELECT COUNT(*) AS count FROM product WHERE shoppingCartId = :accountId AND shoppingCartNumber = :cartNumber AND boughtAt IS NULL", ["accountId" => $account->id, "cartNumber" => $cartNumber]);
+        $row = QueryAbstraction::fetchOneAs(null, "SELECT COUNT(*) AS count FROM product WHERE shoppingCartId = :accountId AND shoppingCartNumber = :cartNumber AND boughtAt IS NULL", ["accountId" => $shoppingCart->accId, "cartNumber" => $shoppingCart->cartNumber]);
 
         /**@var int */
         return (int) ($row['count'] ?? 0);
