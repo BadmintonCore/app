@@ -15,4 +15,5 @@ enum ValidationType
     case Boolean;
     case Json;
     case ImageFile;
+    case Text;
 }

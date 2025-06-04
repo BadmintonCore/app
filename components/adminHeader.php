@@ -17,6 +17,7 @@
                     <li><a href="/admin/sizes">Größen</a></li>
                     <li><a href="/admin/productTypes">Produkttypen</a></li>
                     <li><a href="/admin/images">Bilder</a></li>
+                    <li><a href="/admin/globalConfigs">Konfigurationen</a></li>
                 </ul>
             </li>
             <li>
@@ -57,6 +58,7 @@
                     <li><a href="/admin/sizes">Größen</a></li>
                     <li><a href="/admin/productTypes">Produkttypen</a></li>
                     <li><a href="/admin/images">Bilder</a></li>
+                    <li><a href="/admin/globalConfigs">Konfigurationen</a></li>
                 </ul>
             </li>
             <li>

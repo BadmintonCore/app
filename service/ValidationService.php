@@ -107,10 +107,11 @@ class ValidationService
 
         switch ($rule->type) {
             case ValidationType::String:
+            case ValidationType::Text:
                 if (!is_string($fieldValue)) {
                     throw new ValidationException(sprintf("Das Feld %s muss ein String sein.", $fieldName));
                 }
-                if (strlen($fieldValue) > 255) {
+                if ($rule->type === ValidationType::String && strlen($fieldValue) > 255) {
                     throw new ValidationException(sprintf("Das Feld %s sollte nicht länger als 255 Zeichen sein.", $fieldName));
                 }
                 break;
