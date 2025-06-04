@@ -3,6 +3,7 @@
 namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\AccountRepository;
+use Vestis\Database\Repositories\ShoppingCartRepository;
 
 /**
  * Das Model für einen Warenkorb in der Datenbank
@@ -32,5 +33,13 @@ class ShoppingCart
         $this->account = AccountRepository::findById($this->accId);
         /** @phpstan-ignore-next-line Der Account ist immer !== null */
         return $this->account;
+    }
+
+    /**
+     * @return array<int, Account>
+     */
+    public function getMembers(): array
+    {
+        return ShoppingCartRepository::findMembersForCart($this);
     }
 }

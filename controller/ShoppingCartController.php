@@ -243,6 +243,13 @@ class ShoppingCartController
         header("Location: /user-area/shoppingCarts");
     }
 
+    /**
+     * Route damit der Nutzer einen Warenkorb verlassen kann.
+     *
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
     public function leaveShoppingCart(): void
     {
         AuthService::checkAccess(AccountType::Customer);
@@ -269,4 +276,54 @@ class ShoppingCartController
         header("Location: /user-area/shoppingCarts");
     }
 
+    /**
+     * Listet alle Mitglieder eines Warenkorbes auf
+     *
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
+    public function shoppingCartMembers(): void
+    {
+        AuthService::checkAccess(AccountType::Customer);
+        $validationRules = [
+            'cartNumber' => new ValidationRule(ValidationType::Integer),
+            'accId' => new ValidationRule(ValidationType::Integer),
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+        $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"], $formData["cartNumber"]);
+
+        if ($shoppingCart === null) {
+            throw new LogicException("Der Warenkorb existiert nicht");
+        }
+        if ($shoppingCart->accId !== AuthService::$currentAccount->id) {
+            throw new LogicException("Du hast keinen Zugriff auf die Mitgliederliste");
+        }
+
+        require_once __DIR__ . "/../views/user-area/shoppingCartMemberList.php";
+    }
+
+    public function removeMemberFromCart(): void
+    {
+        AuthService::checkAccess(AccountType::Customer);
+        $validationRules = [
+            'cartNumber' => new ValidationRule(ValidationType::Integer),
+            'accId' => new ValidationRule(ValidationType::Integer),
+            'userId' => new ValidationRule(ValidationType::Integer),
+        ];
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+        $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"], $formData["cartNumber"]);
+
+        if ($shoppingCart === null) {
+            throw new LogicException("Der Warenkorb existiert nicht");
+        }
+        if ($shoppingCart->accId !== AuthService::$currentAccount->id) {
+            throw new LogicException("Du hast keinen Zugriff auf die Mitgliederliste");
+        }
+
+        ShoppingCartRepository::removeMember($shoppingCart, $formData["userId"]);
+        header("Location: /user-area/shoppingCarts/members?cartNumber=" . $formData["cartNumber"] . "&accId=" . $formData["accId"]);
+    }
 }

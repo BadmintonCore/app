@@ -207,4 +207,36 @@ class ShoppingCartRepository
         ];
         QueryAbstraction::execute("DELETE FROM shoppingCartMember WHERE userId = :userId AND accId = :accId AND cartNumber = :cartNumber", $params);
     }
+
+    /**
+     * Findet alle Mitglieder eines Warenkorbes
+     *
+     * @param ShoppingCart $shoppingCart
+     * @return array<int, Account>
+     */
+    public static function findMembersForCart(ShoppingCart $shoppingCart): array
+    {
+        $params = [
+            "accId" => $shoppingCart->accId,
+            "cartNumber" => $shoppingCart->cartNumber,
+        ];
+        return QueryAbstraction::fetchManyAs(Account::class, "SELECT account.* FROM account JOIN shoppingCartMember sCM on account.id = sCM.userId WHERE accId = :accId AND cartNumber = :cartNumber", $params);
+    }
+
+    /**
+     * Entfernt ein Mitglied aus dem Warenkorb
+     *
+     * @param ShoppingCart $shoppingCart
+     * @param int $userId
+     * @return void
+     */
+    public static function removeMember(ShoppingCart $shoppingCart, int $userId): void
+    {
+        $params = [
+            "userId" => $userId,
+            "accId" => $shoppingCart->accId,
+            "cartNumber" => $shoppingCart->cartNumber,
+        ];
+        QueryAbstraction::execute("DELETE FROM shoppingCartMember WHERE userId = :userId AND cartNumber = :cartNumber AND accId = :accId", $params);
+    }
 }
