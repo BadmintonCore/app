@@ -321,6 +321,13 @@ class ShoppingCartController
         require_once __DIR__ . "/../views/user-area/shoppingCartMemberList.php";
     }
 
+    /**
+     * Entfernt ein Mitglied aus dem Warenkorb
+     *
+     * @return void
+     * @throws LogicException
+     * @throws ValidationException
+     */
     public function removeMemberFromCart(): void
     {
         AuthService::checkAccess(AccountType::Customer);
