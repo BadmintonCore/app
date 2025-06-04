@@ -202,4 +202,38 @@ class ShoppingCartController
         header("Location: /user-area/shoppingCarts");
     }
 
+    public function acceptInvite(): void
+    {
+        AuthService::checkAccess(AccountType::Customer);
+
+        $validationRules = [
+            'cartNumber' => new ValidationRule(ValidationType::Integer),
+            'secret' => new ValidationRule(ValidationType::String),
+            'accId' => new ValidationRule(ValidationType::Integer),
+        ];
+
+        ValidationService::validateForm($validationRules, "GET");
+        $formData = ValidationService::getFormData();
+
+        $shoppingCart = ShoppingCartRepository::findShoppingCart($formData["accId"], $formData["cartNumber"]);
+        if ($shoppingCart === null) {
+            throw new LogicException("Der Warenkorb existiert nicht");
+        }
+
+        if ($shoppingCart->inviteSecret !== $formData["secret"]) {
+            throw new LogicException("Falsches Invite Secret");
+        }
+
+        if ($shoppingCart->accId === AuthService::$currentAccount->id) {
+            throw new LogicException("Du bist der Besitzer des Warenkorbes");
+        }
+
+        if (true === ShoppingCartRepository::hasAccessTo(AuthService::$currentAccount, $shoppingCart)) {
+            throw new LogicException("Du bist bereits Mitglied in diesem Warenkorb");
+        }
+
+        ShoppingCartRepository::addMemberToCart(AuthService::$currentAccount, $shoppingCart);
+        header("Location: /user-area/shoppingCarts");
+    }
+
 }

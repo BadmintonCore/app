@@ -21,7 +21,7 @@ class ShoppingCartRepository
      */
     public static function findUserShoppingCarts(Account $account): array
     {
-        return QueryAbstraction::fetchManyAs(ShoppingCart::class, "SELECT shoppingCart.* FROM shoppingCart LEFT JOIN shoppingCartMember ON shoppingCart.accId = shoppingCartMember.accId and shoppingCart.cartNumber = shoppingCartMember.cartNumber WHERE shoppingCart.accId = :accId OR shoppingCartMember.userId = :accId", ['accId' => $account->id]);
+        return QueryAbstraction::fetchManyAs(ShoppingCart::class, "SELECT DISTINCT shoppingCart.* FROM shoppingCart LEFT JOIN shoppingCartMember ON shoppingCart.accId = shoppingCartMember.accId and shoppingCart.cartNumber = shoppingCartMember.cartNumber WHERE shoppingCart.accId = :accId OR shoppingCartMember.userId = :accId ORDER BY isShared, shoppingCart.accId", ['accId' => $account->id]);
     }
 
     /**
@@ -172,5 +172,22 @@ class ShoppingCartRepository
     public static function delete(int $accId, int $cartNumber): void
     {
         QueryAbstraction::execute("DELETE FROM shoppingCart WHERE accId = :accId AND cartNumber = :cartNumber", ["accId" => $accId, "cartNumber" => $cartNumber]);
+    }
+
+    /**
+     * Adds a new member to the shopping cart
+     *
+     * @param Account $account
+     * @param ShoppingCart $shoppingCart
+     * @return void
+     */
+    public static function addMemberToCart(Account $account, ShoppingCart $shoppingCart): void
+    {
+        $params = [
+            "userId" => $account->id,
+            "accId" => $shoppingCart->accId,
+            "cartNumber" => $shoppingCart->cartNumber,
+        ];
+        QueryAbstraction::execute("INSERT INTO shoppingCartMember (userId, accId, cartNumber) VALUES (:userId, :accId, :cartNumber)", $params);
     }
 }

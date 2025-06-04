@@ -84,7 +84,7 @@
     echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / (1.19), 2, ',', '.') . "</span></h4>";
     echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '.') . "</span></h4>";
 
-    if (count($groupedProducts) > 0 && AuthService::$currentAccount !== null && !AuthService::$currentAccount->isBlocked):
+    if (count($groupedProducts) > 0 && AuthService::$currentAccount !== null && !AuthService::$currentAccount->isBlocked && $shoppingCart->accId === AuthService::$currentAccount->id):
         ?>
         <a href="/user-area/shoppingCart/purchase?accId=<?= $shoppingCart->accId ?>&cartNumber=<?= $shoppingCart->cartNumber ?>" class="btn" id="payButton">Bestellen</a>
         <?php endif; ?>
