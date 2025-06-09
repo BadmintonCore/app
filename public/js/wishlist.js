@@ -1,8 +1,21 @@
 /*Autor(en): Lasse Hoffmann*/
 
+/**
+ * JSDoc-Typdefinition für ein Wunschlisten-Element.
+ *
+ * @typedef {Object} WishlistItem
+ * @property {string} name Der Name des Produkts
+ * @property {float} price Der Preis des Produkts
+ * @property {String} timestamp Zeitpunkt, an dem das Produkt zur Wunschliste hinzugefügt wurde
+ */
+
+// Herz-Button, der auf der Item-Seite angezeigt wird, wenn ein Produkt nicht in der Wunschliste ist
 const wishlistButtonEmpty = document.getElementById('addToWishlistButtonEmpty');
+
+// Herz-Button, der auf der Item-Seite angezeigt wird, wenn ein Produkt bereits in der Wunschliste ist
 const wishlistButtonFilled = document.getElementById('addToWishlistButtonFilled');
 
+// Event-Listener für den Fall, dass gerade das leere Herz-Icon auf der Item-Seite zu sehen ist
 if (wishlistButtonEmpty) {
     wishlistButtonEmpty.addEventListener("click", function () {
         wishlistButtonEmpty.style.display = "none";
@@ -10,6 +23,7 @@ if (wishlistButtonEmpty) {
     });
 }
 
+// Event-Listener für den Fall, dass gerade das ausgefüllte Herz-Icon auf der Item-Seite zu sehen ist
 if (wishlistButtonFilled) {
     wishlistButtonFilled.addEventListener("click", function () {
         wishlistButtonFilled.style.display = "none";
@@ -17,11 +31,23 @@ if (wishlistButtonFilled) {
     });
 }
 
-// Lädt den passenden Button-Zustand beim Seitenaufruf je nachdem, ob das Produkt auf der Wunschliste ist
-function loadWishlistButton() {
-    const searchParams = new URLSearchParams(location.search);
+// Lädt die Wishlist-Buttons, sobald das DOM geladen ist
+document.addEventListener("DOMContentLoaded", loadWishlistButton);
+
+/**
+ * Lädt den passenden Button-Zustand beim Seitenaufruf je nachdem, ob das Produkt auf der Wunschliste ist
+ *
+ * @returns {Promise<void>}
+ */
+async function loadWishlistButton() {
+
+    //Parameter aus der URL lesen
+    const params = new URLSearchParams(window.location.search);
+
     if (wishlistButtonEmpty && wishlistButtonFilled) {
-        if (isWishlist(searchParams.get('itemId'))) {
+
+        // Wenn das aktuelle Element (ItemId aus der URL gelesen) in der Wunschliste ist, dann ...
+        if (await isWishlist(params.get("itemId"))) {
             wishlistButtonFilled.style.display = "flex";
             wishlistButtonEmpty.style.display = "none";
         } else {
@@ -31,25 +57,15 @@ function loadWishlistButton() {
     }
 }
 
-// Prüft, ob ein bestimmtes Produkt auf der Wunschliste ist
-async function isWishlist(productId) {
-    const wishlist = await getWishlist();
-    return wishlist.find(function (item) {
-        return item.productTypeId === productId;
-    }) !== undefined;
-}
-
 /**
- * JSDoc-Typdefinition für ein Wunschlisten-Element.
+ * Lädt die aktuelle Wunschliste eines Benutzers mit der fetch-API
  *
- * @typedef {Object} WishlistItem
- * @property {string} name Der Name des Produkts
- * @property {number} price Der Preis des Produkts
- * @property {number} quantity Die Anzahl des Produkts
+ * @returns {Promise<any|*[]>}
  */
-
 async function getWishlist() {
     try {
+
+        // Ruft die API auf, um die Wunschliste zu erhalten
         const response = await fetch('/user-area/wishlist/getWishlist', {
             method: 'GET',
             headers: {
@@ -57,6 +73,7 @@ async function getWishlist() {
             }
         });
 
+        // Wenn beim Laden ein Fehler aufgetreten ist
         if (!response.ok) {
             console.error("Fehler beim Laden der Wunschliste:", response.statusText);
             return [];
@@ -64,6 +81,7 @@ async function getWishlist() {
 
         const data = await response.json();
         return Array.isArray(data) ? data : [];
+
     } catch (error) {
         console.error("Fehler beim Abrufen der Wunschliste:", error);
         return [];
@@ -71,99 +89,131 @@ async function getWishlist() {
 }
 
 /**
- * Fügt ein Produkt der Wunschliste hinzu.
+ * Prüft, ob ein bestimmtes Produkt in der Wunschliste vorhanden ist
  *
- * @param {number} productId Die ID des Produkts
+ * @param productTypeId Die ProdukttypID, nach der in der Wunschliste gesucht werden soll
+ * @returns {Promise<boolean>}
  */
-async function addToWishlist(productId) {
+async function isWishlist(productTypeId) {
+    const wishlist = await getWishlist();
+
+    // Mit der Find-Funktion durchsuchen wir das Array, ob die der Produkttyp bereits in der Wunschliste vorkommt
+    return wishlist.find(function (item) {
+        return String(item.productTypeId) === String(productTypeId);
+    }) !== undefined;
+}
+
+/**
+ * Fügt ein Produkt der Wunschliste hinzu
+ *
+ * @param {number} productTypeId Die ProdukttypID
+ */
+async function addToWishlist(productTypeId) {
+
+    // Ruft die API auf, um ein Element zur Wunschliste hinzuzufügen
     await fetch('/user-area/wishlist/addToWishlist', {
         method: 'POST',
-        body: JSON.stringify({productTypeId:productId}),
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            productTypeId: productTypeId
+        })
     });
     await renderWishlist();
 }
 
 /**
- * Entfernt ein Produkt aus der Wunschliste.
+ * Entfernt ein Produkt aus der Wunschliste
  *
- * @param {string} productId Die ID des Produkts
+ * @param {string} productTypeId Die ProdukttypID
  */
-async function removeFromWishlist(productId) {
+async function removeFromWishlist(productTypeId) {
+
+    // Ruft die API auf, um ein Element aus der Wunschliste zu entfernen
     await fetch('/user-area/wishlist/removeFromWishlist', {
         method: 'POST',
-        body: JSON.stringify({productTypeId:productId}),
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            productTypeId: productTypeId
+        })
     });
     await renderWishlist();
 }
 
 /**
- * Berechnet den Gesamtpreis inklusive Mehrwertsteuer.
+ * Rendert die Wunschliste in die Tabelle und berechnet die Preise der ausgewählten Währung
  *
- * @param {number} price Der Preis ohne Mehrwertsteuer
- * @returns {number} Der Preis inklusive Mehrwertsteuer
- */
-function getTotalPrice(price) {
-    return price * 1.19;
-}
-
-/**
- * Rendert die Wunschliste in die Tabelle und berechnet die endgültigen Gesamtpreise.
+ * @returns {Promise<void>}
  */
 async function renderWishlist() {
     const tableBody = document.getElementById("WishlistTBody");
     tableBody.innerHTML = '';
     const wishlist = await getWishlist();
-    for (const wishlistItem of wishlist) {
+
+    // Sortiert die Wunschliste nach Datum (neuste zuerst)
+    wishlist.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    if (wishlist.length === 0) {
+        //Eine durchgängige Zeile erstellen, wenn Wunschliste leer ist
         const row = document.createElement("tr");
-
-        const nameTd = document.createElement("td");
-        nameTd.textContent = wishlistItem.name;
-        row.appendChild(nameTd);
-
-        const priceId = document.createElement("td");
-        priceId.classList.add("price-field");
-        priceId.textContent = `${getTotalPrice(wishlistItem.price).toFixed(2)}€`;
-        row.appendChild(priceId);
-
-        // Neue Spalte für das Hinzufügedatum (nur Datum ohne Uhrzeit)
-        const dateAddedTd = document.createElement("td");
-        const dateAdded = new Date(wishlistItem.timestamp);
-        // Formatierung des Datums (nur TT.MM.JJJJ)
-        dateAddedTd.textContent = `${("0" + dateAdded.getDate()).slice(-2)}.${("0" + (dateAdded.getMonth() + 1)).slice(-2)}.${dateAdded.getFullYear()}`;
-        row.appendChild(dateAddedTd);
-
-        // Neue Spalte für die Navigation zum Produkt
-        const goToTd = document.createElement("td");
-        const goToProductButton = document.createElement("td");
-        goToProductButton.textContent = "ansehen.";
-        goToProductButton.className = "btn btn-sm";
-        goToProductButton.addEventListener("click", () => {
-            window.location.href = "/categories/product?itemId=" + wishlistItem.productTypeId;
-        });
-        goToTd.appendChild(goToProductButton);
-        row.appendChild(goToTd);
-
-
-        const removeTd = document.createElement("td");
-        const removeButton = document.createElement("button");
-        removeButton.textContent = 'entfernen.';
-        removeButton.className = "btn btn-sm danger";
-        removeButton.addEventListener("click", () => {
-            removeFromWishlist(wishlistItem.productTypeId);
-        });
-        removeTd.appendChild(removeButton);
-        row.appendChild(removeTd);
-
+        const cell = document.createElement("td");
+        cell.textContent = "Deine Wunschliste ist leer.";
+        cell.style.fontWeight = "bold";
+        cell.colSpan = 5; // Anzahl der Spalten (anpassen, falls sich Spaltenanzahl ändert)
+        row.appendChild(cell);
         tableBody.appendChild(row);
+    } else {
+        for (const wishlistItem of wishlist) {
+            const row = document.createElement("tr");
+
+            // Neue Spalte für den Namen des Produkts
+            const nameTd = document.createElement("td");
+            nameTd.textContent = wishlistItem.name;
+            row.appendChild(nameTd);
+
+            // Neue Spalte für den Preis des Produkts
+            const priceId = document.createElement("td");
+            priceId.classList.add("price-field");
+            priceId.textContent = `${(wishlistItem.price).toFixed(2)}€`;
+            row.appendChild(priceId);
+
+            // Neue Spalte für das Hinzufügedatum (nur Datum ohne Uhrzeit)
+            const dateAddedTd = document.createElement("td");
+            const dateAdded = new Date(wishlistItem.timestamp);
+            // Formatierung des Datums (nur TT.MM.JJJJ)
+            dateAddedTd.textContent = `${("0" + dateAdded.getDate()).slice(-2)}.${("0" + (dateAdded.getMonth() + 1)).slice(-2)}.${dateAdded.getFullYear()}`;
+            row.appendChild(dateAddedTd);
+
+            // Neue Spalte für die Navigation zum Produkt
+            const goToTd = document.createElement("td");
+            const goToProductButton = document.createElement("td");
+            goToProductButton.textContent = "ansehen.";
+            goToProductButton.className = "btn btn-sm";
+            goToProductButton.addEventListener("click", () => {
+                window.location.href = "/categories/product?itemId=" + wishlistItem.productTypeId;
+            });
+            goToTd.appendChild(goToProductButton);
+            row.appendChild(goToTd);
+
+            // Neue Spalte, um das Produkt zu entfernen
+            const removeTd = document.createElement("td");
+            const removeButton = document.createElement("button");
+            removeButton.textContent = 'entfernen.';
+            removeButton.className = "btn btn-sm danger";
+            removeButton.addEventListener("click", () => {
+                removeFromWishlist(wishlistItem.productTypeId);
+            });
+            removeTd.appendChild(removeButton);
+            row.appendChild(removeTd);
+
+            tableBody.appendChild(row);
+        }
+
     }
     updatePrices();
 }
 
-document.addEventListener("DOMContentLoaded", loadWishlistButton);
 /*Autor(en): Lasse Hoffmann*/

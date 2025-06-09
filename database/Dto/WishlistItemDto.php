@@ -7,7 +7,6 @@ use Vestis\Database\Repositories\ProductTypeRepository;
 
 class WishlistItemDto
 {
-
     public int $productTypeId;
 
     public String $name;

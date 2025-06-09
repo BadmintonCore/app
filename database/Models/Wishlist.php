@@ -1,5 +1,7 @@
 <?php
 
+/* Autor(en): Lasse Hoffmann */
+
 namespace Vestis\Database\Models;
 
 /**
@@ -11,6 +13,7 @@ class Wishlist
 
     public int $productTypeId;
 
-    public String $timestamp;
+    public string $timestamp;
 
 }
+/* Autor(en): Lasse Hoffmann */
