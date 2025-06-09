@@ -1,4 +1,4 @@
-<!-- Author: Lasse Hoffmann-->
+<!-- Autor: Lasse Hoffmann -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -23,7 +23,7 @@
                 <th>Produkt</th>
                 <th>Preis</th>
                 <th>Hinzugefügt am</th>
-                <th>In den Warenkorb</th>
+                <th>Zum Produkt</th>
                 <th>Entfernen</th>
             </tr>
             </thead>
@@ -42,4 +42,4 @@
 </script>
 </body>
 </html>
-<!-- Author: Lasse Hoffmann -->
+<!-- Autor: Lasse Hoffmann -->

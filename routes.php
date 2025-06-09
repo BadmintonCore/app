@@ -21,6 +21,7 @@ use Vestis\Controller\ProductController;
 use Vestis\Controller\ShoppingCartController;
 use Vestis\Controller\SystemController;
 use Vestis\Controller\UserAreaController;
+use Vestis\Controller\WishlistController;
 use Vestis\Controller\YourPurchaseController;
 use Vestis\Controller\NewsletterController;
 
@@ -57,7 +58,10 @@ return [
     '/user-area/shoppingCarts/members' => [ShoppingCartController::class, 'shoppingCartMembers'],
     '/user-area/shoppingCarts/members/remove' => [ShoppingCartController::class, 'removeMemberFromCart'],
     '/user-area/user' => [UserAreaController::class, 'user'],
-    '/user-area/wishlist' => [UserAreaController::class, 'wishlist'],
+    '/user-area/wishlist' => [WishlistController::class, 'wishlist'],
+    '/user-area/wishlist/getWishlist' => [WishlistController::class, 'getWishlist'],
+    '/user-area/wishlist/removeFromWishlist' => [WishlistController::class, 'removeFromWishlist'],
+    '/user-area/wishlist/addToWishlist' => [WishlistController::class, 'addToWishlist'],
     '/user-area/orders' => [OrderController::class, 'orders'],
     '/user-area/orders/view' => [OrderController::class, 'orderDetails'],
     '/user-area/orders/cancel' => [OrderController::class, 'cancelOrder'],
