@@ -59,7 +59,7 @@ use Vestis\Database\Models\Size;
         </div>
         <div class="form-input">
             <label for="price">Preis</label>
-            <input name="price" value="<?= $productType->price ?>" id="price" required type="number" />
+            <input name="price" value="<?= $productType->price ?>" id="price" required type="number" step="0.01" />
         </div>
         <div class="form-input">
             <label for="description">Beschreibung</label>
