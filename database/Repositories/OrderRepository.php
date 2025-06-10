@@ -85,6 +85,12 @@ class OrderRepository
         QueryAbstraction::execute("UPDATE orders SET denialMessage = :message WHERE id = :id", ["message" => $message, "id" => $orderId]);
     }
 
+    /**
+     * Lädt die Anzahl an Bestellungen pro Benutzer
+     *
+     * @param Account $account Der Benutzer dessen Anzahl an Bestellungen geladen werden soll
+     * @return int
+     */
     public static function getCountOfUsersForAccount(Account $account): int
     {
         $query = "SELECT COUNT(*) as orderCount FROM orders WHERE accountId = :accountId";
@@ -93,6 +99,14 @@ class OrderRepository
         return (int)($result['orderCount'] ?? 0);
     }
 
+    /**
+     * Speichert den Rabatt einer Bestellung
+     *
+     * @param int $orderId Die ID der Bestellung
+     * @param float $discount Der Rabatt der Bestellung.
+     * @param string $message Die Nachricht der Rabattaktion
+     * @return void
+     */
     public static function saveDiscount(int $orderId, float $discount, string $message): void
     {
         $query = "UPDATE orders SET discount = :discount, discountMessage = :message WHERE id = :orderId";
