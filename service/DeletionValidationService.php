@@ -56,7 +56,7 @@ class DeletionValidationService
         $isUsed = ProductRepository::isUsed($productType);
 
         if ($isUsed) {
-            return "Von diesem Produkttyp existieren Produkte, weshalb diese Kategorie nicht gelöscht werden kann.";
+            return "Von diesem Produkttyp existieren Produkte, weshalb dieser Produkttyp nicht gelöscht werden kann.";
         }
         return null;
     }

@@ -21,7 +21,7 @@ use Vestis\Service\ValidationService;
 class ShoppingCartController
 {
     /**
-     * LIstet alle Warenkörbe auf.
+     * Listet alle Warenkörbe auf.
      *
      * @return void
      */
@@ -101,7 +101,7 @@ class ShoppingCartController
     /**
      * Entfernt einen Eintrag aus dem Warenkorb
      *
-     * @throws ValidationException
+     * @throws ValidationException|LogicException
      */
     public function removeShoppingCartItem(): void
     {
@@ -136,8 +136,7 @@ class ShoppingCartController
     /**
      * Kauft alle Elemente aus dem Warenkorb und löst einen Auftrag aus.
      *
-     * @throws EmailException
-     * @throws LogicException|ValidationException
+     * @throws LogicException|EmailException|ValidationException|ValidationException
      */
     public function purchase(): void
     {
