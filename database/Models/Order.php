@@ -20,6 +20,10 @@ class Order
 
     public ?string $denialMessage;
 
+    public ?string $discountMessage = "";
+
+    public float $discount = 0.0;
+
     private ?Account $account = null;
 
     /**
@@ -30,6 +34,9 @@ class Order
     /**
      * @return array<int, Product>
      */
+
+
+
     public function getProducts(): array
     {
         if ($this->products !== null) {
@@ -37,6 +44,12 @@ class Order
         }
         $this->products = ProductRepository::findForOrder($this->id);
         return $this->products;
+    }
+
+    public function getDiscountedSum(): float
+    {
+        $orderSum = $this->getOrderSum();
+        return $orderSum * (1 - $this->discount);
     }
 
     public function getOrderSum(): float

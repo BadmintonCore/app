@@ -105,6 +105,11 @@ body {
     color: var(--danger-color);
 }
 
+.discount-message {
+    color: var(--accent-color);
+    text-align: center;
+}
+
 .success-message {
     color: var(--success-color);
 }
