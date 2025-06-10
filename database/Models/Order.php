@@ -20,6 +20,8 @@ class Order
 
     public ?string $denialMessage;
 
+    public ?string $discountMessage = "";
+
     private ?Account $account = null;
 
     /**
@@ -30,6 +32,13 @@ class Order
     /**
      * @return array<int, Product>
      */
+
+    public function completeOrder(): void
+    {
+        $discountService = new \Vestis\Service\OrderService();
+        $discountService->applyDiscount($this->id, $this->accountId);
+    }
+
     public function getProducts(): array
     {
         if ($this->products !== null) {
@@ -41,9 +50,15 @@ class Order
 
     public function getOrderSum(): float
     {
-        return array_reduce($this->getProducts(), function (float $sum, Product $product): float {
+        $orderSum =  array_reduce($this->getProducts(), function (float $sum, Product $product): float {
             return $sum + ($product->boughtPrice ?? 0);
         }, 0.0);
+
+        $discountFromDB = $this->getDiscountFromDatabase();
+
+        return $orderSum * (1 - $discountFromDB);
+
+
     }
 
     public function getAccount(): Account
@@ -54,5 +69,13 @@ class Order
         $this->account = AccountRepository::findById($this->accountId);
         /** @phpstan-ignore-next-line Der Account ist immer !== null  */
         return $this->account;
+    }
+
+    private function getDiscountFromDatabase() : float
+    {
+        $query = "SELECT discount FROM orders WHERE id = :orderId";
+        $result = \Vestis\Database\Repositories\QueryAbstraction::fetchOneAs(null, $query, ['orderId' => $this->id]);
+
+        return (float)$result['discount'];
     }
 }

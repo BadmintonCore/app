@@ -181,6 +181,8 @@ class ShoppingCartController
         ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
         EmailService::sendOrderConfirmation($order);
 
+        $order ->completeOrder();
+
         header("location: /user-area/orders/view?id={$order->id}");
     }
 
