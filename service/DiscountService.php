@@ -10,8 +10,6 @@ Dienst zum Berechnen des Rabatts für Bestellungen
  */
 class DiscountService
 {
-
-
     /**
      * Berechnet den Rabatt für eine Bestellung basierend auf der Bestellnummer
      *
@@ -19,7 +17,7 @@ class DiscountService
      * @param Account $account Der Account, dem die Bestellung gehört.
      * @return void Der berechnete Rabatt (in Prozent, je nach Bestellnummer)
      */
-    public static function applyDiscount(int $orderId, Account $account):void
+    public static function applyDiscount(int $orderId, Account $account): void
     {
         $orderCount = OrderRepository::getCountOfUsersForAccount($account);
         self::calculateAndSaveDiscount($orderCount + 1, $orderId);

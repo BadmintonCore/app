@@ -90,10 +90,10 @@ class OrderRepository
         $query = "SELECT COUNT(*) as orderCount FROM orders WHERE accountId = :accountId";
         $result = QueryAbstraction::fetchOneAs(null, $query, ['accountId' => $account->id]);
 
-        return $result['orderCount'] ?? 0;
+        return (int)($result['orderCount'] ?? 0);
     }
 
-    public static function saveDiscount(int $orderId, float $discount, string $message): int
+    public static function saveDiscount(int $orderId, float $discount, string $message): void
     {
         $query = "UPDATE orders SET discount = :discount, discountMessage = :message WHERE id = :orderId";
         QueryAbstraction::execute($query, [
