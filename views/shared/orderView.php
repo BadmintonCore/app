@@ -72,6 +72,10 @@ use Vestis\Service\AuthService;
         </table>
 
         <h3>Summe: <span class="price-field"><?= $order->getOrderSum() ?> €</span></h3>
+        <?php if ($order->discount > 0): ?>
+        <h4>Rabatt: <?= $order->discount * 100 ?>%</h4>
+        <h3>Summe (mit Rabatt): <span class="price-field"><?= $order->getDiscountedSum() ?> €</span></h3>
+        <?php endif; ?>
         <span class="discount-message"><?= $order->discountMessage ?> </span>
 
     </div>

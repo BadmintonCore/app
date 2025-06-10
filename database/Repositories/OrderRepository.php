@@ -85,4 +85,22 @@ class OrderRepository
         QueryAbstraction::execute("UPDATE orders SET denialMessage = :message WHERE id = :id", ["message" => $message, "id" => $orderId]);
     }
 
+    public static function getCountOfUsersForAccount(Account $account): int
+    {
+        $query = "SELECT COUNT(*) as orderCount FROM orders WHERE accountId = :accountId";
+        $result = QueryAbstraction::fetchOneAs(null, $query, ['accountId' => $account->id]);
+
+        return $result['orderCount'] ?? 0;
+    }
+
+    public static function saveDiscount(int $orderId, float $discount, string $message): int
+    {
+        $query = "UPDATE orders SET discount = :discount, discountMessage = :message WHERE id = :orderId";
+        QueryAbstraction::execute($query, [
+            'discount' => $discount,
+            'message' => $message,
+            'orderId' => $orderId,
+        ]);
+    }
+
 }

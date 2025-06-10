@@ -13,6 +13,7 @@ use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\EmailService;
+use Vestis\Service\DiscountService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -136,7 +137,7 @@ class ShoppingCartController
      * Kauft alle Elemente aus dem Warenkorb und löst einen Auftrag aus.
      *
      * @throws EmailException
-     * @throws LogicException
+     * @throws LogicException|ValidationException
      */
     public function purchase(): void
     {
@@ -179,9 +180,8 @@ class ShoppingCartController
 
         $shoppingCartItems = ShoppingCartRepository::getAllProducts($shoppingCart);
         ProductRepository::assignToOrder(AuthService::$currentAccount->id, $order->id, $shoppingCartItems);
+        DiscountService::applyDiscount($order->id, AuthService::$currentAccount);
         EmailService::sendOrderConfirmation($order);
-
-        $order ->completeOrder();
 
         header("location: /user-area/orders/view?id={$order->id}");
     }
