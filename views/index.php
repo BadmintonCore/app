@@ -12,6 +12,11 @@
     <div>
         <img src="/img/index-banner.png" alt="Banner" class="banner-image">
     </div>
+
+    <h1>Unsere Bestseller!</h1>
+    <div class="card-flex p-5">
+        <?php include(__DIR__."/../components/productCards.php"); ?>
+    </div>
 </main>
 
 <?php include(__DIR__."/../components/footer.php"); ?>
