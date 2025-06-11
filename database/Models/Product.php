@@ -27,6 +27,8 @@ class Product
 
     public ?float $boughtPrice = null;
 
+    public ?float $boughtDiscount = null;
+
     public ?int $orderId = null;
 
     private ?Size $size = null;
@@ -66,5 +68,10 @@ class Product
 
         /** @phpstan-ignore-next-line Der Produkttyp ist immer !== null  */
         return $this->productType;
+    }
+
+    public function getDiscountedPrice(): float
+    {
+        return ($this->boughtPrice ?? 0) * (1 - ($this->boughtDiscount ?? 0));
     }
 }

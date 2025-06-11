@@ -73,6 +73,7 @@ class AdminProductTypesController
                 'categoryId' => new ValidationRule(ValidationType::Integer),
                 'material' => new ValidationRule(ValidationType::String),
                 'price' => new ValidationRule(ValidationType::Float),
+                'discount' => new ValidationRule(ValidationType::Float),
                 'description' => new ValidationRule(ValidationType::String),
                 'collection' => new ValidationRule(ValidationType::String),
                 'careInstructions' => new ValidationRule(ValidationType::String),
@@ -115,6 +116,7 @@ class AdminProductTypesController
                 $productType->careInstructions = $formData['careInstructions'];
                 $productType->origin = $formData['origin'];
                 $productType->extraFields = $formData['extraFields'];
+                $productType->discount = $formData['discount'] / 100;
 
                 ProductTypeRepository::update($productType);
                 ProductTypeRepository::updateSizeMapping($productType->id, $formData['sizes']);

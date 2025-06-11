@@ -62,6 +62,10 @@ use Vestis\Database\Models\Size;
             <input name="price" value="<?= $productType->price ?>" id="price" required type="number" step="0.01" />
         </div>
         <div class="form-input">
+            <label for="discount">Rabatt (in %)</label>
+            <input name="discount" value="<?= $productType->discount * 100 ?>" id="discount" required type="number" step="0.01" />
+        </div>
+        <div class="form-input">
             <label for="description">Beschreibung</label>
             <input name="description" value="<?= $productType->description ?>" id="description" required />
         </div>

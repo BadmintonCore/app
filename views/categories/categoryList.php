@@ -117,7 +117,12 @@ use Vestis\Utility\BreadcrumbsUtility;
                         </div>
                     <br>
                     <h2><a href="<?= $uri ?>"><?= $product->name ?></a></h2>
-                    <h4 class="price-field"><?= $product->price ?></h4>
+                    <h4 class="price-field with-discount">
+                        <?= $product->getDiscountedPrice() ?>
+                        <?php if ($product->discount > 0): ?>
+                        <div class="discount-badge">-<?=$product->discount * 100 ?>%</div>
+                        <?php endif; ?>
+                    </h4>
                     <a href="<?= $uri ?>" class="btn btn-sm">details.</a>
                 </div>
             <?php endforeach; ?>

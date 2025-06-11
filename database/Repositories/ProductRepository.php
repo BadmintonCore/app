@@ -97,7 +97,7 @@ class ProductRepository
 
             $productIds = array_map(fn (Product $product) => $product->id, $productsToUpdate);
 
-            QueryAbstraction::execute("UPDATE product SET boughtAt = NOW(), accId = :accId, shoppingCartId = NULL,  boughtPrice = :boughtPrice WHERE id IN :productIds", ["accId" => $accountId, "boughtPrice" => $product->getProductType()->price, "productIds" => $productIds]);
+            QueryAbstraction::execute("UPDATE product SET boughtAt = NOW(), accId = :accId, shoppingCartId = NULL,  boughtPrice = :boughtPrice, boughtDiscount = :discount WHERE id IN :productIds", ["accId" => $accountId, "boughtPrice" => $product->getProductType()->price, "discount" => $product->getProductType()->discount, "productIds" => $productIds]);
             foreach ($productIds as $productId) {
                 QueryAbstraction::execute("INSERT INTO orderProduct (orderId, productId) VALUES (:orderId, :productId)", ["orderId" => $orderId, "productId" => $productId]);
             }
