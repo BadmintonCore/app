@@ -226,4 +226,15 @@ class ProductTypeRepository
     {
         return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT * FROM productType WHERE categoryId = :categoryId", ["categoryId" => $categoryId]) !== null;
     }
+
+    /**
+     * @return array<int, ProductType>
+     */
+    public static function findBestsellers(): array
+    {
+        $top10 = QueryAbstraction::fetchManyAs(null, "SELECT productTypeId FROM product WHERE accId IS NOT NULL GROUP BY productTypeId ORDER BY COUNT(id) LIMIT 10");
+        /** @var int[] $ids */
+        $ids = array_column($top10, 'productTypeId');
+        return QueryAbstraction::fetchManyAs(ProductType::class, "SELECT * FROM productType WHERE id IN :top10Ids", ["top10Ids" => $ids]);
+    }
 }

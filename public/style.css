@@ -1196,6 +1196,10 @@ nav:has(.breadcrumbs) {
     margin: 0;
 }
 
+.p-5 {
+    padding: 20px;
+}
+
 .full-size * {
     width: 100%;
 }
