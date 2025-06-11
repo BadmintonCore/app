@@ -72,6 +72,6 @@ class Product
 
     public function getDiscountedPrice(): float
     {
-        return ($this->boughtPrice ?? 0) * (1- ($this->boughtDiscount ?? 0));
+        return ($this->boughtPrice ?? 0) * (1 - ($this->boughtDiscount ?? 0));
     }
 }

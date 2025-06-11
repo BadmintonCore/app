@@ -142,9 +142,7 @@ class ValidationService
                 break;
 
             case ValidationType::Float:
-                if (!(is_string($fieldValue) && floatval($fieldValue) !== 0.0) && !is_float($fieldValue)) {
-                    throw new ValidationException(sprintf("Das Feld %s muss eine float sein.", $fieldName));
-                }
+                self::validateFloat($fieldValue, $fieldName);
                 break;
 
             case ValidationType::Email:
@@ -198,6 +196,24 @@ class ValidationService
         } else {
             if (!is_int($fieldValue)) {
                 throw new ValidationException(sprintf("Das Feld %s muss ein integer sein.", $fieldName));
+            }
+        }
+    }
+
+    /**
+     * Validiert einen Float-Wert
+     *
+     * @throws ValidationException
+     */
+    public static function validateFloat(mixed $fieldValue, string $fieldName): void
+    {
+        if (is_string($fieldValue)) {
+            if (floatval($fieldValue) === 0.0 && trim($fieldValue) !== "0" && trim($fieldValue) !== "0.0") {
+                throw new ValidationException(sprintf("Das Feld %s muss ein float sein.", $fieldName));
+            }
+        } else {
+            if (!is_float($fieldValue)) {
+                throw new ValidationException(sprintf("Das Feld %s muss ein float sein.", $fieldName));
             }
         }
     }
