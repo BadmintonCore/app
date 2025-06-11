@@ -55,7 +55,7 @@ class Order
     public function getOrderSum(): float
     {
         return array_reduce($this->getProducts(), function (float $sum, Product $product): float {
-            return $sum + ($product->boughtPrice ?? 0);
+            return $sum + $product->getDiscountedPrice();
         }, 0.0);
     }
 

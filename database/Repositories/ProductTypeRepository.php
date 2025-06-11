@@ -105,8 +105,9 @@ class ProductTypeRepository
             'careInstructions' => $productType->careInstructions,
             'origin' => $productType->origin,
             'extraFields' => $productType->extraFields,
+            'discount' => $productType->discount,
         ];
-        QueryAbstraction::execute("UPDATE productType SET name = :name, categoryId = :categoryId, material = :material, price = :price, description = :description, collection = :collection, careInstructions = :careInstructions, origin = :origin, extraFields = :extraFields WHERE id = :id", $params);
+        QueryAbstraction::execute("UPDATE productType SET name = :name, categoryId = :categoryId, material = :material, price = :price, description = :description, collection = :collection, careInstructions = :careInstructions, origin = :origin, extraFields = :extraFields, discount = :discount WHERE id = :id", $params);
     }
 
     /**

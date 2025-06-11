@@ -32,6 +32,8 @@ class ProductType
 
     public string $extraFields;
 
+    public float $discount = 0;
+
     private ?Category $category = null;
 
     /**
@@ -153,5 +155,10 @@ class ProductType
 
         /** @phpstan-ignore-next-line Die Kategorie ist immer !== null  */
         return $this->category;
+    }
+
+    public function getDiscountedPrice(): float
+    {
+        return $this->price * (1- $this->discount);
     }
 }

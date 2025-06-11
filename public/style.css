@@ -820,6 +820,24 @@ html[data-theme='dark'] .darkmode-btn:hover .bi-sun {
     overflow: hidden;
 }
 
+.with-discount {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.discount-badge {
+    background: var(--success-color);
+    color: var(--primary-background-color) !important;
+    padding: 3px;
+}
+
+.discount-badge.sm {
+    font-size: 0.5em;
+    position: relative;
+    top: -10px;
+}
+
 .card * {
     color: var(--text-color);
     text-align: center;

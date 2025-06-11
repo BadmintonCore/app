@@ -1,0 +1,2 @@
+ALTER TABLE productType ADD COLUMN discount FLOAT DEFAULT 0;
+ALTER TABLE product ADD COLUMN boughtDiscount FLOAT;

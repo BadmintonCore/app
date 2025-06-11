@@ -17,7 +17,7 @@ use Vestis\Service\AuthService;
 <body>
 <!--Inhalt der Seite-->
 
-<?php include(__DIR__."/../../components/adminHeader.php"); ?>
+<?php AuthService::isAdmin() ? include(__DIR__."/../../components/adminHeader.php") : include(__DIR__."/../../components/header.php"); ?>
 
 <main>
 
@@ -65,7 +65,14 @@ use Vestis\Service\AuthService;
                     <td><?= $product->id ?></td>
                     <td><?= $product->getSize()->size ?></td>
                     <td><?= $product->getColor()->name ?></td>
-                    <td class="price-field"><?= $product->boughtPrice ?> €</td>
+                    <td class="price-field with-discount">
+                        <?= $product->getDiscountedPrice() ?> €
+                        <?php if ($product->boughtDiscount > 0) : ?>
+                        <div class="discount-badge sm">
+                            -<?= $product->boughtDiscount * 100 ?>%
+                        </div>
+                        <?php endif; ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -40,8 +40,12 @@ use Vestis\Service\AuthService;
             <div class="info">
                 <h1 id="nameText"><?= $product->name ?></h1>
                 <h5><?= $product->description ?></h5>
-                <h2 class="price-field" id="priceText"><?= $product->price ?><small class="fee-field">&nbsp;inkl.
-                        19% MwSt.</small></h2>
+                <h2 class="price-field with-discount" id="priceText">
+                    <?= $product->getDiscountedPrice() ?>
+                    <?php if ($product->discount > 0) : ?>
+                    <div class="discount-badge sm">-<?= $product->discount * 100 ?>%</div>
+                    <?php endif; ?>
+                    <small class="fee-field">&nbsp;inkl. 19% MwSt.</small></h2>
 
                 <!-- Form für die Wishlist/Warenkorb/Order -->
                 <form class="flex-align-left" id="itemIdForm" method="post">
