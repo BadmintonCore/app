@@ -36,8 +36,12 @@ use Vestis\Service\AuthService;
             <h4 class="error-message"><?= $errorMessage ?></h4>
         <?php endif; ?>
 
-        <h3><span id="welcomeTextField"></span> <?= AuthService::$currentAccount?->firstname ?> <span
-                    id="emojiField"></span>!</h3>
+        <script>
+            const firstname = "<?= AuthService::$currentAccount?->firstname ?>";
+        </script>
+
+        <h3 id="userTypeWriter"><span id="welcomeTextField"></span> </h3>
+
 
         <div class="form-input">
             <label for="username"><b>Benutzername</b></label>
@@ -89,5 +93,6 @@ use Vestis\Service\AuthService;
 <script src="/js/authValidation.js" defer></script>
 <script src="/js/emojiRandomizer.js"></script>
 <script src="/js/textRandomizer.js"></script>
+<script src="/js/userTypeWriter.js"></script>
 </html>
 <!--Author: Lennart Moog-->

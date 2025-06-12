@@ -13,7 +13,7 @@
         <img src="/img/index-banner.png" alt="Banner" class="banner-image">
     </div>
 
-    <h1>Unsere Bestseller!</h1>
+    <h1 id="typeWriter">&nbsp;</h1> <!-- Non breaking space, damit immer ein Inhalt im Tag ist - auch wenn TypeWriting aktuell leer ist -->
     <div class="card-flex p-5">
         <?php include(__DIR__."/../components/productCards.php"); ?>
     </div>
@@ -22,6 +22,7 @@
 <?php include(__DIR__."/../components/footer.php"); ?>
 <?php include(__DIR__."/../components/cookieCheck.php"); ?>
 <?php include(__DIR__."/../components/scripts.php"); ?>
+<script src="/js/typeWriter.js"></script>
 </body>
 </html>
 <!--Author: Lennart Moog-->
