@@ -9,6 +9,13 @@
 <?php include(__DIR__."/../components/header.php"); ?>
 
 <main class="banner-content">
+
+    <noscript>
+        <div id="noscript-warning" style="display: block; color: red; text-align: center;">
+            JavaScript ist deaktiviert! Bitte aktivieren Sie JavaScript, um die Seite korrekt anzuzeigen.
+        </div>
+    </noscript>
+
     <div>
         <img src="/img/index-banner.png" alt="Banner" class="banner-image">
     </div>

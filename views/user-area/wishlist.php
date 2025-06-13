@@ -9,11 +9,15 @@
 <?php include(__DIR__ . "/../../components/header.php"); ?>
 <main>
 
+    <noscript>
+        <div id="noscript-warning" style="display: block; color: red; text-align: center;">
+            JavaScript ist deaktiviert! Bitte aktivieren Sie JavaScript, um die Seite korrekt anzuzeigen.
+        </div>
+    </noscript>
+
     <!--Breadcrumbs-->
     <?php include(__DIR__ . "/../../components/breadcrumbs.php"); ?>
 
-    <!--Zurückbutton-->
-    <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
     <div class="stack">
         <h1>Wunschliste</h1>
 

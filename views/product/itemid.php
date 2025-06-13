@@ -19,6 +19,14 @@ use Vestis\Service\AuthService;
 <body>
 <?php include(__DIR__ . "/../../components/header.php"); ?>
 <main>
+
+    <noscript>
+        <div id="noscript-warning" style="display: block; color: red; text-align: center;">
+            JavaScript ist deaktiviert! Bitte aktivieren Sie JavaScript, um die Seite korrekt anzuzeigen.
+        </div>
+    </noscript>
+
+
     <?php if ($product !== null && $errorMessage === null) : ?>
         <div class="details-flex">
             <!--Breadcrumbs-->

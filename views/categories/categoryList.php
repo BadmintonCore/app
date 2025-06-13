@@ -30,6 +30,12 @@ use Vestis\Utility\BreadcrumbsUtility;
 <?php include(__DIR__."/../../components/header.php"); ?>
 <main class="content-wide">
 
+    <noscript>
+        <div id="noscript-warning" style="display: block; color: red; text-align: center;">
+            JavaScript ist deaktiviert! Bitte aktivieren Sie JavaScript, um die Seite korrekt anzuzeigen.
+        </div>
+    </noscript>
+
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
