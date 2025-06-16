@@ -17,8 +17,11 @@ use Vestis\Service\AuthService;
 
 <main>
 
-    <!--Breadcrumbs-->
-    <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
+    <noscript>
+        <div id="noscript-warning" style="display: block; color: red; text-align: center;">
+            JavaScript ist deaktiviert! Bitte aktivieren Sie JavaScript, um die Seite korrekt anzuzeigen.
+        </div>
+    </noscript>
 
     <form class="form-box" id="userForm" method="post">
 
@@ -30,14 +33,27 @@ use Vestis\Service\AuthService;
         <?php endif; ?>
 
         <h1>Benutzerbereich</h1>
-        <?php include(__DIR__ . "/../../components/back-btn.php"); ?>
+
+        <!--Zurückbutton-->
+        <a class="back-btn" id="backButton" href="/../../">
+            <!--Grafik von: https://getbootstrap.com/-->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+            <span>Zurück</span>
+        </a>
 
         <?php if (isset($errorMessage)) : ?>
             <h4 class="error-message"><?= $errorMessage ?></h4>
         <?php endif; ?>
 
-        <h3><span id="welcomeTextField"></span> <?= AuthService::$currentAccount?->firstname ?> <span
-                    id="emojiField"></span>!</h3>
+        <script>
+            const firstname = "<?= AuthService::$currentAccount?->firstname ?>";
+        </script>
+
+        <h3 id="userTypeWriter"><span id="welcomeTextField"></span> </h3>
+
 
         <div class="form-input">
             <label for="username"><b>Benutzername</b></label>
@@ -89,5 +105,6 @@ use Vestis\Service\AuthService;
 <script src="/js/authValidation.js" defer></script>
 <script src="/js/emojiRandomizer.js"></script>
 <script src="/js/textRandomizer.js"></script>
+<script src="/js/userTypeWriter.js"></script>
 </html>
 <!--Author: Lennart Moog-->

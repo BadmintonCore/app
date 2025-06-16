@@ -12,6 +12,12 @@
 
 <main>
 
+    <noscript>
+        <div id="noscript-warning" style="display: block; color: red; text-align: center;">
+            JavaScript ist deaktiviert! Bitte aktivieren Sie JavaScript, um die Seite korrekt anzuzeigen.
+        </div>
+    </noscript>
+
     <form class="form-box" id="deleteForm" method="post">
 
         <h1>Account löschen</h1>

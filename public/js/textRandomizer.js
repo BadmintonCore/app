@@ -44,20 +44,6 @@ function randomizeText() {
     return greetingTexts[Math.floor(Math.random() * (max - min)) + min];
 }
 
-/**
- * "Malt" einen zufällig generierten Text in das dafür vorgesehene Feld im Benutzerbereich
- */
-function writeText() {
-    const welcomeTextField = document.getElementById('welcomeTextField');
-    if (sessionStorage.getItem('greetingText') === null || sessionStorage.getItem('greetingText') === "") {
-        const randomizedText = randomizeText();
-        welcomeTextField.innerHTML = randomizedText;
-        sessionStorage.setItem('greetingText', randomizedText);
-    } else {
-        welcomeTextField.innerHTML = sessionStorage.getItem('greetingText');
-    }
-}
 
-document.addEventListener("DOMContentLoaded", writeText);
 
 /*Autor(en): Lasse Hoffmann*/

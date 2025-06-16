@@ -22,20 +22,5 @@ function randomizeEmoji() {
     return greetingEmojis[Math.floor(Math.random() * (max - min)) + min];
 }
 
-/**
- * "Malt" ein zufällig generiertes Emoji in das dafür vorgesehene Feld im Benutzerbereich
- */
-function drawEmoji() {
-    const emojiField = document.getElementById('emojiField');
-    if (sessionStorage.getItem('greetingEmoji') === null || sessionStorage.getItem('greetingEmoji') === "") {
-        const randomizedEmoji = randomizeEmoji();
-        emojiField.innerHTML = randomizedEmoji;
-        sessionStorage.setItem('greetingEmoji', randomizedEmoji);
-    } else {
-        emojiField.innerHTML = sessionStorage.getItem('greetingEmoji');
-    }
-}
-
-document.addEventListener("DOMContentLoaded", drawEmoji);
 
 /*Autor(en): Lasse Hoffmann*/
