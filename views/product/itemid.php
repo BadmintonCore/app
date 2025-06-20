@@ -296,7 +296,11 @@ use Vestis\Service\AuthService;
                         <h2>Das sagen unsere Kunden:</h2>
                         <?php foreach ($reviews as $review): ?>
                             <div class="single-review">
-                                <strong><?= $review->getUser()->firstname ?> <?= $review->getUser()->surname ?></strong>
+                                <strong><?= $review->getUser()->firstname ?> <?= $review->getUser()->surname ?>
+                                        <?php if ($review->isVerified()): ?>
+                                    <span> Verified</span>
+                                        <?php endif; ?>
+                                    </strong>
                                 <?php
                                     $timestamp = strtotime($review->created_at);
                             if ($timestamp === false) {

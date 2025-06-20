@@ -1052,6 +1052,13 @@ color: var(--accent-color);
     width: 100%;
 }
 
+.single-review strong span {
+    font-size: .7em;
+    border: 1px solid var(--success-color);
+    padding: 3px;
+    color: var(--success-color);
+}
+
 
 /* ================================================
                    Range-Select

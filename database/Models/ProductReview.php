@@ -3,6 +3,7 @@
 namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\AccountRepository;
+use Vestis\Database\Repositories\ProductRepository;
 
 class ProductReview
 {
@@ -23,5 +24,10 @@ class ProductReview
         $this->account = AccountRepository::findById($this->user_id);
         /** @phpstan-ignore-next-line Der Account ist immer !== null  */
         return $this->account;
+    }
+
+    public function isVerified(): bool
+    {
+        return ProductRepository::findBoughtProductCount($this->product_id, $this->user_id) > 0;
     }
 }
