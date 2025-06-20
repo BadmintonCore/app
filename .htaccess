@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Verhindere Endlosschleife, wenn bereits in /public
+RewriteCond %{REQUEST_URI} !^/public/
+
+# Wenn angeforderte Datei nicht existiert
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Internes Rewrite nach /public/
+RewriteRule ^(.*)$ public/$1 [L]
