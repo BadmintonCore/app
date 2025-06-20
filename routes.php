@@ -18,6 +18,7 @@ use Vestis\Controller\HomeController;
 use Vestis\Controller\LegalController;
 use Vestis\Controller\OrderController;
 use Vestis\Controller\ProductController;
+use Vestis\Controller\ProductReviewController;
 use Vestis\Controller\ShoppingCartController;
 use Vestis\Controller\SystemController;
 use Vestis\Controller\UserAreaController;
@@ -29,6 +30,7 @@ return [
     '/' => [HomeController::class, 'index'],
     '/categories' => [CategoriesController::class, 'index'],
     '/categories/product' => [ProductController::class, 'index'],
+    '/categories/product/postReview' => [ProductReviewController::class, 'submit'],
     '/categories/product/checkStock' => [ProductController::class, 'checkStock'],
     '/about-us/about' => [AboutUsController::class, 'about'],
     '/about-us/jobs' => [AboutUsController::class, 'jobs'],

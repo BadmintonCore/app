@@ -125,4 +125,22 @@ class ProductRepository
 
         return (int)($statement['count'] ?? 0);
     }
+
+    /**
+     * Finds the count of the products bought of a specific product type
+     *
+     * @param int $productTypeId The ID of the product type
+     * @param int $accountId The ID of the account
+     * @return int
+     */
+    public static function findBoughtProductCount(int $productTypeId, int $accountId): int
+    {
+        $params = [
+            'accId' => $accountId,
+            'productId' => $productTypeId,
+        ];
+
+        $row = QueryAbstraction::fetchOneAs(null, "SELECT COUNT(*) AS count FROM product WHERE productTypeId = :productId AND accId = :accId", $params);
+        return (int)($row['count'] ?? 0);
+    }
 }

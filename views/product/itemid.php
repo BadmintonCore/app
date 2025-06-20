@@ -1,13 +1,19 @@
 <!-- Autor(en): Mathis Burger -->
 <?php
 
+use Vestis\Database\Models\ProductReview;
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\ShoppingCart;
+use Vestis\Database\Repositories\ReviewRepository;
 use Vestis\Service\AuthService;
 
 /** @var ProductType|null $product */
 /** @var string|null $errorMessage */
 /** @var ShoppingCart[] $shoppingCarts */
+/** @var float $averageRating */
+/** @var int $reviewCount */
+/** @var bool $hasReviewed */
+/** @var ProductReview[] $reviews */
 
 ?>
 <!DOCTYPE html>
@@ -45,8 +51,27 @@ use Vestis\Service\AuthService;
                     </div>
                 </div>
             <?php endif; ?>
+
+
             <div class="info">
-                <h1 id="nameText"><?= $product->name ?></h1>
+                <div class="flex-row-align-center">
+                    <h1 id="nameText" class="centered" style="margin: 0;"><?= $product->name ?></h1>
+                    <?php if ($averageRating > 0): ?>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--accent-color)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <a href="#reviews" class="rating-link" style="text-decoration: none; color: inherit;">
+                                <?= $averageRating ?> (<?= $reviewCount ?>)
+                            </span>
+                        </a>
+
+
+
+                    <?php endif; ?>
+
+                </div>
+
                 <h5><?= $product->description ?></h5>
                 <h2 class="price-field with-discount" id="priceText">
                     <?= $product->getDiscountedPrice() ?>
@@ -170,8 +195,8 @@ use Vestis\Service\AuthService;
                         <td><?= $product->origin ?></td>
                     </tr>
                     <?php
-                    /** @var array<string, int|float|string> $extraFields */
-                    $extraFields = json_decode($product->extraFields, true);
+                            /** @var array<string, int|float|string> $extraFields */
+                            $extraFields = json_decode($product->extraFields, true);
 
 ?>
                     <?php foreach (array_keys($extraFields) as $field): ?>
@@ -181,9 +206,137 @@ use Vestis\Service\AuthService;
                         </tr>
                     <?php endforeach; ?>
                 </table>
-            </div>
-        </div>
-    <?php else : ?>
+
+                <?php if (AuthService::$currentAccount === null): ?>
+                    <div class="form-box">
+                        <h2>Bewerten Sie dieses Produkt</h2>
+                        <p>Bitte <a href="/auth/login">loggen Sie sich ein</a>, um eine Bewertung abzugeben.</p>
+                    </div>
+
+                <?php elseif ($hasReviewed): ?>
+                    <div class="form-box">
+                        <h2>Vielen Dank für deine Bewertung!</h2>
+                        <p>Du hast dieses Produkt bereits bewertet.</p>
+                    </div>
+
+                <?php else: ?>
+                    <div class="form-box">
+                    <h2>Bewerten Sie dieses Produkt</h2>
+                    <form id="contactForm" method="post" action="/categories/product/postReview">
+                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
+
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5" title="5 Sterne">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </label>
+
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4" title="4 Sterne">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </label>
+
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3" title="3 Sterne">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </label>
+
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2" title="2 Sterne">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+
+                            </label>
+
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1" title="1 Stern">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </label>
+                        </div>
+
+
+                        <label for="review"><strong>Ihre Rezension:</strong></label>
+                        <textarea name="review" id="review" rows="4" class="review-form" placeholder="Was hat Ihnen gefallen?"></textarea>
+
+                        <button class="btn" type="submit" name="submitReview">Bewertung senden</button>
+
+                    </form>
+                </div>
+
+<?php endif; ?>
+                <?php if (count($reviews) > 0): ?>
+                    <div id="reviews" class="review-list form-box">
+                        <h2>Das sagen unsere Kunden:</h2>
+                        <?php foreach ($reviews as $review): ?>
+                            <div class="single-review">
+                                <strong><?= $review->getUser()->firstname ?> <?= $review->getUser()->surname ?>
+                                        <?php if ($review->isVerified()): ?>
+                                    <span> Verified</span>
+                                        <?php endif; ?>
+                                    </strong>
+                                <?php
+                                    $timestamp = strtotime($review->created_at);
+                            if ($timestamp === false) {
+                                $timestamp = time();
+                            }
+                            ?>
+                                <small><?= date("d.m.Y", $timestamp) ?></small>
+                                <div class="stars">
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <?php if ($i <= $review->rating): ?>
+                                            <!-- Gefüllter Stern -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                        <?php else: ?>
+                                            <!-- Leerer Stern -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                                            </svg>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                </div>
+                                <p><?= $review->review ?></p>
+                            </div>
+                            <hr>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="form-box">
+                        <h2>Keine Bewertungen vorhanden</h2>
+                        <p>Sei der Erste, der dieses Produkt bewertet!</p>
+                    </div>
+                <?php endif; ?>
+
+
+                <?php else : ?>
         <h1><?= $errorMessage ?></h1>
     <?php endif; ?>
 </main>
@@ -196,6 +349,7 @@ use Vestis\Service\AuthService;
 
 <!-- JavaScript für den Warenkorb-submit-->
 <script src="/js/shoppingCart.js"></script>
+
 
 <?php include(__DIR__ . "/../../components/scripts.php"); ?>
 </body>

@@ -47,6 +47,11 @@ html[data-theme='dark'] {
                 Generelle Styles
 ===================================================*/
 
+html {
+    scroll-behavior: smooth;
+}
+
+
 /* Weitere Überschrifen können hier mit ,-Separierung ergänzt werden */
 h1 {
     text-align: center;
@@ -932,6 +937,129 @@ label:has(input[type="radio"]:checked, input.checkbox:checked) {
     border: 1px solid var(--text-color);
 }
 
+
+/* ================================================
+                   Radio-Buttons für Sterne-Bewertung
+
+/* Container: Sterne rechts nach links anordnen */
+
+.star-rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    position: relative;
+    cursor: pointer;
+
+}
+
+.star-rating svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    padding: 0.3rem;
+}
+
+/* Standard: nur leere Sterne zeigen */
+.star-rating .bi-star-fill {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.star-rating .bi-star {
+    opacity: 1;
+}
+
+.star-rating label:hover ~label .bi-star,
+.star-rating label:hover .bi-star {
+color: var(--accent-color);
+
+}
+
+
+/* Auswahl: fülle Sterne ab aktuellem */
+.star-rating input[type="radio"]:checked ~ label .bi-star-fill,
+.star-rating input[type="radio"]:checked ~ label ~ label .bi-star-fill {
+    opacity: 1;
+    color: var(--accent-color);
+}
+
+.star-rating input[type="radio"]:checked ~ label .bi-star,
+.star-rating input[type="radio"]:checked ~ label ~ label .bi-star {
+    opacity: 0;
+}
+
+
+.review-form{
+    resize : vertical;
+
+}
+/* ================================================
+                   bisherige Reviews darstellen
+
+ */
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Links ausrichten */
+    gap: 20px;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.single-review {
+    width: calc(100% - 20px);
+    padding: 5px;
+    border-bottom: 1px solid var(--text-color);
+    box-sizing: border-box;
+    background-color: var(--card-background-color);
+}
+
+
+.single-review strong{
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+.single-review small{
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+.single-review .stars{
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+.single-review p {
+    margin-left: 0;
+    padding-left: 0;
+    width: 100%;
+}
+
+.single-review strong span {
+    font-size: .7em;
+    border: 1px solid var(--success-color);
+    padding: 3px;
+    color: var(--success-color);
+}
+
+
 /* ================================================
                    Range-Select
 ===================================================*/
@@ -1066,7 +1194,7 @@ form {
     color: var(--text-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /*justify-content: center;*/
     align-items: center;
     gap: 1em;
     width: 100%;
@@ -1247,6 +1375,16 @@ nav:has(.breadcrumbs) {
     display: flex;
     align-items: flex-start;
 }
+
+.flex-row-align-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+
 
 .flex-row {
     display: flex;

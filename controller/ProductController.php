@@ -5,9 +5,11 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\Account;
+use Vestis\Database\Models\ProductReview;
 use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
+use Vestis\Database\Repositories\ReviewRepository;
 use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Database\Repositories\SizeRepository;
 use Vestis\Exception\LogicException;
@@ -16,6 +18,8 @@ use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
+
+use const http\Client\Curl\AUTH_ANY;
 
 /**
  * Controller für Produkte
@@ -108,6 +112,21 @@ class ProductController
                 // Setzt alle Exceptions, die dann im frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
+        }
+
+        $reviews = ReviewRepository::getAllReviews($product->id);
+        $hasReviewed = false;
+
+        if (AuthService::$currentAccount !== null) {
+            $hasReviewed = ReviewRepository::hasUserReviewed($product->id, AuthService::$currentAccount->id);
+        }
+
+        $reviewCount = count($reviews);
+        $averageRating = 0;
+        if (count($reviews) > 0) {
+            $sum = array_reduce($reviews, fn ($carry, ProductReview $item) => $carry + $item->rating, 0);
+            $averageRating = round($sum / count($reviews), 1);
+
         }
 
         require_once __DIR__ . '/../views/product/itemid.php';
