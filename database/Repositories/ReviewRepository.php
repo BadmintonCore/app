@@ -34,29 +34,23 @@ class ReviewRepository
      * Lädt alle Bewertungen eines Produkts
      *
      * @param int $productId Die ID des Produkts
-     * @return ProductReview[]|null
+     * @return ProductReview[]
      */
-    public static function getAllReviews(int $productId): ?array
+    public static function getAllReviews(int $productId): array
     {
-        return QueryAbstraction::fetchManyAs(null, "
-        SELECT r.*, a.firstname AS user_name
-        FROM product_reviews r
-        JOIN account a ON r.user_id = a.id
-        WHERE r.product_id = :productId
-        ORDER BY r.created_at DESC
-    ", [
+        return QueryAbstraction::fetchManyAs(ProductReview::class, "SELECT * FROM product_reviews WHERE product_id = :productId ORDER BY created_at DESC", [
             'productId' => $productId
         ]);
     }
 
-    public static function hasUserReviewed(int $productId, int $userId)
+    public static function hasUserReviewed(int $productId, int $userId): int
     {
         $query = "SELECT COUNT(*) as count FROM product_reviews WHERE product_id = :productId AND user_id = :userId";
         $result = QueryAbstraction::fetchOneAs(null, $query, [
             'productId' => $productId,
             'userId' => $userId
         ]);
-        return $result['count'] ?? 0;
+        return (int)($result['count'] ?? 0);
     }
 
 

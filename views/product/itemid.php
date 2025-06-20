@@ -1,24 +1,19 @@
 <!-- Autor(en): Mathis Burger -->
 <?php
 
+use Vestis\Database\Models\ProductReview;
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Models\ShoppingCart;
 use Vestis\Database\Repositories\ReviewRepository;
 use Vestis\Service\AuthService;
 
-
-use Vestis\Service\ReviewService;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
-    $service = new ReviewService();
-    $service->handleReviewSubmission($_POST);
-}
-
-
-
 /** @var ProductType|null $product */
 /** @var string|null $errorMessage */
 /** @var ShoppingCart[] $shoppingCarts */
+/** @var float $averageRating */
+/** @var int $reviewCount */
+/** @var bool $hasReviewed */
+/** @var ProductReview[] $reviews */
 
 ?>
 <!DOCTYPE html>
@@ -59,17 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
 
 
             <div class="info">
-<?php
-                $reviews = ReviewRepository::getAllReviews($product->id);
-                $reviewCount = count($reviews);
-                $averageRating = 0;
-                if (!empty($reviews)) {
-                $sum = array_reduce($reviews, fn($carry, $item) => $carry + (int)$item['rating'], 0);
-                $averageRating = round($sum / count($reviews), 1);
-
-                }
-?>
-
                 <div class="flex-row-align-center">
                     <h1 id="nameText" class="centered" style="margin: 0;"><?= $product->name ?></h1>
                     <?php if ($averageRating > 0): ?>
@@ -211,8 +195,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
                         <td><?= $product->origin ?></td>
                     </tr>
                     <?php
-                    /** @var array<string, int|float|string> $extraFields */
-                    $extraFields = json_decode($product->extraFields, true);
+                            /** @var array<string, int|float|string> $extraFields */
+                            $extraFields = json_decode($product->extraFields, true);
 
 ?>
                     <?php foreach (array_keys($extraFields) as $field): ?>
@@ -229,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
                         <p>Bitte <a href="/auth/login">loggen Sie sich ein</a>, um eine Bewertung abzugeben.</p>
                     </div>
 
-                <?php elseif (ReviewService::hasReviewed($product->id, AuthService::$currentAccount->id)): ?>
+                <?php elseif ($hasReviewed): ?>
                     <div class="form-box">
                         <h2>Vielen Dank für deine Bewertung!</h2>
                         <p>Du hast dieses Produkt bereits bewertet.</p>
@@ -238,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
                 <?php else: ?>
                     <div class="form-box">
                     <h2>Bewerten Sie dieses Produkt</h2>
-                    <form id="contactForm" method="post">
+                    <form id="contactForm" method="post" action="/categories/product/postReview">
                         <input type="hidden" name="product_id" value="<?= $product->id ?>">
 
                         <div class="star-rating">
@@ -307,21 +291,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
                 </div>
 
 <?php endif; ?>
-
-                <?php
-                $reviews = ReviewRepository::getAllReviews($product->id);
-                ?>
-
-                <?php if (!empty($reviews)) : ?>
+                <?php if (count($reviews) > 0): ?>
                     <div id="reviews" class="review-list form-box">
                         <h2>Das sagen unsere Kunden:</h2>
                         <?php foreach ($reviews as $review): ?>
                             <div class="single-review">
-                                <strong><?= $review['user_name'] ?></strong>
-                                <small><?= date("d.m.Y", strtotime($review['created_at'])) ?></small>
+                                <strong><?= $review->getUser()->firstname ?> <?= $review->getUser()->surname ?></strong>
+                                <?php
+                                    $timestamp = strtotime($review->created_at);
+                            if ($timestamp === false) {
+                                $timestamp = time();
+                            }
+                            ?>
+                                <small><?= date("d.m.Y", $timestamp) ?></small>
                                 <div class="stars">
                                     <?php for ($i = 1; $i <= 5; $i++): ?>
-                                        <?php if ($i <= (int)$review['rating']): ?>
+                                        <?php if ($i <= $review->rating): ?>
                                             <!-- Gefüllter Stern -->
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -334,7 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
                                         <?php endif; ?>
                                     <?php endfor; ?>
                                 </div>
-                                <p><?= $review['review'] ?></p>
+                                <p><?= $review->review ?></p>
                             </div>
                             <hr>
                         <?php endforeach; ?>

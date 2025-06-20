@@ -1,23 +1,26 @@
 <?php
 
-namespace Vestis\Service;
+namespace Vestis\Controller;
 
+use Vestis\Database\Models\Account;
+use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ReviewRepository;
 use Vestis\Exception\ValidationException;
+use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
-class ReviewService
+class ProductReviewController
 {
     /**
      * Verarbeitet die Formular-Daten für eine Produktbewertung.
      *
      * @throws ValidationException
      */
-    public static function handleReviewSubmission(): void
+    public function submit(): void
     {
-        AuthService::checkAccess(); // Nutzer muss eingeloggt sein
+        AuthService::checkAccess(); // Nutzer muss eingeloggt sein. Auch Admins können Bewertungen abgeben
 
         $validationRules = [
             'product_id' => new ValidationRule(ValidationType::Integer, true),
@@ -32,6 +35,7 @@ class ReviewService
         $rating = (int)$formData['rating'];
         $review = trim($formData['review'] ?? '');
 
+        /** @var Account $user */
         $user = AuthService::$currentAccount;
 
         if ($rating < 1 || $rating > 5) {
@@ -52,14 +56,6 @@ class ReviewService
 
         // Weiterleitung oder Erfolgsmeldung
         header("Location: /categories/product?itemId=" . $productId);
-        exit;
     }
 
-    public static function hasReviewed($productId, $userId): bool{
-    if (!ReviewRepository::hasUserReviewed($productId, $userId) == 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
 }

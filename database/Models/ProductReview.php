@@ -2,6 +2,8 @@
 
 namespace Vestis\Database\Models;
 
+use Vestis\Database\Repositories\AccountRepository;
+
 class ProductReview
 {
     public int $id;
@@ -10,4 +12,16 @@ class ProductReview
     public int $rating;
     public string $review;
     public string $created_at;
+
+    private ?Account $account = null;
+
+    public function getUser(): Account
+    {
+        if ($this->account !== null) {
+            return  $this->account;
+        }
+        $this->account = AccountRepository::findById($this->user_id);
+        /** @phpstan-ignore-next-line Der Account ist immer !== null  */
+        return $this->account;
+    }
 }
