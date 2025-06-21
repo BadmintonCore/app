@@ -885,7 +885,7 @@ label:has(input[type="checkbox"]) { /*ist im Label-Tag ein Input mit Checkbox-Ty
     gap: 4px;
 }
 
-input[type="checkbox"] { /*setzt eine Regel, die für allle Inputs vom Typ Checkbox Standardmaße setzt*/
+input[type="checkbox"] { /*setzt eine Regel, die für alle Inputs vom Typ Checkbox Standardmaße setzt*/
     width: 24px;
     height: 24px;
     appearance: none;

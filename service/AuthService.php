@@ -46,6 +46,7 @@ class AuthService
 
         $jwt = JWTService::generateJWT($payload);
 
+        // Übergabe: Name des Cookies, Inhalt und Konfiguration
         setcookie("session", $jwt, [
             'expires' => time() + $sessionDuration, // setzt die Cookie-Ablaufzeit
             'path' => '/', // Das Cookie wird bei jeder Anfrage (egal auf welcher Seite) gesendet
@@ -63,6 +64,8 @@ class AuthService
     public static function destroyCurrentSession(): void
     {
         self::$currentAccount = null;
+
+        // Session-Cookie überschreiben mit Leeren String als Inhalt
         setcookie("session", "", [
             'path' => '/',
             'secure' => false,

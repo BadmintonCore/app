@@ -22,9 +22,12 @@ class Kernel
         $routes = require __DIR__.'/routes.php';
         $pathname = PathUtility::getPathname();
 
+        // Wenn pathname größer als 1 und am Ende ein "/"
         if (strlen($pathname) > 1 && str_ends_with($pathname, "/")) {
             $pathname = substr($pathname, 0, strlen($pathname) - 1);
         }
+
+        // Wenn das in routes.php nicht definiert ist
         if (!array_key_exists($pathname, $routes)) {
             require_once __DIR__.'/views/404.php';
             return;
@@ -32,11 +35,12 @@ class Kernel
 
         [$controllerClass, $method] = $routes[$pathname];
         /** @phpstan-ignore-next-line */
+        // Instanziiert jeweils dynamisch die zugehörige Klasse zu dem gesuchten Controller
         $controller = new $controllerClass();
 
         try {
 
-            // Verhindert explizit die Ausgabe des Output Buffers.
+            // Verhindert explizit die Ausgabe des Output Buffers
             ob_start();
 
             /** @phpstan-ignore-next-line */
@@ -69,6 +73,7 @@ class Kernel
             AuthService::setCurrentUserAccountSessionFromCookie();
         } catch (ValidationException $e) {
             echo $e->getMessage();
+            // Ab "die()" wird kein php-Code mehr ausgeführt. Es wird nur das ausgegeben, was bereits im Buffer ist
             die();
         }
     }
