@@ -114,7 +114,7 @@
         <div class="form-input">
             <label class="checkbox">
                 <!--Input für die Newsletter-Abfrage-->
-                <input type="checkbox" id="newsletter" name="newsletter">
+                <input type="checkbox" name="newsletter">
                 <p>Ich möchte Angebote über exklusive Kollektionen und Angebote erhalten</p>
             </label>
         </div>

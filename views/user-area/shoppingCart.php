@@ -69,7 +69,7 @@
                         <td><?= "<span class='price-field'>" . number_format($product->getProductType()->getDiscountedPrice() * $product->count, 2, ',', '.') . "</span>"?></td>
                         <td>
                             <a href="/user-area/shoppingCart/delete?productTypeId=<?= $product->productTypeId ?>&sizeId=<?= $product->sizeId ?>&colorId=<?= $product->colorId ?>&accId=<?= $shoppingCart->accId ?>&cartNumber=<?= $shoppingCart->cartNumber ?>"
-                               class="btn danger">Entfernen</a>
+                               class="btn danger">entfernen.</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

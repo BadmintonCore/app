@@ -69,6 +69,7 @@ class JWTService
             throw new ValidationException("Das JWT besteht nicht aus 3 Teilen. Daher ist es ungültig.");
         }
 
+        // Elemente aus Array "parts" erstellen
         list($headerB64, $payloadB64, $signatureB64) = $parts;
 
         // Berechnet die erwartete Signatur anhand der im JWT-String angegebenen Header und Payloads

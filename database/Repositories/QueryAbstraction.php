@@ -209,13 +209,15 @@ class QueryAbstraction
 
         // Erstellt ein ReflectionClass-Objekt und eine Instanz der gewünschten Klasse
         // Mehr Informationen zu Reflection: https://www.php.net/manual/de/intro.reflection.php
-        $reflectionClass = new \ReflectionClass($className);
+        // Betrachtung eines Objekts auf Metaebene zur Laufzeit
+        $reflectionClass = new \ReflectionClass($className); // ReflectionClass aus der Klasse erstellen
         try {
-            $instance = $reflectionClass->newInstance();
+            $instance = $reflectionClass->newInstance(); // Instanz der gegebenen Klasse erstellen
         } catch (\ReflectionException $e) {
             throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
+        // Für eine Datenbank die Key Value Paare (bspw. Account: username => test, ...)
         foreach ($assoc as $key => $value) {
 
             // Prüft, ob die durch Reflection geladene Klasse die Eigenschaft mit dem Namen des aktuellen Array-Schlüssels hat
