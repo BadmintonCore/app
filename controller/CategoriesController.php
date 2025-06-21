@@ -45,6 +45,7 @@ class CategoriesController
 
         if ($category->getParentCategory() === null) {
             require_once __DIR__.'/../views/categories/childCategories.php';
+            return;
         }
 
 
