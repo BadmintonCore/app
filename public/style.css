@@ -889,6 +889,7 @@ input[type="checkbox"] { /*setzt eine Regel, die für allle Inputs vom Typ Check
     width: 24px;
     height: 24px;
     appearance: none;
+    flex-shrink: 0;
 }
 
 input[type="checkbox"]:checked { /*Wenn angeklickt, dann Farbe*/
