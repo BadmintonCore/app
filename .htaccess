@@ -1,11 +1,12 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
 
-# Verhindere Endlosschleife, wenn bereits in /public
-RewriteCond %{REQUEST_URI} !^/public/
+    # If the requested file or directory exists in public/, serve it from public/
+    RewriteCond %{DOCUMENT_ROOT}/public/%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/public/%{REQUEST_URI} -d
+    RewriteRule ^(.*)$ public/$1 [L]
 
-# Wenn angeforderte Datei nicht existiert
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Internes Rewrite nach /public/
-RewriteRule ^(.*)$ public/$1 [L]
+    # Otherwise, route all requests to public/router.php
+    RewriteRule ^ public/router.php [L]
+</IfModule>

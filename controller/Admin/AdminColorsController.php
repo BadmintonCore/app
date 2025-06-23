@@ -116,7 +116,7 @@ class AdminColorsController
 
             } catch (ValidationException $e) {
                 $errorMessage = $e->getMessage();
-                require_once __DIR__ . '/../../views/admin/categories/create.php';
+                require_once __DIR__ . '/../../views/admin/colors/create.php';
             }
         }
 

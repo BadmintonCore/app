@@ -2,6 +2,7 @@
 
 namespace Vestis\Database\Repositories;
 
+use PDO;
 use Vestis\Database\Dto\PaginationDto;
 use Vestis\Exception\DatabaseException;
 
@@ -120,14 +121,10 @@ class QueryAbstraction
      */
     public static function executeReturning(string $className, string $query, array $params = []): mixed
     {
-        $newQuery = sprintf("%s RETURNING *", $query);
-        $statement = QueryAbstraction::prepareAndExecuteStatement($newQuery, $params);
-        /** @var array<string, int|bool|string|null>|null|false $assoc */
-        $assoc =  $statement->fetch(\PDO::FETCH_ASSOC) ?? null;
-        if (null !== $assoc && false !== $assoc) {
-            return self::convertAssocToClass($className, $assoc);
-        }
-        return null;
+        QueryAbstraction::prepareAndExecuteStatement($query, $params);
+
+        $assoc =  self::mariaDB100428ReturningWrapper($query, self::normalizeParams($query, $params));
+        return self::convertAssocToClass($className, $assoc);
     }
 
     /**
@@ -146,41 +143,10 @@ class QueryAbstraction
             throw new \RuntimeException("Du musst eine Datenbankverbindung initialisieren, um Abfragen auszuführen.");
         }
 
-        $normalizedParams = [];
-
-        foreach ($params as $key => $value) {
-            // Wert ist ein Array
-            if (is_array($value)) {
-                $newParams = [];
-
-                // Ist das Array leer, ist der Parameter-Wert null
-                if (count($value) === 0) {
-                    $normalizedParams[$key] = null;
-                } else {
-
-                    // Ersetzt den einen Parameter durch beliebig viele Parameter, um das Array in der SQL-Abfrage darzustellen
-
-                    foreach ($value as $i => $subValue) {
-                        $newParams["{$key}_$i"] = $subValue;
-                    }
-                    $newQueryParamArray = array_map(fn (string $param) => sprintf(":%s", $param), array_keys($newParams));
-                    $query = str_replace(':' . $key, sprintf('(%s)', implode(', ', $newQueryParamArray)), $query);
-                    $normalizedParams = array_merge($normalizedParams, $newParams);
-                }
-
-            } else {
-                // Ist es kein Array, kann der Parameter normal verwendet werden
-                $normalizedParams[$key] = $value;
-            }
-        }
+        $normalizedParams = self::normalizeParams($query, $params);
         $statement = $connection->prepare($query);
-        foreach ($normalizedParams as $key => $value) {
-            if (is_bool($value)) {
-                $statement->bindValue($key, $value, \PDO::PARAM_BOOL);
-            } else {
-                $statement->bindValue($key, $value);
-            }
-        }
+        self::bindParams($statement, $normalizedParams);
+
         try {
             $statement->execute();
         } catch (\PDOException $e) {
@@ -263,5 +229,138 @@ class QueryAbstraction
             }
         }
         return $instance;
+    }
+
+    /**
+     * Wrapper für das native "RETURNING *", da dies in MariaDB 10.4.28 nicht vorhanden ist, die
+     * Entwicklung der Anwendung aber auf MariaDB 11 stattfand.
+     *
+     * @param string $query
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>>  $params
+     * @return array<string, int|bool|string|null>
+     */
+    private static function mariaDB100428ReturningWrapper(string $query, array $params): array
+    {
+        /** @phpstan-ignore-next-line strtok immer erfolgreich */
+        $queryType = strtoupper(strtok(trim($query), " "));
+
+        /** @var \PDO $pdo */
+        $pdo = $GLOBALS['dbConnection'];
+
+        $lastId = $pdo->lastInsertId();
+
+        if ($queryType === 'INSERT') {
+            if (false === preg_match('/INSERT\s+INTO\s+`?(\w+)`?/i', $query, $matches)) {
+                throw new DatabaseException("Failed to parse table name from INSERT.", 0, null);
+            }
+            $table = $matches[1];
+
+            $stmt = $pdo->prepare("
+        SELECT COLUMN_NAME
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_SCHEMA = DATABASE()
+          AND TABLE_NAME = ?
+          AND EXTRA = 'auto_increment'
+        LIMIT 1
+    ");
+            $stmt->execute([$table]);
+            $pk = $stmt->fetchColumn();
+
+            if (false === $pk || null === $pk) {
+                throw new DatabaseException("No AUTO_INCREMENT column found for table `$table`.", 0, null);
+            }
+
+
+            $stmt = $pdo->prepare("SELECT * FROM `$table` WHERE `$pk` = ?");
+            $stmt->execute([$lastId]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+
+        } elseif ($queryType === 'UPDATE') {
+            if (false === preg_match('/UPDATE\s+`?(\w+)`?\s+SET\s+.+?\s+WHERE\s+(.+)/is', $query, $matches)) {
+                throw new DatabaseException("Failed to parse table name or WHERE clause from UPDATE.", 0, null);
+            }
+            $table = $matches[1];
+            $where = trim($matches[2]);
+            if (str_ends_with($where, ';')) {
+                $where = substr($where, 0, -1);  // remove trailing semicolon
+            }
+
+            $selectQuery = "SELECT * FROM `$table` WHERE $where";
+
+            $stmt = $pdo->prepare($selectQuery);
+
+            $filteredParams = [];
+
+            foreach ($params as $key => $value) {
+                if (str_contains($selectQuery, ':' . $key)) {
+                    $filteredParams[$key] = $value;
+                }
+            }
+
+            self::bindParams($stmt, $filteredParams);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } else {
+            throw new DatabaseException("Only INSERT and UPDATE statements are supported.", 0, null);
+        }
+    }
+
+    /**
+     * Normalisiert die Parameter, damit sie in der Query genutzt werden können
+     *
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params
+     * @return array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>>
+     */
+    private static function normalizeParams(string &$query, array $params): array
+    {
+        $normalizedParams = [];
+
+        foreach ($params as $key => $value) {
+            // Wert ist ein Array
+            if (is_array($value)) {
+                $newParams = [];
+
+                // Ist das Array leer, ist der Parameter-Wert null
+                if (count($value) === 0) {
+                    $normalizedParams[$key] = null;
+                } else {
+
+                    // Ersetzt den einen Parameter durch beliebig viele Parameter, um das Array in der SQL-Abfrage darzustellen
+
+                    foreach ($value as $i => $subValue) {
+                        $newParams["{$key}_$i"] = $subValue;
+                    }
+                    $newQueryParamArray = array_map(fn (string $param) => sprintf(":%s", $param), array_keys($newParams));
+                    $query = str_replace(':' . $key, sprintf('(%s)', implode(', ', $newQueryParamArray)), $query);
+                    $normalizedParams = array_merge($normalizedParams, $newParams);
+                }
+
+            } else {
+                // Ist es kein Array, kann der Parameter normal verwendet werden
+                $normalizedParams[$key] = $value;
+            }
+        }
+
+        return $normalizedParams;
+    }
+
+    /**
+     * Bindet alle Parameter an das Statement
+     *
+     * @param \PDOStatement $stmt
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params
+     * @return void
+     */
+    private static function bindParams(\PDOStatement &$stmt, array $params): void
+    {
+        foreach ($params as $key => $value) {
+            if (is_bool($value)) {
+                $stmt->bindValue($key, $value, \PDO::PARAM_BOOL);
+            } else {
+                $stmt->bindValue($key, $value);
+            }
+        }
+
     }
 }

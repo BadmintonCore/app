@@ -11,8 +11,12 @@ class Kernel
 {
     public function run(): void
     {
+        error_reporting(E_ALL);
+        ini_set('display_errors', '1');
+
         $this->initializeDatabaseConnection();
         $this->initializeSession();
+        $this->serveStaticFile();
         $this->handleRoute();
     }
 
@@ -52,6 +56,7 @@ class Kernel
 
 
             $errorMessage = $exception->getMessage();
+            var_dump($exception->getTrace());
             $acceptHeader = $_SERVER['HTTP_ACCEPT'] ?? null;
             if (str_contains($acceptHeader, 'application/json')) {
                 header('Content-type: application/json');
@@ -81,13 +86,55 @@ class Kernel
 
     private function initializeDatabaseConnection(): void
     {
-        $dbConnection = new \PDO("mysql:host=db;dbname=vestis", "vestis", "vestis");
+        try {
+            $dbConnection = new \PDO("mysql:host=127.0.0.1;dbname=vestis", "root");
+            // We want to use OOP approach of PHP. Therefore, we set PDO to use exceptions instead of errors.
+            $dbConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-        // We want to use OOP approach of PHP. Therefore, we set PDO to use exceptions instead of errors.
-        $dbConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            // Declare database connection as global variable. It can be now found at $_GLOBALS['dbConnection']
+            $GLOBALS['dbConnection'] = $dbConnection;
+        } catch (Throwable $exception) {
+            echo $exception->getMessage();
+        }
+    }
 
-        // Declare database connection as global variable. It can be now found at $_GLOBALS['dbConnection']
-        $GLOBALS['dbConnection'] = $dbConnection;
+    private function serveStaticFile(): void
+    {
+        $requestedPath = $_SERVER['REQUEST_URI'];
+
+        $requestedPath = parse_url($requestedPath, PHP_URL_PATH);
+
+        $filePath = __DIR__ . '/public/' . $requestedPath;  // Adjust if router.php is in public/ or above
+
+        $publicDir = realpath(__DIR__);
+        $realPath = realpath($filePath);
+
+        if ($publicDir === false || $realPath === false) {
+            return;
+        }
+
+        if (str_starts_with($realPath, $publicDir) && is_file($realPath)) {
+            // Serve the file with correct headers
+
+            // Get mime type (fallback to octet-stream)
+            $mimeType = mime_content_type($realPath);
+
+            if ($mimeType === false) {
+                $mimeType = 'application/octet-stream';
+            }
+
+            if (str_ends_with($realPath, '.css')) {
+                $mimeType = 'text/css';
+            }
+            if (str_ends_with($realPath, '.js')) {
+                $mimeType = 'application/javascript';
+            }
+
+            header('Content-Type: ' . $mimeType);
+            header('Content-Length: ' . filesize($realPath));
+            readfile($realPath);
+            die();
+        }
     }
 
 

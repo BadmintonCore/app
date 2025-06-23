@@ -14,7 +14,7 @@ class JWTService
     /**
      * Der Standard-Header eines jeden JWT
      */
-    private const array JWT_HEADER = ['typ' => 'JWT', 'alg' => 'HS256'];
+    private const JWT_HEADER = ['typ' => 'JWT', 'alg' => 'HS256'];
 
     /**
      * Der secret key, der für die Signatur der JWTs verwendet wird

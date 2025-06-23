@@ -21,6 +21,12 @@ docker-compose exec -it php-server /bin/bash
 composer dump-autoload
 ```
 
+XAMPP:
+
+1. Inhalt auf root-Ebene in den htdocs-Ordner laden
+2. SQL Dump laden
+3. Dem httpd user mit chmod Zugriff auf den cache Ordner geben
+
 
 ## Ordner Struktur
 

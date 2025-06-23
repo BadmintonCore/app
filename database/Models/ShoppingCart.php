@@ -10,7 +10,7 @@ use Vestis\Database\Repositories\ShoppingCartRepository;
  */
 class ShoppingCart
 {
-    public const int DEFAULT_CART_NUMBER = 1;
+    public const DEFAULT_CART_NUMBER = 1;
 
     public int $accId;
 
