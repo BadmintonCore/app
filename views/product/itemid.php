@@ -336,7 +336,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitReview'])) {
                                 </div>
                                 <p><?= $review['review'] ?></p>
                             </div>
-                            <hr>
                         <?php endforeach; ?>
                     </div>
                 <?php else: ?>
