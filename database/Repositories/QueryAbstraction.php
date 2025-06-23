@@ -124,7 +124,7 @@ class QueryAbstraction
         QueryAbstraction::prepareAndExecuteStatement($query, $params);
 
         /** @var array<string, int|bool|string|null>|null|false $assoc */
-        $assoc =  self::mariaDB100428ReturningWrapper($query);
+        $assoc =  self::mariaDB100428ReturningWrapper($query, self::normalizeParams($params));
         return self::convertAssocToClass($className, $assoc);
     }
 
@@ -144,41 +144,10 @@ class QueryAbstraction
             throw new \RuntimeException("Du musst eine Datenbankverbindung initialisieren, um Abfragen auszuführen.");
         }
 
-        $normalizedParams = [];
-
-        foreach ($params as $key => $value) {
-            // Wert ist ein Array
-            if (is_array($value)) {
-                $newParams = [];
-
-                // Ist das Array leer, ist der Parameter-Wert null
-                if (count($value) === 0) {
-                    $normalizedParams[$key] = null;
-                } else {
-
-                    // Ersetzt den einen Parameter durch beliebig viele Parameter, um das Array in der SQL-Abfrage darzustellen
-
-                    foreach ($value as $i => $subValue) {
-                        $newParams["{$key}_$i"] = $subValue;
-                    }
-                    $newQueryParamArray = array_map(fn (string $param) => sprintf(":%s", $param), array_keys($newParams));
-                    $query = str_replace(':' . $key, sprintf('(%s)', implode(', ', $newQueryParamArray)), $query);
-                    $normalizedParams = array_merge($normalizedParams, $newParams);
-                }
-
-            } else {
-                // Ist es kein Array, kann der Parameter normal verwendet werden
-                $normalizedParams[$key] = $value;
-            }
-        }
+        $normalizedParams = self::normalizeParams($params);
         $statement = $connection->prepare($query);
-        foreach ($normalizedParams as $key => $value) {
-            if (is_bool($value)) {
-                $statement->bindValue($key, $value, \PDO::PARAM_BOOL);
-            } else {
-                $statement->bindValue($key, $value);
-            }
-        }
+        self::bindParams($statement, $normalizedParams);
+
         try {
             $statement->execute();
         } catch (\PDOException $e) {
@@ -263,7 +232,7 @@ class QueryAbstraction
         return $instance;
     }
 
-    private static function mariaDB100428ReturningWrapper(string $query): array
+    private static function mariaDB100428ReturningWrapper(string $query, array $params): array
     {
         $queryType = strtoupper(strtok(trim($query), " "));
 
@@ -312,16 +281,76 @@ class QueryAbstraction
                 $where = substr($where, 0, -1);  // remove trailing semicolon
             }
 
-            // Run the update
-            $pdo->exec($query);
-
             // Fetch updated rows using the same WHERE clause
             $selectQuery = "SELECT * FROM `$table` WHERE $where";
-            $stmt = $pdo->query($selectQuery);
+
+            $stmt = $pdo->prepare($selectQuery);
+
+            $filteredParams = [];
+
+            foreach ($params as $key => $value) {
+                if (str_contains($selectQuery, ':' . $key)) {
+                    $filteredParams[$key] = $value;
+                }
+            }
+
+            self::bindParams($stmt, $filteredParams);
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         } else {
             throw new DatabaseException("Only INSERT and UPDATE statements are supported.", 0, null);
         }
+    }
+
+    /**
+     * Normalisiert die Parameter, damit sie in der Query genutzt werden können
+     *
+     * @param array $params
+     * @return array
+     */
+    private static function normalizeParams(array $params): array
+    {
+        $normalizedParams = [];
+
+        foreach ($params as $key => $value) {
+            // Wert ist ein Array
+            if (is_array($value)) {
+                $newParams = [];
+
+                // Ist das Array leer, ist der Parameter-Wert null
+                if (count($value) === 0) {
+                    $normalizedParams[$key] = null;
+                } else {
+
+                    // Ersetzt den einen Parameter durch beliebig viele Parameter, um das Array in der SQL-Abfrage darzustellen
+
+                    foreach ($value as $i => $subValue) {
+                        $newParams["{$key}_$i"] = $subValue;
+                    }
+                    $newQueryParamArray = array_map(fn (string $param) => sprintf(":%s", $param), array_keys($newParams));
+                    $query = str_replace(':' . $key, sprintf('(%s)', implode(', ', $newQueryParamArray)), $query);
+                    $normalizedParams = array_merge($normalizedParams, $newParams);
+                }
+
+            } else {
+                // Ist es kein Array, kann der Parameter normal verwendet werden
+                $normalizedParams[$key] = $value;
+            }
+        }
+
+        return $normalizedParams;
+    }
+
+    private static function bindParams(\PDOStatement &$stmt, array $params): void
+    {
+        foreach ($params as $key => $value) {
+            if (is_bool($value)) {
+                $stmt->bindValue($key, $value, \PDO::PARAM_BOOL);
+            } else {
+                $stmt->bindValue($key, $value);
+            }
+        }
+
     }
 }

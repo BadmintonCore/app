@@ -12,12 +12,12 @@ class CacheService
     /**
      * Der Pfad in dem die Cache-Dateien gespeichert werden
      */
-    private const string CACHE_PATH = __DIR__ .'/../cache/';
+    private const CACHE_PATH = __DIR__ .'/../cache/';
 
     /**
      * Die Speicher-Dauer einer Cache-Datei
      */
-    private const string CACHE_DURATION = 'PT1H';
+    private const CACHE_DURATION = 'PT1H';
 
     /**
      * Prüft, ob ein Element im Cache vorhanden ist und gibt dieses zurück
@@ -32,7 +32,7 @@ class CacheService
         if ($jsonContent === null) {
             return null;
         }
-        if ($jsonContent['timestamp'] < new \DateTimeImmutable()->getTimestamp()) {
+        if ($jsonContent['timestamp'] < (new \DateTimeImmutable())->getTimestamp()) {
             self::deleteFile($key);
             return null;
         }
@@ -49,7 +49,7 @@ class CacheService
     public static function set(string $key, mixed $value): void
     {
         $location = self::CACHE_PATH . md5($key);
-        $timestamp = new \DateTimeImmutable()->add(new \DateInterval(self::CACHE_DURATION))->getTimestamp();
+        $timestamp = (new \DateTimeImmutable())->add(new \DateInterval(self::CACHE_DURATION))->getTimestamp();
         $data = [
             'timestamp' => $timestamp,
             'data' => $value,

@@ -90,14 +90,14 @@ class AccountRepository
     public static function updatePassword(string $newPassword, string $username): ?Account
     {
 
-        $hashedPassword = password_hash($newPassword, PASSWORD_ARGON2ID);
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
         $params = [
             "newPassword" => $hashedPassword,
             "username" => $username,
         ];
 
-        return QueryAbstraction::executeReturning(Account::class, "UPDATE account SET password = :newPassword WHERE username = :username;", $params);
+        return QueryAbstraction::executeReturning(Account::class, "UPDATE account SET password = :newPassword WHERE username = :username", $params);
     }
 
     /**

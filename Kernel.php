@@ -56,6 +56,7 @@ class Kernel
 
 
             $errorMessage = $exception->getMessage();
+            var_dump($exception->getTrace());
             $acceptHeader = $_SERVER['HTTP_ACCEPT'] ?? null;
             if (str_contains($acceptHeader, 'application/json')) {
                 header('Content-type: application/json');
@@ -117,6 +118,9 @@ class Kernel
 
             if (str_ends_with($realPath, '.css')) {
                 $mimeType = 'text/css';
+            }
+            if (str_ends_with($realPath, '.js')) {
+                $mimeType = 'application/javascript';
             }
 
             header('Content-Type: ' . $mimeType);

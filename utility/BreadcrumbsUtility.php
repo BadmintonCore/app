@@ -13,12 +13,12 @@ class BreadcrumbsUtility
     /**
      * Der Name des Query-Parameters, der im JS benutzt wird, um die Breadcrumbs zu laden
      */
-    public const string FIELD_NAME = 'breadcrumpsContent';
+    public const FIELD_NAME = 'breadcrumpsContent';
 
     /**
      * Der Root-Path für die Breadcrumbs
      */
-    private const array ROOT_PATH = ['name' => 'Startseite', 'url' => '/'];
+    private const ROOT_PATH = ['name' => 'Startseite', 'url' => '/'];
 
 
     /**

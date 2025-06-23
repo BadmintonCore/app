@@ -25,7 +25,7 @@ foreach ($products as $product) : ?>
         <br>
         <h2><a href="<?= $uri ?>"><?= $product->name ?></a></h2>
         <h4 class="price-field with-discount">
-            <?= $product->getDiscountedPrice() ?>
+            <?= $product->getDiscountedPrice() ?> €
             <?php if ($product->discount > 0): ?>
                 <div class="discount-badge">-<?=$product->discount * 100 ?>%</div>
             <?php endif; ?>
