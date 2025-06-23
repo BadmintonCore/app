@@ -123,8 +123,7 @@ class QueryAbstraction
     {
         QueryAbstraction::prepareAndExecuteStatement($query, $params);
 
-        /** @var array<string, int|bool|string|null>|null|false $assoc */
-        $assoc =  self::mariaDB100428ReturningWrapper($query, self::normalizeParams($params));
+        $assoc =  self::mariaDB100428ReturningWrapper($query, self::normalizeParams($query, $params));
         return self::convertAssocToClass($className, $assoc);
     }
 
@@ -144,7 +143,7 @@ class QueryAbstraction
             throw new \RuntimeException("Du musst eine Datenbankverbindung initialisieren, um Abfragen auszuführen.");
         }
 
-        $normalizedParams = self::normalizeParams($params);
+        $normalizedParams = self::normalizeParams($query, $params);
         $statement = $connection->prepare($query);
         self::bindParams($statement, $normalizedParams);
 
@@ -232,18 +231,27 @@ class QueryAbstraction
         return $instance;
     }
 
+    /**
+     * Wrapper für das native "RETURNING *", da dies in MariaDB 10.4.28 nicht vorhanden ist, die
+     * Entwicklung der Anwendung aber auf MariaDB 11 stattfand.
+     *
+     * @param string $query
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>>  $params
+     * @return array<string, int|bool|string|null>
+     */
     private static function mariaDB100428ReturningWrapper(string $query, array $params): array
     {
+        /** @phpstan-ignore-next-line strtok immer erfolgreich */
         $queryType = strtoupper(strtok(trim($query), " "));
 
-        /** @var ?\PDO $pdo */
+        /** @var \PDO $pdo */
         $pdo = $GLOBALS['dbConnection'];
 
         $lastId = $pdo->lastInsertId();
 
         if ($queryType === 'INSERT') {
             // Extract table name
-            if (!preg_match('/INSERT\s+INTO\s+`?(\w+)`?/i', $query, $matches)) {
+            if (false === preg_match('/INSERT\s+INTO\s+`?(\w+)`?/i', $query, $matches)) {
                 throw new DatabaseException("Failed to parse table name from INSERT.", 0, null);
             }
             $table = $matches[1];
@@ -260,7 +268,7 @@ class QueryAbstraction
             $stmt->execute([$table]);
             $pk = $stmt->fetchColumn();
 
-            if (!$pk) {
+            if (false === $pk || null === $pk) {
                 throw new DatabaseException("No AUTO_INCREMENT column found for table `$table`.", 0, null);
             }
 
@@ -272,7 +280,7 @@ class QueryAbstraction
 
         } elseif ($queryType === 'UPDATE') {
             // Extract table name and WHERE clause
-            if (!preg_match('/UPDATE\s+`?(\w+)`?\s+SET\s+.+?\s+WHERE\s+(.+)/is', $query, $matches)) {
+            if (false === preg_match('/UPDATE\s+`?(\w+)`?\s+SET\s+.+?\s+WHERE\s+(.+)/is', $query, $matches)) {
                 throw new DatabaseException("Failed to parse table name or WHERE clause from UPDATE.", 0, null);
             }
             $table = $matches[1];
@@ -306,10 +314,10 @@ class QueryAbstraction
     /**
      * Normalisiert die Parameter, damit sie in der Query genutzt werden können
      *
-     * @param array $params
-     * @return array
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params
+     * @return array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>>
      */
-    private static function normalizeParams(array $params): array
+    private static function normalizeParams(string &$query, array $params): array
     {
         $normalizedParams = [];
 
@@ -342,6 +350,13 @@ class QueryAbstraction
         return $normalizedParams;
     }
 
+    /**
+     * Bindet alle Parameter an das Statement
+     *
+     * @param \PDOStatement $stmt
+     * @param array<string, float|int|bool|string|null|array<int, int|bool|string|null|float>> $params
+     * @return void
+     */
     private static function bindParams(\PDOStatement &$stmt, array $params): void
     {
         foreach ($params as $key => $value) {

@@ -1,4 +1,5 @@
 <?php
+
 /** Author: Mathis Burger */
 
 // Wird immer aufgerufen, außer es existiert eine Datei im public Ordner (Konfiguration in .htaccess)

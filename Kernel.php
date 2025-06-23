@@ -88,15 +88,14 @@ class Kernel
     {
         try {
             $dbConnection = new \PDO("mysql:host=127.0.0.1;dbname=vestis", "root");
+            // We want to use OOP approach of PHP. Therefore, we set PDO to use exceptions instead of errors.
+            $dbConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            // Declare database connection as global variable. It can be now found at $_GLOBALS['dbConnection']
+            $GLOBALS['dbConnection'] = $dbConnection;
         } catch (Throwable $exception) {
             echo $exception->getMessage();
         }
-
-        // We want to use OOP approach of PHP. Therefore, we set PDO to use exceptions instead of errors.
-        $dbConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-        // Declare database connection as global variable. It can be now found at $_GLOBALS['dbConnection']
-        $GLOBALS['dbConnection'] = $dbConnection;
     }
 
     private function serveStaticFile(): void
@@ -110,11 +109,19 @@ class Kernel
         $publicDir = realpath(__DIR__);
         $realPath = realpath($filePath);
 
-        if ($realPath !== false && str_starts_with($realPath, $publicDir) && is_file($realPath)) {
+        if ($publicDir === false || $realPath === false) {
+            return;
+        }
+
+        if (str_starts_with($realPath, $publicDir) && is_file($realPath)) {
             // Serve the file with correct headers
 
             // Get mime type (fallback to octet-stream)
-            $mimeType = mime_content_type($realPath) ?: 'application/octet-stream';
+            $mimeType = mime_content_type($realPath);
+
+            if ($mimeType === false) {
+                $mimeType = 'application/octet-stream';
+            }
 
             if (str_ends_with($realPath, '.css')) {
                 $mimeType = 'text/css';
