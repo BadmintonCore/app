@@ -299,7 +299,7 @@ class QueryAbstraction
             // Fetch the inserted row
             $stmt = $pdo->prepare("SELECT * FROM `$table` WHERE `$pk` = ?");
             $stmt->execute([$lastId]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
 
         } elseif ($queryType === 'UPDATE') {
             // Extract table name and WHERE clause

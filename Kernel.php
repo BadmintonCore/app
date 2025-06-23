@@ -11,6 +11,9 @@ class Kernel
 {
     public function run(): void
     {
+        error_reporting(E_ALL);
+        ini_set('display_errors', '1');
+
         $this->initializeDatabaseConnection();
         $this->initializeSession();
         $this->serveStaticFile();
@@ -83,7 +86,7 @@ class Kernel
     private function initializeDatabaseConnection(): void
     {
         try {
-            $dbConnection = new \PDO("mysql:host=127.0.0.1;dbname=vestis", "lasse2", "webtech");
+            $dbConnection = new \PDO("mysql:host=127.0.0.1;dbname=vestis", "root");
         } catch (Throwable $exception) {
             echo $exception->getMessage();
         }

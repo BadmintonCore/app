@@ -235,6 +235,9 @@ class ProductTypeRepository
         $top10 = QueryAbstraction::fetchManyAs(null, "SELECT productTypeId FROM product WHERE accId IS NOT NULL GROUP BY productTypeId ORDER BY COUNT(id) LIMIT 10");
         /** @var int[] $ids */
         $ids = array_column($top10, 'productTypeId');
+        if (count($ids) === 0) {
+            return [];
+        }
         return QueryAbstraction::fetchManyAs(ProductType::class, "SELECT * FROM productType WHERE id IN :top10Ids", ["top10Ids" => $ids]);
     }
 }

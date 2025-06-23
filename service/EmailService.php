@@ -12,7 +12,7 @@ use Vestis\Utility\PasswordGeneratorUtility;
  */
 class EmailService
 {
-    private const string Headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
+    private const Headers = 'From: noreply@vestis.shop' . "\r\n" . "Content-type: text/plain; charset=UTF-8\r\n";
 
     /**
      * Sendet eine E-Mail zur Bestätigung der Registrierung an den Accountinhaber
@@ -38,9 +38,7 @@ class EmailService
             $account->firstname,
             $account->surname
         );
-        if (false === mail($account->email, $subject, $message, self::Headers)) {
-            throw new EmailException("Kann Registrierungs-Mail nicht versenden.");
-        }
+        mail($account->email, $subject, $message, self::Headers);
     }
 
     /**
@@ -69,9 +67,7 @@ class EmailService
             $order->id,
             $order->getDiscountedSum()
         );
-        if (false === mail($order->getAccount()->email, $subject, $message, self::Headers)) {
-            throw new EmailException("Cannot send order confirmation email");
-        }
+        mail($order->getAccount()->email, $subject, $message, self::Headers);
     }
 
     /**
@@ -99,9 +95,7 @@ class EmailService
             $order->getAccount()->surname,
             $order->id
         );
-        if (false === mail($order->getAccount()->email, $subject, $message, self::Headers)) {
-            throw new EmailException("Cannot send cancel confirmation email");
-        }
+        mail($order->getAccount()->email, $subject, $message, self::Headers);
     }
 
     /**
@@ -129,9 +123,7 @@ class EmailService
             $account->surname,
             PasswordGeneratorUtility::generatePassword($account)
         );
-        if (false === mail($account->email, $subject, $message, self::Headers)) {
-            throw new EmailException("Kann Passwort-Mail nicht versenden.");
-        }
+        mail($account->email, $subject, $message, self::Headers);
     }
 
 }
