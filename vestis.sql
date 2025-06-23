@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Erstellungszeit: 23. Jun 2025 um 21:23
--- Server-Version: 10.4.28-MariaDB
--- PHP-Version: 8.2.4
+-- Generation Time: Jun 23, 2025 at 11:21 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `vestis`
+-- Database: `vestis`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `account`
+-- Table structure for table `account`
 --
 
 CREATE TABLE `account` (
@@ -39,16 +39,17 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `account`
+-- Dumping data for table `account`
 --
 
 INSERT INTO `account` (`id`, `type`, `firstname`, `surname`, `username`, `email`, `password`, `isBlocked`) VALUES
-(16, 'C', 'Max', 'Mustermann', 'mmustermann', 'max@mustermail.com', '$2y$10$PBW5oS7ocMz4cQfZcRWWIeJs6Mdr2JRroduBxnZdjn20IF6Zq5ZGm', 0);
+(27, 'C', 'Max', 'Mustermann', 'maxmusti', 'max@mustermail.de', '$2y$10$DOzQ5.kRAR9PntLF7wURaekepQZbWkwW1hVprbx9I8ZbxM92czW/C', 0),
+(28, 'A', 'Admin', 'Istrator', 'admin', 'admin@system.org', '$2y$10$/Vkc9FerppYi1Zt4rq2Kk.8AmjklPYE4CDqz93VKX4UzTl.DL4OwK', 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `address`
+-- Table structure for table `address`
 --
 
 CREATE TABLE `address` (
@@ -63,7 +64,7 @@ CREATE TABLE `address` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `allowedColor`
+-- Table structure for table `allowedColor`
 --
 
 CREATE TABLE `allowedColor` (
@@ -71,10 +72,17 @@ CREATE TABLE `allowedColor` (
   `colorId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `allowedColor`
+--
+
+INSERT INTO `allowedColor` (`productTypeId`, `colorId`) VALUES
+(1, 2);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `allowedSize`
+-- Table structure for table `allowedSize`
 --
 
 CREATE TABLE `allowedSize` (
@@ -82,10 +90,17 @@ CREATE TABLE `allowedSize` (
   `sizeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `allowedSize`
+--
+
+INSERT INTO `allowedSize` (`productTypeId`, `sizeId`) VALUES
+(1, 4);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -94,10 +109,21 @@ CREATE TABLE `category` (
   `parentCategoryId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `parentCategoryId`) VALUES
+(1, 'Wearables', NULL),
+(2, 'Sweater', 1),
+(3, 'Shirts', 1),
+(4, 'Bags', 5),
+(5, 'Asessours', NULL);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `color`
+-- Table structure for table `color`
 --
 
 CREATE TABLE `color` (
@@ -106,10 +132,22 @@ CREATE TABLE `color` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `color`
+--
+
+INSERT INTO `color` (`id`, `hex`, `name`) VALUES
+(1, 'db3333', 'Rot'),
+(2, '000000', 'Schwarz'),
+(3, 'ffffff', 'Weiß'),
+(4, '1f73e0', 'Blau'),
+(5, 'c96e6e', 'Beige'),
+(6, '26990f', 'Grün');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `feedback`
+-- Table structure for table `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -124,7 +162,7 @@ CREATE TABLE `feedback` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `globalConfig`
+-- Table structure for table `globalConfig`
 --
 
 CREATE TABLE `globalConfig` (
@@ -133,12 +171,12 @@ CREATE TABLE `globalConfig` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `globalConfig`
+-- Dumping data for table `globalConfig`
 --
 
 INSERT INTO `globalConfig` (`attribute`, `value`) VALUES
 ('ABOUT_US_CONTENT', '<p class = \"large-text\">\n            Wir sind eine junge, trendbewusste Mode-Marke, die es sich zur Aufgabe gemacht hat, Mode für alle zu <br>\n            kreieren, die ihren eigenen Stil leben und sich selbstbewusst ausdrücken möchten. Unsere Kollektionen <br>\n            kombinieren Qualität, Komfort und aktuelle Trends, um dir die perfekte Mischung aus Alltagsbekleidung <br>\n            und Statement-Pieces zu bieten. <br>\n            Bei vestis. findest du Outfits, die nicht nur gut aussehen, sondern sich auch gut anfühlen. Wir setzen auf\n            <br>\n            nachhaltige Materialien und faire Produktion, um dir nicht nur modische, sondern auch verantwortungsbewusste\n            <br>\n            Kleidung zu bieten.\n        </p>\n        <p class = \"large-text\">\n            Entdecke deine neue Lieblingsmode bei uns und lass dich von unseren Designs inspirieren – für jeden Moment,\n            <br>\n            für deinen Style, für dich!\n        </p>'),
-('FAQ_CONTENT', '<p class=\"large-text\">\n            <b>1. Wie lange dauert der Versand?</b> <br>\n            Die Lieferzeit beträgt in der Regel 2–5 Werktage innerhalb Deutschlands. <br>\n            Sollte es zu Verzögerungen kommen, informieren wir Sie umgehend per E-Mail.\n        </p>\n\n        <p class=\"large-text\">\n            <b>2. Welche Zahlungsmethoden werden akzeptiert?</b> <br>\n            Sie können bei uns per Vorkasse, PayPal, Kreditkarte oder Sofortüberweisung bezahlen.\n        </p>\n\n        <p class=\"large-text\">\n            <b>3. Wie kann ich meine Bestellung stornieren?</b> <br>\n            Bitte kontaktieren Sie unseren Kundenservice so schnell wie möglich per E-Mail oder Telefon. <br>\n            Sollte die Bestellung noch nicht versandt worden sein, können wir sie problemlos stornieren.\n        </p>\n\n        <p class=\"large-text\">\n            <b>4. Was mache ich, wenn meine Bestellung beschädigt ankommt?</b> <br>\n            Bitte dokumentieren Sie die Beschädigung mit Fotos und melden Sie sich umgehend bei unserem Kundenservice. <br>\n            Wir kümmern uns schnellstmöglich um Ersatz oder Rückerstattung.\n        </p>\n\n        <p class=\"large-text\">\n            <b>5. Kann ich Artikel umtauschen?</b> <br>\n            Ein direkter Umtausch ist leider nicht möglich. <br>\n            Bitte senden Sie den Artikel zurück und bestellen Sie den gewünschten Artikel neu.\n        </p>\n\n        <p class=\"large-text\">\n            <b>6. Wo finde ich meine Rechnung?</b> <br>\n            Ihre Rechnung erhalten Sie per E-Mail nach Abschluss der Bestellung. <br>\n            Alternativ können Sie sie in Ihrem Kundenkonto herunterladen, sofern Sie eines angelegt haben.\n        </p>\n\n        <p class=\"large-text\">\n            <b>7. Muss ich ein Kundenkonto anlegen, um zu bestellen?</b> <br>\n            Nein, Sie können auch als Gast bestellen. Ein Kundenkonto bietet jedoch Vorteile <br>\n            wie die Einsicht in frühere Bestellungen und schnelleren Bestellvorgang.\n        </p>\n\n        <p class=\"large-text\">\n            <b>8. Kann ich meine Lieferadresse nachträglich ändern?</b> <br>\n            Bitte kontaktieren Sie uns so schnell wie möglich. <br>\n            Solange die Bestellung noch nicht versendet wurde, können wir die Adresse ändern.\n        </p>\n\n        <p class=\"large-text\">\n            <b>9. Was passiert, wenn ich bei der Lieferung nicht zu Hause bin?</b> <br>\n            Der Versanddienstleister hinterlässt in der Regel eine Benachrichtigungskarte <br>\n            mit Informationen zur Abholung oder einem neuen Zustellversuch.\n        </p>\n\n        <p class=\"large-text\">\n            <b>10. Wie kann ich den Status meiner Bestellung verfolgen?</b> <br>\n            Nach dem Versand erhalten Sie von uns eine E-Mail mit einem Link zur Sendungsverfolgung. <br>\n            So wissen Sie jederzeit, wo sich Ihr Paket befindet.\n        </p>\n\n        <p class=\"large-text\">\n            <b>11. Was kostet der Versand?</b> <br>\n            Die genauen Versandkosten werden im Bestellvorgang deutlich angezeigt. <br>\n            Ab einem bestimmten Bestellwert kann der Versand kostenlos sein – die Bedingungen finden Sie auf unserer Website.\n        </p>'),
+('FAQ_CONTENT', '<p class=\"large-text\">\r\n            <b>1. Wie lange dauert der Versand?</b> <br>\r\n            Die Lieferzeit beträgt in der Regel 2–5 Werktage innerhalb Deutschlands. <br>\r\n            Sollte es zu Verzögerungen kommen, informieren wir Sie umgehend per E-Mail.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>2. Welche Zahlungsmethoden werden akzeptiert?</b> <br>\r\n            Sie können bei uns per Vorkasse, PayPal, Kreditkarte oder Sofortüberweisung bezahlen.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>3. Wie kann ich meine Bestellung stornieren?</b> <br>\r\n            Bitte kontaktieren Sie unseren Kundenservice so schnell wie möglich per E-Mail oder Telefon. <br>\r\n            Sollte die Bestellung noch nicht versandt worden sein, können wir sie problemlos stornieren.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>4. Was mache ich, wenn meine Bestellung beschädigt ankommt?</b> <br>\r\n            Bitte dokumentieren Sie die Beschädigung mit Fotos und melden Sie sich umgehend bei unserem Kundenservice. <br>\r\n            Wir kümmern uns schnellstmöglich um Ersatz oder Rückerstattung.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>5. Kann ich Artikel umtauschen?</b> <br>\r\n            Ein direkter Umtausch ist leider nicht möglich. <br>\r\n            Bitte senden Sie den Artikel zurück und bestellen Sie den gewünschten Artikel neu.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>6. Wo finde ich meine Rechnung?</b> <br>\r\n            Ihre Rechnung erhalten Sie per E-Mail nach Abschluss der Bestellung. <br>\r\n            Alternativ können Sie sie in Ihrem Kundenkonto herunterladen, sofern Sie eines angelegt haben.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>7. Muss ich ein Kundenkonto anlegen, um zu bestellen?</b> <br>\r\n            Nein, Sie können auch als Gast bestellen. Ein Kundenkonto bietet jedoch Vorteile <br>\r\n            wie die Einsicht in frühere Bestellungen und schnelleren Bestellvorgang.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>8. Kann ich meine Lieferadresse nachträglich ändern?</b> <br>\r\n            Bitte kontaktieren Sie uns so schnell wie möglich. <br>\r\n            Solange die Bestellung noch nicht versendet wurde, können wir die Adresse ändern.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>9. Was passiert, wenn ich bei der Lieferung nicht zu Hause bin?</b> <br>\r\n            Der Versanddienstleister hinterlässt in der Regel eine Benachrichtigungskarte <br>\r\n            mit Informationen zur Abholung oder einem neuen Zustellversuch.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>10. Wie kann ich den Status meiner Bestellung verfolgen?</b> <br>\r\n            Nach dem Versand erhalten Sie von uns eine E-Mail mit einem Link zur Sendungsverfolgung. <br>\r\n            So wissen Sie jederzeit, wo sich Ihr Paket befindet.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>11. Was kostet der Versand?</b> <br>\r\n            Die genauen Versandkosten werden im Bestellvorgang deutlich angezeigt. <br>\r\n            Ab einem bestimmten Bestellwert kann der Versand kostenlos sein – die Bedingungen finden Sie auf unserer Website.\r\n        </p>'),
 ('FOOTER_FACEBOOK_LINK', 'https://facebook.com'),
 ('FOOTER_HEADING', 'Bleibe immer einen Stil voraus'),
 ('FOOTER_INSTAGRAM_LINK', 'https://instagram.com'),
@@ -161,7 +199,7 @@ INSERT INTO `globalConfig` (`attribute`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `image`
+-- Table structure for table `image`
 --
 
 CREATE TABLE `image` (
@@ -173,7 +211,7 @@ CREATE TABLE `image` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `joinAddressAcc`
+-- Table structure for table `joinAddressAcc`
 --
 
 CREATE TABLE `joinAddressAcc` (
@@ -185,7 +223,7 @@ CREATE TABLE `joinAddressAcc` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `newsletter`
+-- Table structure for table `newsletter`
 --
 
 CREATE TABLE `newsletter` (
@@ -193,16 +231,17 @@ CREATE TABLE `newsletter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `newsletter`
+-- Dumping data for table `newsletter`
 --
 
 INSERT INTO `newsletter` (`email`) VALUES
-('');
+(''),
+('max@mustermail.de');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `orderProduct`
+-- Table structure for table `orderProduct`
 --
 
 CREATE TABLE `orderProduct` (
@@ -213,7 +252,7 @@ CREATE TABLE `orderProduct` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -229,7 +268,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `product`
+-- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
@@ -248,7 +287,7 @@ CREATE TABLE `product` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `productImage`
+-- Table structure for table `productImage`
 --
 
 CREATE TABLE `productImage` (
@@ -259,7 +298,7 @@ CREATE TABLE `productImage` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `productType`
+-- Table structure for table `productType`
 --
 
 CREATE TABLE `productType` (
@@ -276,10 +315,17 @@ CREATE TABLE `productType` (
   `discount` float DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `productType`
+--
+
+INSERT INTO `productType` (`id`, `categoryId`, `name`, `material`, `price`, `description`, `collection`, `careInstructions`, `origin`, `extraFields`, `discount`) VALUES
+(1, 2, 'Produkt 01', '100% Bio-Baumwolle', 199, 'Unser erster Sweater', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, auf links waschen, nicht in den Trockner geben.', 'Made in Germany', '{}', 0);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `product_reviews`
+-- Table structure for table `product_reviews`
 --
 
 CREATE TABLE `product_reviews` (
@@ -294,7 +340,7 @@ CREATE TABLE `product_reviews` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `shoppingCart`
+-- Table structure for table `shoppingCart`
 --
 
 CREATE TABLE `shoppingCart` (
@@ -305,10 +351,19 @@ CREATE TABLE `shoppingCart` (
   `inviteSecret` varchar(255) DEFAULT '123'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `shoppingCart`
+--
+
+INSERT INTO `shoppingCart` (`accId`, `cartNumber`, `isShared`, `name`, `inviteSecret`) VALUES
+(27, 1, 0, NULL, 'ulQoZ64mzJddcojIJyYzaYdF-EwPYFNS7lgeqTkkTDs9-VZjxemGvx8QiGEDXyVl-nskDY8hmgEywkGKqCzlHVipbkllFwNzczFGQeGZa1zlvRNergIKMnQjUEa3sMO9tMligQzV6Yp_oplbIfq0j_hCG9gOD-v4YJiUhcHRWEDHKcoYgocDsyJNcO-3-I9MiX8Ll3vcdJAI3S7JR_YfVv7bl4c9Q6Kgr-cLJJauSyHUHuZKvunf-WjSv-fV2BF'),
+(27, 2, 1, 'Weihnachtsgeschenke', 'bp6Xqz4ORqDY49M35cf6g1yLJ-GgBFPiITGOuIJt31E1hDbtbDCzpqdjjwgiWCHx0opJ8wLxBY8wdm6fHewYRp947vzEtu26285ibLYn9yt8z1S6xYoAT4YJpxzRKum9IrkJOI5dwuR0RJ8KIwgfXlJ9dDYI4HUxoour66Rzb3S4wKk9WHzQRoM0uQv4BqKpevuNiqeyrtGXrk41rntH2fRRqL-1m7gIupBt5HFZvPHY0LghhIOLciAH1MOdxvn'),
+(28, 1, 0, NULL, 'vNRWT-T6r2r8Ys8KP7ABGFZhI8cNmZ_2LEGfLhnVl2YfOnitUetLktjl-lhNy9K8dsS_tIajBxtCoeNNsoF_Wm3X9NRMtmwvxH0CMoQlBJMk4EsnLFsRhaJgwzQ-v0_td69pfbFaZVBpMx4UPlsWx716Hqkny29H2PXjx-_y4ZP3tb9nXB4W7U5uGZrCrEnpoM48BHHmdKTkF4yUIXo-cQ3JS8n0XSbpcOVFgn7-E5mqX88dGJ0nwPJg6beWetT');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `shoppingCartMember`
+-- Table structure for table `shoppingCartMember`
 --
 
 CREATE TABLE `shoppingCartMember` (
@@ -320,7 +375,7 @@ CREATE TABLE `shoppingCartMember` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `size`
+-- Table structure for table `size`
 --
 
 CREATE TABLE `size` (
@@ -328,10 +383,22 @@ CREATE TABLE `size` (
   `size` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `size`
+--
+
+INSERT INTO `size` (`id`, `size`) VALUES
+(1, 'XS'),
+(2, 'S'),
+(3, 'M'),
+(4, 'L'),
+(5, 'XL'),
+(6, 'XXL');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `userConfig`
+-- Table structure for table `userConfig`
 --
 
 CREATE TABLE `userConfig` (
@@ -343,7 +410,7 @@ CREATE TABLE `userConfig` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `wishlist`
+-- Table structure for table `wishlist`
 --
 
 CREATE TABLE `wishlist` (
@@ -353,11 +420,11 @@ CREATE TABLE `wishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indizes der exportierten Tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indizes für die Tabelle `account`
+-- Indexes for table `account`
 --
 ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
@@ -365,99 +432,99 @@ ALTER TABLE `account`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indizes für die Tabelle `address`
+-- Indexes for table `address`
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `allowedColor`
+-- Indexes for table `allowedColor`
 --
 ALTER TABLE `allowedColor`
   ADD PRIMARY KEY (`productTypeId`,`colorId`);
 
 --
--- Indizes für die Tabelle `allowedSize`
+-- Indexes for table `allowedSize`
 --
 ALTER TABLE `allowedSize`
   ADD PRIMARY KEY (`productTypeId`,`sizeId`);
 
 --
--- Indizes für die Tabelle `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `color`
+-- Indexes for table `color`
 --
 ALTER TABLE `color`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `feedback`
+-- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `globalConfig`
+-- Indexes for table `globalConfig`
 --
 ALTER TABLE `globalConfig`
   ADD PRIMARY KEY (`attribute`);
 
 --
--- Indizes für die Tabelle `image`
+-- Indexes for table `image`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `joinAddressAcc`
+-- Indexes for table `joinAddressAcc`
 --
 ALTER TABLE `joinAddressAcc`
   ADD PRIMARY KEY (`accountId`,`addressId`,`type`);
 
 --
--- Indizes für die Tabelle `newsletter`
+-- Indexes for table `newsletter`
 --
 ALTER TABLE `newsletter`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indizes für die Tabelle `orderProduct`
+-- Indexes for table `orderProduct`
 --
 ALTER TABLE `orderProduct`
   ADD PRIMARY KEY (`orderId`,`productId`);
 
 --
--- Indizes für die Tabelle `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `product`
+-- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`,`productTypeId`),
   ADD KEY `fk_shoppingCart` (`accId`,`shoppingCartNumber`);
 
 --
--- Indizes für die Tabelle `productImage`
+-- Indexes for table `productImage`
 --
 ALTER TABLE `productImage`
   ADD PRIMARY KEY (`productTypeId`,`imageId`),
   ADD KEY `imageId` (`imageId`);
 
 --
--- Indizes für die Tabelle `productType`
+-- Indexes for table `productType`
 --
 ALTER TABLE `productType`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `product_reviews`
+-- Indexes for table `product_reviews`
 --
 ALTER TABLE `product_reviews`
   ADD PRIMARY KEY (`id`),
@@ -465,144 +532,144 @@ ALTER TABLE `product_reviews`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indizes für die Tabelle `shoppingCart`
+-- Indexes for table `shoppingCart`
 --
 ALTER TABLE `shoppingCart`
   ADD PRIMARY KEY (`accId`,`cartNumber`);
 
 --
--- Indizes für die Tabelle `shoppingCartMember`
+-- Indexes for table `shoppingCartMember`
 --
 ALTER TABLE `shoppingCartMember`
   ADD PRIMARY KEY (`userId`,`accId`,`cartNumber`),
   ADD KEY `accId` (`accId`,`cartNumber`);
 
 --
--- Indizes für die Tabelle `size`
+-- Indexes for table `size`
 --
 ALTER TABLE `size`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `userConfig`
+-- Indexes for table `userConfig`
 --
 ALTER TABLE `userConfig`
   ADD PRIMARY KEY (`attribute`,`accId`);
 
 --
--- Indizes für die Tabelle `wishlist`
+-- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
   ADD PRIMARY KEY (`accId`,`productTypeId`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT für Tabelle `account`
+-- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT für Tabelle `address`
+-- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT für Tabelle `color`
+-- AUTO_INCREMENT for table `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT für Tabelle `feedback`
+-- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `image`
+-- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `product`
+-- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `productType`
+-- AUTO_INCREMENT for table `productType`
 --
 ALTER TABLE `productType`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT für Tabelle `product_reviews`
+-- AUTO_INCREMENT for table `product_reviews`
 --
 ALTER TABLE `product_reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `size`
+-- AUTO_INCREMENT for table `size`
 --
 ALTER TABLE `size`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints der exportierten Tabellen
+-- Constraints for dumped tables
 --
 
 --
--- Constraints der Tabelle `allowedSize`
+-- Constraints for table `allowedSize`
 --
 ALTER TABLE `allowedSize`
   ADD CONSTRAINT `allowedsize_ibfk_1` FOREIGN KEY (`productTypeId`) REFERENCES `productType` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `allowedsize_ibfk_2` FOREIGN KEY (`productTypeId`) REFERENCES `productType` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `product`
+-- Constraints for table `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_shoppingCart` FOREIGN KEY (`accId`,`shoppingCartNumber`) REFERENCES `shoppingCart` (`accId`, `cartNumber`) ON DELETE SET NULL;
 
 --
--- Constraints der Tabelle `productImage`
+-- Constraints for table `productImage`
 --
 ALTER TABLE `productImage`
   ADD CONSTRAINT `productimage_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `image` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `product_reviews`
+-- Constraints for table `product_reviews`
 --
 ALTER TABLE `product_reviews`
   ADD CONSTRAINT `product_reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `product_reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`);
 
 --
--- Constraints der Tabelle `shoppingCart`
+-- Constraints for table `shoppingCart`
 --
 ALTER TABLE `shoppingCart`
   ADD CONSTRAINT `shoppingcart_ibfk_1` FOREIGN KEY (`accId`) REFERENCES `account` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `shoppingCartMember`
+-- Constraints for table `shoppingCartMember`
 --
 ALTER TABLE `shoppingCartMember`
   ADD CONSTRAINT `shoppingcartmember_ibfk_1` FOREIGN KEY (`accId`,`cartNumber`) REFERENCES `shoppingCart` (`accId`, `cartNumber`) ON DELETE CASCADE;
