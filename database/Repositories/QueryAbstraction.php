@@ -250,13 +250,11 @@ class QueryAbstraction
         $lastId = $pdo->lastInsertId();
 
         if ($queryType === 'INSERT') {
-            // Extract table name
             if (false === preg_match('/INSERT\s+INTO\s+`?(\w+)`?/i', $query, $matches)) {
                 throw new DatabaseException("Failed to parse table name from INSERT.", 0, null);
             }
             $table = $matches[1];
 
-            // Get auto-increment column name
             $stmt = $pdo->prepare("
         SELECT COLUMN_NAME
         FROM INFORMATION_SCHEMA.COLUMNS
@@ -273,13 +271,11 @@ class QueryAbstraction
             }
 
 
-            // Fetch the inserted row
             $stmt = $pdo->prepare("SELECT * FROM `$table` WHERE `$pk` = ?");
             $stmt->execute([$lastId]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
 
         } elseif ($queryType === 'UPDATE') {
-            // Extract table name and WHERE clause
             if (false === preg_match('/UPDATE\s+`?(\w+)`?\s+SET\s+.+?\s+WHERE\s+(.+)/is', $query, $matches)) {
                 throw new DatabaseException("Failed to parse table name or WHERE clause from UPDATE.", 0, null);
             }
@@ -289,7 +285,6 @@ class QueryAbstraction
                 $where = substr($where, 0, -1);  // remove trailing semicolon
             }
 
-            // Fetch updated rows using the same WHERE clause
             $selectQuery = "SELECT * FROM `$table` WHERE $where";
 
             $stmt = $pdo->prepare($selectQuery);
