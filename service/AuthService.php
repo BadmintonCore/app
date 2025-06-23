@@ -21,12 +21,12 @@ class AuthService
     /**
      * Die Dauer der Account-Sitzung in Sekunden (1 Stunde)
      */
-    private const int SESSION_DURATION = 3600;
+    private const SESSION_DURATION = 3600;
 
     /**
      * Die Dauer der langen Kontositzung in Sekunden (7 Tage)
      */
-    private const int LONG_SESSION_DURATION = 3600 * 24 * 7;
+    private const LONG_SESSION_DURATION = 3600 * 24 * 7;
 
 
     /**

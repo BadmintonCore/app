@@ -58,7 +58,7 @@ class ShoppingCartRepository
             'name' => $name,
             'isShared' => $isShared,
             'cartNumber' => $cartNumber,
-            'secret' => GeneratorUtility::generateSecret($accountId),
+            'secret' => GeneratorUtility::generateSecret(),
         ];
 
         QueryAbstraction::execute("INSERT INTO shoppingCart (accId, cartNumber, name, isShared, inviteSecret) VALUES (:accountId, :cartNumber, :name, :isShared, :secret)", $params);

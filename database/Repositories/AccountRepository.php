@@ -27,7 +27,7 @@ class AccountRepository
     public static function create(AccountType $type, string $firstName, string $surname, string $username, string $email, string $password): ?Account
     {
 
-        $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $params = [
             "type" => $type->value,

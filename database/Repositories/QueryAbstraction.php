@@ -2,6 +2,7 @@
 
 namespace Vestis\Database\Repositories;
 
+use PDO;
 use Vestis\Database\Dto\PaginationDto;
 use Vestis\Exception\DatabaseException;
 
@@ -120,14 +121,11 @@ class QueryAbstraction
      */
     public static function executeReturning(string $className, string $query, array $params = []): mixed
     {
-        $newQuery = sprintf("%s RETURNING *", $query);
-        $statement = QueryAbstraction::prepareAndExecuteStatement($newQuery, $params);
+        QueryAbstraction::prepareAndExecuteStatement($query, $params);
+
         /** @var array<string, int|bool|string|null>|null|false $assoc */
-        $assoc =  $statement->fetch(\PDO::FETCH_ASSOC) ?? null;
-        if (null !== $assoc && false !== $assoc) {
-            return self::convertAssocToClass($className, $assoc);
-        }
-        return null;
+        $assoc =  self::mariaDB100428ReturningWrapper($query);
+        return self::convertAssocToClass($className, $assoc);
     }
 
     /**
@@ -263,5 +261,67 @@ class QueryAbstraction
             }
         }
         return $instance;
+    }
+
+    private static function mariaDB100428ReturningWrapper(string $query): array
+    {
+        $queryType = strtoupper(strtok(trim($query), " "));
+
+        /** @var ?\PDO $pdo */
+        $pdo = $GLOBALS['dbConnection'];
+
+        $lastId = $pdo->lastInsertId();
+
+        if ($queryType === 'INSERT') {
+            // Extract table name
+            if (!preg_match('/INSERT\s+INTO\s+`?(\w+)`?/i', $query, $matches)) {
+                throw new DatabaseException("Failed to parse table name from INSERT.", 0, null);
+            }
+            $table = $matches[1];
+
+            // Get auto-increment column name
+            $stmt = $pdo->prepare("
+        SELECT COLUMN_NAME
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_SCHEMA = DATABASE()
+          AND TABLE_NAME = ?
+          AND EXTRA = 'auto_increment'
+        LIMIT 1
+    ");
+            $stmt->execute([$table]);
+            $pk = $stmt->fetchColumn();
+
+            if (!$pk) {
+                throw new DatabaseException("No AUTO_INCREMENT column found for table `$table`.", 0, null);
+            }
+
+
+            // Fetch the inserted row
+            $stmt = $pdo->prepare("SELECT * FROM `$table` WHERE `$pk` = ?");
+            $stmt->execute([$lastId]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } elseif ($queryType === 'UPDATE') {
+            // Extract table name and WHERE clause
+            if (!preg_match('/UPDATE\s+`?(\w+)`?\s+SET\s+.+?\s+WHERE\s+(.+)/is', $query, $matches)) {
+                throw new DatabaseException("Failed to parse table name or WHERE clause from UPDATE.", 0, null);
+            }
+            $table = $matches[1];
+            $where = trim($matches[2]);
+            if (str_ends_with($where, ';')) {
+                $where = substr($where, 0, -1);  // remove trailing semicolon
+            }
+
+            // Run the update
+            $pdo->exec($query);
+
+            // Fetch updated rows using the same WHERE clause
+            $selectQuery = "SELECT * FROM `$table` WHERE $where";
+            $stmt = $pdo->query($selectQuery);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } else {
+            throw new DatabaseException("Only INSERT and UPDATE statements are supported.", 0, null);
+        }
     }
 }
