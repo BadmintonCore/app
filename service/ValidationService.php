@@ -111,6 +111,9 @@ class ValidationService
                 if (!is_string($fieldValue)) {
                     throw new ValidationException(sprintf("Das Feld %s muss ein String sein.", $fieldName));
                 }
+                if (false === preg_match('/^(?:[\x20-\x7E]|\p{Emoji})+$/u', $fieldValue)) {
+                    throw new ValidationException("Der String darf nur ASCII Symbole und Emojis enthalten.");
+                }
                 if ($rule->type === ValidationType::String && strlen($fieldValue) > 255) {
                     throw new ValidationException(sprintf("Das Feld %s sollte nicht länger als 255 Zeichen sein.", $fieldName));
                 }
