@@ -56,7 +56,6 @@ class Kernel
 
 
             $errorMessage = $exception->getMessage();
-            var_dump($exception->getTrace());
             $acceptHeader = $_SERVER['HTTP_ACCEPT'] ?? null;
             if (str_contains($acceptHeader, 'application/json')) {
                 header('Content-type: application/json');

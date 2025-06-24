@@ -6,6 +6,7 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ImageRepository;
+use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Service\validation\ValidationRule;
@@ -62,7 +63,9 @@ class AdminImagesController
                 $destination = __DIR__ . '/../../public/uploads/' . $uniqueName;
 
                 // Vom Temp-Order in den uploads ordner
-                move_uploaded_file($tmpFile, $destination);
+                if (false === move_uploaded_file($tmpFile, $destination)) {
+                    throw new LogicException("Datei kann nicht bewegt werden");
+                }
 
                 ImageRepository::create($formData['name'], '/uploads/' . $uniqueName);
 
