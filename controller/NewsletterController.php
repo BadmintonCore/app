@@ -42,7 +42,7 @@ class NewsletterController
                 $errorMessage = $e->getMessage();
             }
         }
-        require_once __DIR__ . '/../views/index.php';
+        header('Location: /');
     }
 
 }
