@@ -2,48 +2,18 @@
 
 [![](https://tokei.rs/b1/github/BadmintonCore/app?category=lines)](https://github.com/XAMPPRocky/tokei)
 
-Dies ist unser Projekt für das WebTech Praktikum. TODO: Hier eine sinnvolle Einleitung
-
 
 ## Requirements
 
-- PHP 8.4
+- PHP 8.2
+- MariaDB 10.4.28 (10.5 preferred)
 - Apache2
 - Firefox
 
 ## Setup
 
-Docker setup: 
-
-```shell
-docker-compose up -d
-docker-compose exec -it php-server /bin/bash
-composer dump-autoload
-```
-
-XAMPP:
-
 1. Inhalt auf root-Ebene in den htdocs-Ordner laden
-2. SQL Dump laden
-3. Dem httpd user mit chmod Zugriff auf den cache Ordner und dem uploads Ordner im public ordner geben geben
-
-
-## Ordner Struktur
-
-- `.github/` Enthält Workflow-Konfigurationen, die zum automatischen Bauen und Bereitstellen des Docker Containers benötigt werden
-- `components/` Alle relevanten UI Komponenten, die in der Anwendung mehrfach verwendet werden
-- `conf/` Konfigurationsdateien für den Apache2 Server im Docker Container
-- `public/` Öffentlich verfügbare Dateien (Bilder, CSS, Javascript)
-- `pages/` Die Seiten, die aus dem Browser aus aufgerufen werden können
-- `database/` Alles, was mit der Datenbank / der Zugriffsschicht direkt zu tun hat
-- Bei dem Rest handelt es sich um Files, die nicht öffentlich zugänglich sein sollen (Business Logik / Persistence Abstraktionen / etc.)
-
-## Wie benutze ich das Währungssystem?
-
-Bei jedem HTML Element mit der Klasse `price-field` wird der Inhalt zu einem Float konveriert und anhand der aktuellen Forex-Kurse der jeweilige Preis in einer anderen Währung angezeigt.
-
-Um die Preise im nachhinein zu aktualisieren kann man die Funktion `updatePrices()` nutzen. Diese aktualisiert alle Preise im aktuellen Dokument
-
-## Wichtige Infos
-
-Wenn der Code nicht richtig formatiert ist einfach im Docker Container `vendor/bin/php-cs-fixer` ausführen.
+2. SQL Dump laden in das Schema `vestis`
+3. `mkdir cache && mkdir public/uploads`
+4. `chown -R daemon:daemon ./cache`
+5. `chown -R daemon:daemon ./public/uploads`
