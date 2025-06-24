@@ -21,9 +21,6 @@
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-    <!--Zurückbutton-->
-    <?php include(__DIR__."/../../components/back-btn.php"); ?>
-
     <h1>Fragen und Antworten</h1>
 
     <!--Abschnitt mit mehreren Absätzen-->
