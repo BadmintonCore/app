@@ -144,10 +144,11 @@ class QueryAbstraction
         }
 
         $normalizedParams = self::normalizeParams($query, $params);
-        $statement = $connection->prepare($query);
-        self::bindParams($statement, $normalizedParams);
 
         try {
+            $statement = $connection->prepare($query);
+            self::bindParams($statement, $normalizedParams);
+
             $statement->execute();
         } catch (\PDOException $e) {
             throw new DatabaseException($e->getMessage(), is_int($e->getCode()) ? $e->getCode() : -1, $e);

@@ -17,3 +17,6 @@
 3. `mkdir cache && mkdir public/uploads`
 4. `chown -R daemon:daemon ./cache`
 5. `chown -R daemon:daemon ./public/uploads`
+
+Admin Nutzer:
+Nutzername: `admin`, Passwort: `abc1234567`
