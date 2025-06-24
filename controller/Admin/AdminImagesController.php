@@ -28,7 +28,7 @@ class AdminImagesController
         AuthService::checkAccess(AccountType::Administrator);
         $page = PaginationUtility::getCurrentPage();
         $images = ImageRepository::findPaginated($page);
-        $errorMessage = $_GET["errorMessage"];
+        $errorMessage = $_GET["errorMessage"] ?? null;
         require_once __DIR__ . '/../../views/admin/images/list.php';
     }
 

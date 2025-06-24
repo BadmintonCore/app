@@ -28,7 +28,7 @@ class AdminSizesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $sizes = SizeRepository::findAll();
-        $errorMessage = $_GET["errorMessage"];
+        $errorMessage = $_GET["errorMessage"] ?? null;
         require_once __DIR__ . '/../../views/admin/sizes/list.php';
     }
 

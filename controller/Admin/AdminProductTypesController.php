@@ -35,7 +35,7 @@ class AdminProductTypesController
         AuthService::checkAccess(AccountType::Administrator);
         $page = PaginationUtility::getCurrentPage();
         $productTypes = ProductTypeRepository::findPaginated($page);
-        $errorMessage = $_GET["errorMessage"];
+        $errorMessage = $_GET["errorMessage"] ?? null;
         require_once __DIR__ . '/../../views/admin/productTypes/list.php';
     }
 

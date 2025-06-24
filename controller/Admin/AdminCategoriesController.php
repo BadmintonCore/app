@@ -28,7 +28,7 @@ class AdminCategoriesController
     {
         AuthService::checkAccess(AccountType::Administrator);
         $categories = CategoryRepository::findAll();
-        $errorMessage = $_GET["errorMessage"];
+        $errorMessage = $_GET["errorMessage"] ?? null;
         require_once __DIR__ . '/../../views/admin/categories/list.php';
     }
 
