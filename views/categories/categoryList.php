@@ -12,10 +12,7 @@ use Vestis\Utility\BreadcrumbsUtility;
 /** @var string|null $errorMessage */
 /** @var Color[] $colors */
 /** @var Size[] $sizes */
-/** @var int $minPrice */
-/** @var int $maxPrice */
 /** @var string|null $search */
-/** @var int $maxAllowedPrice */
 /** @var array<int, int> $allowedColors */
 /** @var array<int, int> $allowedSizes */
 
@@ -87,14 +84,6 @@ use Vestis\Utility\BreadcrumbsUtility;
                             <?= $size->size ?>
                         </label>
                         <?php endforeach; ?>
-                    </div>
-                </div>
-                <div class="option-box-with-title">
-                    <strong class="align-start">Preis</strong>
-                    <div class="flex-row">
-                        <span class="price-field"><?= $minPrice ?>€</span>
-                        <input type="range" min="<?= $minPrice ?>" max="<?= $maxPrice ?>" value="<?= $maxAllowedPrice ?>" name="price">
-                        <span class="price-field"><?= $maxPrice ?>€</span>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-sm">
