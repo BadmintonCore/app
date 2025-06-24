@@ -72,6 +72,10 @@ class AdminProductController
 
             $formData = ValidationService::getFormData();
 
+            if ($formData['quantity'] > 1000) {
+                throw new ValidationException("So viele Produkte sind nicht zulässig.");
+            }
+
             if (!in_array($formData['color'], $productType->getColorIds(), true)) {
                 throw new ValidationException("Die gewählte Farbe existiert nicht für den Produkt Typen");
             }

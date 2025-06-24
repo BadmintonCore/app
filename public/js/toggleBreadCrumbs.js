@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const breadcrumbs = document.querySelector('.breadcrumbs');
     const toggleButton = document.getElementById('toggle-breadcrumbs');
-    const isHidden = localStorage.getItem('breadcrumbsHidden') === 'true';
+    let isHidden = localStorage.getItem('breadcrumbsHidden') === 'true';
 
     if (breadcrumbs && !isHidden) {
         breadcrumbs.classList.add("open");
@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (toggleButton) {
         toggleButton.addEventListener('click', () => {
             const breadcrumbs = document.getElementById('breadcrumbs-container');
-            const isHidden = !breadcrumbs.classList.contains("open");
-            breadcrumbs.classList.toggle("open");
+            //const isHidden = !breadcrumbs.classList.contains("open");
+            //breadcrumbs.classList.toggle("open");
+            isHidden = localStorage.getItem('breadcrumbsHidden') === 'true';
 
             document.getElementById('toggle-breadcrumbs').textContent = isHidden ? 'Breadcrumbs ausblenden' : 'Breadcrumbs anzeigen';
 

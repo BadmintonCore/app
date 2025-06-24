@@ -38,7 +38,7 @@ use Vestis\Database\Models\Size;
         <?php endif; ?>
         <div class="form-input">
             <label for="quantity">Anzahl</label>
-            <input name="quantity" type="number" id="quantity" required />
+            <input name="quantity" type="number" id="quantity" max="1000" required />
         </div>
         <div class="form-input">
             <label for="sizes">Größe</label>
