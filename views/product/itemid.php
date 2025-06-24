@@ -45,10 +45,12 @@ use Vestis\Service\AuthService;
                             <img src="<?= $image->path ?>" alt="<?= $image->name ?>" class="carousel-image"/>
                         <?php endforeach; ?>
                     </div>
-                    <div class="button-row">
-                        <button class="prev">&#10094;</button>
-                        <button class="next">&#10095;</button>
-                    </div>
+                    <?php if (count($product->getImages()) > 1) : ?>
+                        <div class="button-row">
+                            <button class="prev">&#10094;</button>
+                            <button class="next">&#10095;</button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 

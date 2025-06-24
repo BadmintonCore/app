@@ -25,7 +25,7 @@ XAMPP:
 
 1. Inhalt auf root-Ebene in den htdocs-Ordner laden
 2. SQL Dump laden
-3. Dem httpd user mit chmod Zugriff auf den cache Ordner geben
+3. Dem httpd user mit chmod Zugriff auf den cache Ordner und dem uploads Ordner im public ordner geben geben
 
 
 ## Ordner Struktur

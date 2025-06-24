@@ -71,13 +71,13 @@ class ProductRepository
 
             for ($i = 0; $i < $currentBatchSize; $i++) {
                 $index = $offset + $i;
-                $placeholders[] = "(:productTypeId{$index}, :colorId{$index}, :sizeId{$index})";
+                $placeholders[] = "(:productTypeId{$index}, :colorId{$index}, :sizeId{$index}, NULL)";
                 $params["productTypeId{$index}"] = $productTypeId;
                 $params["colorId{$index}"] = $colorId;
                 $params["sizeId{$index}"] = $sizeId;
             }
 
-            $query = "INSERT INTO product (productTypeId, colorId, sizeId) VALUES " . implode(', ', $placeholders);
+            $query = "INSERT INTO product (productTypeId, colorId, sizeId, boughtAt) VALUES " . implode(', ', $placeholders);
             QueryAbstraction::execute($query, $params);
         }
     }
