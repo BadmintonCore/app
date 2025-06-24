@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Mathis Burger
 
 namespace Vestis\Controller;
 
@@ -70,4 +70,4 @@ class UserAreaController
     }
 
 }
-/*Autor(en): */
+//Autor(en): Mathis Burger

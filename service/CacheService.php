@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 namespace Vestis\Service;
 
 use Vestis\Exception\LogicException;
@@ -90,6 +92,7 @@ class CacheService
      */
     private static function deleteFile(string $key): void
     {
+        // md5 ist ein Hashing-Algorithmus
         $location = self::CACHE_PATH . md5($key);
         if (unlink($location) === false) {
             throw new LogicException("Unable to delete cache file.");
@@ -97,3 +100,4 @@ class CacheService
     }
 
 }
+//Autor(en): Mathis Burger

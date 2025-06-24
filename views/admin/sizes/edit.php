@@ -1,3 +1,4 @@
+<!--Autor(en): Lennart Moog-->
 <?php
 
 use Vestis\Database\Models\Size;
@@ -49,5 +50,4 @@ use Vestis\Database\Models\Size;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lennart Moog-->

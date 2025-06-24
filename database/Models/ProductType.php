@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\CategoryRepository;
@@ -162,3 +164,4 @@ class ProductType
         return $this->price * (1 - $this->discount);
     }
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

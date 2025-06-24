@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Database\Dto;
 
 use Vestis\Database\Models\Color;
@@ -9,6 +11,9 @@ use Vestis\Database\Repositories\ColorRepository;
 use Vestis\Database\Repositories\ProductTypeRepository;
 use Vestis\Database\Repositories\SizeRepository;
 
+/**
+ * DTO (Domain Transfer Object) für ShoppginCart-Items
+ */
 class ShoppingCartItemDto
 {
     public int $id;
@@ -68,3 +73,4 @@ class ShoppingCartItemDto
         return $this->color;
     }
 }
+//Autor(en): Lasse Hoffmann

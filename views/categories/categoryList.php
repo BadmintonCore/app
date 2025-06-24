@@ -1,4 +1,4 @@
-<!-- Author: Mathis Burger -->
+<!--Autor(en): Lasse Hoffmann-->
 <?php
 
 use Vestis\Database\Models\Color;
@@ -141,4 +141,4 @@ use Vestis\Utility\BreadcrumbsUtility;
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
-<!-- Author: Mathis Burger -->
+<!--Autor(en): Lennart Moog-->

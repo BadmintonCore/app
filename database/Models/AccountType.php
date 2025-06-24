@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Models;
 
 /**
@@ -12,3 +14,4 @@ enum AccountType: string
     case Customer = "C";
     case Administrator = "A";
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

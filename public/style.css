@@ -1,4 +1,4 @@
-/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog */
+/*Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog */
 
 /* ================================================
                    Variablen
@@ -456,7 +456,6 @@ footer {
 /* ============================================================================================================================
                                                              Komponenten
 ===============================================================================================================================*/
-/*Author: Lasse Hoffmann*/
 
 
 /* ================================================
@@ -1698,5 +1697,4 @@ nav:has(.breadcrumbs) {
     border-top: 2px solid #cc0000;
     z-index: 1000;
 }
-
-/*Author: Lasse Hoffmann, Mathis Burger, Lennart Moog*/
+/*Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog */

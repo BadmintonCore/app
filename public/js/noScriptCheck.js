@@ -1,3 +1,4 @@
+/*Autor(en): Lasse Hoffmann*/
 document.addEventListener("DOMContentLoaded", function () {
     const noscriptWarning = document.getElementById("noscript-warning");
     if (noscriptWarning) {
@@ -5,3 +6,4 @@ document.addEventListener("DOMContentLoaded", function () {
         noscriptWarning.style.display = "none";
     }
 });
+/*Autor(en): Lasse Hoffmann*/

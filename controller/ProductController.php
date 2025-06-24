@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Controller;
 
@@ -169,4 +169,4 @@ class ProductController
         echo json_encode(['quantityLeft' => $leftQuantity]);
     }
 }
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann

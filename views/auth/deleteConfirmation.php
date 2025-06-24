@@ -1,4 +1,4 @@
-<!--Author: Lasse Hoffmann-->
+<!--Autor(en): Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -52,4 +52,4 @@
 <?php include(__DIR__."/../../components/cookieCheck.php"); ?>
 <?php include(__DIR__ . "/../../components/scripts.php"); ?>
 </html>
-<!--Author: Lasse Hoffmann-->
+<!--Autor(en): Lennart Moog-->

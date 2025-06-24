@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Utility;
 
 class PaginationUtility
@@ -68,3 +70,4 @@ class PaginationUtility
     }
 
 }
+//Autor(en): Lennart Moog

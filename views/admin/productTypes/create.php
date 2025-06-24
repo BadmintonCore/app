@@ -1,3 +1,4 @@
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->
 <?php
 
 use Vestis\Database\Models\Category;
@@ -10,7 +11,6 @@ use Vestis\Database\Models\Size;
 /** @var Color[] $optionalColors */
 ?>
 
-<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -111,5 +111,4 @@ use Vestis\Database\Models\Size;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->

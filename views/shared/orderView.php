@@ -1,4 +1,4 @@
-<!--Author: Lennart Moog-->
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->
 <?php
 
 use Vestis\Database\Models\Order;
@@ -100,5 +100,4 @@ use Vestis\Service\AuthService;
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->

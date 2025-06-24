@@ -1,6 +1,6 @@
 <?php
 
-/* Autor(en): Lasse Hoffmann */
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Controller;
 
@@ -105,4 +105,4 @@ class WishlistController
         }
     }
 }
-/* Autor(en): Lasse Hoffmann */
+//Autor(en): Lasse Hoffmann

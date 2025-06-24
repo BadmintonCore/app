@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\CategoryRepository;
@@ -54,3 +56,4 @@ class Category
     }
 
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

@@ -1,4 +1,4 @@
-<!--Author: Lasse Hoffmann-->
+<!--Autor(en): Lennart Moog-->
 
 <!DOCTYPE html>
 <html lang="de">
@@ -103,4 +103,4 @@
 <script src="/js/authValidation.js" defer></script>
 </body>
 </html>
-<!--Author: Lasse Hoffmann-->
+<!--Autor(en): Lennart Moog-->

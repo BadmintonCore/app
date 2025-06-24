@@ -1,4 +1,4 @@
-/*Autor(en): Lasse Hoffmann, Mathis Burger*/
+/*Autor(en): Mathis Burger*/
 const addToCartButton = document.getElementById('addToCartButton');
 const orderButton = document.getElementById("orderButton");
 const shoppingCartSelect = document.getElementById("shoppingCartSelect");
@@ -95,4 +95,4 @@ const submitListener = (e) => {
 };
 
 addToCartButton.addEventListener("click", submitListener);
-/*Autor(en): Lasse Hoffmann, Mathis Burger*/
+/*Autor(en): Mathis Burger*/

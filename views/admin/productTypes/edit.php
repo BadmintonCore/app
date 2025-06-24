@@ -1,3 +1,4 @@
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->c
 <?php
 
 use Vestis\Database\Models\Category;
@@ -12,7 +13,6 @@ use Vestis\Database\Models\Size;
 /** @var string|null $errorMessage */
 ?>
 
-<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -129,5 +129,4 @@ use Vestis\Database\Models\Size;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->

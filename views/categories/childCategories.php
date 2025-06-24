@@ -1,3 +1,4 @@
+<!--Autor(en): Lasse Hoffmann-->
 <?php
 
 use Vestis\Database\Models\Category;
@@ -49,5 +50,5 @@ use Vestis\Utility\BreadcrumbsUtility;
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
+<!--Autor(en): Lasse Hoffmann-->
 

@@ -1,4 +1,4 @@
-//Autor(en): Lennart Moog
+/*Autor(en): Mathis Burger*/
 
 const translation = {
     categories: 'Kategorien',
@@ -100,4 +100,4 @@ function generateBreadcrumbList() {
     return breadcrumbs; // Rückgabe der Breadcrumbs
 }
 
-//Autor(en): Lennart Moog
+/*Autor(en): Mathis Burger*/

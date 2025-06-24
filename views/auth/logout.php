@@ -1,4 +1,4 @@
-<!--Author: Lennart Moog-->
+<!--Autor(en): Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -51,4 +51,4 @@
 
 
 </html>
-<!--Author: Lennart Moog-->
+<!--Autor(en): Lennart Moog-->

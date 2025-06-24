@@ -1,4 +1,4 @@
-<!-- Author: Mathis Burger -->
+<!--Autor(en): Mathis Burger-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -107,4 +107,4 @@
 <?php include(__DIR__ . "/../../components/scripts.php"); ?>
 </body>
 </html>
-<!-- Author: Mathis Burger -->
+<!--Autor(en): Mathis Burger-->

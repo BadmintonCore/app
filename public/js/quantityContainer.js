@@ -1,4 +1,4 @@
-/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/
 const containers = document.getElementsByClassName("quantity-container");
 for (const container of containers) {
     const input = container.children.item(1);
@@ -25,4 +25,4 @@ for (const container of containers) {
         }
     });
 }
-/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/

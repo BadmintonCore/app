@@ -1,3 +1,4 @@
+<!--Autor(en): Mathis Burger-->
 <?php
 
 use Vestis\Database\Models\ShoppingCart;
@@ -6,7 +7,7 @@ use Vestis\Service\AuthService;
 /** @var ShoppingCart[] $ownedShoppingCarts */
 
 ?>
-<!-- Author: Mathis Burger-->
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -67,4 +68,4 @@ use Vestis\Service\AuthService;
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
-<!-- Author: Mathis Burger -->
+<!--Autor(en): Mathis Burger-->

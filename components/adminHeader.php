@@ -1,4 +1,4 @@
-<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
+<!--Autor(en): Lennart Moog-->
 <header>
     <div class="drawer-toggler" id="sidebarDrawerToggler">
         <!--Grafik von: https://getbootstrap.com/-->
@@ -102,4 +102,4 @@
         </select>
     </label>
 </header>
-<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
+<!--Autor(en): Lennart Moog-->

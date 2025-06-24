@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
@@ -58,3 +60,4 @@ class AdminGlobalConfigController
     }
 
 }
+//Autor(en): Lennart Moog

@@ -1,3 +1,4 @@
+<!--Autor(en): Lasse Hoffmann-->
 <?php
 
 use Vestis\Database\Models\Category;
@@ -7,7 +8,6 @@ use Vestis\Database\Models\Category;
 /** @var string|null $errorMessage */
 ?>
 
-<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -67,5 +67,4 @@ use Vestis\Database\Models\Category;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lasse Hoffmann-->

@@ -1,4 +1,4 @@
-/*Autor(en): Lennart Moog*/
+/*Autor(en): Lasse Hoffmann*/
 
 // Zugriff auf das <html>-Element (wird genutzt, um das data-theme-Attribut zu setzen)
 const html = document.documentElement;
@@ -48,4 +48,4 @@ document.addEventListener("DOMContentLoaded", function (e) {
     const darkModeButton = document.getElementById('darkModeToggle');
     darkModeButton.addEventListener('click', toggleDarkMode);
 });
-/*Autor(en): Lennart Moog*/
+/*Autor(en): Lasse Hoffmann*/

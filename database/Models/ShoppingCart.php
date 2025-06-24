@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\AccountRepository;
@@ -42,3 +44,4 @@ class ShoppingCart
         return ShoppingCartRepository::findMembersForCart($this);
     }
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

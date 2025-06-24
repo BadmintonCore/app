@@ -1,3 +1,4 @@
+/*Autor(en): Lennart Moog*/
 const inviteButton = document.getElementById("inviteButton");
 
 if (inviteButton !== null) {
@@ -15,3 +16,4 @@ if (inviteButton !== null) {
         alert("Erfolgreich kopiert.")
     });
 }
+/*Autor(en): Lennart Moog*/

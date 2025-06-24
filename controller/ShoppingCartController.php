@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Lennart Moog
+
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\Account;
@@ -352,3 +354,4 @@ class ShoppingCartController
         header("Location: /user-area/shoppingCarts/members?cartNumber=" . $formData["cartNumber"] . "&accId=" . $formData["accId"]);
     }
 }
+//Autor(en): Lasse Hoffmann, Lennart Moog

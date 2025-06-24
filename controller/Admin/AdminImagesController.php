@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+//Autor(en): Mathis Burger, Lasse Hoffmann
 
 namespace Vestis\Controller\Admin;
 
@@ -119,4 +119,4 @@ class AdminImagesController
         header('Location: /admin/images');
     }
 }
-/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+//Autor(en): Mathis Burger, Lasse Hoffmann

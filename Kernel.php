@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
 use Vestis\Utility\PathUtility;
@@ -139,3 +141,4 @@ class Kernel
 
 
 }
+//Autor(en): Mathis Burger

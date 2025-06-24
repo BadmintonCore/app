@@ -1,3 +1,4 @@
+<!--Autor(en): Lennart Moog-->
 <?php
 
 use Vestis\Database\Models\Color;
@@ -6,7 +7,6 @@ use Vestis\Database\Models\Color;
 /** @var string|null $errorMessage */
 ?>
 
-<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -59,5 +59,4 @@ use Vestis\Database\Models\Color;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lennart Moog-->

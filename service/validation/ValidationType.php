@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog, Lasse Hoffmann
+
 namespace Vestis\Service\validation;
 
 /**
@@ -17,3 +19,4 @@ enum ValidationType
     case ImageFile;
     case Text;
 }
+//Autor(en): Lennart Moog, Lasse Hoffmann

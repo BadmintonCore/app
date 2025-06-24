@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Utility;
 
 use Random\RandomException;
@@ -29,3 +31,4 @@ class GeneratorUtility
     }
 
 }
+//Autor(en): Mathis Burger

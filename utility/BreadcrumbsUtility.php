@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 namespace Vestis\Utility;
 
 use Vestis\Database\Models\Category;
@@ -65,3 +67,4 @@ class BreadcrumbsUtility
         return Base64Utility::base64UrlEncode($encoded);
     }
 }
+//Autor(en): Mathis Burger

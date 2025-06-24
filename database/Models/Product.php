@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Models;
 
 use Vestis\Database\Repositories\ColorRepository;
@@ -75,3 +77,4 @@ class Product
         return ($this->boughtPrice ?? 0) * (1 - ($this->boughtDiscount ?? 0));
     }
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
