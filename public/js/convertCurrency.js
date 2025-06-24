@@ -23,20 +23,14 @@ const currencySymbolMap = {
  * Konvertiert einen bestimmten Preis in die aktuell ausgewählte Währung.
  * HINWEIS: Zuerst wird der Preis zurück in EUR umgerechnet und dann in die neue Währung umgerechnet.
  *
- * @param price Der zu konvertierende Preis
+ * @param priceInEur Der zu konvertierende Preis
  * @returns {number} Der neue Preis in der neuen Währung
  */
-function convertCurrency(price) {
-    if (currentCurrency === "EUR" && lastCurrency === "EUR") {
-        return price;
-    }
-
-    // Wenn kein Wert vorhanden ist, wird der Standardwert 1 für EUR verwendet
-    const priceInEur = price / (currencyRates[lastCurrency] ?? 1);
+function convertCurrency(priceInEur) {
     if (currentCurrency === "EUR") {
         return priceInEur;
     }
-    return priceInEur * currencyRates[currentCurrency];
+    return priceInEur * (currencyRates[currentCurrency] ?? 1);
 }
 
 /**
@@ -60,19 +54,15 @@ function updatePrices() {
     let orderButton = document.getElementById("orderButton")
     let addToCartButton = document.getElementById("addToCartButton")
     let payButton = document.getElementById("payButton");
-    let price = undefined;
 
     for (const priceField of document.getElementsByClassName("price-field")){
-        const priceString = priceField.childNodes[0].nodeValue;
+        const price = parseFloat(priceField.dataset.priceEur.valueOf());
         let kebapConvert = false;
         if (lastCurrency === "KBP"){
-            // Preis wird aus dem HTML-Attribut gelesen und entspricht dem Euro-Wert
-            price = parseFloat(priceField.dataset.priceEur.valueOf());
+            // Preis wird aus dem HTML-Attribut (data-price-eur) gelesen und entspricht dem Euro-Wert
             lastCurrency = "EUR"
             // Damit lastCurrency nach einem Durchlauf wieder auf KBP gesetzt werden kann
             kebapConvert = true;
-        } else {
-            price = parseFloat(priceString.replace(',', '.'));
         }
         if (currentCurrency === "EUR" || currentCurrency === "KBP" || currentCurrency === "CHF") {
             priceField.childNodes[0].nodeValue = `${convertCurrency(price).toFixed(2).replace('.', ',')} ${currencySymbolMap[currentCurrency]}`;
