@@ -327,7 +327,6 @@ use Vestis\Service\AuthService;
                                 </div>
                                 <p><?= $review->review ?></p>
                             </div>
-                            <hr>
                         <?php endforeach; ?>
                     </div>
                 <?php else: ?>
