@@ -6,7 +6,9 @@ namespace Vestis\Controller;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Models\OrderStatus;
+use Vestis\Database\Models\Product;
 use Vestis\Database\Repositories\OrderRepository;
+use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Exception\AuthException;
 use Vestis\Exception\EmailException;
 use Vestis\Exception\LogicException;
@@ -96,6 +98,8 @@ class OrderController
             throw new LogicException("Der Auftrag kann nicht storniert werden.");
         }
         OrderRepository::updateStatus($order->id, OrderStatus::Canceled);
+        $productIds = array_map(fn (Product $product) => $product->id, $order->getProducts());
+        ProductRepository::setProductsFree($productIds);
         EmailService::sendCancelConfirmation($order);
 
         header('Location: /user-area/orders/view?id=' . $order->id);

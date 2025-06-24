@@ -60,13 +60,13 @@
                         <td><?= $product->count ?></td>
                         <td>
                             <div class="with-discount">
-                                <span class='price-field'><?= number_format($product->getProductType()->getDiscountedPrice(), 2, ',', '.') ?></span>
+                                <span class='price-field'><?= number_format($product->getProductType()->getDiscountedPrice(), 2, ',', '') ?></span>
                                 <?php if ($product->getProductType()->discount > 0): ?>
                                     <div class="discount-badge">-<?= $product->getProductType()->discount * 100 ?>%</div>
                                 <?php endif; ?>
                             </div>
                         </td>
-                        <td><?= "<span class='price-field'>" . number_format($product->getProductType()->getDiscountedPrice() * $product->count, 2, ',', '.') . "</span>"?></td>
+                        <td><?= "<span class='price-field'>" . number_format($product->getProductType()->getDiscountedPrice() * $product->count, 2, ',', '') . "</span>"?></td>
                         <td>
                             <a href="/user-area/shoppingCart/delete?productTypeId=<?= $product->productTypeId ?>&sizeId=<?= $product->sizeId ?>&colorId=<?= $product->colorId ?>&accId=<?= $shoppingCart->accId ?>&cartNumber=<?= $shoppingCart->cartNumber ?>"
                                class="btn danger">entfernen.</a>
@@ -84,14 +84,11 @@
 
         $price = 0;
 
-    foreach ($groupedProducts as $product):
-
+    foreach ($groupedProducts as $product) {
         $price += $product->getProductType()->getDiscountedPrice() * $product->count;
-
-    endforeach;
-
-    echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / (1.19), 2, ',', '.') . "</span></h4>";
-    echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '.') . "</span></h4>";
+    }
+    echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / 1.19, 2, ',', '') . "</span></h4>";
+    echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '') . "</span></h4>";
 
     if (count($groupedProducts) > 0 && AuthService::$currentAccount !== null && !AuthService::$currentAccount->isBlocked && $shoppingCart->accId === AuthService::$currentAccount->id):
         ?>

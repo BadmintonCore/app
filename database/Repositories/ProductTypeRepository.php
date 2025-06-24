@@ -26,20 +26,17 @@ class ProductTypeRepository
      * Findet Produkte anhand von Parametern.
      *
      * @param Category $category Die Kategorie, die genutzt werden soll, um einen Produkttyp zu finden
-     * @param float $maxPrice Der maximale Preis
      * @param array<int, int> $allowedColorIds Die zugewiesenen Farben
      * @param array<int, int> $allowedSizeIds Die zugewiesenen Größen
      * @param string|null $search Ein Suchbegriff
      * @return array<int, ProductType>
      */
-    public static function findByParams(Category $category, float $maxPrice, array $allowedColorIds, array $allowedSizeIds, ?string $search): array
+    public static function findByParams(Category $category, array $allowedColorIds, array $allowedSizeIds, ?string $search): array
     {
         $hasColorFilter = count($allowedColorIds) > 0;
         $hasSizeFilter = count($allowedSizeIds) > 0;
         $params = [
             'catId' => $category->id,
-            // Preis leicht erhöhen, damit es keinen Fehler gezüglich des float wertes gibt.
-            'maxPrice' => $maxPrice + 0.0001,
             'search' => $search !== null ? '%' . $search . '%' : null,
         ];
 
@@ -56,7 +53,7 @@ class ProductTypeRepository
         return QueryAbstraction::fetchManyAs(
             ProductType::class,
             sprintf(
-                "SELECT DISTINCT p.* FROM productType p JOIN allowedSize az ON az.productTypeId = p.id JOIN allowedColor ac ON ac.productTypeId = p.id WHERE categoryId = :catId AND price <= :maxPrice %s %s AND (:search IS NULL OR description LIKE :search OR name LIKE :search OR collection LIKE :search)",
+                "SELECT DISTINCT p.* FROM productType p JOIN allowedSize az ON az.productTypeId = p.id JOIN allowedColor ac ON ac.productTypeId = p.id WHERE categoryId = :catId %s %s AND (:search IS NULL OR description LIKE :search OR name LIKE :search OR collection LIKE :search)",
                 $hasColorFilter ? 'AND ac.colorId IN :allowedColors' : '',
                 $hasSizeFilter ? 'AND az.sizeId IN :allowedSizes ' : ''
             ),
@@ -73,18 +70,6 @@ class ProductTypeRepository
     public static function findById(int $id): ?ProductType
     {
         return QueryAbstraction::fetchOneAs(ProductType::class, "SELECT DISTINCT * FROM productType WHERE id = :id", ["id" => $id]);
-    }
-
-    /**
-     * Findet den minimal und maximal Preis der Produkttypen einer Kategorie
-     *
-     * @param Category $category Die Kategorie
-     * @return array<string, int|null>
-     */
-    public static function findMinAndMaxPricesByCategory(Category $category): array
-    {
-        /** @phpstan-ignore-next-line  */
-        return QueryAbstraction::fetchOneAs(null, "SELECT DISTINCT MIN(price) as min, MAX(price) as max FROM productType WHERE categoryId = :catId", ["catId" => $category->id]);
     }
 
     /**
