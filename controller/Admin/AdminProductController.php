@@ -36,7 +36,7 @@ class AdminProductController
             throw new ValidationException("Parameter für den Produkt-Typen fehlt.");
         }
 
-        $products = ProductRepository::findForTypePaginated($productTypeId, $page, 25);
+        $products = ProductRepository::findForTypePaginated($productTypeId, $page, 100);
 
         require_once __DIR__ . "/../../views/admin/products/list.php";
     }
