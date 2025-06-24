@@ -1,4 +1,4 @@
-<!-- Autor(en): Mathis Burger -->
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->
 <?php
 
 use Vestis\Database\Models\ProductReview;
@@ -355,4 +355,4 @@ use Vestis\Service\AuthService;
 <?php include(__DIR__ . "/../../components/scripts.php"); ?>
 </body>
 </html>
-<!-- Autor(en): Mathis Burger -->
+<!--Autor(en): Lasse Hoffmann, Lennart Moog-->

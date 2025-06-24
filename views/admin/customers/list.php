@@ -1,3 +1,4 @@
+<!--Autor(en): Lennart Moog-->
 <?php
 
 use Vestis\Database\Dto\PaginationDto;
@@ -7,7 +8,6 @@ use Vestis\Database\Models\Account;
 /** @var int $page */
 ?>
 
-<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -75,5 +75,4 @@ use Vestis\Database\Models\Account;
 <?php include(__DIR__ . "/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lennart Moog-->

@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Models;
 
 /**
@@ -13,3 +15,4 @@ enum OrderStatus: string
     case Denied = 'Auftrag abgelehnt';
     case Shipped = 'Versandt';
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

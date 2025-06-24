@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Mathis Burger
 
 namespace Vestis\Controller;
 
@@ -49,4 +49,4 @@ class LegalController
         require_once __DIR__."/../views/legal/revocation.php";
     }
 }
-/*Autor(en): */
+//Autor(en): Mathis Burger

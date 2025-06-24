@@ -1,4 +1,4 @@
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/
 
 const greetingEmojis = [
     '😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇',
@@ -23,4 +23,4 @@ function randomizeEmoji() {
 }
 
 
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/

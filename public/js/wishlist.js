@@ -1,4 +1,4 @@
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lasse Hoffmann, Lennart Moog*/
 
 /**
  * JSDoc-Typdefinition für ein Wunschlisten-Element.
@@ -216,4 +216,4 @@ async function renderWishlist() {
     updatePrices();
 }
 
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lasse Hoffmann, Lennart Moog*/

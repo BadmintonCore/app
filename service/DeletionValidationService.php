@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Service;
 
 use Vestis\Database\Repositories\CategoryRepository;
@@ -82,3 +84,4 @@ class DeletionValidationService
         }
     }
 }
+//Autor(en): Lennart Moog

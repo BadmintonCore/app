@@ -1,3 +1,4 @@
+<!--Autor(en): Lasse Hoffmann-->
 <?php
 /** @var string $errorMessage */
 ?>
@@ -39,3 +40,4 @@
 <?php include(__DIR__."/../components/scripts.php"); ?>
 </body>
 </html>
+<!--Autor(en): Lasse Hoffmann-->

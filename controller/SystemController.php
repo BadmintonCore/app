@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Mathis Burger
 
 namespace Vestis\Controller;
 
@@ -33,4 +33,4 @@ class SystemController
     }
 
 }
-/*Autor(en): */
+//Autor(en): Mathis Burger

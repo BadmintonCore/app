@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Service;
 
 use Vestis\Database\Models\Account;
@@ -50,3 +52,4 @@ class DiscountService
     }
 
 }
+//Autor(en): Lasse Hoffmann

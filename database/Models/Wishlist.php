@@ -1,6 +1,6 @@
 <?php
 
-/* Autor(en): Lasse Hoffmann */
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
 
 namespace Vestis\Database\Models;
 
@@ -16,4 +16,4 @@ class Wishlist
     public string $timestamp;
 
 }
-/* Autor(en): Lasse Hoffmann */
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

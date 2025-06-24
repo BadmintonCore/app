@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 namespace Vestis\Exception;
 
 /**
@@ -42,3 +44,4 @@ class DatabaseException extends \PDOException
         return $this->columnName;
     }
 }
+//Autor(en): Mathis Burger

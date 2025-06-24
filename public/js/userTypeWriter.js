@@ -1,3 +1,4 @@
+/*Autor(en): Mathis Burger*/
 document.addEventListener("DOMContentLoaded", function() {
     const element = document.getElementById("userTypeWriter");
     let text = "\u00A0";
@@ -56,3 +57,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 });
+/*Autor(en): Mathis Burger*/

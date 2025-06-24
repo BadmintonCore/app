@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Controller;
 
@@ -49,4 +49,4 @@ class YourPurchaseController
         require_once __DIR__.'/../views/your-purchase/vouchers.php';
     }
 }
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann

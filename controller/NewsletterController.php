@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Controller;
 
@@ -46,4 +46,4 @@ class NewsletterController
     }
 
 }
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann

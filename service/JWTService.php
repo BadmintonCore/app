@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 namespace Vestis\Service;
 
 use Vestis\Exception\ValidationException;
@@ -108,3 +110,4 @@ class JWTService
         }
     }
 }
+//Autor(en): Mathis Burger

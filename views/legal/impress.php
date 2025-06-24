@@ -1,4 +1,4 @@
-<!--Author: Lasse Hoffmann-->
+<!--Autor(en): Lasse Hoffmann-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -36,4 +36,4 @@
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lasse Hoffmann-->
+<!--Autor(en): Lasse Hoffmann-->

@@ -1,4 +1,4 @@
-<!--Author: Lennart Moog-->
+<!--Autor(en): Mathis Burger-->
 <?php
 
 use Vestis\Service\AuthService;
@@ -107,4 +107,4 @@ use Vestis\Service\AuthService;
 <script src="/js/textRandomizer.js"></script>
 <script src="/js/userTypeWriter.js"></script>
 </html>
-<!--Author: Lennart Moog-->
+<!--Autor(en): Mathis Burger-->

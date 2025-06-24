@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 namespace Vestis\Utility;
 
 use Vestis\Exception\ValidationException;
@@ -37,3 +39,4 @@ class Base64Utility
         return $result;
     }
 }
+//Autor(en): Mathis Burger

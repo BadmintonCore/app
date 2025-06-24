@@ -155,4 +155,4 @@ class AdminColorsController
     }
 
 }
-/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+//Autor(en): Mathis Burger, Lasse Hoffmann

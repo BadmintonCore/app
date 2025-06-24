@@ -1,4 +1,4 @@
-<!--Autor(en): Lasse Hoffmann*/-->
+<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
 <?php
 
 use Vestis\Database\Repositories\GCR;
@@ -247,4 +247,4 @@ use Vestis\Service\AuthService;
         <p>Copyright &#169; 2025 vestis.</p>
     </div>
 </footer>
-<!--Autor(en): Lasse Hoffmann-->
+<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->

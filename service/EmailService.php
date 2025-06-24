@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog, Lasse Hoffmann
+
 namespace Vestis\Service;
 
 use Vestis\Database\Models\Account;
@@ -127,3 +129,4 @@ class EmailService
     }
 
 }
+//Autor(en): Lennart Moog, Lasse Hoffmann

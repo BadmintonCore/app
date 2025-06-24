@@ -1,10 +1,11 @@
+<!--Autor(en): Mathis Burger-->
 <?php
 
 use Vestis\Database\Models\ShoppingCart;
 
 /** @var ShoppingCart $shoppingCart */
 ?>
-<!-- Author: Mathis Burger-->
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -67,4 +68,4 @@ use Vestis\Database\Models\ShoppingCart;
 <?php include(__DIR__."/../../components/scripts.php"); ?>
 </body>
 </html>
-<!-- Author: Mathis Burger -->
+<!--Autor(en): Mathis Burger-->

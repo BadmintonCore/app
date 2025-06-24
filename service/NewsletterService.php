@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Service;
 
 use Vestis\Database\Repositories\AccountRepository;
@@ -40,3 +42,4 @@ class NewsletterService
         }
     }
 }
+//Autor(en): Lasse Hoffmann

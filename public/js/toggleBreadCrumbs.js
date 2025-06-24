@@ -1,4 +1,4 @@
-/*Autor(en): Lennart Moog*/
+/*Autor(en): Mathis Burger*/
 // Sichtbarkeit der Breadcrumbs beim Laden der Seite setzen
 document.addEventListener('DOMContentLoaded', function () {
     const breadcrumbs = document.querySelector('.breadcrumbs');
@@ -25,4 +25,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-/*Autor(en): Lennart Moog*/
+/*Autor(en): Mathis Burger*/

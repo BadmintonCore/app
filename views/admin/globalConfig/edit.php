@@ -1,3 +1,4 @@
+<!--Autor(en): Mathis Burger-->
 <?php
 
 use Vestis\Database\Models\GlobalConfig;
@@ -5,7 +6,6 @@ use Vestis\Database\Models\GlobalConfig;
 /** @var GlobalConfig $config */
 ?>
 
-<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -45,5 +45,4 @@ use Vestis\Database\Models\GlobalConfig;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Mathis Burger-->

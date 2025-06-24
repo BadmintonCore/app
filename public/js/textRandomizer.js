@@ -1,4 +1,4 @@
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/
 
 const greetingTexts = [
     'Hallo,',
@@ -46,4 +46,4 @@ function randomizeText() {
 
 
 
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/

@@ -1,3 +1,4 @@
+/*Autor(en): Mathis Burger*/
 document.addEventListener("DOMContentLoaded", function() {
     const text = ["Herzlich Willkommen bei vestis.", "Shoppe jetzt unsere Bestseller!"];
     const element = document.getElementById("typeWriter");
@@ -45,3 +46,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
     });
+/*Autor(en): Mathis Burger*/

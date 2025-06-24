@@ -1,6 +1,6 @@
 <?php
 
-//Author: Lasse Hoffmann
+//Autor(en): Lennart Moog
 
 namespace Vestis\Utility;
 
@@ -37,3 +37,4 @@ class PasswordGeneratorUtility
     }
 
 }
+//Autor(en): Lennart Moog

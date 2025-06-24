@@ -1,3 +1,4 @@
+<!--Autor(en): Mathis Burger-->
 <?php
 /** @var ProductType[] $products */
 
@@ -33,3 +34,4 @@ foreach ($products as $product) : ?>
         <a href="<?= $uri ?>" class="btn btn-sm">details.</a>
     </div>
 <?php endforeach; ?>
+<!--Autor(en): Mathis Burger-->

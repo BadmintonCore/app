@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Controller;
 
@@ -69,4 +69,4 @@ class CustomerServiceController
         require_once __DIR__ . "/../views/customer-service/returns.php";
     }
 }
-/*Autor(en): */
+//Autor(en): Lasse Hoffmann

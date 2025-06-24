@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Lennart Moog
 
 namespace Vestis\Controller;
 
@@ -127,4 +127,4 @@ class CategoriesController
     }
 
 }
-/*Autor(en): */
+//Autor(en): Lennart Moog

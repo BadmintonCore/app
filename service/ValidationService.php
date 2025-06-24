@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog, Lasse Hoffmann
+
 namespace Vestis\Service;
 
 use Vestis\Exception\ValidationException;
@@ -222,3 +224,4 @@ class ValidationService
     }
 
 }
+//Autor(en): Lennart Moog, Lasse Hoffmann

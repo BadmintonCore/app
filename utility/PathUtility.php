@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Utility;
 
 class PathUtility
@@ -17,3 +19,4 @@ class PathUtility
     }
 
 }
+//Autor(en): Lasse Hoffmann

@@ -1,4 +1,18 @@
-<!--Author: Lennart Moog-->
+<!--Autor(en): Lennart Moog-->
+<?php
+
+use Vestis\Database\Models\Category;
+use Vestis\Database\Models\Color;
+use Vestis\Database\Models\ProductType;
+use Vestis\Database\Models\Size;
+
+/** @var ProductType|null $productType */
+/** @var Category[] $optionalCategories */
+/** @var Size[] $optionalSizes */
+/** @var Color[] $optionalColors */
+/** @var string|null $errorMessage */
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -35,5 +49,4 @@
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lennart Moog-->

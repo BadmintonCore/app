@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 namespace Vestis\Exception;
 
 /**
@@ -12,3 +14,4 @@ class AuthException extends \Exception
         parent::__construct($message, $code, $previous);
     }
 }
+//Autor(en): Mathis Burger

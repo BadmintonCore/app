@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+//Autor(en): Lasse Hoffmann, Lennart Moog
 
 namespace Vestis\Controller\Admin;
 
@@ -338,4 +338,4 @@ class AdminProductTypesController
     }
 
 }
-/*Autor(en): Mathis Burger, Lasse Hoffmann*/
+//Autor(en): Lasse Hoffmann, Lennart Moog

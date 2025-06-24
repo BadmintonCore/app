@@ -1,5 +1,6 @@
 <?php
 
+//Autor(en): Mathis Burger
 
 /*Funktion, von PHP zur Verfügung gestellt, wenn die Klasse geladen wird, wird diese auch ausgeführt.
 Lädt Klassen, wenn sie mit use (Import) genutzt wurden
@@ -43,3 +44,4 @@ spl_autoload_register(function ($class) {
 
 // Erstelle ein Alias für eine Klasse, um das Laden von Konfigurationen übersichtlicher zu machen (damit man nicht immer Global... schreiben muss)
 class_alias('\\Vestis\\Database\\Repositories\\GlobalConfigRepository', '\\Vestis\\Database\\Repositories\\GCR');
+//Autor(en): Mathis Burger

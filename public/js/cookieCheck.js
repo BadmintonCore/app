@@ -1,4 +1,4 @@
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/
 function cookiesEnabled() {
     // Versuche ein Test-Cookie zu setzen
     document.cookie = "testcookie=1";
@@ -19,4 +19,4 @@ document.addEventListener("DOMContentLoaded", function () {
         document.cookie = "testcookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 });
-/*Autor(en): Lasse Hoffmann*/
+/*Autor(en): Lennart Moog*/

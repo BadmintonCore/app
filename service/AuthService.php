@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger, Lennart Moog
+
 namespace Vestis\Service;
 
 use Vestis\Database\Models\Account;
@@ -168,3 +170,4 @@ class AuthService
     }
 
 }
+//Autor(en): Mathis Burger, Lennart Moog

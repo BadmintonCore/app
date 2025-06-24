@@ -1,4 +1,4 @@
-<!-- Autor(en): Lasse Hoffmann -->
+<!--Autor(en): Mathis Burger-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -46,4 +46,4 @@
 </script>
 </body>
 </html>
-<!-- Autor(en): Lasse Hoffmann -->
+<!--Autor(en): Mathis Burger-->

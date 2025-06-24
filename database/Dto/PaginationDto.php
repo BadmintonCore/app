@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Database\Dto;
 
 /**
@@ -26,3 +28,4 @@ class PaginationDto
         $this->results = $results;
     }
 }
+//Autor(en): Lennart Moog

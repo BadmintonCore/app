@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 use Vestis\Controller\AboutUsController;
 use Vestis\Controller\Admin\AdminCategoriesController;
 use Vestis\Controller\Admin\AdminColorsController;
@@ -107,3 +109,4 @@ return [
     '/admin/globalConfigs/edit' => [AdminGlobalConfigController::class, 'edit'],
     '/system/exchangeRates' => [SystemController::class, 'getExchangeRates'],
 ];
+//Autor(en): Mathis Burger

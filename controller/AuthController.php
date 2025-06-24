@@ -1,6 +1,6 @@
 <?php
 
-/*Autor(en): */
+//Autor(en): Lennart Moog
 
 namespace Vestis\Controller;
 
@@ -203,4 +203,4 @@ class AuthController
         require_once __DIR__ . '/../views/auth/deleteConfirmation.php';
     }
 }
-/*Autor(en): */
+//Autor(en): Lennart Moog

@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Models;
 
 class GlobalConfig
@@ -9,3 +11,4 @@ class GlobalConfig
     public string $value;
 
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

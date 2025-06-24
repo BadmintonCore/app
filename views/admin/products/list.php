@@ -1,3 +1,4 @@
+<!--Autor(en): Lasse Hoffmann-->
 <?php
 
 use Vestis\Database\Dto\PaginationDto;
@@ -9,7 +10,6 @@ use Vestis\Utility\PaginationUtility;
 /** @var int $productTypeId */
 ?>
 
-<!--Author: Lennart Moog-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -71,5 +71,4 @@ use Vestis\Utility\PaginationUtility;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Author: Lennart Moog -->
-
+<!--Autor(en): Lasse Hoffmann-->

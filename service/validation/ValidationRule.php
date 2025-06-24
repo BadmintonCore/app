@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog, Lasse Hoffmann
+
 namespace Vestis\Service\validation;
 
 /**
@@ -18,3 +20,4 @@ class ValidationRule
     }
 
 }
+//Autor(en): Lennart Moog, Lasse Hoffmann
