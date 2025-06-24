@@ -6,7 +6,9 @@ namespace Vestis\Controller\Admin;
 
 use Vestis\Database\Models\AccountType;
 use Vestis\Database\Models\OrderStatus;
+use Vestis\Database\Models\Product;
 use Vestis\Database\Repositories\OrderRepository;
+use Vestis\Database\Repositories\ProductRepository;
 use Vestis\Exception\LogicException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
@@ -106,6 +108,8 @@ class AdminOrderController
             $formData = ValidationService::getFormData();
 
             OrderRepository::updateStatus($order->id, OrderStatus::Denied);
+            $productIds = array_map(fn (Product $p) => $p->id, $order->getProducts());
+            ProductRepository::setProductsFree($productIds);
             OrderRepository::setDenialMessage($order->id, $formData['reason']);
 
             header('Location: /admin/orders/view?id=' . $order->id);

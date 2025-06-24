@@ -47,6 +47,17 @@ class ProductRepository
     }
 
     /**
+     * Gibt alle Produkt wieder frei
+     *
+     * @param array<int, int> $productIds
+     * @return void
+     */
+    public static function setProductsFree(array $productIds): void
+    {
+        QueryAbstraction::execute("UPDATE product SET boughtAt = NULL, boughtPrice = NULL, boughtDiscount = NULL, accId = NULL WHERE id IN :productIds", ["productIds" => $productIds]);
+    }
+
+    /**
      * Erstellt mehrere Produkte
      *
      * @param int $productTypeId Die ID des Produkt-Typen

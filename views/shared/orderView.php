@@ -60,6 +60,7 @@ use Vestis\Service\AuthService;
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Name</th>
                     <th>Größe</th>
                     <th>Farbe</th>
                     <th>Kaufpreis</th>
@@ -69,6 +70,7 @@ use Vestis\Service\AuthService;
                 <?php foreach ($order->getProducts() as $product): ?>
                 <tr>
                     <td><?= $product->id ?></td>
+                    <td><?= $product->getProductType()->name ?></td>
                     <td><?= $product->getSize()->size ?></td>
                     <td><?= $product->getColor()->name ?></td>
                     <td class="price-field with-discount">
