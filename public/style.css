@@ -1165,7 +1165,6 @@ input[type="color"] {
 table { /*Tabellendesign generell*/
     border: 1px solid var(--text-color);
     outline: none;
-    width: 100%;
     table-layout: fixed;
 }
 
