@@ -1165,12 +1165,17 @@ input[type="color"] {
 table { /*Tabellendesign generell*/
     border: 1px solid var(--text-color);
     outline: none;
+    width: 100%;
+    table-layout: fixed;
 }
 
 table th, td { /*einzelne Zellen haben immer rechts und unten Border */
     padding: 10px;
     border-bottom: 1px solid var(--text-color);
     border-right: 1px solid var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 table th:last-child, td:last-child { /*letzte Zellen einer Reihe haben keine Border*/

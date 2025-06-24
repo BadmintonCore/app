@@ -30,7 +30,7 @@ use Vestis\Service\AuthService;
     <!--Breadcrumbs-->
     <?php include(__DIR__."/../../components/breadcrumbs.php"); ?>
 
-    <div class="form-box">
+    <div class="form-box wide">
         <h1>Auftrag (ID: <?= $order->id ?>)</h1>
 
         <div class="stack align-start">
