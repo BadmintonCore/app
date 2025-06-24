@@ -9,6 +9,11 @@ namespace Vestis\Controller;
  */
 class LegalController
 {
+    public function root(): void
+    {
+        header('Location: /');
+    }
+
     /**
      * Ansicht für die AGBs
      *

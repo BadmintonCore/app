@@ -9,6 +9,11 @@ namespace Vestis\Controller;
  */
 class AboutUsController
 {
+    public function root(): void
+    {
+        header('Location: /');
+    }
+
     /**
      * Ansicht für die Über-Uns-Seite
      *

@@ -16,6 +16,11 @@ use Vestis\Service\ValidationService;
  */
 class CustomerServiceController
 {
+    public function root(): void
+    {
+        header('Location: /');
+    }
+
     /**
      * Ansicht für das Kontaktformular
      *
