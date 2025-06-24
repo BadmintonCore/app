@@ -7,7 +7,6 @@ namespace Vestis\Database\Dto;
 use Vestis\Database\Models\ProductType;
 use Vestis\Database\Repositories\ProductTypeRepository;
 
-
 /**
  * DTO (Domain Transfer Object) für Wishlist-Item
  */
