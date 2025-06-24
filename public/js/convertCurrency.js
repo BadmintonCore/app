@@ -82,28 +82,6 @@ function updatePrices() {
             feeField.innerHTML = "&nbsp;inkl. 19% Fleisch";
         }
     }
-
-    if(currentCurrency === "KBP"){
-        if (orderButton) {
-            orderButton.disabled = true;
-        }
-        if (addToCartButton) {
-            addToCartButton.disabled = true;
-        }
-        if (payButton) {
-            payButton.disabled = true;
-        }
-    } else {
-        if (orderButton) {
-            orderButton.disabled = false;
-        }
-        if (addToCartButton) {
-            addToCartButton.disabled = false;
-        }
-        if (payButton) {
-            payButton.disabled=false;
-        }
-    }
 }
 
 // Aktualisiert die Preise und speichert die neue Währung in localStorage sowie in lastCurrency und currentCurrency
