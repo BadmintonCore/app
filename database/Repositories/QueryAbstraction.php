@@ -17,7 +17,7 @@ class QueryAbstraction
      *
      * @param class-string<T>|null $className Der Name der Klasse, in die das Ergebnis der SQL-Abfrage gemappt werden soll
      * @param string $query Die benutzerdefinierte SQL-Abfrage
-     * @param array<string, int|bool|string|null|array<int, int|bool|string|null>> $params Alle Parameter der SQL-Abfrage
+     * @param array<string, int|bool|string|float|null|array<int, int|bool|string|null>> $params Alle Parameter der SQL-Abfrage
      * @return ($className is null ? array<int, array<string, int|bool|string|null|array<int, int|bool|string|null>>> : array<T>) Das Ergebnisarray
      * @throws DatabaseException bei Datenbank- oder Reflektionsfehlern
      *

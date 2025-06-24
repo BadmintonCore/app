@@ -26,19 +26,20 @@ class ProductTypeRepository
      * Findet Produkte anhand von Parametern.
      *
      * @param Category $category Die Kategorie, die genutzt werden soll, um einen Produkttyp zu finden
-     * @param int $maxPrice Der maximale Preis
+     * @param float $maxPrice Der maximale Preis
      * @param array<int, int> $allowedColorIds Die zugewiesenen Farben
      * @param array<int, int> $allowedSizeIds Die zugewiesenen Größen
      * @param string|null $search Ein Suchbegriff
      * @return array<int, ProductType>
      */
-    public static function findByParams(Category $category, int $maxPrice, array $allowedColorIds, array $allowedSizeIds, ?string $search): array
+    public static function findByParams(Category $category, float $maxPrice, array $allowedColorIds, array $allowedSizeIds, ?string $search): array
     {
         $hasColorFilter = count($allowedColorIds) > 0;
         $hasSizeFilter = count($allowedSizeIds) > 0;
         $params = [
             'catId' => $category->id,
-            'maxPrice' => $maxPrice,
+            // Preis leicht erhöhen, damit es keinen Fehler gezüglich des float wertes gibt.
+            'maxPrice' => $maxPrice + 0.0001,
             'search' => $search !== null ? '%' . $search . '%' : null,
         ];
 
