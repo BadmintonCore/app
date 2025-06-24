@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 24, 2025 at 03:20 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Erstellungszeit: 24. Jun 2025 um 16:40
+-- Server-Version: 10.4.28-MariaDB
+-- PHP-Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vestis`
+-- Datenbank: `vestis`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `account`
+-- Tabellenstruktur für Tabelle `account`
 --
 
 CREATE TABLE `account` (
@@ -39,18 +39,19 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `account`
+-- Daten für Tabelle `account`
 --
 
 INSERT INTO `account` (`id`, `type`, `firstname`, `surname`, `username`, `email`, `password`, `isBlocked`) VALUES
-(27, 'C', 'Max', 'Mustermann', 'maxmusti', 'max@mustermail.de', '$2y$10$DOzQ5.kRAR9PntLF7wURaekepQZbWkwW1hVprbx9I8ZbxM92czW/C', 0),
-(28, 'A', 'Admin', 'Istrator', 'admin', 'admin@system.org', '$2y$10$/Vkc9FerppYi1Zt4rq2Kk.8AmjklPYE4CDqz93VKX4UzTl.DL4OwK', 0),
-(29, 'C', 'Susi', 'Sorglos', 'susisorg', 'sosi@sorglos.net', '$2y$10$ECOki2kBkk5zHO6QJAA5SecwdSk2wWDoFqYDyZuMCDqRSKbXd8VX6', 0);
+(27, 'C', 'Max', 'Mustermann', 'maxmusti', 'max@mustermail.de', '$2y$10$wAKf/ODl9eWJIYMxksp7V.G6M.zbukIo0jKuoVEBr95LEUVuPIVnm', 0),
+(28, 'A', 'Admin', 'Istrator', 'admin', 'admin@admin.com', '$2y$10$6zEtD5CTtfZjt1invakXleY5sBxy.G04TyvbKZ..9eQS5rR4uLcbO', 0),
+(29, 'C', 'Susi', 'Sorglos', 'susisorg', 'sosi@sorglos.net', '$2y$10$ECOki2kBkk5zHO6QJAA5SecwdSk2wWDoFqYDyZuMCDqRSKbXd8VX6', 0),
+(30, 'C', 'Hugo', 'Habicht', 'hugohab', 'hugohab@icht.de', '$2y$10$RtRGwvfieosvopZK7s6DluVfYKcZrFsVGJggrNQqDhqRNeJpX8kgK', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `address`
+-- Tabellenstruktur für Tabelle `address`
 --
 
 CREATE TABLE `address` (
@@ -65,7 +66,7 @@ CREATE TABLE `address` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `allowedColor`
+-- Tabellenstruktur für Tabelle `allowedColor`
 --
 
 CREATE TABLE `allowedColor` (
@@ -74,7 +75,7 @@ CREATE TABLE `allowedColor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `allowedColor`
+-- Daten für Tabelle `allowedColor`
 --
 
 INSERT INTO `allowedColor` (`productTypeId`, `colorId`) VALUES
@@ -172,13 +173,13 @@ INSERT INTO `allowedColor` (`productTypeId`, `colorId`) VALUES
 (20, 3),
 (21, 2),
 (21, 3),
-(22, 3),
+(22, 7),
 (23, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `allowedSize`
+-- Tabellenstruktur für Tabelle `allowedSize`
 --
 
 CREATE TABLE `allowedSize` (
@@ -187,7 +188,7 @@ CREATE TABLE `allowedSize` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `allowedSize`
+-- Daten für Tabelle `allowedSize`
 --
 
 INSERT INTO `allowedSize` (`productTypeId`, `sizeId`) VALUES
@@ -261,24 +262,17 @@ INSERT INTO `allowedSize` (`productTypeId`, `sizeId`) VALUES
 (17, 3),
 (17, 4),
 (17, 5),
-(18, 1),
-(18, 2),
-(18, 3),
-(18, 4),
-(19, 1),
-(19, 2),
-(19, 3),
-(19, 4),
-(19, 5),
-(20, 3),
-(21, 3),
-(22, 3),
-(23, 3);
+(18, 7),
+(19, 7),
+(20, 7),
+(21, 7),
+(22, 7),
+(23, 7);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Tabellenstruktur für Tabelle `category`
 --
 
 CREATE TABLE `category` (
@@ -288,7 +282,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `category`
+-- Daten für Tabelle `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `parentCategoryId`) VALUES
@@ -302,7 +296,7 @@ INSERT INTO `category` (`id`, `name`, `parentCategoryId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `color`
+-- Tabellenstruktur für Tabelle `color`
 --
 
 CREATE TABLE `color` (
@@ -312,7 +306,7 @@ CREATE TABLE `color` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `color`
+-- Daten für Tabelle `color`
 --
 
 INSERT INTO `color` (`id`, `hex`, `name`) VALUES
@@ -321,12 +315,13 @@ INSERT INTO `color` (`id`, `hex`, `name`) VALUES
 (3, 'ffffff', 'Weiß'),
 (4, '1f73e0', 'Blau'),
 (5, 'c96e6e', 'Beige'),
-(6, '26990f', 'Grün');
+(6, '26990f', 'Grün'),
+(7, 'aa7941', 'Braun');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `feedback`
+-- Tabellenstruktur für Tabelle `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -341,7 +336,7 @@ CREATE TABLE `feedback` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `globalConfig`
+-- Tabellenstruktur für Tabelle `globalConfig`
 --
 
 CREATE TABLE `globalConfig` (
@@ -350,11 +345,11 @@ CREATE TABLE `globalConfig` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `globalConfig`
+-- Daten für Tabelle `globalConfig`
 --
 
 INSERT INTO `globalConfig` (`attribute`, `value`) VALUES
-('ABOUT_US_CONTENT', '<p class = \"large-text\">\n            Wir sind eine junge, trendbewusste Mode-Marke, die es sich zur Aufgabe gemacht hat, Mode für alle zu <br>\n            kreieren, die ihren eigenen Stil leben und sich selbstbewusst ausdrücken möchten. Unsere Kollektionen <br>\n            kombinieren Qualität, Komfort und aktuelle Trends, um dir die perfekte Mischung aus Alltagsbekleidung <br>\n            und Statement-Pieces zu bieten. <br>\n            Bei vestis. findest du Outfits, die nicht nur gut aussehen, sondern sich auch gut anfühlen. Wir setzen auf\n            <br>\n            nachhaltige Materialien und faire Produktion, um dir nicht nur modische, sondern auch verantwortungsbewusste\n            <br>\n            Kleidung zu bieten.\n        </p>\n        <p class = \"large-text\">\n            Entdecke deine neue Lieblingsmode bei uns und lass dich von unseren Designs inspirieren – für jeden Moment,\n            <br>\n            für deinen Style, für dich!\n        </p>'),
+('ABOUT_US_CONTENT', 'Wir suchen motivierte, kreative und sympathische Menschen, die Lust haben, mit uns gemeinsam etwas zu bewegen.<br>\r\nBei Vestis bist du nicht nur eine Nummer, sondern ein wichtiger Teil unseres Teams.<br>\r\nHier zählt Teamspirit, Eigeninitiative und echtes Miteinander.<br><br>\r\n\r\nOb im Lager, im Büro oder im Kundenservice – wir bieten dir einen Arbeitsplatz, an dem du dich weiterentwickeln kannst und dich wohlfühlst.<br>\r\nFlexible Strukturen, moderne Arbeitsplätze, offene Kommunikation und ganz viel gute Laune inklusive!<br><br>\r\n\r\n<strong>Was dich bei uns erwartet:</strong><br>\r\n– Ein Team, das zusammenhält und sich gegenseitig unterstützt<br>\r\n– Abwechslungsreiche Aufgaben und Raum für eigene Ideen<br>\r\n– Faire Bezahlung und Entwicklungsmöglichkeiten<br>\r\n– Und nicht zuletzt: ein Arbeitsplatz, an dem Lachen erlaubt (und erwünscht!) ist <br><br>\r\n\r\n<strong>Lust, mit uns durchzustarten?</strong><br>\r\nDann bewirb dich jetzt – wir freuen uns auf dich!<br><br>'),
 ('FAQ_CONTENT', '<p class=\"large-text\">\r\n            <b>1. Wie lange dauert der Versand?</b> <br>\r\n            Die Lieferzeit beträgt in der Regel 2–5 Werktage innerhalb Deutschlands. <br>\r\n            Sollte es zu Verzögerungen kommen, informieren wir Sie umgehend per E-Mail.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>2. Welche Zahlungsmethoden werden akzeptiert?</b> <br>\r\n            Sie können bei uns per Vorkasse, PayPal, Kreditkarte oder Sofortüberweisung bezahlen.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>3. Wie kann ich meine Bestellung stornieren?</b> <br>\r\n            Bitte kontaktieren Sie unseren Kundenservice so schnell wie möglich per E-Mail oder Telefon. <br>\r\n            Sollte die Bestellung noch nicht versandt worden sein, können wir sie problemlos stornieren.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>4. Was mache ich, wenn meine Bestellung beschädigt ankommt?</b> <br>\r\n            Bitte dokumentieren Sie die Beschädigung mit Fotos und melden Sie sich umgehend bei unserem Kundenservice. <br>\r\n            Wir kümmern uns schnellstmöglich um Ersatz oder Rückerstattung.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>5. Kann ich Artikel umtauschen?</b> <br>\r\n            Ein direkter Umtausch ist leider nicht möglich. <br>\r\n            Bitte senden Sie den Artikel zurück und bestellen Sie den gewünschten Artikel neu.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>6. Wo finde ich meine Rechnung?</b> <br>\r\n            Ihre Rechnung erhalten Sie per E-Mail nach Abschluss der Bestellung. <br>\r\n            Alternativ können Sie sie in Ihrem Kundenkonto herunterladen, sofern Sie eines angelegt haben.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>7. Muss ich ein Kundenkonto anlegen, um zu bestellen?</b> <br>\r\n            Nein, Sie können auch als Gast bestellen. Ein Kundenkonto bietet jedoch Vorteile <br>\r\n            wie die Einsicht in frühere Bestellungen und schnelleren Bestellvorgang.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>8. Kann ich meine Lieferadresse nachträglich ändern?</b> <br>\r\n            Bitte kontaktieren Sie uns so schnell wie möglich. <br>\r\n            Solange die Bestellung noch nicht versendet wurde, können wir die Adresse ändern.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>9. Was passiert, wenn ich bei der Lieferung nicht zu Hause bin?</b> <br>\r\n            Der Versanddienstleister hinterlässt in der Regel eine Benachrichtigungskarte <br>\r\n            mit Informationen zur Abholung oder einem neuen Zustellversuch.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>10. Wie kann ich den Status meiner Bestellung verfolgen?</b> <br>\r\n            Nach dem Versand erhalten Sie von uns eine E-Mail mit einem Link zur Sendungsverfolgung. <br>\r\n            So wissen Sie jederzeit, wo sich Ihr Paket befindet.\r\n        </p>\r\n\r\n        <p class=\"large-text\">\r\n            <b>11. Was kostet der Versand?</b> <br>\r\n            Die genauen Versandkosten werden im Bestellvorgang deutlich angezeigt. <br>\r\n            Ab einem bestimmten Bestellwert kann der Versand kostenlos sein – die Bedingungen finden Sie auf unserer Website.\r\n        </p>'),
 ('FOOTER_FACEBOOK_LINK', 'https://facebook.com'),
 ('FOOTER_HEADING', 'Bleibe immer einen Stil voraus'),
@@ -364,21 +359,21 @@ INSERT INTO `globalConfig` (`attribute`, `value`) VALUES
 ('FOOTER_X_LINK', 'https://x.com'),
 ('GTC_CONTENT', '<p class = \"large-text\">\n            <b>1. Geltungsbereich</b> <br>\n\n            Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Bestellungen, <br>\n            die über unseren Online-Shop durch Verbraucher und Unternehmer erfolgen.\n        </p>\n        <p class = \"large-text\">\n            <b>2. Vertragspartner, Vertragsschluss</b> <br>\n\n            Der Kaufvertrag kommt zustande mit MusterShop GmbH, Musterstraße 1, 12345 Musterstadt. <br>\n            Mit Einstellung der Produkte in den Online-Shop geben wir ein verbindliches Angebot zum <br>\n            Vertragsschluss über diese Artikel ab. Der Vertrag kommt zustande, indem Sie durch Anklicken des <br>\n            Bestellbuttons das Angebot über die im Warenkorb enthaltenen Waren annehmen.\n        </p>\n        <p class=\"large-text\">\n            <b>3. Preise und Versandkosten</b> <br>\n\n            Alle Preise sind Endpreise und enthalten die gesetzliche Mehrwertsteuer. Zuzüglich zum Warenpreis <br>\n            kommen gegebenenfalls Versandkosten hinzu, die im Bestellvorgang deutlich ausgewiesen werden.\n        </p>\n        <p class=\"large-text\">\n            <b>4. Lieferung</b> <br>\n\n            Die Lieferung erfolgt innerhalb Deutschlands mit DHL oder einem anderen Versanddienstleister. <br>\n            Die Lieferzeit beträgt in der Regel 2–5 Werktage, sofern beim Produkt keine andere Angabe erfolgt.\n        </p>\n        <p class=\"large-text\">\n            <b>5. Zahlung</b> <br>\n\n            In unserem Shop stehen Ihnen die folgenden Zahlungsarten zur Verfügung: <br>\n            <br>\n            Vorkasse<br>\n            PayPal<br>\n            Kreditkarte<br>\n            Sofortüberweisung\n        </p>\n        <p class=\"large-text\">\n            <b>6. Widerrufsrecht</b> <br>\n\n            Verbraucher haben ein gesetzliches Widerrufsrecht. Die Widerrufsbelehrung und ein <br>\n            Muster-Widerrufsformular finden Sie auf unserer Website unter dem Menüpunkt „Widerrufserklärung“.\n        </p>\n        <p class=\"large-text\">\n            <b>7. Eigentumsvorbehalt</b> <br>\n\n            Die Ware bleibt bis zur vollständigen Bezahlung unser Eigentum.\n        </p>\n        <p class=\"large-text\">\n            <b>8. Gewährleistung und Haftung</b> <br>\n\n            Es gelten die gesetzlichen Gewährleistungsrechte. Bei Mängeln der gelieferten Ware wenden Sie <br>\n            sich bitte an unseren Kundenservice. Für Schäden haften wir nur bei Vorsatz oder grober Fahrlässigkeit.\n        </p>\n        <p class=\"large-text\">\n            <b>9. Schlussbestimmungen</b> <br>\n\n            Sollte eine Bestimmung dieser AGB unwirksam sein, bleibt der Vertrag im Übrigen wirksam. <br>\n            Anstelle der unwirksamen Bestimmung gilt das einschlägige gesetzliche Recht.\n        </p>\n\n        <br>\n\n        <p class=\"large-text\" style=\"text-align: center\">\n            <b>MusterShop GmbH<br>\n            Musterstraße 1<br>\n            12345 Musterstadt<br>\n            E-Mail: info@mustershop.de<br>\n                Telefon: 01234 / 567890</b>\n        </p>'),
 ('IMPRESS_CONTENT', '<p class=\"large-text\">\n        <!--Author: Lennart Moog-->\n        <!--Author: Lasse Hoffmann-->\n        <b>Impressum</b><br>\n        Angaben gemäß § 5 TMG: <br>\n        <br>\n        [Vor- und Nachname oder Firmenname]<br>\n        [Anschrift: Straße, Hausnummer]<br>\n        [PLZ] [Ort]<br>\n        [Land]<br>\n        <br>\n        Vertreten durch:<br>\n        [Name der vertretungsberechtigten Person(en)]<br>\n        <br>\n        Kontakt:<br>\n        Telefon: [Telefonnummer]<br>\n        E-Mail: [E-Mail-Adresse]<br>\n        Website: [Domain-URL]<br>\n        <br>\n        Umsatzsteuer-ID:<br>\n        Umsatzsteuer-Identifikationsnummer <br>\n        gemäß §27 a Umsatzsteuergesetz: [USt-ID]<br>\n        <br>\n        Handelsregister:<br>\n        Eingetragen im Handelsregister.<br>\n        Registergericht: [z. B. Amtsgericht Musterstadt]<br>\n        Registernummer: [HRB 123456]<br>\n        <br>\n        Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>\n        [Name]<br>\n        [Adresse wie oben oder abweichend]\n    </p>'),
-('JOBS_CONTENT', 'Karriere bei uns macht mega Spaß!'),
-('ORDER_CONTENT', 'Fragen zur Bestellung hier rein'),
-('PAYMENT_METHODS_CONTENT', 'Wir bieten nur Zahlung auf Rechnung an'),
-('PRESS_CONTENT', 'Hier finden Sie unsere neusten Presseinhalte'),
+('JOBS_CONTENT', 'Wir suchen motivierte, kreative und sympathische Menschen, die Lust haben, mit uns gemeinsam etwas zu bewegen.<br>\r\nBei Vestis bist du nicht nur eine Nummer, sondern ein wichtiger Teil unseres Teams.<br>\r\nHier zählt Teamspirit, Eigeninitiative und echtes Miteinander.<br><br>\r\n\r\nOb im Lager, im Büro oder im Kundenservice – wir bieten dir einen Arbeitsplatz, an dem du dich weiterentwickeln kannst und dich wohlfühlst.<br>\r\nFlexible Strukturen, moderne Arbeitsplätze, offene Kommunikation und ganz viel gute Laune inklusive!<br><br>\r\n\r\n<strong>Was dich bei uns erwartet:</strong><br>\r\n– Ein Team, das zusammenhält und sich gegenseitig unterstützt<br>\r\n– Abwechslungsreiche Aufgaben und Raum für eigene Ideen<br>\r\n– Faire Bezahlung und Entwicklungsmöglichkeiten<br>\r\n– Und nicht zuletzt: ein Arbeitsplatz, an dem Lachen erlaubt (und erwünscht!) ist <br><br>\r\n\r\n<strong>Lust, mit uns durchzustarten?</strong><br>\r\nDann bewirb dich jetzt – wir freuen uns auf dich!<br><br>'),
+('ORDER_CONTENT', 'Du hast Fragen zu deiner Bestellung bei Vestis?<br>\r\nKein Problem – wir helfen dir gerne weiter!<br><br>\r\n\r\nOb es um Lieferzeiten, Zahlungsarten, Retouren oder den aktuellen Stand deiner Bestellung geht – unser Kundenservice steht dir zuverlässig zur Seite.<br><br>\r\n\r\n<strong>So erreichst du uns:</strong><br>\r\n– Per E-Mail unter: service@vestis.de</a><br>\r\n– Telefonisch zu unseren Geschäftszeiten<br>\r\n– Oder direkt über unser Kontaktformular<br><br>\r\n\r\nWir kümmern uns schnell und unkompliziert um dein Anliegen.<br>\r\nDeine Zufriedenheit steht bei uns an erster Stelle.\r\n'),
+('PAYMENT_METHODS_CONTENT', 'Bei Vestis bieten wir dir eine einfache und bequeme Zahlungsmöglichkeit an:<br><br>\r\n\r\n<strong>Kauf auf Rechnung</strong><br>\r\nDu bestellst – wir liefern – du zahlst ganz bequem nach Erhalt der Ware.<br><br>\r\n\r\nDer Rechnungsbetrag ist innerhalb von 14 Tagen nach Erhalt der Lieferung fällig.<br>\r\nAlle Zahlungsinformationen findest du auf der Rechnung, die deiner Bestellung beiliegt.<br><br>\r\n\r\nBitte beachte: Der Kauf auf Rechnung ist nur für Lieferungen innerhalb Deutschlands möglich.'),
+('PRESS_CONTENT', 'Hier findest du alle aktuellen Meldungen, Pressemitteilungen und News rund um Vestis.<br><br>\r\n\r\n<strong>Unsere Themen:</strong><br>\r\n– Neue Produkt- oder Serviceeinführungen<br>\r\n– Unternehmensentwicklungen und Meilensteine<br>\r\n– Kooperationen, Partnerschaften und Projekte<br>\r\n– Medienberichte und Interviews mit unserem Team<br><br>\r\n\r\nAlle Inhalte stehen zum Download bereit, darunter Pressemitteilungen, Bildmaterial und Ansprechpartner für Journalisten.<br><br>\r\n\r\n<strong>Interessiert an weiteren Informationen?</strong><br>\r\nDann kontaktiere unser Presseteam direkt oder nutze das Kontaktformular auf unserer Presse-Seite.\r\n'),
 ('PRIVACY_CONTENT', '<p class=\"large-text\">\n            <b>1. Verantwortlicher</b> <br>\n            MusterShop GmbH <br>\n            Musterstraße 1 <br>\n            12345 Musterstadt <br>\n            E-Mail: info@mustershop.de <br>\n            Telefon: 01234 / 567890\n        </p>\n        <p class=\"large-text\">\n            <b>2. Erhebung und Verarbeitung personenbezogener Daten</b> <br>\n            Wir erheben, speichern und verarbeiten Ihre personenbezogenen Daten zur Abwicklung Ihrer Bestellung, <br>\n            für die Lieferung sowie zur Pflege der Kundenbeziehung. <br>\n            Personenbezogene Daten erheben wir nur, wenn Sie uns diese im Rahmen Ihrer Bestellung <br>\n            oder bei der Eröffnung eines Kundenkontos freiwillig mitteilen.\n        </p>\n        <p class=\"large-text\">\n            <b>3. Weitergabe personenbezogener Daten</b> <br>\n            Eine Weitergabe Ihrer Daten erfolgt ausschließlich an das mit der Lieferung beauftragte Versandunternehmen <br>\n            und – soweit erforderlich – an das mit der Zahlungsabwicklung beauftragte Kreditinstitut oder Zahlungsdienstleister <br>\n            (z. B. PayPal, Kreditkartenanbieter, Sofortüberweisung).\n        </p>\n        <p class=\"large-text\">\n            <b>4. Verwendung von Cookies</b> <br>\n            Unser Online-Shop verwendet Cookies, um bestimmte Funktionen zu ermöglichen und die Nutzung unserer Website zu verbessern. <br>\n            Sie können das Speichern von Cookies in Ihrem Browser deaktivieren. <br>\n            Dies kann jedoch die Funktionalität der Website einschränken.\n        </p>\n        <p class=\"large-text\">\n            <b>5. Ihre Rechte</b> <br>\n            Sie haben das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten <br>\n            sowie ggf. ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. <br>\n            Wenden Sie sich hierzu bitte an unseren Kundenservice unter info@mustershop.de.\n        </p>\n        <p class=\"large-text\">\n            <b>6. Datensicherheit</b> <br>\n            Ihre Daten werden im Bestellprozess mittels SSL-Verschlüsselung übertragen. <br>\n            Wir sichern unsere Website und Systeme durch technische und organisatorische Maßnahmen <br>\n            gegen Verlust, Zerstörung, Zugriff, Veränderung oder Verbreitung Ihrer Daten durch unbefugte Personen.\n        </p>'),
-('RESPONSIBILITY_CONTENT', 'Hier finden sie ganz viel Verantwortung'),
+('RESPONSIBILITY_CONTENT', 'Bei Vestis übernehmen wir Verantwortung – für unsere Umwelt, unsere Mitarbeitenden und für die Gesellschaft.<br><br>\r\n\r\nNachhaltigkeit ist für uns kein Trend, sondern ein fester Bestandteil unseres Handelns.<br>\r\nWir setzen auf umweltfreundliche Prozesse, ressourcenschonende Materialien und faire Arbeitsbedingungen entlang unserer gesamten Lieferkette.<br><br>\r\n\r\n<strong>Unsere Schwerpunkte:</strong><br>\r\n– Umweltbewusste Verpackung und Versand<br>\r\n– Nachhaltige Produkte und Materialien<br>\r\n– Verantwortungsvoller Umgang mit Energie und Ressourcen<br>\r\n– Partnerschaften mit regionalen und sozialen Initiativen<br><br>\r\n\r\nVerantwortung bedeutet für uns: Heute schon an morgen denken – und aktiv gestalten, was wir besser machen können.\r\n'),
 ('RETURNS_CONTENT', '<p class=\"large-text\">\n            <b>Rücksendung</b> <br>\n            Sie können Artikel innerhalb von 14 Tagen nach Erhalt der Ware an uns zurücksenden. <br>\n            Bitte stellen Sie sicher, dass sich die Artikel in ungebrauchtem und einwandfreiem Zustand befinden <br>\n            und möglichst in der Originalverpackung zurückgesendet werden.\n        </p>\n        <p class=\"large-text\">\n            <b>Rücksendeadresse</b> <br>\n            MusterShop GmbH <br>\n            Retourenabteilung <br>\n            Musterstraße 1 <br>\n            12345 Musterstadt\n        </p>\n        <p class=\"large-text\">\n            <b>Rücksendeablauf</b> <br>\n            1. Bitte kontaktieren Sie unseren Kundenservice per E-Mail an info@mustershop.de <br>\n            und geben Sie Ihre Bestellnummer sowie den Rücksendegrund an. <br>\n            2. Sie erhalten anschließend von uns ein Rücksendeetikett per E-Mail. <br>\n            3. Verpacken Sie die Ware sicher und bringen Sie das Etikett gut sichtbar an. <br>\n            4. Geben Sie das Paket bei einer Annahmestelle des angegebenen Versanddienstleisters ab.\n        </p>\n        <p class=\"large-text\">\n            <b>Erstattung</b> <br>\n            Nach Eingang und Prüfung der Rücksendung erstatten wir Ihnen den Kaufbetrag <br>\n            innerhalb von 7 Werktagen auf das bei der Bestellung verwendete Zahlungsmittel.\n        </p>\n        <p class=\"large-text\">\n            <b>Rücksendekosten</b> <br>\n            Die Kosten der Rücksendung tragen Sie, es sei denn, die gelieferte Ware war fehlerhaft <br>\n            oder entsprach nicht der bestellten. In diesem Fall übernehmen wir die Rücksendekosten.\n        </p>'),
 ('REVOCATION_CONTENT', '<p class=\"large-text\" style=\"text-align: justify\">\n            <b>Widerrufsrecht für Verbraucher</b> <br>\n            <br>\n            Verbraucher haben ein vierzehntägiges Widerrufsrecht.<br>\n            <br>\n            <b>Widerrufsrecht</b> <br>\n            Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.<br>\n            Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter,<br>\n            der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat, <br>\n            im Falle einer Teillieferung: an dem Sie oder ein Dritter die letzte Ware in Besitz genommen haben.<br>\n            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (MusterShop GmbH, Musterstraße 1, 12345 Musterstadt,<br>\n            E-Mail: info@mustershop.de, Telefon: 01234 / 567890) mittels einer eindeutigen Erklärung <br>\n            (per E-Mail oder Post) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.\n        </p>'),
-('SHIPMENT_CONTENT', 'Wir versenden so, wie wir wollen'),
-('VOUCHERS_CONTENT', 'Wir nutzen viele tolle Gutscheine');
+('SHIPMENT_CONTENT', 'Wir liefern deine Bestellung schnell, zuverlässig und sicher zu dir nach Hause.<br><br>\r\n\r\n<strong>Unsere Versanddetails:</strong><br>\r\n– Versand innerhalb Deutschlands<br>\r\n– Zuverlässige Lieferung mit unserem Logistikpartner<br>\r\n– Versandkostenfrei<br>\r\n– Lieferzeit in der Regel 2–4 Werktage<br><br>\r\n\r\nSobald deine Bestellung versendet wurde, erhältst du eine Versandbestätigung mit Sendungsverfolgung per E-Mail.<br><br>\r\n\r\nDu hast Fragen zu deiner Lieferung?<br>\r\nUnser Kundenservice hilft dir gerne weiter.'),
+('VOUCHERS_CONTENT', 'Aktuell bieten wir noch keine Gutscheine an.<br>\r\nWir arbeiten aber bereits daran und freuen uns, dir diese Möglichkeit schon bald zur Verfügung stellen zu können.<br><br>\r\n\r\nBleib gespannt – wir informieren dich, sobald Gutscheine bei Vestis verfügbar sind!\r\n');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `image`
+-- Tabellenstruktur für Tabelle `image`
 --
 
 CREATE TABLE `image` (
@@ -388,7 +383,7 @@ CREATE TABLE `image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `image`
+-- Daten für Tabelle `image`
 --
 
 INSERT INTO `image` (`id`, `name`, `path`) VALUES
@@ -418,7 +413,7 @@ INSERT INTO `image` (`id`, `name`, `path`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `joinAddressAcc`
+-- Tabellenstruktur für Tabelle `joinAddressAcc`
 --
 
 CREATE TABLE `joinAddressAcc` (
@@ -430,7 +425,7 @@ CREATE TABLE `joinAddressAcc` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newsletter`
+-- Tabellenstruktur für Tabelle `newsletter`
 --
 
 CREATE TABLE `newsletter` (
@@ -438,18 +433,19 @@ CREATE TABLE `newsletter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `newsletter`
+-- Daten für Tabelle `newsletter`
 --
 
 INSERT INTO `newsletter` (`email`) VALUES
 (''),
+('hugohab@icht.de'),
 ('max@mustermail.de'),
 ('sosi@sorglos.net');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderProduct`
+-- Tabellenstruktur für Tabelle `orderProduct`
 --
 
 CREATE TABLE `orderProduct` (
@@ -458,16 +454,22 @@ CREATE TABLE `orderProduct` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orderProduct`
+-- Daten für Tabelle `orderProduct`
 --
 
 INSERT INTO `orderProduct` (`orderId`, `productId`) VALUES
-(1, 1);
+(1, 1),
+(2, 17),
+(2, 1101),
+(2, 1116),
+(2, 1131),
+(2, 1138),
+(2, 1139);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Tabellenstruktur für Tabelle `orders`
 --
 
 CREATE TABLE `orders` (
@@ -481,16 +483,17 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orders`
+-- Daten für Tabelle `orders`
 --
 
 INSERT INTO `orders` (`id`, `accountId`, `timestamp`, `status`, `denialMessage`, `discount`, `discountMessage`) VALUES
-(1, 27, '2025-06-24 15:17:59', 'Zahlung ausstehend', NULL, 0, 'Vielen Dank für Ihre Bestellung!');
+(1, 27, '2025-06-24 15:17:59', 'Zahlung ausstehend', NULL, 0, 'Vielen Dank für Ihre Bestellung!'),
+(2, 30, '2025-06-24 16:29:24', 'Zahlung ausstehend', NULL, 0, 'Vielen Dank für Ihre Bestellung!');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Tabellenstruktur für Tabelle `product`
 --
 
 CREATE TABLE `product` (
@@ -507,7 +510,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `product`
+-- Daten für Tabelle `product`
 --
 
 INSERT INTO `product` (`id`, `productTypeId`, `sizeId`, `colorId`, `shoppingCartId`, `accId`, `boughtAt`, `boughtPrice`, `shoppingCartNumber`, `boughtDiscount`) VALUES
@@ -527,7 +530,7 @@ INSERT INTO `product` (`id`, `productTypeId`, `sizeId`, `colorId`, `shoppingCart
 (14, 2, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL),
 (15, 2, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL),
 (16, 3, 1, 1, 27, NULL, NULL, NULL, 1, NULL),
-(17, 3, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 3, 1, 1, NULL, 30, '2025-06-24 14:29:24', 34.99, 1, 0),
 (18, 3, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (19, 3, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (20, 3, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -921,612 +924,101 @@ INSERT INTO `product` (`id`, `productTypeId`, `sizeId`, `colorId`, `shoppingCart
 (408, 17, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (409, 17, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (410, 17, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(411, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(412, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(413, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(414, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(415, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(416, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(417, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(418, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(419, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(420, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(421, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(422, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(423, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(424, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(425, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(426, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(427, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(428, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(429, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(430, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(431, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(432, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(433, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(434, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(435, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(436, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(437, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(438, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(439, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(440, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(441, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(442, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(443, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(444, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(445, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(446, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(447, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(448, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(449, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(450, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(451, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(452, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(453, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(454, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(455, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(456, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(457, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(458, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(459, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(460, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(461, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(462, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(463, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(464, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(465, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(466, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(467, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(468, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(469, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(470, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(471, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(472, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(473, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(474, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(475, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(476, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(477, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(478, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(479, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(480, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(481, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(482, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(483, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(484, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(485, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(486, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(487, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(488, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(489, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(490, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(491, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(492, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(493, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(494, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(495, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(496, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(497, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(498, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(499, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(500, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(501, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(502, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(503, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(504, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(505, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(506, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(507, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(508, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(509, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(510, 18, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(511, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(512, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(513, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(514, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(515, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(516, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(517, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(518, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(519, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(520, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(521, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(522, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(523, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(524, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(525, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(526, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(527, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(528, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(529, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(530, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(531, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(532, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(533, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(534, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(535, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(536, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(537, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(538, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(539, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(540, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(541, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(542, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(543, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(544, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(545, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(546, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(547, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(548, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(549, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(550, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(551, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(552, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(553, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(554, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(555, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(556, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(557, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(558, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(559, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(560, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(561, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(562, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(563, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(564, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(565, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(566, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(567, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(568, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(569, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(570, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(571, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(572, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(573, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(574, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(575, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(576, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(577, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(578, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(579, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(580, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(581, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(582, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(583, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(584, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(585, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(586, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(587, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(588, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(589, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(590, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(591, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(592, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(593, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(594, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(595, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(596, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(597, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(598, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(599, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(600, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(601, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(602, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(603, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(604, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(605, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(606, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(607, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(608, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(609, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(610, 19, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(611, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(612, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(613, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(614, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(615, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(616, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(617, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(618, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(619, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(620, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(621, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(622, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(623, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(624, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(625, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(626, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(627, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(628, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(629, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(630, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(631, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(632, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(633, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(634, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(635, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(636, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(637, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(638, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(639, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(640, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(641, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(642, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(643, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(644, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(645, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(646, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(647, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(648, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(649, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(650, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(651, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(652, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(653, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(654, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(655, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(656, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(657, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(658, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(659, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(660, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(661, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(662, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(663, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(664, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(665, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(666, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(667, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(668, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(669, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(670, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(671, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(672, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(673, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(674, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(675, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(676, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(677, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(678, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(679, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(680, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(681, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(682, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(683, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(684, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(685, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(686, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(687, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(688, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(689, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(690, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(691, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(692, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(693, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(694, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(695, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(696, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(697, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(698, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(699, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(700, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(701, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(702, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(703, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(704, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(705, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(706, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(707, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(708, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(709, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(710, 20, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(711, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(712, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(713, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(714, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(715, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(716, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(717, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(718, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(719, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(720, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(721, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(722, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(723, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(724, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(725, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(726, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(727, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(728, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(729, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(730, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(731, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(732, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(733, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(734, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(735, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(736, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(737, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(738, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(739, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(740, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(741, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(742, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(743, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(744, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(745, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(746, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(747, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(748, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(749, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(750, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(751, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(752, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(753, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(754, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(755, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(756, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(757, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(758, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(759, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(760, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(761, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(762, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(763, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(764, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(765, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(766, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(767, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(768, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(769, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(770, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(771, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(772, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(773, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(774, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(775, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(776, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(777, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(778, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(779, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(780, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(781, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(782, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(783, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(784, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(785, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(786, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(787, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(788, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(789, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(790, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(791, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(792, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(793, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(794, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(795, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(796, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(797, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(798, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(799, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(800, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(801, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(802, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(803, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(804, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(805, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(806, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(807, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(808, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(809, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(810, 21, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(811, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(812, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(813, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(814, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(815, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(816, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(817, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(818, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(819, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(820, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(821, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(822, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(823, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(824, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(825, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(826, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(827, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(828, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(829, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(830, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(831, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(832, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(833, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(834, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(835, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(836, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(837, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(838, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(839, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(840, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(841, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(842, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(843, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(844, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(845, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(846, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(847, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(848, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(849, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(850, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(851, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(852, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(853, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(854, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(855, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(856, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(857, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(858, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(859, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(860, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(861, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(862, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(863, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(864, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(865, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(866, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(867, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(868, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(869, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(870, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(871, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(872, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(873, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(874, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(875, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(876, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(877, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(878, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(879, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(880, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(881, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(882, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(883, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(884, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(885, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(886, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(887, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(888, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(889, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(890, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(891, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(892, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(893, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(894, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(895, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(896, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(897, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(898, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(899, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(900, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(901, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(902, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(903, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(904, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(905, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(906, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(907, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(908, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(909, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(910, 22, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(911, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(912, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(913, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(914, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(915, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(916, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(917, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(918, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(919, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(920, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(921, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(922, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(923, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(924, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(925, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(926, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(927, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(928, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(929, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(930, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(931, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(932, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(933, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(934, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(935, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(936, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(937, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(938, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(939, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(940, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(941, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(942, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(943, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(944, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(945, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(946, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(947, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(948, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(949, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(950, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(951, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(952, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(953, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(954, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(955, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(956, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(957, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(958, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(959, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(960, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(961, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(962, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(963, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(964, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(965, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(966, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(967, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(968, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(969, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(970, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(971, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(972, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(973, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(974, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(975, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(976, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(977, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(978, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(979, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(980, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(981, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `product` (`id`, `productTypeId`, `sizeId`, `colorId`, `shoppingCartId`, `accId`, `boughtAt`, `boughtPrice`, `shoppingCartNumber`, `boughtDiscount`) VALUES
-(982, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(983, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(984, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(985, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(986, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(987, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(988, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(989, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(990, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(991, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(992, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(993, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(994, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(995, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(996, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(997, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(998, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(999, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1000, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1001, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1002, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1003, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1004, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1005, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1006, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1007, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1008, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1009, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL),
-(1010, 23, 3, 3, NULL, NULL, NULL, NULL, NULL, NULL);
+(1101, 23, 7, 3, NULL, 30, '2025-06-24 14:29:24', 30, 1, 0),
+(1102, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1103, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1104, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1105, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1106, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1107, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1108, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1109, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1110, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1111, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1112, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1113, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1114, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1115, 23, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1131, 18, 7, 1, NULL, 30, '2025-06-24 14:29:24', 42, 1, 0),
+(1132, 18, 7, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(1133, 18, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1134, 18, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1135, 18, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1136, 18, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1137, 18, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1138, 19, 7, 1, NULL, 30, '2025-06-24 14:29:24', 79, 1, 0),
+(1139, 19, 7, 1, NULL, 30, '2025-06-24 14:29:24', 79, 1, 0),
+(1140, 19, 7, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(1141, 19, 7, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(1142, 19, 7, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(1143, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1144, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1145, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1146, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1147, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1148, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1149, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1150, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1151, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1152, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1153, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1154, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1155, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1156, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1157, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1158, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1159, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1160, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1161, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1162, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1163, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1164, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1165, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1166, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1167, 21, 7, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(1168, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1169, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1170, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1171, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1172, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1173, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1174, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1175, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1176, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1177, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1178, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1179, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1180, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1181, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1182, 21, 7, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(1183, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1184, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1185, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1186, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1187, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1188, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1189, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1190, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1191, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1192, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1193, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1194, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1195, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1196, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1197, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1198, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1199, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1200, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1201, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1202, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1203, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1204, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL),
+(1205, 22, 7, 7, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productImage`
+-- Tabellenstruktur für Tabelle `productImage`
 --
 
 CREATE TABLE `productImage` (
@@ -1535,7 +1027,7 @@ CREATE TABLE `productImage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `productImage`
+-- Daten für Tabelle `productImage`
 --
 
 INSERT INTO `productImage` (`productTypeId`, `imageId`) VALUES
@@ -1565,7 +1057,7 @@ INSERT INTO `productImage` (`productTypeId`, `imageId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productType`
+-- Tabellenstruktur für Tabelle `productType`
 --
 
 CREATE TABLE `productType` (
@@ -1583,37 +1075,37 @@ CREATE TABLE `productType` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `productType`
+-- Daten für Tabelle `productType`
 --
 
 INSERT INTO `productType` (`id`, `categoryId`, `name`, `material`, `price`, `description`, `collection`, `careInstructions`, `origin`, `extraFields`, `discount`) VALUES
-(2, 3, 'Analog Mood', '100% Bio-Baumwolle', 34.99, 'Schlicht und stilvoll – inspiriert vom Charme alter Polaroids.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, nicht im Trockner trocknen.', 'Made in Germany', '                {\r\n\"fabric_weight\": \"185 g/m²\",\r\n\"fit\": \"Regular Fit\"\r\n}            ', 0),
-(3, 3, 'Retro Sunburst Tee', '100% Bio-Baumwolle', 34.99, 'Weiches Retro-T-Shirt aus Bio-Baumwolle mit Sonnenmuster – perfekt für lässige Sommertage.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, auf links waschen, nicht in den Trockner geben.', 'Made in Germany', '{\"fabric_weight\": \"180 g/m²\", \"fit\": \"Regular Fit\"}', 0),
-(4, 3, 'Cassette Vibes', '100% Bio-Baumwolle', 32, 'Hochwertiges Baumwollshirt im kultigen Kassetten-Design – für echte 80s-Fans.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, Feinwaschgang empfohlen.', 'Made in Germany', '{\"fabric_weight\": \"190 g/m²\", \"fit\": \"Loose Fit\"}', 0),
-(5, 3, 'Pixel Palm Tee', '100% Bio-Baumwolle', 37.99, 'Luftiges Retro-T-Shirt mit 8-Bit-Palmenmotiv – Sommer, Sonne, Nostalgie.', 'Summer Retro 2025', 'Schonwaschgang bei 30°C, auf links waschen.', 'Made in Germany', '{\"fabric_weight\": \"175 g/m²\", \"fit\": \"Regular Fit\"}', 0),
-(6, 3, 'VHS Club Shirt', '100% Bio-Baumwolle', 34.99, 'Oversized Fit im VHS-Design – perfekt für entspannte Vintage-Looks.', 'Summer Retro 2025', 'Maschinenwäsche kalt, auf links bügeln.', 'Made in Germany', '{\"fabric_weight\": \"200 g/m²\", \"fit\": \"Oversized Fit\"}', 0),
-(7, 3, 'Neon Nights Tee', '100% Bio-Baumwolle', 37.99, 'Retro-Discofeeling in sanften Farben – dein Essential für laue Sommernächte.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, geringe Schleuderzahl empfohlen.', 'Made in Germany', '{\"fabric_weight\": \"175 g/m²\", \"fit\": \"Relaxed Fit\"}', 0),
-(8, 3, 'Sunset Radio', '100% Bio-Baumwolle', 39.99, 'Vintage-Radiodesign trifft weichen Baumwollstoff – perfekt zum Chillen.', 'Summer Retro 2025', 'Feinwäsche bei 30°C, sanft schleudern.', 'Made in Germany', '{\"fabric_weight\": \"190 g/m²\", \"fit\": \"Regular Fit\"}', 0),
-(9, 3, 'Lo-Fi Coastline', '100% Bio-Baumwolle', 34.99, 'Lässiges Shirt mit Lo-Fi Coastline Print – entspannt, stilvoll, retro.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, auf links drehen.', 'Made in Germany', '{\"fabric_weight\": \"170 g/m²\", \"fit\": \"Relaxed Fit\"}', 0),
-(10, 2, 'Sunset Fade Crew', '85% Bio-Baumwolle, 15% recyceltes Polyester', 65, 'Weicher Crewneck mit sanftem Farbverlauf – wie ein Sonnenuntergang in Stoffform.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, auf links waschen, nicht bügeln.', 'Made in Germany', '{\"fabric_weight\": \"300 g/m²\", \"fit\": \"Relaxed Fit\"}', 0),
-(11, 2, 'Analog Waves Sweater', '100% Bio-Baumwolle', 69.99, 'Wellenprint im Stil alter Audioanzeigen – stylisch und warm zugleich.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, Feinwaschgang empfohlen.', 'Made in Germany', '{\"fabric_weight\": \"290 g/m²\", \"fit\": \"Oversized Fit\"}', 0),
-(12, 2, 'Lo-Fi Sunset Pullover', '80% Baumwolle, 20% recyceltes Polyester', 67, 'Sweater mit Lo-Fi-Print – fühlt sich an wie ein Abend auf Kassette.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, auf links drehen.', 'Made in Germany', '{\"fabric_weight\": \"r g/m²\", \"fit\": \"Regular Fit\"}', 0),
-(13, 2, 'Rewind Club', '100% Bio-Baumwolle', 72, 'Statement-Sweater mit REWIND-Print – für echte Vintage-Enthusiasten.', 'Retro Layers 2025', 'Maschinenwäsche kalt, nicht im Trockner trocknen.', 'Made in Germany', '{\"fabric_weight\": \"320 g/m²\", \"fit\": \"Oversized Fit\"}', 0),
-(14, 2, 'Static Memories', '85% Baumwolle, 15% recyceltes Polyester', 63.99, 'Leicht strukturierter Sweater im Stil eines alten TV-Rauschens.', 'Retro Layers 2025', 'Feinwäsche bei 30°C, auf links bügeln.', 'Made in Germany', '{\"fabric_weight\": \"280 g/m²\", \"fit\": \"Regular Fit\"}', 0),
-(15, 2, 'Cassette Club Crew', '100% Bio-Baumwolle', 69.99, 'Kassetten-Grafik auf kuscheligem Baumwollstoff – 90s in modernem Gewand.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, keine Bleichmittel verwenden.', 'Made in Germany', '{\"fabric_weight\": \"300 g/m²\", \"fit\": \"Loose Fit\"}', 0),
-(16, 2, 'Fade-In Pullover', '100% Bio-Baumwolle', 64.99, 'Minimalistischer Sweater mit subtilem Farbverlauf – clean und retro zugleich.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, kein Weichspüler.', 'Made in Germany', '{\"fabric_weight\": \"310 g/m²\", \"fit\": \"Regular Fit\"}', 0),
-(17, 2, 'Stereo Sunset', '80% Bio-Baumwolle, 20% recyceltes Polyester', 70, 'Oversized Sweater mit grafischem Sunset-Stick – retro und cozy.', 'Retro Layers 2025', 'Maschinenwäsche kalt, auf links bügeln.', 'Made in Germany', '{\"fabric_weight\": \"25 g/m²\", \"fit\": \"Oversized Fit\"}', 0),
-(18, 4, 'Tape Deck Sling', 'Recyceltes Nylon', 42, 'Kompakte Sling Bag mit Tape-Design – ideal für unterwegs.', 'Urban Heritage 2025', 'Feucht abwischen, nicht bügeln.', 'Made in Germany', '{\"volume\": \"6 Liter\", \"closure\": \"Reißverschluss\", \"straps\": \"Crossbody verstellbar\", \"compartments\": \"Hauptfach, Frontfach mit Reißverschluss\"}', 0),
-(19, 4, 'Lo-Fi Backpack', 'Canvas & veganes Leder', 79, 'Retro-Rucksack mit Lo-Fi Patch – robust und stylisch für unterwegs.', 'Urban Heritage 2025', 'Nicht waschen, punktuell reinigen', 'Made in Germany', '                {\"volume\": \"18 Liter\", \"closure\": \"Kordelzug & Magnetklappe\", \"straps\": \"Verstellbare Canvas-Träger\", \"compartments\": \"Großes Hauptfach, Innenfach mit Reißverschluss\"}            ', 0),
-(20, 4, 'Polaroid Pocket Tote', '100% Baumwoll-Canvas', 39.99, 'Tote Bag mit Polaroid-Stickerei – leicht, geräumig, retro.', 'Urban Heritage 2025', 'Handwäsche empfohlen.', 'Made in Germany', '{\"volume\": \"10 Liter\", \"closure\": \"Offen mit Innendruckknopf\", \"straps\": \"Tragehenkel\", \"compartments\": \"1 Hauptfach, 2 Steckfächer innen\"}', 0),
-(21, 4, 'Sunset Radio Pouch', 'Baumwoll-Canvas', 25, 'Kleine Pouch mit Radiodetail – perfekt für Essentials oder als Accessoire.', 'Urban Heritage 2025', 'Handwäsche, nicht schleudern.', 'Made in Germany', '                {\"volume\": \"2 Liter\", \"closure\": \"Reißverschluss\", \"straps\": \"Ohne – als Etui oder Clutch\", \"compartments\": \"1 Innenfach\"}            ', 0),
-(22, 6, 'Lo-Fi Script Cap', 'Cord', 34.99, 'Cord-Cap im 90s-Look mit edler Lo-Fi Stickerei.', 'Headlines 2025', 'Nicht waschen, punktuell reinigen', 'Made in Germany', '{\"visor\": \"Flacher Schirm\", \"closure\": \"Metallschnalle\", \"design\": \"Lo-Fi-Stickerei mit Retro-Schriftzug\", \"ventilation\": \"Gestickte Ösen\"}', 0),
-(23, 6, 'Waveform Classic Cap', '100% Baumwoll-Twill', 30, 'Schlichte 90s-Cap mit hochwertiger Stickerei – understated und retro.', 'Headlines 2025', 'Nur Handwäsche, nicht bleichen.', 'Made in Germany', '{\"visor\": \"Gebogener Schirm\", \"closure\": \"Metallschnalle hinten\", \"design\": \"Ton-in-Ton Stickerei vorn\", \"ventilation\": \"Bestickte Ösen\"}', 0);
+(2, 3, 'Analog Mood', '100% Bio-Baumwolle', 34.99, 'Schlicht und stilvoll – inspiriert vom Charme alter Polaroids.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, nicht im Trockner trocknen.', 'Made in Germany', '                {\r\n\"Stoffgewicht\": \"185 g/m²\",\r\n\"Fit\": \"Regular Fit\"\r\n}            ', 0.1),
+(3, 3, 'Retro Sunburst Tee', '100% Bio-Baumwolle', 34.99, 'Weiches Retro-T-Shirt aus Bio-Baumwolle mit Sonnenmuster – perfekt für lässige Sommertage.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, auf links waschen, nicht in den Trockner geben.', 'Made in Germany', '{\"Stoffgewicht\": \"180 g/m²\", \"Fit\": \"Regular Fit\"}', 0),
+(4, 3, 'Cassette Vibes', '100% Bio-Baumwolle', 32, 'Hochwertiges Baumwollshirt im kultigen Kassetten-Design – für echte 80s-Fans.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, Feinwaschgang empfohlen.', 'Made in Germany', '{\"Stoffgewicht\": \"190 g/m²\", \"Fit\": \"Loose Fit\"}', 0),
+(5, 3, 'Pixel Palm Tee', '100% Bio-Baumwolle', 37.99, 'Luftiges Retro-T-Shirt mit 8-Bit-Palmenmotiv – Sommer, Sonne, Nostalgie.', 'Summer Retro 2025', 'Schonwaschgang bei 30°C, auf links waschen.', 'Made in Germany', '{\"Stoffgewicht\": \"175 g/m²\", \"Fit\": \"Regular Fit\"}', 0),
+(6, 3, 'VHS Club Shirt', '100% Bio-Baumwolle', 34.99, 'Oversized Fit im VHS-Design – perfekt für entspannte Vintage-Looks.', 'Summer Retro 2025', 'Maschinenwäsche kalt, auf links bügeln.', 'Made in Germany', '{\"Stoffgewicht\": \"200 g/m²\", \"Fit\": \"Oversized Fit\"}', 0),
+(7, 3, 'Neon Nights Tee', '100% Bio-Baumwolle', 37.99, 'Retro-Discofeeling in sanften Farben – dein Essential für laue Sommernächte.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, geringe Schleuderzahl empfohlen.', 'Made in Germany', '{\"Stoffgewicht\": \"175 g/m²\", \"Fit\": \"Relaxed Fit\"}', 0),
+(8, 3, 'Sunset Radio', '100% Bio-Baumwolle', 39.99, 'Vintage-RadioDesign trifft weichen Baumwollstoff – perfekt zum Chillen.', 'Summer Retro 2025', 'Feinwäsche bei 30°C, sanft schleudern.', 'Made in Germany', '{\"Stoffgewicht\": \"190 g/m²\", \"Fit\": \"Regular Fit\"}', 0),
+(9, 3, 'Lo-Fi Coastline', '100% Bio-Baumwolle', 34.99, 'Lässiges Shirt mit Lo-Fi Coastline Print – entspannt, stilvoll, retro.', 'Summer Retro 2025', 'Maschinenwäsche bei 30°C, auf links drehen.', 'Made in Germany', '{\"Stoffgewicht\": \"170 g/m²\", \"Fit\": \"Relaxed Fit\"}', 0),
+(10, 2, 'Sunset Fade Crew', '85% Bio-Baumwolle, 15% recyceltes Polyester', 65, 'Weicher Crewneck mit sanftem Farbverlauf – wie ein Sonnenuntergang in Stoffform.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, auf links waschen, nicht bügeln.', 'Made in Germany', '{\"Stoffgewicht\": \"300 g/m²\", \"Fit\": \"Relaxed Fit\"}', 0),
+(11, 2, 'Analog Waves Sweater', '100% Bio-Baumwolle', 69.99, 'Wellenprint im Stil alter Audioanzeigen – stylisch und warm zugleich.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, Feinwaschgang empfohlen.', 'Made in Germany', '{\"Stoffgewicht\": \"290 g/m²\", \"Fit\": \"Oversized Fit\"}', 0),
+(12, 2, 'Lo-Fi Sunset Pullover', '80% Baumwolle, 20% recyceltes Polyester', 67, 'Sweater mit Lo-Fi-Print – fühlt sich an wie ein Abend auf Kassette.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, auf links drehen.', 'Made in Germany', '{\"Stoffgewicht\": \"300 g/m²\", \"Fit\": \"Regular Fit\"}', 0),
+(13, 2, 'Rewind Club', '100% Bio-Baumwolle', 72, 'Statement-Sweater mit REWIND-Print – für echte Vintage-Enthusiasten.', 'Retro Layers 2025', 'Maschinenwäsche kalt, nicht im Trockner trocknen.', 'Made in Germany', '{\"Stoffgewicht\": \"320 g/m²\", \"Fit\": \"Oversized Fit\"}', 0),
+(14, 2, 'Static Memories', '85% Baumwolle, 15% recyceltes Polyester', 63.99, 'Leicht strukturierter Sweater im Stil eines alten TV-Rauschens.', 'Retro Layers 2025', 'Feinwäsche bei 30°C, auf links bügeln.', 'Made in Germany', '{\"Stoffgewicht\": \"280 g/m²\", \"Fit\": \"Regular Fit\"}', 0),
+(15, 2, 'Cassette Club Crew', '100% Bio-Baumwolle', 69.99, 'Kassetten-Grafik auf kuscheligem Baumwollstoff – 90s in modernem Gewand.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, keine Bleichmittel verwenden.', 'Made in Germany', '{\"Stoffgewicht\": \"300 g/m²\", \"Fit\": \"Loose Fit\"}', 0),
+(16, 2, 'Fade-In Pullover', '100% Bio-Baumwolle', 64.99, 'Minimalistischer Sweater mit subtilem Farbverlauf – clean und retro zugleich.', 'Retro Layers 2025', 'Maschinenwäsche bei 30°C, kein Weichspüler.', 'Made in Germany', '{\"Stoffgewicht\": \"310 g/m²\", \"Fit\": \"Regular Fit\"}', 0),
+(17, 2, 'Stereo Sunset', '80% Bio-Baumwolle, 20% recyceltes Polyester', 70, 'Oversized Sweater mit grafischem Sunset-Stick – retro und cozy.', 'Retro Layers 2025', 'Maschinenwäsche kalt, auf links bügeln.', 'Made in Germany', '{\"Stoffgewicht\": \"25 g/m²\", \"Fit\": \"Oversized Fit\"}', 0),
+(18, 4, 'Tape Deck Sling', 'Recyceltes Nylon', 42, 'Kompakte Sling Bag mit Tape-Design – ideal für unterwegs.', 'Urban Heritage 2025', 'Feucht abwischen, nicht bügeln.', 'Made in Germany', '                {\"Volumen\": \"6 Liter\", \"Verschluss\": \"Reißverschluss\", \"Träger\": \"Crossbody verstellbar\", \"Fächer\": \"Hauptfach, Frontfach mit Reißverschluss\"}            ', 0),
+(19, 4, 'Lo-Fi Backpack', 'Canvas & veganes Leder', 79, 'Retro-Rucksack mit Lo-Fi Patch – robust und stylisch für unterwegs.', 'Urban Heritage 2025', 'Nicht waschen, punktuell reinigen', 'Made in Germany', '                {\"Volumen\": \"18 Liter\", \"Verschluss\": \"Kordelzug & Magnetklappe\", \"Träger\": \"Verstellbare Canvas-Träger\", \"Fächer\": \"Großes Hauptfach, Innenfach mit Reißverschluss\"}            ', 0),
+(20, 4, 'Polaroid Pocket Tote', '100% Baumwoll-Canvas', 39.99, 'Tote Bag mit Polaroid-Stickerei – leicht, geräumig, retro.', 'Urban Heritage 2025', 'Handwäsche empfohlen.', 'Made in Germany', '                {\"Volumen\": \"10 Liter\", \"Verschluss\": \"Offen mit Innendruckknopf\", \"Träger\": \"Tragehenkel\", \"Fächer\": \"1 Hauptfach, 2 Steckfächer innen\"}            ', 0),
+(21, 4, 'Sunset Radio Pouch', 'Baumwoll-Canvas', 25, 'Kleine Pouch mit Radiodetail – perfekt für Essentials oder als Accessoire.', 'Urban Heritage 2025', 'Handwäsche, nicht schleudern.', 'Made in Germany', '                {\"Volumen\": \"2 Liter\", \"Verschluss\": \"Reißverschluss\", \"Träger\": \"Ohne – als Etui oder Clutch\", \"Fächer\": \"1 Innenfach\"}            ', 0),
+(22, 6, 'Lo-Fi Script Cap', 'Cord', 34.99, 'Cord-Cap im 90s-Look mit edler Lo-Fi Stickerei.', 'Headlines 2025', 'Nicht waschen, punktuell reinigen', 'Made in Germany', '                {\"Schirm\": \"Flacher Schirm\", \"Verschluss\": \"Metallschnalle\", \"Design\": \"Lo-Fi-Stickerei mit Retro-Schriftzug\", \"Belüftung\": \"Gestickte Ösen\"}            ', 0),
+(23, 6, 'Waveform Classic Cap', '100% Baumwoll-Twill', 30, 'Schlichte 90s-Cap mit hochwertiger Stickerei – understated und retro.', 'Headlines 2025', 'Nur Handwäsche, nicht bleichen.', 'Made in Germany', '                                {\"Schirm\": \"Gebogener Schirm\", \"Verschluss\": \"Metallschnalle hinten\", \"Design\": \"Ton-in-Ton Stickerei vorn\", \"Belüftung\": \"Bestickte Ösen\"}                        ', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_reviews`
+-- Tabellenstruktur für Tabelle `product_reviews`
 --
 
 CREATE TABLE `product_reviews` (
@@ -1626,17 +1118,18 @@ CREATE TABLE `product_reviews` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `product_reviews`
+-- Daten für Tabelle `product_reviews`
 --
 
 INSERT INTO `product_reviews` (`id`, `product_id`, `user_id`, `rating`, `review`, `created_at`) VALUES
 (4, 2, 29, 3, 'Ich wollte das Shirt für meine Tochter kaufen, aber ich finde den Preis etwas zu hoch. 12,99 € wäre ein deutlich besserer Preis, wenn man aktuelle Umstände wie die Inflation bedenkt.', '2025-06-24 11:59:43'),
-(5, 2, 27, 5, 'Hab diese Schönheit gekauft, um mich nochmal richtig jung zu fühlen. Erfolgreicher Kauf 😎', '2025-06-24 13:18:57');
+(5, 2, 27, 5, 'Hab diese Schönheit gekauft, um mich nochmal richtig jung zu fühlen. Erfolgreicher Kauf 😎', '2025-06-24 13:18:57'),
+(6, 19, 27, 5, 'Sehr schicker Rucksack für alle Anlässe!', '2025-06-24 14:20:04');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shoppingCart`
+-- Tabellenstruktur für Tabelle `shoppingCart`
 --
 
 CREATE TABLE `shoppingCart` (
@@ -1648,19 +1141,20 @@ CREATE TABLE `shoppingCart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `shoppingCart`
+-- Daten für Tabelle `shoppingCart`
 --
 
 INSERT INTO `shoppingCart` (`accId`, `cartNumber`, `isShared`, `name`, `inviteSecret`) VALUES
 (27, 1, 0, NULL, 'ulQoZ64mzJddcojIJyYzaYdF-EwPYFNS7lgeqTkkTDs9-VZjxemGvx8QiGEDXyVl-nskDY8hmgEywkGKqCzlHVipbkllFwNzczFGQeGZa1zlvRNergIKMnQjUEa3sMO9tMligQzV6Yp_oplbIfq0j_hCG9gOD-v4YJiUhcHRWEDHKcoYgocDsyJNcO-3-I9MiX8Ll3vcdJAI3S7JR_YfVv7bl4c9Q6Kgr-cLJJauSyHUHuZKvunf-WjSv-fV2BF'),
 (27, 2, 1, 'Weihnachtsgeschenke', 'bp6Xqz4ORqDY49M35cf6g1yLJ-GgBFPiITGOuIJt31E1hDbtbDCzpqdjjwgiWCHx0opJ8wLxBY8wdm6fHewYRp947vzEtu26285ibLYn9yt8z1S6xYoAT4YJpxzRKum9IrkJOI5dwuR0RJ8KIwgfXlJ9dDYI4HUxoour66Rzb3S4wKk9WHzQRoM0uQv4BqKpevuNiqeyrtGXrk41rntH2fRRqL-1m7gIupBt5HFZvPHY0LghhIOLciAH1MOdxvn'),
 (28, 1, 0, NULL, 'vNRWT-T6r2r8Ys8KP7ABGFZhI8cNmZ_2LEGfLhnVl2YfOnitUetLktjl-lhNy9K8dsS_tIajBxtCoeNNsoF_Wm3X9NRMtmwvxH0CMoQlBJMk4EsnLFsRhaJgwzQ-v0_td69pfbFaZVBpMx4UPlsWx716Hqkny29H2PXjx-_y4ZP3tb9nXB4W7U5uGZrCrEnpoM48BHHmdKTkF4yUIXo-cQ3JS8n0XSbpcOVFgn7-E5mqX88dGJ0nwPJg6beWetT'),
-(29, 1, 0, NULL, 'AV8GC5SPIrbn7zFF6ur9SlBP6TuUspJS8xj8Uo5LhV7gCALPzz7xhKU3AnNi0iUB49QdMScy1OTYbLvhpe5p0j3FIGPG7olPWLr_za2mNaqjzV13NUNLiHP0M-2A7kFpA5rUfwnNLPQ0_cL1KeU0xprIU5CxMmt6BfklWRbPewEK7PoOXfwKe5aJ4MHj0bXQXkD2Dh5xY0sELIC_bRHd6imk4Bnma6V9GtbLXQwgo-XS-eI4jgVH_MF3FscqR5n');
+(29, 1, 0, NULL, 'AV8GC5SPIrbn7zFF6ur9SlBP6TuUspJS8xj8Uo5LhV7gCALPzz7xhKU3AnNi0iUB49QdMScy1OTYbLvhpe5p0j3FIGPG7olPWLr_za2mNaqjzV13NUNLiHP0M-2A7kFpA5rUfwnNLPQ0_cL1KeU0xprIU5CxMmt6BfklWRbPewEK7PoOXfwKe5aJ4MHj0bXQXkD2Dh5xY0sELIC_bRHd6imk4Bnma6V9GtbLXQwgo-XS-eI4jgVH_MF3FscqR5n'),
+(30, 1, 0, NULL, 'LJMzMvNdCvy5dFYy0jPY1zMd7iRUHkfxBV3jTxsFYF5mMSzJWU5cay8vc8sioxEwWTue0WSLhRXL37MI55tcTOqtfmmTm2LTqO66JLeNZKX7ikGyDF21W0A1vtDw6SzARnYyWohu3O_i7DGxmOrrSPtbsovWaUVZrB55ftEw-7W9rL1dKr7i5x8TxbFN-gzv7RixQosf6LsM-KInQTiBsm_rm4-91sF1nrZGGdsVIhoOY0k98owCWfbv_IVNFCT');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shoppingCartMember`
+-- Tabellenstruktur für Tabelle `shoppingCartMember`
 --
 
 CREATE TABLE `shoppingCartMember` (
@@ -1672,7 +1166,7 @@ CREATE TABLE `shoppingCartMember` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `size`
+-- Tabellenstruktur für Tabelle `size`
 --
 
 CREATE TABLE `size` (
@@ -1681,7 +1175,7 @@ CREATE TABLE `size` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `size`
+-- Daten für Tabelle `size`
 --
 
 INSERT INTO `size` (`id`, `size`) VALUES
@@ -1690,12 +1184,13 @@ INSERT INTO `size` (`id`, `size`) VALUES
 (3, 'M'),
 (4, 'L'),
 (5, 'XL'),
-(6, 'XXL');
+(6, 'XXL'),
+(7, 'OS');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userConfig`
+-- Tabellenstruktur für Tabelle `userConfig`
 --
 
 CREATE TABLE `userConfig` (
@@ -1707,7 +1202,7 @@ CREATE TABLE `userConfig` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wishlist`
+-- Tabellenstruktur für Tabelle `wishlist`
 --
 
 CREATE TABLE `wishlist` (
@@ -1717,18 +1212,20 @@ CREATE TABLE `wishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `wishlist`
+-- Daten für Tabelle `wishlist`
 --
 
 INSERT INTO `wishlist` (`accId`, `productTypeId`, `timestamp`) VALUES
-(27, 2, '2025-06-24 15:19:27');
+(27, 2, '2025-06-24 15:19:27'),
+(27, 19, '2025-06-24 16:20:10'),
+(30, 23, '2025-06-24 16:29:12');
 
 --
--- Indexes for dumped tables
+-- Indizes der exportierten Tabellen
 --
 
 --
--- Indexes for table `account`
+-- Indizes für die Tabelle `account`
 --
 ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
@@ -1736,99 +1233,99 @@ ALTER TABLE `account`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `address`
+-- Indizes für die Tabelle `address`
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `allowedColor`
+-- Indizes für die Tabelle `allowedColor`
 --
 ALTER TABLE `allowedColor`
   ADD PRIMARY KEY (`productTypeId`,`colorId`);
 
 --
--- Indexes for table `allowedSize`
+-- Indizes für die Tabelle `allowedSize`
 --
 ALTER TABLE `allowedSize`
   ADD PRIMARY KEY (`productTypeId`,`sizeId`);
 
 --
--- Indexes for table `category`
+-- Indizes für die Tabelle `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `color`
+-- Indizes für die Tabelle `color`
 --
 ALTER TABLE `color`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `feedback`
+-- Indizes für die Tabelle `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `globalConfig`
+-- Indizes für die Tabelle `globalConfig`
 --
 ALTER TABLE `globalConfig`
   ADD PRIMARY KEY (`attribute`);
 
 --
--- Indexes for table `image`
+-- Indizes für die Tabelle `image`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `joinAddressAcc`
+-- Indizes für die Tabelle `joinAddressAcc`
 --
 ALTER TABLE `joinAddressAcc`
   ADD PRIMARY KEY (`accountId`,`addressId`,`type`);
 
 --
--- Indexes for table `newsletter`
+-- Indizes für die Tabelle `newsletter`
 --
 ALTER TABLE `newsletter`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `orderProduct`
+-- Indizes für die Tabelle `orderProduct`
 --
 ALTER TABLE `orderProduct`
   ADD PRIMARY KEY (`orderId`,`productId`);
 
 --
--- Indexes for table `orders`
+-- Indizes für die Tabelle `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `product`
+-- Indizes für die Tabelle `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`,`productTypeId`),
   ADD KEY `fk_shoppingCart` (`accId`,`shoppingCartNumber`);
 
 --
--- Indexes for table `productImage`
+-- Indizes für die Tabelle `productImage`
 --
 ALTER TABLE `productImage`
   ADD PRIMARY KEY (`productTypeId`,`imageId`),
   ADD KEY `imageId` (`imageId`);
 
 --
--- Indexes for table `productType`
+-- Indizes für die Tabelle `productType`
 --
 ALTER TABLE `productType`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `product_reviews`
+-- Indizes für die Tabelle `product_reviews`
 --
 ALTER TABLE `product_reviews`
   ADD PRIMARY KEY (`id`),
@@ -1836,144 +1333,144 @@ ALTER TABLE `product_reviews`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `shoppingCart`
+-- Indizes für die Tabelle `shoppingCart`
 --
 ALTER TABLE `shoppingCart`
   ADD PRIMARY KEY (`accId`,`cartNumber`);
 
 --
--- Indexes for table `shoppingCartMember`
+-- Indizes für die Tabelle `shoppingCartMember`
 --
 ALTER TABLE `shoppingCartMember`
   ADD PRIMARY KEY (`userId`,`accId`,`cartNumber`),
   ADD KEY `accId` (`accId`,`cartNumber`);
 
 --
--- Indexes for table `size`
+-- Indizes für die Tabelle `size`
 --
 ALTER TABLE `size`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `userConfig`
+-- Indizes für die Tabelle `userConfig`
 --
 ALTER TABLE `userConfig`
   ADD PRIMARY KEY (`attribute`,`accId`);
 
 --
--- Indexes for table `wishlist`
+-- Indizes für die Tabelle `wishlist`
 --
 ALTER TABLE `wishlist`
   ADD PRIMARY KEY (`accId`,`productTypeId`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT for table `account`
+-- AUTO_INCREMENT für Tabelle `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `address`
+-- AUTO_INCREMENT für Tabelle `address`
 --
 ALTER TABLE `address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT für Tabelle `category`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `color`
+-- AUTO_INCREMENT für Tabelle `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `feedback`
+-- AUTO_INCREMENT für Tabelle `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `image`
+-- AUTO_INCREMENT für Tabelle `image`
 --
 ALTER TABLE `image`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT für Tabelle `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT für Tabelle `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1206;
 
 --
--- AUTO_INCREMENT for table `productType`
+-- AUTO_INCREMENT für Tabelle `productType`
 --
 ALTER TABLE `productType`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `product_reviews`
+-- AUTO_INCREMENT für Tabelle `product_reviews`
 --
 ALTER TABLE `product_reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `size`
---
-ALTER TABLE `size`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT für Tabelle `size`
+--
+ALTER TABLE `size`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Constraints der exportierten Tabellen
 --
 
 --
--- Constraints for table `allowedSize`
+-- Constraints der Tabelle `allowedSize`
 --
 ALTER TABLE `allowedSize`
   ADD CONSTRAINT `allowedsize_ibfk_1` FOREIGN KEY (`productTypeId`) REFERENCES `productType` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `allowedsize_ibfk_2` FOREIGN KEY (`productTypeId`) REFERENCES `productType` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `product`
+-- Constraints der Tabelle `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_shoppingCart` FOREIGN KEY (`accId`,`shoppingCartNumber`) REFERENCES `shoppingCart` (`accId`, `cartNumber`) ON DELETE SET NULL;
 
 --
--- Constraints for table `productImage`
+-- Constraints der Tabelle `productImage`
 --
 ALTER TABLE `productImage`
   ADD CONSTRAINT `productimage_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `image` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `product_reviews`
+-- Constraints der Tabelle `product_reviews`
 --
 ALTER TABLE `product_reviews`
   ADD CONSTRAINT `product_reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`),
   ADD CONSTRAINT `product_reviews_productType_id_fk` FOREIGN KEY (`product_id`) REFERENCES `productType` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `shoppingCart`
+-- Constraints der Tabelle `shoppingCart`
 --
 ALTER TABLE `shoppingCart`
   ADD CONSTRAINT `shoppingcart_ibfk_1` FOREIGN KEY (`accId`) REFERENCES `account` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `shoppingCartMember`
+-- Constraints der Tabelle `shoppingCartMember`
 --
 ALTER TABLE `shoppingCartMember`
   ADD CONSTRAINT `shoppingcartmember_ibfk_1` FOREIGN KEY (`accId`,`cartNumber`) REFERENCES `shoppingCart` (`accId`, `cartNumber`) ON DELETE CASCADE;
