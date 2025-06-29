@@ -5,7 +5,6 @@
 namespace Vestis\Controller;
 
 use Vestis\Database\Models\Account;
-use Vestis\Database\Models\AccountType;
 use Vestis\Database\Repositories\ReviewRepository;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
@@ -25,16 +24,16 @@ class ProductReviewController
         AuthService::checkAccess(); // Nutzer muss eingeloggt sein. Auch Admins können Bewertungen abgeben
 
         $validationRules = [
-            'product_id' => new ValidationRule(ValidationType::Integer, true),
-            'rating' => new ValidationRule(ValidationType::Integer, true),
+            'product_id' => new ValidationRule(ValidationType::Integer, false),
+            'rating' => new ValidationRule(ValidationType::Integer, false),
             'review' => new ValidationRule(ValidationType::String, false),
         ];
 
         ValidationService::validateForm($validationRules, "POST");
         $formData = ValidationService::getFormData();
 
-        $productId = (int)$formData['product_id'];
-        $rating = (int)$formData['rating'];
+        $productId = $formData['product_id'];
+        $rating = $formData['rating'];
         $review = trim($formData['review'] ?? '');
 
         /** @var Account $user */
@@ -48,13 +47,13 @@ class ProductReviewController
             throw new ValidationException("Bitte gib einen aussagekräftigen Text ein.");
         }
 
+        // Speichern der Bewertung in der Datenbank
         $created = ReviewRepository::create($productId, $user->id, $rating, $review);
 
+        // Wenn created null ist, konnte die Bewertung nicht in der Datenbank gespeichert werden
         if ($created === null) {
             throw new ValidationException("Speichern der Bewertung fehlgeschlagen.");
         }
-
-
 
         // Weiterleitung oder Erfolgsmeldung
         header("Location: /categories/product?itemId=" . $productId);

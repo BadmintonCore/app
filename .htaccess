@@ -1,12 +1,24 @@
 <IfModule mod_rewrite.c>
+    # Prüft, ob das Apache-Modul "mod_rewrite" aktiviert ist
     RewriteEngine On
+    # Aktiviert die Umschreibefunktion (Rewrite Engine)
+
     RewriteBase /
+    # Setzt das Basisverzeichnis für relative Pfade auf das Wurzelverzeichnis der Website
 
-    # If the requested file or directory exists in public/, serve it from public/
+    # Wenn die angeforderte Datei ODER das angeforderte Verzeichnis in /public existiert
     RewriteCond %{DOCUMENT_ROOT}/public/%{REQUEST_URI} -f [OR]
+    # Bedingung 1: Die angeforderte URL verweist auf eine existierende Datei in /public
     RewriteCond %{DOCUMENT_ROOT}/public/%{REQUEST_URI} -d
-    RewriteRule ^(.*)$ public/$1 [L]
+    # Bedingung 2: Die angeforderte URL verweist auf ein existierendes Verzeichnis in /public
 
-    # Otherwise, route all requests to public/router.php
+    RewriteRule ^(.*)$ public/$1 [L]
+    # Wenn eine der obigen Bedingungen erfüllt ist, leite die Anfrage an den entsprechenden Pfad in /public weiter
+    # [L] bedeutet: Dies ist die letzte Regel – danach wird keine weitere ausgeführt
+
+    # Wenn keine der Bedingungen erfüllt ist (Datei oder Verzeichnis existiert NICHT),
+    # leite die Anfrage an die zentrale Router-Datei
     RewriteRule ^ public/router.php [L]
+    # Alle übrigen Anfragen landen bei public/router.php
+    # Diese Datei übernimmt dann die weitere Verarbeitung
 </IfModule>

@@ -67,7 +67,7 @@ class Kernel
             }
         }
 
-        // Gibt den ganzen Buffer aufeinmal frei und sendet ihn zum Client
+        // Gibt den ganzen Buffer auf einmal frei und sendet ihn zum Client
         ob_flush();
 
     }
