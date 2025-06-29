@@ -19,8 +19,6 @@ use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
 
-use const http\Client\Curl\AUTH_ANY;
-
 /**
  * Controller für Produkte
  */
@@ -37,7 +35,10 @@ class ProductController
         $errorMessage = null;
         $product = null;
 
+        // GET-Parameter in ein Integer konvertieren
         $itemId = intval($_GET["itemId"] ?? null);
+
+        // Wenn die itemId = 0 ist, dann handelt es sich um eine invalide ID
         if ($itemId === 0) {
             $errorMessage = "Invalider Parameter";
             require_once __DIR__ . '/../views/product/itemid.php';
@@ -46,9 +47,11 @@ class ProductController
 
         $shoppingCarts = [];
         if (AuthService::isCustomer() && AuthService::$currentAccount !== null) {
+            // Alle Einkaufswagen des Benutzers finden und un shoppingCarts speichern
             $shoppingCarts = ShoppingCartRepository::findUserShoppingCarts(AuthService::$currentAccount);
         }
 
+        // Das Produkt in der Datenbank suchen
         $product = ProductTypeRepository::findById($itemId);
         if (null === $product) {
             $errorMessage = "Produkt nicht gefunden";
@@ -72,14 +75,18 @@ class ProductController
 
                 $formData = ValidationService::getFormData();
 
+                // ShoppingCart setzt sich aus der Benutzer-ID und der ShoppingCart-ID zusammen
                 $shoppingCartFields = explode("-", $formData["shoppingCart"]);
+                // Wenn die Länge des Arrays "shoppingCartFields" nicht 2 ist, ist die Auswahl invalide
                 if (count($shoppingCartFields) !== 2) {
                     throw new ValidationException("Die Warenkorb-ID ist invalide");
                 }
                 ValidationService::validateInteger($shoppingCartFields[0], "shoppingCart");
                 ValidationService::validateInteger($shoppingCartFields[1], "shoppingCart");
 
+                // Sucht den Warenkorb in der Datenbank und speichert es in der Variable shoppingCart
                 $shoppingCart = ShoppingCartRepository::findShoppingCart(intval($shoppingCartFields[0]), intval($shoppingCartFields[1]));
+                // Wenn Warenkorb Null ist, wurde er in der Datenbank nicht gefunden
                 if (null === $shoppingCart) {
                     throw new LogicException("Warenkorb nicht gefunden");
                 }
@@ -87,8 +94,9 @@ class ProductController
                 /** @var Account $account */
                 $account = AuthService::$currentAccount;
 
+                // Wenn der aktuelle Benutzer keinen Zugriff auf den Warenkorb hat
                 if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
-                    throw new LogicException("Sie haben keinen Zugriff zu diesem Warenkorb");
+                    throw new LogicException("Sie haben keinen Zugriff auf diesen Warenkorb");
                 }
 
 
@@ -124,16 +132,17 @@ class ProductController
         $reviewCount = count($reviews);
         $averageRating = 0;
         if (count($reviews) > 0) {
+            // Reduziert das Array auf einen Wert, indem eine Callback-Funktion genutzt wird
+            // Es werden alle Werte Ratings summiert und dann in der Variable sum gespeichert
             $sum = array_reduce($reviews, fn ($carry, ProductReview $item) => $carry + $item->rating, 0);
             $averageRating = round($sum / count($reviews), 1);
-
         }
 
         require_once __DIR__ . '/../views/product/itemid.php';
     }
 
     /**
-     * Prüft, ob das Produkt in der speizifischen Konfiguration noch auf Lager ist.
+     * Prüft, ob das Produkt in der spezifischen Konfiguration noch auf Lager ist.
      *
      * @return void
      * @throws ValidationException
@@ -163,8 +172,10 @@ class ProductController
             throw new ValidationException("Größe nicht gefunden");
         }
 
+        // Anzahl der übrigen Einheiten eines Produktes aus der Datenbank abfragen
         $leftQuantity = ProductRepository::getUnsoldQuantity($productType->id, $size->id, $color->id);
 
+        // Wird in der Datei shoppingCart.js dann weiter verarbeitet (Stückzahl auf Lager anzeigen)
         header('Content-type: application/json');
         echo json_encode(['quantityLeft' => $leftQuantity]);
     }

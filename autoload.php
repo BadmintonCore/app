@@ -7,9 +7,9 @@ Lädt Klassen, wenn sie mit use (Import) genutzt wurden
 Zur Laufzeit: Welche Klassen hat man benutzt und dann Laden dieser Klassen
 Übergeben wird ein Klassenname (bspw. Vestis\Database\Model\Account)*/
 spl_autoload_register(function ($class) {
-    //Map die zeigt, welche Präfixes in welchen Ordner liegen
+    // Map die zeigt, welche Präfixes in welchen Ordner liegen
     $prefixes = [
-        //Packages (\\, damit es als ein "\" gezählt wird, da Sonderzeichen):
+        // Packages (\\, damit es als ein "\" gezählt wird, da Sonderzeichen):
         'Vestis\\Database\\' => __DIR__ . '/database/',
         'Vestis\\Service\\' => __DIR__ . '/service/',
         'Vestis\\Exception\\' => __DIR__ . '/exception/',

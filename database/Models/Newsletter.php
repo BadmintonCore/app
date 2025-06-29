@@ -1,6 +1,6 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Database\Models;
 
@@ -11,4 +11,4 @@ class Newsletter
 {
     public string $email;
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lasse Hoffmann

@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Models\Newsletter;
@@ -52,3 +54,4 @@ class NewsletterRepository
         return QueryAbstraction::fetchOneAs(Newsletter::class, "SELECT * FROM newsletter WHERE email = :email", ['email' => $email]);
     }
 }
+//Autor(en): Lasse Hoffmann

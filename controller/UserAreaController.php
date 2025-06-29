@@ -4,18 +4,12 @@
 
 namespace Vestis\Controller;
 
-use Vestis\Database\Repositories\OrderRepository;
-use Vestis\Database\Repositories\ProductRepository;
-use Vestis\Database\Repositories\ShoppingCartRepository;
 use Vestis\Exception\AuthException;
-use Vestis\Exception\EmailException;
 use Vestis\Exception\LogicException;
 use Vestis\Service\AccountService;
-use Vestis\Database\Models\AccountType;
 use Vestis\Exception\DatabaseException;
 use Vestis\Exception\ValidationException;
 use Vestis\Service\AuthService;
-use Vestis\Service\EmailService;
 use Vestis\Service\validation\ValidationRule;
 use Vestis\Service\validation\ValidationType;
 use Vestis\Service\ValidationService;
@@ -50,19 +44,19 @@ class UserAreaController
                 'password' => new ValidationRule(ValidationType::String),
             ];
             try {
-                // Validate form
+                // Formular validieren
                 ValidationService::validateForm($validationRules);
                 $formData = ValidationService::getFormData();
 
-                // Updated die eingegebenen Daten eines Benutzers
+                // Aktualisiert die eingegebenen Daten eines Benutzers
                 AccountService::updateUserdata($formData['username'], $formData['email'], $formData['password']);
 
-                //Den neuen Nutzer setzen
+                // Den neuen Benutzer setzen
                 AuthService::setCurrentUserAccountSessionFromCookie();
 
 
             } catch (ValidationException|AuthException|LogicException|DatabaseException $e) {
-                // Setzt alle exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im Frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
         }

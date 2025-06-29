@@ -1,14 +1,11 @@
-# Vestis.
-
-[![](https://tokei.rs/b1/github/BadmintonCore/app?category=lines)](https://github.com/XAMPPRocky/tokei)
-
+# WebTech - Projekt vestis.
 
 ## Requirements
 
 - PHP 8.2
 - MariaDB 10.4.28 (10.5 preferred)
 - Apache2
-- Firefox
+- Firefox v. 137.0
 
 ## Setup
 
@@ -20,3 +17,6 @@
 
 Admin Nutzer:
 Nutzername: `admin`, Passwort: `abc1234567`
+
+Beispiel Customer-Nutzer:
+Nutzername: `maxmusti`, Passwort: `abc1234567`

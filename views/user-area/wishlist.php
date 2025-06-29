@@ -42,7 +42,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         renderWishlist();
-    })
+    });
 </script>
 </body>
 </html>

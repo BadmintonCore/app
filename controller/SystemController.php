@@ -22,6 +22,7 @@ class SystemController
     {
         $content = CacheService::get('exchangeRates');
         if ($content === null) {
+            // Liest die Daten von der API aus
             $content = file_get_contents('https://api.frankfurter.app/latest?from=EUR&to=USD,CHF');
             if ($content === false) {
                 throw new LogicException("Unable to load exchange rates");

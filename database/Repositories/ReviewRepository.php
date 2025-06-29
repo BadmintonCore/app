@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Models\ProductReview;
@@ -55,3 +57,4 @@ class ReviewRepository
 
 
 }
+//Autor(en): Lennart Moog

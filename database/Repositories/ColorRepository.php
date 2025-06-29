@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Models\Category;
@@ -103,3 +105,4 @@ class ColorRepository
     }
 
 }
+//Autor(en): Lasse Hoffmann

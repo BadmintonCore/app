@@ -1,6 +1,6 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Database\Models;
 
@@ -16,4 +16,4 @@ class Color
     public string $name;
 
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lasse Hoffmann

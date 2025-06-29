@@ -177,8 +177,6 @@ class AuthController
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-            // Aktuellen Account aus den Cookies setzen
-            AuthService::setCurrentUserAccountSessionFromCookie();
             $account = AuthService::$currentAccount;
 
             try {

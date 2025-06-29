@@ -37,7 +37,8 @@ class ValidationService
     }
 
     /**
-     * Ruft die Formulardaten ab
+     * Ruft die Formulardaten ab, die vorher schon validiert wurden und in der
+     * paramTypes-Variable abgespeichert sind
      *
      * @return array<string, mixed>
      */
@@ -123,7 +124,7 @@ class ValidationService
 
             case ValidationType::Json:
                 if (!is_string($fieldValue)) {
-                    throw new ValidationException(sprintf("Der Feld %s muss JSON sein.", $fieldName));
+                    throw new ValidationException(sprintf("Das Feld %s muss ein JSON sein.", $fieldName));
                 }
                 if (trim($fieldValue) === '') {
                     $fieldValue = '{}';
@@ -151,6 +152,7 @@ class ValidationService
                 break;
 
             case ValidationType::Email:
+                // Die Funktion "filter_var" Filtert eine Variable nach einem spezifischen Filter (Der Filter ist schon implementiert)
                 if (false === filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {
                     throw new ValidationException(sprintf("Das Feld %s muss eine E-Mail sein.", $fieldName));
                 }
@@ -195,12 +197,13 @@ class ValidationService
     public static function validateInteger(mixed $fieldValue, string $fieldName): void
     {
         if (is_string($fieldValue)) {
+            // Die Funktion "intval" ergibt 0, wenn es nicht in ein int konvertiert werden kann oder der String-Wert 0 ist
             if (intval($fieldValue) === 0 && trim($fieldValue) !== "0") {
-                throw new ValidationException(sprintf("Das Feld %s muss ein integer sein.", $fieldName));
+                throw new ValidationException(sprintf("Das Feld %s muss ein Integer sein.", $fieldName));
             }
         } else {
             if (!is_int($fieldValue)) {
-                throw new ValidationException(sprintf("Das Feld %s muss ein integer sein.", $fieldName));
+                throw new ValidationException(sprintf("Das Feld %s muss ein Integer sein.", $fieldName));
             }
         }
     }

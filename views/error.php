@@ -1,4 +1,4 @@
-<!--Autor(en): Lasse Hoffmann-->
+<!--Autor(en): Mathis Burger-->
 <?php
 /** @var string $errorMessage */
 ?>
@@ -40,4 +40,4 @@
 <?php include(__DIR__."/../components/scripts.php"); ?>
 </body>
 </html>
-<!--Autor(en): Lasse Hoffmann-->
+<!--Autor(en): Mathis Burger-->

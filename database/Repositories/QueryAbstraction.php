@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog, Mathis Burger, Lasse Hoffmann
+
 namespace Vestis\Database\Repositories;
 
 use PDO;
@@ -365,3 +367,4 @@ class QueryAbstraction
 
     }
 }
+//Autor(en): Lennart Moog, Mathis Burger, Lasse Hoffmann
