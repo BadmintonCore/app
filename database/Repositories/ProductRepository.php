@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Dto\PaginationDto;
@@ -156,3 +158,4 @@ class ProductRepository
         return (int)($row['count'] ?? 0);
     }
 }
+//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Dto\PaginationDto;
@@ -171,3 +173,4 @@ class AccountRepository
         QueryAbstraction::execute("UPDATE account SET isBlocked = :blocked WHERE id = :id", ["id" => $id, "blocked" => $blocked]);
     }
 }
+//Autor(en): Lennart Moog

@@ -1,6 +1,6 @@
 <?php
 
-/* Autor(en): Lasse Hoffmann */
+//Autor(en): Lasse Hoffmann
 
 namespace Vestis\Database\Repositories;
 
@@ -46,4 +46,4 @@ class WishlistRepository
         QueryAbstraction::execute("DELETE FROM  wishlist WHERE accId = :accId AND productTypeId = :productTypeId", ['accId' => $accountId, 'productTypeId' => $productTypeId]);
     }
 }
-/* Autor(en): Lasse Hoffmann */
+//Autor(en): Lasse Hoffmann

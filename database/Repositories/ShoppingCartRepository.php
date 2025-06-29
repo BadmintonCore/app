@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann, Lennart Moog
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Dto\ShoppingCartItemDto;
@@ -237,3 +239,4 @@ class ShoppingCartRepository
         QueryAbstraction::execute("DELETE FROM shoppingCartMember WHERE userId = :userId AND cartNumber = :cartNumber AND accId = :accId", $params);
     }
 }
+//Autor(en): Lasse Hoffmann, Lennart Moog

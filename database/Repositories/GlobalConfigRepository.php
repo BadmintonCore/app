@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Dto\PaginationDto;
@@ -57,3 +59,4 @@ class GlobalConfigRepository
         QueryAbstraction::execute("UPDATE globalConfig SET value = :value WHERE attribute = :attr", ["attr" => $attribute, "value" => $value]);
     }
 }
+//Autor(en): Lennart Moog
