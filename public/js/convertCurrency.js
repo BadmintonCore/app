@@ -51,9 +51,6 @@ async function getCurrencyRates() {
  * Aktualisiert alle Preise im aktuellen Dokument (alle Elemente mit der Klasse "price-field")
  */
 function updatePrices() {
-    let orderButton = document.getElementById("orderButton")
-    let addToCartButton = document.getElementById("addToCartButton")
-    let payButton = document.getElementById("payButton");
 
     for (const priceField of document.getElementsByClassName("price-field")){
         const price = parseFloat(priceField.dataset.priceEur.valueOf());

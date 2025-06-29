@@ -1,8 +1,18 @@
 <FilesMatch "\.(css|js)$">
+    # Diese Direktive gilt für alle Dateien, die auf .css oder .js enden
     FileETag None
+    # Deaktiviert die ETag-Prüfung, um die Zwischenspeicherung durch den Browser zu verhindern
+
     <IfModule mod_headers.c>
+        # Nur ausführen, wenn das Modul "mod_headers" aktiv ist
+
         Header set Cache-Control "no-cache, no-store, must-revalidate"
+        # Setzt den HTTP-Header "Cache-Control" so, dass keine Zwischenspeicherung erfolgt
+
         Header set Pragma "no-cache"
+        # Fügt den veralteten (aber manchmal noch verwendeten) HTTP-Header "Pragma: no-cache" hinzu
+
         Header set Expires 0
+        # Setzt das Ablaufdatum auf 0, was bedeutet: sofort abgelaufen – keine Zwischenspeicherung
     </IfModule>
 </FilesMatch>

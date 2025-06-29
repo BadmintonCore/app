@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Mathis Burger
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Dto\PaginationDto;
@@ -68,3 +70,4 @@ class ImageRepository
     }
 
 }
+//Autor(en): Mathis Burger

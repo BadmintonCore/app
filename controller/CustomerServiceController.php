@@ -47,7 +47,7 @@ class CustomerServiceController
 
                 $feedbackMessage = "Vielen Dank für dein Feedback!";
             } catch (ValidationException|DatabaseException $e) {
-                // Setzt alle Exceptions, die dann im frontend angezeigt werden
+                // Setzt alle Exceptions, die dann im Frontend angezeigt werden
                 $errorMessage = $e->getMessage();
             }
         }

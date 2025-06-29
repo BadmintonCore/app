@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lennart Moog
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Models\Category;
@@ -101,3 +103,4 @@ class SizeRepository
     }
 
 }
+//Autor(en): Lennart Moog

@@ -75,7 +75,7 @@ async function getWishlist() {
 
         // Wenn beim Laden ein Fehler aufgetreten ist
         if (!response.ok) {
-            console.error("Fehler beim Laden der Wunschliste:", response.statusText);
+            console.error("Fehler beim Laden der Wunschliste: ", response.statusText);
             return [];
         }
 
@@ -83,7 +83,7 @@ async function getWishlist() {
         return Array.isArray(data) ? data : [];
 
     } catch (error) {
-        console.error("Fehler beim Abrufen der Wunschliste:", error);
+        console.error("Fehler beim Abrufen der Wunschliste: ", error);
         return [];
     }
 }
@@ -152,9 +152,6 @@ async function renderWishlist() {
     const tableBody = document.getElementById("WishlistTBody");
     tableBody.innerHTML = '';
     const wishlist = await getWishlist();
-
-    // Sortiert die Wunschliste nach Datum (neuste zuerst)
-    wishlist.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
     if (wishlist.length === 0) {
         //Eine durchgängige Zeile erstellen, wenn Wunschliste leer ist

@@ -23,7 +23,7 @@ use Vestis\Service\ValidationService;
 class ShoppingCartController
 {
     /**
-     * Listet alle Warenkörbe auf.
+     * Listet alle Warenkörbe auf
      *
      * @return void
      */
@@ -37,7 +37,7 @@ class ShoppingCartController
     }
 
     /**
-     * Listet den Warenkorb auf.
+     * Listet den Warenkorb auf
      *
      * @throws ValidationException
      */
@@ -65,10 +65,10 @@ class ShoppingCartController
             throw new ValidationException("Sie haben keinen Zugriff zu diesem Warenkorb");
         }
 
+        // Alle Produkte im Warenkorb als Array zurückgeben
         $groupedProducts = ShoppingCartRepository::getAllProducts($shoppingCart);
 
         require_once __DIR__ . '/../views/user-area/shoppingCart.php';
-
     }
 
     /**
@@ -80,7 +80,6 @@ class ShoppingCartController
     public function createShoppingCart(): void
     {
         AuthService::checkAccess(AccountType::Customer);
-
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $validationRules = [
@@ -130,8 +129,10 @@ class ShoppingCartController
         if (false === ShoppingCartRepository::hasAccessTo($account, $shoppingCart)) {
             throw new LogicException("Du hast keinen Zugriff auf den Warenkorb");
         }
+
         ShoppingCartRepository::remove($shoppingCart, $formData['productTypeId'], $formData['sizeId'], $formData['colorId']);
 
+        // Leitet zum ausgewähltem Warenkorb des aktuellen Benutzers weiter
         header("location: /user-area/shoppingCart?accId=" . $formData["accId"] . "&cartNumber=" . $formData["cartNumber"]);
     }
 
@@ -317,6 +318,8 @@ class ShoppingCartController
         if ($shoppingCart === null) {
             throw new LogicException("Der Warenkorb existiert nicht");
         }
+
+        // Nur der Besitzer des Warenkorbs darf auf die Mitglieder zugreifen
         if ($shoppingCart->accId !== AuthService::$currentAccount?->id) {
             throw new LogicException("Du hast keinen Zugriff auf die Mitgliederliste");
         }

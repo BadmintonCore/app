@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Dto\PaginationDto;
@@ -227,3 +229,4 @@ class ProductTypeRepository
         return QueryAbstraction::fetchManyAs(ProductType::class, "SELECT * FROM productType WHERE id IN :top10Ids", ["top10Ids" => $ids]);
     }
 }
+//Autor(en): Lasse Hoffmann

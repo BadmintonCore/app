@@ -1,5 +1,7 @@
 <?php
 
+//Autor(en): Lasse Hoffmann
+
 namespace Vestis\Database\Repositories;
 
 use Vestis\Database\Models\Feedback;
@@ -36,3 +38,4 @@ class FeedbackRepository
         return QueryAbstraction::executeReturning(Feedback::class, "INSERT INTO feedback (name, evaluation, email, message, createdAt) VALUES (:name, :evaluation, :email, :message, :createdAt)", $params);
     }
 }
+//Autor(en): Lasse Hoffmann
