@@ -13,7 +13,7 @@
 ## Setup
 
 1. Inhalt auf root-Ebene in den htdocs-Ordner laden
-2. SQL Dump laden in das Schema `vestis`
+2. SQL Dump laden in das Schema `vestis` username: `root`, password: Keins, dbname: `vestis`
 3. `mkdir cache && mkdir public/uploads`
 4. `chown -R daemon:daemon ./cache`
 5. `chown -R daemon:daemon ./public/uploads`
