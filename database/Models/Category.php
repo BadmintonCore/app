@@ -1,6 +1,6 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Mathis Burger, Lasse Hoffmann
 
 namespace Vestis\Database\Models;
 
@@ -56,4 +56,4 @@ class Category
     }
 
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Mathis Burger, Lasse Hoffmann

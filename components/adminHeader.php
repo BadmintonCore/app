@@ -1,4 +1,4 @@
-<!--Autor(en): Lennart Moog-->
+<!--Autor(en): Lasse Hoffmann-->
 <header>
     <div class="drawer-toggler" id="sidebarDrawerToggler">
         <!--Grafik von: https://getbootstrap.com/-->
@@ -102,4 +102,4 @@
         </select>
     </label>
 </header>
-<!--Autor(en): Lennart Moog-->
+<!--Autor(en): Lasse Hoffmann-->

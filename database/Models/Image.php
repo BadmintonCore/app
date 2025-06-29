@@ -1,6 +1,6 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Mathis Burger
 
 namespace Vestis\Database\Models;
 
@@ -15,4 +15,4 @@ class Image
 
     public string $path;
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Mathis Burger

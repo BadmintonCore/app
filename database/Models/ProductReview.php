@@ -1,6 +1,6 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lennart Moog
 
 namespace Vestis\Database\Models;
 
@@ -33,4 +33,4 @@ class ProductReview
         return ProductRepository::findBoughtProductCount($this->product_id, $this->user_id) > 0;
     }
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lennart Moog

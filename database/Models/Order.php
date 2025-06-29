@@ -1,6 +1,6 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Mathis Burger
 
 namespace Vestis\Database\Models;
 
@@ -71,4 +71,4 @@ class Order
         return $this->account;
     }
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Mathis Burger

@@ -1,6 +1,6 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lennart Moog
 
 namespace Vestis\Database\Models;
 
@@ -25,4 +25,4 @@ class Account
 
     public bool $isBlocked;
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+//Autor(en): Lennart Moog
