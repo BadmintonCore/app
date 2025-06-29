@@ -93,7 +93,7 @@ class OrderRepository
      * @param Account $account Der Benutzer dessen Anzahl an Bestellungen geladen werden soll
      * @return int
      */
-    public static function getCountOfUsersForAccount(Account $account): int
+    public static function getCountOfOrdersForAccount(Account $account): int
     {
         $query = "SELECT COUNT(*) as orderCount FROM orders WHERE accountId = :accountId";
         $result = QueryAbstraction::fetchOneAs(null, $query, ['accountId' => $account->id]);

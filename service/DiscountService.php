@@ -21,7 +21,7 @@ class DiscountService
      */
     public static function applyDiscount(int $orderId, Account $account): void
     {
-        $orderCount = OrderRepository::getCountOfUsersForAccount($account);
+        $orderCount = OrderRepository::getCountOfOrdersForAccount($account);
         self::calculateAndSaveDiscount($orderCount + 1, $orderId);
     }
 
