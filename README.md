@@ -1,8 +1,9 @@
 # WebTech – Project vestis
 
-:warning: ⚠️ This project is deprecated. <br>
-This repository is no longer maintained. It was developed as part of a university course and will not receive further updates.
-vestis is a fictional fashion shop created for an imaginary brand as part of the Web Technologies module.
+> [!WARNING] 
+> This project is deprecated.
+> This repository is no longer maintained. It was developed as part of a university course and will not receive further updates.
+> vestis is a fictional fashion shop created for an imaginary brand as part of the Web Technologies module.
 
 ## Requirements
 PHP 8.2
