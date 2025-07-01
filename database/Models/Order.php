@@ -78,4 +78,3 @@ class Order
         return $this->account;
     }
 }
-

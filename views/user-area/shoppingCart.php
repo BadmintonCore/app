@@ -12,14 +12,14 @@
 <html lang="de">
 <head>
     <?php use Vestis\Database\Dto\ShoppingCartItemDto;
-    use Vestis\Database\Models\ShoppingCart;
-    use Vestis\Database\Repositories\ShoppingCartRepository;
-    use Vestis\Service\AuthService;
+use Vestis\Database\Models\ShoppingCart;
+use Vestis\Database\Repositories\ShoppingCartRepository;
+use Vestis\Service\AuthService;
 
-    /** @var ShoppingCartItemDto[] $groupedProducts */
-    /** @var ShoppingCart $shoppingCart */
+/** @var ShoppingCartItemDto[] $groupedProducts */
+/** @var ShoppingCart $shoppingCart */
 
-    include(__DIR__ . "/../../components/head.php"); ?>
+include(__DIR__ . "/../../components/head.php"); ?>
     <title>Vestis - Warenkorb</title>
 </head>
 <body>
@@ -91,16 +91,16 @@
         </table>
         <?php
 
-        $price = 0;
+    $price = 0;
 
-    foreach ($groupedProducts as $product) {
-        $price += $product->getProductType()->getDiscountedPrice() * $product->count;
-    }
-    echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / 1.19, 2, ',', '') . "</span></h4>";
-    echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '') . "</span></h4>";
+foreach ($groupedProducts as $product) {
+    $price += $product->getProductType()->getDiscountedPrice() * $product->count;
+}
+echo "<h4>Gesamtpreis ohne Steuern: <span class='price-field'>" . number_format($price / 1.19, 2, ',', '') . "</span></h4>";
+echo "<h4>Gesamtpreis (inkl. 19% MwSt.): <span class='price-field'>" . number_format($price, 2, ',', '') . "</span></h4>";
 
-    if (count($groupedProducts) > 0 && AuthService::$currentAccount !== null && !AuthService::$currentAccount->isBlocked && $shoppingCart->accId === AuthService::$currentAccount->id):
-        ?>
+if (count($groupedProducts) > 0 && AuthService::$currentAccount !== null && !AuthService::$currentAccount->isBlocked && $shoppingCart->accId === AuthService::$currentAccount->id):
+    ?>
         <a href="/user-area/shoppingCart/purchase?accId=<?= $shoppingCart->accId ?>&cartNumber=<?= $shoppingCart->cartNumber ?>" class="btn" id="payButton">Bestellen</a>
         <?php endif; ?>
     <?php if (AuthService::$currentAccount !== null && AuthService::$currentAccount->isBlocked): ?>

@@ -13,7 +13,7 @@
 <head>
     <?php use Vestis\Service\AuthService;
 
-    include(__DIR__ . "/../../components/head.php"); ?>
+include(__DIR__ . "/../../components/head.php"); ?>
     <title>vestis. - Logout</title>
 </head>
 

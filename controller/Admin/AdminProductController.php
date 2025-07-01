@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the vestis. webshop ecosystem
  *
@@ -100,4 +101,3 @@ class AdminProductController
     }
 
 }
-

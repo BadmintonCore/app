@@ -16,7 +16,6 @@ namespace Vestis\Controller;
  */
 class YourPurchaseController
 {
-
     public function root(): void
     {
         header('Location: /');

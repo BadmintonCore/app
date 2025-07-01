@@ -10,5 +10,14 @@
   },
   "scripts": {
     "fix": "PHP_CS_FIXER_IGNORE_ENV=true vendor/bin/php-cs-fixer fix . && vendor/bin/phpstan analyse ."
+  },
+  "autoload": {
+    "psr-4": {
+      "Vestis\\Controller\\": "controller/",
+      "Vestis\\Database\\": "database/",
+      "Vestis\\Utility\\": "utility/",
+      "Vestis\\Service\\": "service/",
+      "Vestis\\Exception\\": "exception/"
+    }
   }
 }
