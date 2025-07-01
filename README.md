@@ -1,22 +1,40 @@
-# WebTech - Projekt vestis.
+# WebTech – Project vestis
+
+[!WARNING]
+⚠️ This project is deprecated. <br>
+This repository is no longer maintained. It was developed as part of a university course and will not receive further updates.
+vestis is a fictional fashion shop created for an imaginary brand as part of the Web Technologies module.
 
 ## Requirements
+PHP 8.2
 
-- PHP 8.2
-- MariaDB 10.4.28 (10.5 preferred)
-- Apache2
-- Firefox v. 137.0
+MariaDB 10.4.28 (10.5 preferred)
 
-## Setup
+Apache 2
 
-1. Inhalt auf root-Ebene in den htdocs-Ordner laden
-2. SQL Dump laden in das Schema `vestis`
-3. `mkdir cache && mkdir public/uploads`
-4. `chown -R daemon:daemon ./cache`
-5. `chown -R daemon:daemon ./public/uploads`
+Firefox v. 137.0 (recommended for testing)
 
-Admin Nutzer:
-Nutzername: `admin`, Passwort: `abc1234567`
+## Setup Instructions
+Copy all contents to the root level of your htdocs directory.
 
-Beispiel Customer-Nutzer:
-Nutzername: `maxmusti`, Passwort: `abc1234567`
+Create the required directories:
+
+```bash
+mkdir cache && mkdir public/uploads
+```
+
+Set appropriate permissions:
+```bash
+chown -R daemon:daemon ./cache
+chown -R daemon:daemon ./public/uploads
+```
+
+## About
+This project was developed as part of a university course in web technologies. It implements a basic e-commerce platform for a fictional fashion brand named vestis. Features include product browsing, user login, and a simple shopping cart.
+
+## License
+This project is provided as-is, without any warranty. You are free to view, modify, and use the code for educational purposes.
+
+[!NOTE]
+Note: Since this project is deprecated, we do not accept issues or pull requests.
+
