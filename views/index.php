@@ -1,4 +1,13 @@
-<!--Author: Lennart Moog-->
+<?php
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -32,4 +41,3 @@
 <script src="/js/typeWriter.js"></script>
 </body>
 </html>
-<!--Author: Lennart Moog-->

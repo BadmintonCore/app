@@ -1,4 +1,11 @@
-/*Autor(en): Mathis Burger*/
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 document.addEventListener("DOMContentLoaded", function() {
     const text = ["Herzlich Willkommen bei vestis.", "Shoppe jetzt unsere Bestseller!"];
     const element = document.getElementById("typeWriter");
@@ -46,4 +53,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
     });
-/*Autor(en): Mathis Burger*/

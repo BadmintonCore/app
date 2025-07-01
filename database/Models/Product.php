@@ -1,6 +1,13 @@
 <?php
 
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 namespace Vestis\Database\Models;
 
@@ -77,4 +84,3 @@ class Product
         return ($this->boughtPrice ?? 0) * (1 - ($this->boughtDiscount ?? 0));
     }
 }
-//Autor(en): Lasse Hoffmann, Mathis Burger, Lennart Moog

@@ -1,4 +1,13 @@
-<!--Autor(en): Mathis Burger-->
+<?php
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+?>
 <?php
 
 use Vestis\Service\AuthService;
@@ -107,4 +116,3 @@ use Vestis\Service\AuthService;
 <script src="/js/textRandomizer.js"></script>
 <script src="/js/userTypeWriter.js"></script>
 </html>
-<!--Autor(en): Mathis Burger-->

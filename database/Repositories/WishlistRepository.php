@@ -1,6 +1,13 @@
 <?php
 
-//Autor(en): Lasse Hoffmann
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 namespace Vestis\Database\Repositories;
 
@@ -46,4 +53,3 @@ class WishlistRepository
         QueryAbstraction::execute("DELETE FROM  wishlist WHERE accId = :accId AND productTypeId = :productTypeId", ['accId' => $accountId, 'productTypeId' => $productTypeId]);
     }
 }
-//Autor(en): Lasse Hoffmann

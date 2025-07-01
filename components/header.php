@@ -1,4 +1,3 @@
-<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->
 <?php
 
 use Vestis\Database\Models\ShoppingCart;
@@ -218,4 +217,3 @@ if ($account !== null) {
         </select>
     </label>
 </header>
-<!--Autor(en): Mathis Burger, Lennart Moog, Lasse Hoffmann-->

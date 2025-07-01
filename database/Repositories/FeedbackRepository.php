@@ -1,6 +1,13 @@
 <?php
 
-//Autor(en): Lasse Hoffmann
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 namespace Vestis\Database\Repositories;
 
@@ -38,4 +45,3 @@ class FeedbackRepository
         return QueryAbstraction::executeReturning(Feedback::class, "INSERT INTO feedback (name, evaluation, email, message, createdAt) VALUES (:name, :evaluation, :email, :message, :createdAt)", $params);
     }
 }
-//Autor(en): Lasse Hoffmann

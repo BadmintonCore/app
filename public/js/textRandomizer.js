@@ -1,4 +1,11 @@
-/*Autor(en): Lennart Moog*/
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 const greetingTexts = [
     'Hallo,',
@@ -43,7 +50,3 @@ function randomizeText() {
     Math.floor rundet eine Zahl immer ab, damit die Wahrscheinlichkeit nicht manipuliert wird*/
     return greetingTexts[Math.floor(Math.random() * (max - min)) + min];
 }
-
-
-
-/*Autor(en): Lennart Moog*/

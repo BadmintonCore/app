@@ -1,4 +1,13 @@
-<!--Autor(en): Lasse Hoffmann-->
+<?php
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+?>
 <?php
 
 use Vestis\Database\Models\Category;
@@ -76,4 +85,3 @@ use Vestis\Service\DeletionValidationService;
 <?php include(__DIR__."/../../../components/scripts.php"); ?>
 </body>
 </html>
-<!--Autor(en): Lasse Hoffmann-->

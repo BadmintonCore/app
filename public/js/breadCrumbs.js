@@ -1,4 +1,11 @@
-/*Autor(en): Mathis Burger*/
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 const translation = {
     categories: 'Kategorien',
@@ -99,5 +106,3 @@ function generateBreadcrumbList() {
 
     return breadcrumbs; // Rückgabe der Breadcrumbs
 }
-
-/*Autor(en): Mathis Burger*/

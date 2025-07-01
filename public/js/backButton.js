@@ -1,4 +1,11 @@
-/*Autor(en): Lasse Hoffmann*/
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 const backButton = document.getElementById("backButton");
 if (backButton) {
@@ -7,5 +14,3 @@ if (backButton) {
         window.history.back(); // Geht im Verlauf eine Seite zurück
     });
 }
-
-/*Autor(en): Lasse Hoffmann*/

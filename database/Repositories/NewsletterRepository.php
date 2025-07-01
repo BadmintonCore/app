@@ -1,6 +1,13 @@
 <?php
 
-//Autor(en): Lasse Hoffmann
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 namespace Vestis\Database\Repositories;
 
@@ -54,4 +61,3 @@ class NewsletterRepository
         return QueryAbstraction::fetchOneAs(Newsletter::class, "SELECT * FROM newsletter WHERE email = :email", ['email' => $email]);
     }
 }
-//Autor(en): Lasse Hoffmann

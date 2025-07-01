@@ -1,4 +1,11 @@
-/*Autor(en): Mathis Burger*/
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 const addToCartButton = document.getElementById('addToCartButton');
 const orderButton = document.getElementById("orderButton");
 const shoppingCartSelect = document.getElementById("shoppingCartSelect");
@@ -95,4 +102,3 @@ const submitListener = (e) => {
 };
 
 addToCartButton.addEventListener("click", submitListener);
-/*Autor(en): Mathis Burger*/

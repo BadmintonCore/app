@@ -1,5 +1,13 @@
-<!--Autor(en): Mathis Burger-->
 <?php
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 /** @var ProductType[] $products */
 
 use Vestis\Database\Models\ProductType;
@@ -34,4 +42,3 @@ foreach ($products as $product) : ?>
         <a href="<?= $uri ?>" class="btn btn-sm">details.</a>
     </div>
 <?php endforeach; ?>
-<!--Autor(en): Mathis Burger-->

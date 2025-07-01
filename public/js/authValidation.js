@@ -1,4 +1,11 @@
-/*Autor(en): Lasse Hoffmann*/
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
@@ -138,5 +145,3 @@ if (passwordConfirmationInput) passwordConfirmationInput.addEventListener("input
 // Reagiert auf focus-Events und setzt somit das gerade fokussierte Input-Feld
 if (usernameInput) usernameInput.addEventListener("focus", () => { activeField = usernameInput; });
 if (passwordInput) passwordInput.addEventListener("focus", () => { activeField = passwordInput; });
-
-/*Autor(en): Lasse Hoffmann*/

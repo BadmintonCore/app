@@ -1,4 +1,13 @@
-/*Author: Lasse Hoffmann, Quelle: https://www.w3schools.com/howto/howto_js_accordion.asp*/
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+/*Quelle: https://www.w3schools.com/howto/howto_js_accordion.asp*/
 const accordionElements = document.getElementsByClassName("accordion-button");
 
 /*Für alle accordion-buttons*/
@@ -32,4 +41,3 @@ for (let i = 0; i < accordionElements.length; i++) {
         }
     });
 }
-/*Author: Lasse Hoffmann, Quelle: https://www.w3schools.com/howto/howto_js_accordion.asp*/

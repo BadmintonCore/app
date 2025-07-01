@@ -1,4 +1,14 @@
-<!--Autor(en): Mathis Burger-->
+<?php
+/**
+ * This file is part of the vestis. webshop ecosystem
+ *
+ * © 2025 Mathis Burger, Lasse Hoffmann, Lennart Moog
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+?>
+
 <a class="back-btn" id="backButton">
     <!--Grafik von: https://getbootstrap.com/-->
     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -7,4 +17,3 @@
     </svg>
     <span>Zurück</span>
 </a>
-<!--Autor(en): Mathis Burger-->
