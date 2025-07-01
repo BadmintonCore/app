@@ -35,6 +35,6 @@ This project was developed as part of a university course in web technologies. I
 ## License
 This project is provided as-is, without any warranty. You are free to view, modify, and use the code for educational purposes.
 
-[!NOTE]
-Note: Since this project is deprecated, we do not accept issues or pull requests.
+>[!NOTE]
+>Note: Since this project is deprecated, we do not accept issues or pull requests.
 
